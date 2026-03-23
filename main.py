@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from routers import companies
 
 app = FastAPI(
     title="Leider Capital Lens API",
@@ -12,3 +13,5 @@ async def health():
 @app.get("/")
 async def root():
     return {"message": "Leider Capital Lens API is live"}
+
+app.include_router(companies.router, prefix="/companies", tags=["companies"])
