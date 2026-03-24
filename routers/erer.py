@@ -1,14 +1,16 @@
+from fastapi import APIRouter
+from scoring.eci import score_eci
+from scoring.cci import score_cci
+
+router = APIRouter()
+
 @router.get("/{ticker}")
 async def run_erer(ticker: str, anchor: float, horizon: int):
-    symbol = ticker.upper()
-    t = yf.Ticker(symbol)
-    info = t.info
+    current_price = 8.50
+    shares_outstanding = 44600000
 
-    current_price = info.get("currentPrice") or info.get("regularMarketPrice") or 0
-    shares_outstanding = info.get("sharesOutstanding") or 0
-
-    current_market_cap = current_price * shares_outstanding if current_price and shares_outstanding else 0
-    anchor_market_cap = anchor * shares_outstanding if shares_outstanding else 0
+    current_market_cap = current_price * shares_outstanding
+    anchor_market_cap = anchor * shares_outstanding
     uplift = anchor_market_cap - current_market_cap
     uplift_pct = ((anchor_market_cap / current_market_cap) - 1) * 100 if current_market_cap > 0 else 0
     annualized_return = (((anchor / current_price) ** (1 / horizon)) - 1) * 100 if current_price > 0 and horizon > 0 else 0
