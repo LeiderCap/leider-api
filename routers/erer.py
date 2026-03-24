@@ -1,4 +1,5 @@
 import yfinance as yf
+from typing import Optional
 from fastapi import APIRouter
 from scoring.eci import score_eci
 from scoring.cci import score_cci
@@ -7,7 +8,13 @@ router = APIRouter()
 
 
 @router.get("/{ticker}")
-async def run_erer(ticker: str, anchor: float, horizon: int):
+async def run_erer(
+    ticker: str,
+    anchor: float,
+    horizon: int,
+    current_price: Optional[float] = None,
+    shares_outstanding: Optional[int] = None,
+):
     symbol = ticker.upper()
 
     info = {}
@@ -20,34 +27,57 @@ async def run_erer(ticker: str, anchor: float, horizon: int):
     except Exception:
         info = {}
 
-    current_price = 0
+    live_current_price = 0
     try:
-        current_price = info.get("currentPrice") or info.get("regularMarketPrice") or 0
+        live_current_price = info.get("currentPrice") or info.get("regularMarketPrice") or 0
     except Exception:
-        current_price = 0
+        live_current_price = 0
 
-    shares_outstanding = 0
+    live_shares_outstanding = 0
     try:
-        shares_outstanding = info.get("sharesOutstanding") or 0
+        live_shares_outstanding = info.get("sharesOutstanding") or 0
     except Exception:
-        shares_outstanding = 0
-
-    try:
-        current_price = float(current_price) if current_price else 0
-    except Exception:
-        current_price = 0
+        live_shares_outstanding = 0
 
     try:
-        shares_outstanding = int(shares_outstanding) if shares_outstanding else 0
+        live_current_price = float(live_current_price) if live_current_price else 0
     except Exception:
-        shares_outstanding = 0
+        live_current_price = 0
 
     try:
-        current_market_cap = current_price * shares_outstanding if current_price and shares_outstanding else 0
-        anchor_market_cap = anchor * shares_outstanding if shares_outstanding else 0
+        live_shares_outstanding = int(live_shares_outstanding) if live_shares_outstanding else 0
+    except Exception:
+        live_shares_outstanding = 0
+
+    final_current_price = current_price if current_price is not None else live_current_price
+    final_shares_outstanding = (
+        shares_outstanding if shares_outstanding is not None else live_shares_outstanding
+    )
+
+    try:
+        final_current_price = float(final_current_price) if final_current_price else 0
+    except Exception:
+        final_current_price = 0
+
+    try:
+        final_shares_outstanding = int(final_shares_outstanding) if final_shares_outstanding else 0
+    except Exception:
+        final_shares_outstanding = 0
+
+    try:
+        current_market_cap = (
+            final_current_price * final_shares_outstanding
+            if final_current_price and final_shares_outstanding
+            else 0
+        )
+        anchor_market_cap = anchor * final_shares_outstanding if final_shares_outstanding else 0
         uplift = anchor_market_cap - current_market_cap
         uplift_pct = ((anchor_market_cap / current_market_cap) - 1) * 100 if current_market_cap > 0 else 0
-        annualized_return = (((anchor / current_price) ** (1 / horizon)) - 1) * 100 if current_price > 0 and horizon > 0 else 0
+        annualized_return = (
+            (((anchor / final_current_price) ** (1 / horizon)) - 1) * 100
+            if final_current_price > 0 and horizon > 0
+            else 0
+        )
     except Exception:
         current_market_cap = 0
         anchor_market_cap = 0
@@ -90,10 +120,16 @@ async def run_erer(ticker: str, anchor: float, horizon: int):
         "inputs": {
             "anchor": anchor,
             "horizon_years": horizon,
+            "manual_overrides": {
+                "current_price": current_price,
+                "shares_outstanding": shares_outstanding,
+            },
         },
         "base": {
-            "current_price": round(current_price, 2) if current_price else 0,
-            "shares_outstanding": shares_outstanding,
+            "live_current_price": round(live_current_price, 2) if live_current_price else 0,
+            "live_shares_outstanding": live_shares_outstanding,
+            "current_price_used": round(final_current_price, 2) if final_current_price else 0,
+            "shares_outstanding_used": final_shares_outstanding,
             "current_market_cap": round(current_market_cap, 2) if current_market_cap else 0,
         },
         "anchor_case": {
@@ -111,7 +147,7 @@ async def run_erer(ticker: str, anchor: float, horizon: int):
         },
         "lens_read": {
             "classification": "Equity Reclamation Candidate",
-            "status": "Scored with guarded live market inputs",
+            "status": "Scored with live data fallback + manual override support",
             "next_step": "Replace placeholder ECI/CCI assumptions with company-specific values",
         },
     }
