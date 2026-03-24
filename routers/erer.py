@@ -1,3 +1,4 @@
+import yfinance as yf
 from fastapi import APIRouter
 from scoring.eci import score_eci
 from scoring.cci import score_cci
@@ -6,11 +7,15 @@ router = APIRouter()
 
 @router.get("/{ticker}")
 async def run_erer(ticker: str, anchor: float, horizon: int):
-    current_price = 8.50
-    shares_outstanding = 44600000
+    symbol = ticker.upper()
+    t = yf.Ticker(symbol)
+    info = t.info or {}
 
-    current_market_cap = current_price * shares_outstanding
-    anchor_market_cap = anchor * shares_outstanding
+    current_price = info.get("currentPrice") or info.get("regularMarketPrice") or 0
+    shares_outstanding = info.get("sharesOutstanding") or 0
+
+    current_market_cap = current_price * shares_outstanding if current_price and shares_outstanding else 0
+    anchor_market_cap = anchor * shares_outstanding if shares_outstanding else 0
     uplift = anchor_market_cap - current_market_cap
     uplift_pct = ((anchor_market_cap / current_market_cap) - 1) * 100 if current_market_cap > 0 else 0
     annualized_return = (((anchor / current_price) ** (1 / horizon)) - 1) * 100 if current_price > 0 and horizon > 0 else 0
@@ -45,23 +50,23 @@ async def run_erer(ticker: str, anchor: float, horizon: int):
         priority = "Monitor"
 
     return {
-        "ticker": ticker.upper(),
+        "ticker": symbol,
         "framework": "ERER",
         "inputs": {
             "anchor": anchor,
             "horizon_years": horizon,
         },
         "base": {
-            "current_price": round(current_price, 2),
+            "current_price": round(current_price, 2) if current_price else 0,
             "shares_outstanding": shares_outstanding,
-            "current_market_cap": round(current_market_cap, 2),
+            "current_market_cap": round(current_market_cap, 2) if current_market_cap else 0,
         },
         "anchor_case": {
             "anchor_price": anchor,
-            "anchor_market_cap": round(anchor_market_cap, 2),
-            "implied_uplift": round(uplift, 2),
-            "implied_uplift_pct": round(uplift_pct, 2),
-            "required_annualized_return_pct": round(annualized_return, 2),
+            "anchor_market_cap": round(anchor_market_cap, 2) if anchor_market_cap else 0,
+            "implied_uplift": round(uplift, 2) if shares_outstanding else 0,
+            "implied_uplift_pct": round(uplift_pct, 2) if current_market_cap else 0,
+            "required_annualized_return_pct": round(annualized_return, 2) if current_price else 0,
         },
         "diagnostic": {
             "eci": eci,
@@ -71,7 +76,7 @@ async def run_erer(ticker: str, anchor: float, horizon: int):
         },
         "lens_read": {
             "classification": "Equity Reclamation Candidate",
-            "status": "Scored",
-            "next_step": "Replace placeholder market inputs with live ticker data",
+            "status": "Scored with live market inputs",
+            "next_step": "Replace placeholder ECI/CCI assumptions with company-specific values",
         },
     }
