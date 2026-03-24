@@ -1,3 +1,4 @@
+from fastapi import FastAPI
 import routers.companies as companies
 import routers.scoring as scoring
 
