@@ -1,5 +1,5 @@
-from fastapi import FastAPI
-from routers import companies, scoring
+import routers.companies as companies
+import routers.scoring as scoring
 
 app = FastAPI(
     title="Leider Capital Lens API",
