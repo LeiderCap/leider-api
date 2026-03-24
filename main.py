@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 import routers.companies as companies
 import routers.scoring as scoring
+import routers.erer as erer
 
 app = FastAPI(
     title="Leider Capital Lens API",
@@ -17,3 +18,4 @@ async def root():
 
 app.include_router(companies.router, prefix="/companies", tags=["companies"])
 app.include_router(scoring.router, prefix="/score", tags=["scoring"])
+app.include_router(erer.router, prefix="/erer", tags=["erer"])
