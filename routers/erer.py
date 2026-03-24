@@ -5,35 +5,32 @@ from scoring.cci import score_cci
 
 router = APIRouter()
 
+
 @router.get("/{ticker}")
 async def run_erer(ticker: str, anchor: float, horizon: int):
     symbol = ticker.upper()
 
-    fast = {}
     info = {}
-
     try:
         t = yf.Ticker(symbol)
-        try:
-            fast = t.fast_info or {}
-        except Exception:
-            fast = {}
         try:
             info = t.info or {}
         except Exception:
             info = {}
     except Exception:
-        fast = {}
         info = {}
 
-    current_price = (
-        fast.get("lastPrice")
-        or info.get("currentPrice")
-        or info.get("regularMarketPrice")
-        or 0
-    )
+    current_price = 0
+    try:
+        current_price = info.get("currentPrice") or info.get("regularMarketPrice") or 0
+    except Exception:
+        current_price = 0
 
-    shares_outstanding = info.get("sharesOutstanding") or 0
+    shares_outstanding = 0
+    try:
+        shares_outstanding = info.get("sharesOutstanding") or 0
+    except Exception:
+        shares_outstanding = 0
 
     try:
         current_price = float(current_price) if current_price else 0
@@ -114,7 +111,7 @@ async def run_erer(ticker: str, anchor: float, horizon: int):
         },
         "lens_read": {
             "classification": "Equity Reclamation Candidate",
-            "status": "Scored with live market inputs",
+            "status": "Scored with guarded live market inputs",
             "next_step": "Replace placeholder ECI/CCI assumptions with company-specific values",
         },
     }
