@@ -8,11 +8,25 @@ router = APIRouter()
 @router.get("/{ticker}")
 async def run_erer(ticker: str, anchor: float, horizon: int):
     symbol = ticker.upper()
-    t = yf.Ticker(symbol)
-    info = t.info or {}
+
+    try:
+        t = yf.Ticker(symbol)
+        info = t.info or {}
+    except Exception:
+        info = {}
 
     current_price = info.get("currentPrice") or info.get("regularMarketPrice") or 0
     shares_outstanding = info.get("sharesOutstanding") or 0
+
+    try:
+        current_price = float(current_price) if current_price else 0
+    except Exception:
+        current_price = 0
+
+    try:
+        shares_outstanding = int(shares_outstanding) if shares_outstanding else 0
+    except Exception:
+        shares_outstanding = 0
 
     current_market_cap = current_price * shares_outstanding if current_price and shares_outstanding else 0
     anchor_market_cap = anchor * shares_outstanding if shares_outstanding else 0
