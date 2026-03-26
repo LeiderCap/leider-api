@@ -113,6 +113,7 @@ async def run_erer(
         priority = "Tier 2"
     else:
         priority = "Monitor"
+
     primary_constraint = (
         "Control Friction"
         if cci["cci"] > eci["eci"]
@@ -126,7 +127,22 @@ async def run_erer(
     else:
         urgency = "Low"
 
-            "lens_read": lens_read,
+    lens_read = {
+        "classification": "Equity Reclamation Candidate",
+        "primary_constraint": primary_constraint,
+        "urgency": urgency,
+        "interpretation": f"{primary_constraint} is suppressing equity convertibility",
+        "unlock_path": (
+            "Address governance, ownership structure, and float dynamics"
+            if primary_constraint == "Control Friction"
+            else "Improve operating signal convertibility and capital allocation clarity"
+        ),
+        "board_message": (
+            f"Current structure supports a ${round(current_market_cap/1e6, 1)}M valuation. "
+            f"Unlocking constraints could support ${round(anchor_market_cap/1e6, 1)}M."
+        ),
+    }
+
     return {
         "ticker": symbol,
         "framework": "ERER",
@@ -158,9 +174,5 @@ async def run_erer(
             "unlock_score": unlock_score,
             "priority": priority,
         },
-        "lens_read": {
-            "classification": "Equity Reclamation Candidate",
-            "status": "Scored with live data fallback + manual override support",
-            "next_step": "Replace placeholder ECI/CCI assumptions with company-specific values",
-        },
+        "lens_read": lens_read,
     }
