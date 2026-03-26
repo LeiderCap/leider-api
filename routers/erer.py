@@ -1,4 +1,7 @@
-import yfinance as yf
+from database import get_db
+from models import ERERReport
+from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import Depends import yfinance as yf
 from typing import Optional
 from fastapi import APIRouter
 from scoring.eci import score_eci
