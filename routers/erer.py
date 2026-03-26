@@ -7,6 +7,9 @@ from scoring.cci import score_cci
 router = APIRouter()
 
 
+# ======================
+# ERER CORE ENDPOINT
+# ======================
 @router.get("/{ticker}")
 async def run_erer(
     ticker: str,
@@ -20,70 +23,45 @@ async def run_erer(
     info = {}
     try:
         t = yf.Ticker(symbol)
-        try:
-            info = t.info or {}
-        except Exception:
-            info = {}
+        info = t.info or {}
     except Exception:
         info = {}
 
-    live_current_price = 0
-    try:
-        live_current_price = info.get("currentPrice") or info.get("regularMarketPrice") or 0
-    except Exception:
-        live_current_price = 0
-
-    live_shares_outstanding = 0
-    try:
-        live_shares_outstanding = info.get("sharesOutstanding") or 0
-    except Exception:
-        live_shares_outstanding = 0
+    live_price = info.get("currentPrice") or info.get("regularMarketPrice") or 0
+    live_shares = info.get("sharesOutstanding") or 0
 
     try:
-        live_current_price = float(live_current_price) if live_current_price else 0
+        live_price = float(live_price) if live_price else 0
     except Exception:
-        live_current_price = 0
+        live_price = 0
 
     try:
-        live_shares_outstanding = int(live_shares_outstanding) if live_shares_outstanding else 0
+        live_shares = int(live_shares) if live_shares else 0
     except Exception:
-        live_shares_outstanding = 0
+        live_shares = 0
 
-    final_current_price = current_price if current_price is not None else live_current_price
-    final_shares_outstanding = (
-        shares_outstanding if shares_outstanding is not None else live_shares_outstanding
+    price = current_price if current_price is not None else live_price
+    shares = shares_outstanding if shares_outstanding is not None else live_shares
+
+    try:
+        price = float(price) if price else 0
+    except Exception:
+        price = 0
+
+    try:
+        shares = int(shares) if shares else 0
+    except Exception:
+        shares = 0
+
+    market_cap = price * shares if price and shares else 0
+    anchor_cap = anchor * shares if shares else 0
+    uplift = anchor_cap - market_cap
+    uplift_pct = ((anchor_cap / market_cap) - 1) * 100 if market_cap else 0
+    annual_return = (
+        (((anchor / price) ** (1 / horizon)) - 1) * 100
+        if price and horizon > 0
+        else 0
     )
-
-    try:
-        final_current_price = float(final_current_price) if final_current_price else 0
-    except Exception:
-        final_current_price = 0
-
-    try:
-        final_shares_outstanding = int(final_shares_outstanding) if final_shares_outstanding else 0
-    except Exception:
-        final_shares_outstanding = 0
-
-    try:
-        current_market_cap = (
-            final_current_price * final_shares_outstanding
-            if final_current_price and final_shares_outstanding
-            else 0
-        )
-        anchor_market_cap = anchor * final_shares_outstanding if final_shares_outstanding else 0
-        uplift = anchor_market_cap - current_market_cap
-        uplift_pct = ((anchor_market_cap / current_market_cap) - 1) * 100 if current_market_cap > 0 else 0
-        annualized_return = (
-            (((anchor / final_current_price) ** (1 / horizon)) - 1) * 100
-            if final_current_price > 0 and horizon > 0
-            else 0
-        )
-    except Exception:
-        current_market_cap = 0
-        anchor_market_cap = 0
-        uplift = 0
-        uplift_pct = 0
-        annualized_return = 0
 
     eci = score_eci(
         gross_margin=55,
@@ -105,7 +83,7 @@ async def run_erer(
         multiple_gap=30,
     )
 
-    unlock_score = round((eci["eci"] * 0.5) + (cci["cci"] * 0.5), 2)
+    unlock_score = round((eci["eci"] + cci["cci"]) / 2, 2)
 
     if unlock_score >= 70:
         priority = "Tier 1"
@@ -138,35 +116,25 @@ async def run_erer(
             else "Improve operating signal convertibility and capital allocation clarity"
         ),
         "board_message": (
-            f"Current structure supports a ${round(current_market_cap/1e6, 1)}M valuation. "
-            f"Unlocking constraints could support ${round(anchor_market_cap/1e6, 1)}M."
+            f"Current structure supports a ${round(market_cap/1e6,1)}M valuation. "
+            f"Unlocking constraints could support ${round(anchor_cap/1e6,1)}M."
         ),
     }
 
     return {
         "ticker": symbol,
         "framework": "ERER",
-        "inputs": {
-            "anchor": anchor,
-            "horizon_years": horizon,
-            "manual_overrides": {
-                "current_price": current_price,
-                "shares_outstanding": shares_outstanding,
-            },
-        },
         "base": {
-            "live_current_price": round(live_current_price, 2) if live_current_price else 0,
-            "live_shares_outstanding": live_shares_outstanding,
-            "current_price_used": round(final_current_price, 2) if final_current_price else 0,
-            "shares_outstanding_used": final_shares_outstanding,
-            "current_market_cap": round(current_market_cap, 2) if current_market_cap else 0,
+            "price": price,
+            "shares": shares,
+            "market_cap": market_cap,
         },
         "anchor_case": {
-            "anchor_price": anchor,
-            "anchor_market_cap": round(anchor_market_cap, 2) if anchor_market_cap else 0,
-            "implied_uplift": round(uplift, 2),
-            "implied_uplift_pct": round(uplift_pct, 2),
-            "required_annualized_return_pct": round(annualized_return, 2),
+            "anchor": anchor,
+            "anchor_cap": anchor_cap,
+            "uplift": uplift,
+            "uplift_pct": uplift_pct,
+            "annual_return": round(annual_return, 2),
         },
         "diagnostic": {
             "eci": eci,
@@ -175,7 +143,13 @@ async def run_erer(
             "priority": priority,
         },
         "lens_read": lens_read,
-    }@router.get("/{ticker}/report")
+    }
+
+
+# ======================
+# ERER REPORT ENDPOINT
+# ======================
+@router.get("/{ticker}/report")
 async def run_erer_report(
     ticker: str,
     anchor: float,
@@ -183,142 +157,19 @@ async def run_erer_report(
     current_price: Optional[float] = None,
     shares_outstanding: Optional[int] = None,
 ):
-    symbol = ticker.upper()
-
-    info = {}
-    try:
-        t = yf.Ticker(symbol)
-        try:
-            info = t.info or {}
-        except Exception:
-            info = {}
-    except Exception:
-        info = {}
-
-    live_current_price = 0
-    try:
-        live_current_price = info.get("currentPrice") or info.get("regularMarketPrice") or 0
-    except Exception:
-        live_current_price = 0
-
-    live_shares_outstanding = 0
-    try:
-        live_shares_outstanding = info.get("sharesOutstanding") or 0
-    except Exception:
-        live_shares_outstanding = 0
-
-    try:
-        live_current_price = float(live_current_price) if live_current_price else 0
-    except Exception:
-        live_current_price = 0
-
-    try:
-        live_shares_outstanding = int(live_shares_outstanding) if live_shares_outstanding else 0
-    except Exception:
-        live_shares_outstanding = 0
-
-    final_current_price = current_price if current_price is not None else live_current_price
-    final_shares_outstanding = (
-        shares_outstanding if shares_outstanding is not None else live_shares_outstanding
+    result = await run_erer(
+        ticker,
+        anchor,
+        horizon,
+        current_price,
+        shares_outstanding,
     )
-
-    try:
-        final_current_price = float(final_current_price) if final_current_price else 0
-    except Exception:
-        final_current_price = 0
-
-    try:
-        final_shares_outstanding = int(final_shares_outstanding) if final_shares_outstanding else 0
-    except Exception:
-        final_shares_outstanding = 0
-
-    try:
-        current_market_cap = (
-            final_current_price * final_shares_outstanding
-            if final_current_price and final_shares_outstanding
-            else 0
-        )
-        anchor_market_cap = anchor * final_shares_outstanding if final_shares_outstanding else 0
-        uplift = anchor_market_cap - current_market_cap
-        uplift_pct = ((anchor_market_cap / current_market_cap) - 1) * 100 if current_market_cap > 0 else 0
-        annualized_return = (
-            (((anchor / final_current_price) ** (1 / horizon)) - 1) * 100
-            if final_current_price > 0 and horizon > 0
-            else 0
-        )
-    except Exception:
-        current_market_cap = 0
-        anchor_market_cap = 0
-        uplift = 0
-        uplift_pct = 0
-        annualized_return = 0
-
-    eci = score_eci(
-        gross_margin=55,
-        ebitda_margin=18,
-        revenue_growth=12,
-        insider_ownership_pct=9,
-        institutional_ownership_pct=74,
-        dilution_3y_pct=6,
-        leverage_ratio=1.8,
-    )
-
-    cci = score_cci(
-        voting_pct_insider=9,
-        dual_class=False,
-        float_pct=72,
-        ev_to_mktcap=1.4,
-        net_debt_to_ebitda=1.8,
-        sector_stigma=55,
-        multiple_gap=30,
-    )
-
-    unlock_score = round((eci["eci"] * 0.5) + (cci["cci"] * 0.5), 2)
-
-    if unlock_score >= 70:
-        priority = "Tier 1"
-    elif unlock_score >= 50:
-        priority = "Tier 2"
-    else:
-        priority = "Monitor"
-
-    primary_constraint = (
-        "Control Friction"
-        if cci["cci"] > eci["eci"]
-        else "Structural Inefficiency"
-    )
-
-    if unlock_score >= 70:
-        urgency = "Immediate"
-    elif unlock_score >= 50:
-        urgency = "High"
-    else:
-        urgency = "Low"
 
     return {
-        "ticker": symbol,
+        "ticker": result["ticker"],
         "report_type": "ERER Memo",
-        "summary": {
-            "current_market_cap": round(current_market_cap, 2) if current_market_cap else 0,
-            "anchor_market_cap": round(anchor_market_cap, 2) if anchor_market_cap else 0,
-            "implied_uplift": round(uplift, 2),
-            "implied_uplift_pct": round(uplift_pct, 2),
-            "required_annualized_return_pct": round(annualized_return, 2),
-        },
-        "diagnosis": {
-            "primary_constraint": primary_constraint,
-            "urgency": urgency,
-            "priority": priority,
-            "unlock_score": unlock_score,
-        },
-        "board_message": (
-            f"{symbol} currently supports approximately "
-            f"${round(current_market_cap/1e6,1)}M of equity value. "
-            f"If constraints are addressed, the anchor case implies "
-            f"${round(anchor_market_cap/1e6,1)}M."
-        ),
-        "recommended_next_step": (
-            "Advance to detailed ERER review with company-specific assumptions, "
-            "capital structure analysis, and operating signal validation."
-        ),
+        "summary": result["anchor_case"],
+        "diagnosis": result["diagnostic"],
+        "lens": result["lens_read"],
+        "board_message": result["lens_read"]["board_message"],
     }
