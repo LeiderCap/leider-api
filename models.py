@@ -2,7 +2,7 @@ from database import Base
 from datetime import datetime
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import String, Float, Integer, DateTime, Text, Boolean
-
+Base = declarative_base()
 
 class Base(DeclarativeBase):
     pass
