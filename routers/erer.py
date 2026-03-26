@@ -113,7 +113,20 @@ async def run_erer(
         priority = "Tier 2"
     else:
         priority = "Monitor"
+    primary_constraint = (
+        "Control Friction"
+        if cci["cci"] > eci["eci"]
+        else "Structural Inefficiency"
+    )
 
+    if unlock_score >= 70:
+        urgency = "Immediate"
+    elif unlock_score >= 50:
+        urgency = "High"
+    else:
+        urgency = "Low"
+
+            "lens_read": lens_read,
     return {
         "ticker": symbol,
         "framework": "ERER",
