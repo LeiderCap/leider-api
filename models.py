@@ -105,3 +105,16 @@ class Form25Queue(Base):
     classification: Mapped[str | None] = mapped_column(String(50), nullable=True)
     notes: Mapped[str | None] = mapped_column(Text, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+class ERERReport(Base):
+    __tablename__ = "erer_reports"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    ticker: Mapped[str] = mapped_column(String(20), index=True)
+    anchor: Mapped[float] = mapped_column(Float)
+    horizon: Mapped[int] = mapped_column(Integer)
+    current_price: Mapped[float | None] = mapped_column(Float, nullable=True)
+    shares_outstanding: Mapped[float | None] = mapped_column(Float, nullable=True)
+    unlock_score: Mapped[float | None] = mapped_column(Float, nullable=True)
+    priority: Mapped[str | None] = mapped_column(String(50), nullable=True)
+    memo: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, index=True)
