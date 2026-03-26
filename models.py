@@ -1,3 +1,4 @@
+from database import Base
 from datetime import datetime
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import String, Float, Integer, DateTime, Text, Boolean
@@ -118,3 +119,27 @@ class ERERReport(Base):
     priority: Mapped[str | None] = mapped_column(String(50), nullable=True)
     memo: Mapped[str | None] = mapped_column(Text, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, index=True)
+from datetime import datetime
+from sqlalchemy import String, Float, Integer, DateTime, Text
+from sqlalchemy.orm import Mapped, mapped_column
+
+class ERERReport(Base):
+    __tablename__ = "erer_reports"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+
+    ticker: Mapped[str] = mapped_column(String(20), index=True)
+    anchor: Mapped[float] = mapped_column(Float)
+    horizon: Mapped[int] = mapped_column(Integer)
+
+    current_price: Mapped[float | None] = mapped_column(Float, nullable=True)
+    shares_outstanding: Mapped[float | None] = mapped_column(Float, nullable=True)
+
+    unlock_score: Mapped[float | None] = mapped_column(Float, nullable=True)
+    priority: Mapped[str | None] = mapped_column(String(50), nullable=True)
+
+    memo: Mapped[str | None] = mapped_column(Text, nullable=True)
+
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime, default=datetime.utcnow, index=True
+    )
