@@ -3,7 +3,13 @@ import yfinance as yf
 from typing import Optional
 from fastapi import APIRouter, Depends
 
-from scoring.eci import score_
+from scoring.eci import score_eci
+from scoring.cci import score_cci
+
+from database import get_db
+from models import ERERReport
+from sqlalchemy.ext.asyncio import AsyncSession
+
 router = APIRouter()
 
 
