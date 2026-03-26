@@ -143,8 +143,8 @@ async def run_erer(
     }
 
 
-@router.get("/{ticker}/report")
-async def run_erer_report(
+@router.get("/{ticker}/report/text")
+async def run_erer_report_text(
     ticker: str,
     anchor: float,
     horizon: int,
@@ -159,11 +159,35 @@ async def run_erer_report(
         shares_outstanding=shares_outstanding,
     )
 
+    ticker_symbol = result["ticker"]
+    market_cap = result["base"]["market_cap"]
+    anchor_cap = result["anchor_case"]["anchor_cap"]
+    uplift = result["anchor_case"]["uplift"]
+    uplift_pct = result["anchor_case"]["uplift_pct"]
+    annual_return = result["anchor_case"]["annual_return"]
+
+    primary_constraint = result["lens_read"]["primary_constraint"]
+    urgency = result["lens_read"]["urgency"]
+    priority = result["diagnostic"]["priority"]
+    unlock_path = result["lens_read"]["unlock_path"]
+    board_message = result["lens_read"]["board_message"]
+
+    memo = (
+        f"{ticker_symbol} currently supports approximately "
+        f"${market_cap/1e6:.1f}M of equity value. "
+        f"Under the anchor case, equity value could support approximately "
+        f"${anchor_cap/1e6:.1f}M, implying "
+        f"${uplift/1e6:.1f}M of upside ({uplift_pct:.1f}%). "
+        f"The required annualized return to the anchor over {horizon} years is "
+        f"{annual_return:.1f}%. "
+        f"The primary constraint appears to be {primary_constraint}. "
+        f"Urgency is currently {urgency} and priority is {priority}. "
+        f"The immediate focus should be: {unlock_path}. "
+        f"{board_message}"
+    )
+
     return {
-        "ticker": result["ticker"],
-        "report_type": "ERER Memo",
-        "summary": result["anchor_case"],
-        "diagnosis": result["diagnostic"],
-        "lens": result["lens_read"],
-        "board_message": result["lens_read"]["board_message"],
+        "ticker": ticker_symbol,
+        "report_type": "ERER Memo Text",
+        "text": memo,
     }
