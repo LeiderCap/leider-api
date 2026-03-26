@@ -250,3 +250,55 @@ async def run_erer_report_board(
         "recommended_focus": recommended_focus,
         "board_message": board_message,
     }
+@router.get("/{ticker}/report/memo")
+async def run_erer_report_memo(
+    ticker: str,
+    anchor: float,
+    horizon: int,
+    current_price: Optional[float] = None,
+    shares_outstanding: Optional[int] = None,
+):
+    result = await run_erer(
+        ticker=ticker,
+        anchor=anchor,
+        horizon=horizon,
+        current_price=current_price,
+        shares_outstanding=shares_outstanding,
+    )
+
+    ticker_symbol = result["ticker"]
+    market_cap = result["base"]["market_cap"]
+    anchor_cap = result["anchor_case"]["anchor_cap"]
+    uplift = result["anchor_case"]["uplift"]
+    uplift_pct = result["anchor_case"]["uplift_pct"]
+    annual_return = result["anchor_case"]["annual_return"]
+
+    primary_constraint = result["lens_read"]["primary_constraint"]
+    urgency = result["lens_read"]["urgency"]
+    priority = result["diagnostic"]["priority"]
+    unlock_path = result["lens_read"]["unlock_path"]
+    board_message = result["lens_read"]["board_message"]
+
+    memo = (
+        f"ERER MEMO — {ticker_symbol}\n\n"
+        f"SITUATION\n"
+        f"{ticker_symbol} currently supports approximately ${market_cap/1e6:.1f}M of equity value "
+        f"based on the current structure.\n\n"
+        f"ANCHOR CASE\n"
+        f"At an anchor price of ${anchor:.2f}, equity value could support approximately "
+        f"${anchor_cap/1e6:.1f}M, implying ${uplift/1e6:.1f}M of upside ({uplift_pct:.1f}%). "
+        f"The required annualized return over {horizon} years is {annual_return:.1f}%.\n\n"
+        f"DIAGNOSIS\n"
+        f"The primary constraint appears to be {primary_constraint}. "
+        f"Urgency is {urgency} and current priority is {priority}.\n\n"
+        f"RECOMMENDED FOCUS\n"
+        f"{unlock_path}\n\n"
+        f"BOARD MESSAGE\n"
+        f"{board_message}"
+    )
+
+    return {
+        "ticker": ticker_symbol,
+        "report_type": "ERER Memo String",
+        "memo": memo,
+    }
