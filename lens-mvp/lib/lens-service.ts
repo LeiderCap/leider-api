@@ -36,11 +36,19 @@ function mapDbToSnapshot(row: any): LensSnapshot {
     description: row.description ?? '',
     logo_url: row.logo_url ?? undefined,
     company_id: row.id,
-    transformation_rating: score?.transformation_rating ?? 'Emerging',
+    
+    tcs_score: score?.tcs_score ?? 'Emerging',
+    intelligence_score: score?.intelligence_score ?? 'Emerging',
+    absorbability_score: score?.absorbability_score ?? 'Emerging',
     trust_score: score?.trust_score ?? 'Emerging',
+    governance_score: score?.governance_score ?? 'Emerging',
     courage_score: score?.courage_score ?? 'Emerging',
+    execution_score: score?.execution_score ?? 'Emerging',
+    
     yield_score: score?.yield_score ?? 'Emerging',
     equity_reclamation: score?.equity_reclamation ?? 'N/A',
+    transformation_capacity_gap: score?.transformation_capacity_gap ?? 'Minimal',
+    
     opportunity_value: score?.opportunity_value ?? 'N/A',
     confidence: score?.confidence ?? 'Low',
     top_unlock: score?.top_unlock ?? 'Unknown',
@@ -102,11 +110,16 @@ export async function saveLensSnapshot(snapshot: LensSnapshot) {
 
   await supabase.from('lens_scores').upsert({
     company_id: snapshot.id,
-    transformation_rating: snapshot.transformation_rating,
+    tcs_score: snapshot.tcs_score,
+    intelligence_score: snapshot.intelligence_score,
+    absorbability_score: snapshot.absorbability_score,
     trust_score: snapshot.trust_score,
+    governance_score: snapshot.governance_score,
     courage_score: snapshot.courage_score,
+    execution_score: snapshot.execution_score,
     yield_score: snapshot.yield_score,
     equity_reclamation: snapshot.equity_reclamation,
+    transformation_capacity_gap: snapshot.transformation_capacity_gap,
     opportunity_value: snapshot.opportunity_value,
     confidence: snapshot.confidence,
     top_unlock: snapshot.top_unlock,

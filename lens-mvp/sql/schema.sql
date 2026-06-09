@@ -19,11 +19,16 @@ create table if not exists companies (
 
 create table if not exists lens_scores (
   company_id text primary key references companies(id) on delete cascade,
-  transformation_rating text not null,
+  tcs_score text not null,
+  intelligence_score text not null,
+  absorbability_score text not null,
   trust_score text not null,
+  governance_score text not null,
   courage_score text not null,
+  execution_score text not null,
   yield_score text not null,
   equity_reclamation text,
+  transformation_capacity_gap text not null,
   opportunity_value text,
   confidence text,
   top_unlock text,

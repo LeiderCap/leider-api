@@ -7,54 +7,81 @@ const LensAiSchema = z.object({
   ticker: z.string().optional().default(''),
   industry: z.string().min(1).default('Unknown'),
   description: z.string().min(1),
-  transformation_rating: z.enum(['Emerging', 'Developing', 'Advanced', 'Transforming', 'Leading']),
+  
+  tcs_score: z.enum(['Emerging', 'Developing', 'Advanced', 'Transforming', 'Leading']),
+  
+  intelligence_score: z.enum(['Emerging', 'Developing', 'Advanced', 'Transforming', 'Leading']),
+  absorbability_score: z.enum(['Emerging', 'Developing', 'Advanced', 'Transforming', 'Leading']),
   trust_score: z.enum(['Emerging', 'Developing', 'Advanced', 'Transforming', 'Leading']),
+  governance_score: z.enum(['Emerging', 'Developing', 'Advanced', 'Transforming', 'Leading']),
   courage_score: z.enum(['Emerging', 'Developing', 'Advanced', 'Transforming', 'Leading']),
+  execution_score: z.enum(['Emerging', 'Developing', 'Advanced', 'Transforming', 'Leading']),
+  
   yield_score: z.enum(['Emerging', 'Developing', 'Advanced', 'Transforming', 'Leading']),
   equity_reclamation: z.string().min(1),
+  transformation_capacity_gap: z.enum(['Minimal', 'Moderate', 'Significant', 'Critical']),
+  
   opportunity_value: z.string().min(1),
   confidence: z.enum(['Low', 'Moderate', 'High']),
   top_unlock: z.string().min(1),
+  
   constraints: z.array(z.string()).min(1).max(5),
   opportunities: z.array(z.string()).min(1).max(5),
   summary: z.string().min(1)
 });
 
-export const LENS_SYSTEM_PROMPT = `You are The Lens™, the discovery engine for Transformation Intelligence™.
+export const LENS_SYSTEM_PROMPT = `You are The Lens™, the measurement system for Transformation Capacity™.
 
-Analyze the user's query as a company, organization, sector, government, technology, trend, or topic.
+Your primary purpose is to measure how effectively an organization, government,
+industry, or individual can convert intelligence into realized outcomes.
 
-Return ONLY valid JSON. Do not include markdown, prose, or code fences.
+The central question you answer is:
+"Can this entity actually transform fast enough to realize the value of the
+intelligence it now possesses?"
+
+Return ONLY valid JSON. No markdown, no prose, no code fences.
 
 Use this exact JSON shape:
 {
   "name": "canonical name",
-  "ticker": "ticker if public company, otherwise empty string",
+  "ticker": "ticker if public, otherwise empty string",
   "industry": "industry or category",
   "description": "one sentence description",
-  "transformation_rating": "Emerging | Developing | Advanced | Transforming | Leading",
+
+  "tcs_score": "Emerging | Developing | Advanced | Transforming | Leading",
+
+  "intelligence_score": "Emerging | Developing | Advanced | Transforming | Leading",
+  "absorbability_score": "Emerging | Developing | Advanced | Transforming | Leading",
   "trust_score": "Emerging | Developing | Advanced | Transforming | Leading",
+  "governance_score": "Emerging | Developing | Advanced | Transforming | Leading",
   "courage_score": "Emerging | Developing | Advanced | Transforming | Leading",
+  "execution_score": "Emerging | Developing | Advanced | Transforming | Leading",
+
   "yield_score": "Emerging | Developing | Advanced | Transforming | Leading",
-  "equity_reclamation": "percentage or range, e.g. 12% or N/A",
-  "opportunity_value": "estimated value range or qualitative range",
+  "equity_reclamation": "percentage or range e.g. 12% or N/A",
+  "transformation_capacity_gap": "Minimal | Moderate | Significant | Critical",
+
+  "opportunity_value": "estimated value range",
   "confidence": "Low | Moderate | High",
-  "top_unlock": "highest-leverage unlock",
+  "top_unlock": "single highest-leverage transformation unlock",
+
   "constraints": ["constraint 1", "constraint 2", "constraint 3"],
   "opportunities": ["opportunity 1", "opportunity 2", "opportunity 3"],
-  "summary": "short Lens narrative explaining why this matters"
+  "summary": "2-3 sentence Lens narrative focused on transformation capacity"
 }
 
 Evaluate through these lenses:
-- Transformation Capacity™
-- Trust Infrastructure™
-- Structural Courage™
-- Transformation Yield™
-- Value Unlock Potential™
-- Equity Reclamation™ where relevant
-- AIROI™ where relevant
+- Intelligence: quality and availability of intelligence inputs
+- Absorbability: organizational capacity to absorb and implement change
+- Trust: trust infrastructure across leadership, systems, and governance
+- Governance: decision velocity, accountability, and structural clarity
+- Courage: willingness to make difficult, necessary transformation decisions
+- Execution: track record and capacity for sustained implementation
+- Transformation Yield™: value realized per unit of intelligence invested
+- Equity Reclamation™: gap between intrinsic and realized value where relevant
 
-Important: Be honest about uncertainty. Do not invent precise financial values when confidence is low. Use ranges and mark confidence appropriately.`;
+Be honest about uncertainty. Use ranges. Mark confidence appropriately.
+Do not invent precise financial values when confidence is low.`;
 
 function extractJson(text: string) {
   const trimmed = text.trim();
@@ -139,17 +166,27 @@ export async function generateLensSnapshot(query: string): Promise<LensSnapshot>
     industry: parsed.industry,
     description: parsed.description,
     logo_url: undefined,
-    transformation_rating: parsed.transformation_rating,
+    
+    tcs_score: parsed.tcs_score,
+    intelligence_score: parsed.intelligence_score,
+    absorbability_score: parsed.absorbability_score,
     trust_score: parsed.trust_score,
+    governance_score: parsed.governance_score,
     courage_score: parsed.courage_score,
+    execution_score: parsed.execution_score,
+    
     yield_score: parsed.yield_score,
     equity_reclamation: parsed.equity_reclamation,
+    transformation_capacity_gap: parsed.transformation_capacity_gap,
+    
     opportunity_value: parsed.opportunity_value,
     confidence: parsed.confidence,
     top_unlock: parsed.top_unlock,
+    
     constraints: parsed.constraints,
     opportunities: parsed.opportunities,
     summary: parsed.summary,
+    
     updated_at: new Date().toISOString()
   };
 }
