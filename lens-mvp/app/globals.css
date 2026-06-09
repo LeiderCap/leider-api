@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+
+body {
+  margin: 0;
+  background: #f8fafc;
+  color: #0f172a;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+/* Cards */
+.card { @apply rounded-2xl border border-slate-200 bg-white shadow-sm; }
+
+/* Buttons */
+.btn { @apply inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2; }
+.btn-primary { @apply bg-slate-900 text-white hover:bg-slate-700 active:scale-[0.98]; }
+.btn-secondary { @apply bg-white text-slate-900 border border-slate-200 hover:bg-slate-50 active:scale-[0.98]; }
+.btn-ghost { @apply bg-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-100 active:scale-[0.98]; }
+
+/* Rating colors */
+.rating-leading      { @apply text-emerald-700 bg-emerald-50 border-emerald-200; }
+.rating-transforming { @apply text-blue-700 bg-blue-50 border-blue-200; }
+.rating-advanced     { @apply text-violet-700 bg-violet-50 border-violet-200; }
+.rating-developing   { @apply text-amber-700 bg-amber-50 border-amber-200; }
+.rating-emerging     { @apply text-slate-600 bg-slate-100 border-slate-200; }
+
+/* Nav */
+.nav-link { @apply text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors; }
+
+/* Sections */
+.section { @apply py-20 px-6; }
+.section-inner { @apply mx-auto max-w-6xl; }
+
+/* Chain item */
+.chain-step { @apply flex flex-col items-center gap-1; }
