@@ -74,6 +74,9 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
   const PRIVATE_TOP_UNLOCK = 'To ensure accuracy, private companies require more information from the client. Request a Blueprint™ for your Unlock options.';
   const topUnlockDisplay = topUnlock.trim() || PRIVATE_TOP_UNLOCK;
 
+  // Debug: log to Vercel function logs so we can confirm the value
+  console.log('[LensDetailPage] id:', id, '| top_unlock raw:', JSON.stringify(item.top_unlock), '| display:', topUnlockDisplay);
+
   const determinants: { label: string; key: keyof LensSnapshot }[] = [
     { label: 'Intelligence™',   key: 'intelligence_score' },
     { label: 'Absorbability™',  key: 'absorbability_score' },
@@ -161,9 +164,14 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
       </section>
 
       {/* Top Unlock™ */}
-      <section className="card mt-6 overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 p-6 text-white">
-        <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Top Unlock™</p>
-        <p className="mt-3 text-2xl font-bold leading-snug">{topUnlockDisplay}</p>
+      <section className="card mt-6 overflow-hidden rounded-2xl border border-slate-800 p-6" style={{ backgroundColor: '#0f172a', color: '#ffffff' }}>
+        <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: '#94a3b8' }}>Top Unlock™</p>
+        {item.top_unlock && (
+          <p className="mt-3 text-2xl font-bold leading-snug" style={{ color: '#ffffff' }}>{item.top_unlock}</p>
+        )}
+        {!item.top_unlock && (
+          <p className="mt-3 leading-7" style={{ color: '#e2e8f0' }}>{PRIVATE_TOP_UNLOCK}</p>
+        )}
       </section>
 
       {/* Constraints + Opportunities */}
