@@ -64,13 +64,18 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
   const rc = ratingClass[item.tcs_score] ?? 'rating-emerging';
   const gc = gapClass[item.transformation_capacity_gap] ?? gapClass.Moderate;
 
+  // Defensive normalisation — Supabase may return these as null/undefined
+  const topUnlock: string = item.top_unlock ?? '';
+  const constraints: string[] = Array.isArray(item.constraints) ? item.constraints : [];
+  const opportunities: string[] = Array.isArray(item.opportunities) ? item.opportunities : [];
+
   const determinants: { label: string; key: keyof LensSnapshot }[] = [
-    { label: 'Intelligence™', key: 'intelligence_score' },
-    { label: 'Absorbability™', key: 'absorbability_score' },
-    { label: 'Trust™', key: 'trust_score' },
-    { label: 'Governance™', key: 'governance_score' },
-    { label: 'Courage™', key: 'courage_score' },
-    { label: 'Execution™', key: 'execution_score' },
+    { label: 'Intelligence™',   key: 'intelligence_score' },
+    { label: 'Absorbability™',  key: 'absorbability_score' },
+    { label: 'Trust™',          key: 'trust_score' },
+    { label: 'Governance™',     key: 'governance_score' },
+    { label: 'Courage™',        key: 'courage_score' },
+    { label: 'Execution™',      key: 'execution_score' },
   ];
 
   return (
@@ -106,7 +111,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
         <p className="mt-1 text-sm text-slate-500">The six factors that determine Transformation Capacity™.</p>
         <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
           {determinants.map(({ label, key }) => {
-            const val = item[key] as string;
+            const val = (item[key] as string) ?? 'Emerging';
             const dc = ratingClass[val] ?? 'rating-emerging';
             return (
               <div key={key} className={`rounded-xl border p-4 ${dc}`}>
@@ -137,41 +142,51 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
         <h2 className="text-xl font-bold">Supporting Scores</h2>
         <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
           <Metric label="Transformation Yield™" value={item.yield_score} />
-          <Metric label="Equity Reclamation™" value={item.equity_reclamation} />
-          <Metric label="Opportunity Value" value={item.opportunity_value} />
-          <Metric label="Confidence" value={item.confidence} />
+          <Metric label="Equity Reclamation™"   value={item.equity_reclamation} />
+          <Metric label="Opportunity Value"      value={item.opportunity_value} />
+          <Metric label="Confidence"             value={item.confidence} />
         </div>
       </section>
 
-      {/* Top Unlock */}
-      <section className="card mt-6 p-6 bg-slate-900 text-white">
-        <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Top Unlock™</p>
-        <p className="mt-2 text-2xl font-bold">{item.top_unlock}</p>
-      </section>
+      {/* Top Unlock™ */}
+      {topUnlock && (
+        <section className="card mt-6 overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 p-6 text-white">
+          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Top Unlock™</p>
+          <p className="mt-3 text-2xl font-bold leading-snug">{topUnlock}</p>
+        </section>
+      )}
 
       {/* Constraints + Opportunities */}
       <section className="mt-6 grid gap-5 sm:grid-cols-2">
         <div className="card p-6">
           <h2 className="text-xl font-bold">Key Constraints™</h2>
-          <ul className="mt-4 space-y-2">
-            {item.constraints.map((c, i) => (
-              <li key={c} className="flex items-start gap-3 rounded-xl bg-red-50 p-3">
-                <span className="mt-0.5 shrink-0 text-xs font-bold text-red-600">{i + 1}</span>
-                <span className="text-sm">{c}</span>
-              </li>
-            ))}
-          </ul>
+          {constraints.length > 0 ? (
+            <ul className="mt-4 space-y-2">
+              {constraints.map((c, i) => (
+                <li key={i} className="flex items-start gap-3 rounded-xl bg-red-50 p-3">
+                  <span className="mt-0.5 shrink-0 text-xs font-bold text-red-600">{i + 1}</span>
+                  <span className="text-sm">{c}</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-4 text-sm text-slate-400">No constraints data available.</p>
+          )}
         </div>
         <div className="card p-6">
           <h2 className="text-xl font-bold">Top Opportunities™</h2>
-          <ul className="mt-4 space-y-2">
-            {item.opportunities.map((o, i) => (
-              <li key={o} className="flex items-start gap-3 rounded-xl bg-emerald-50 p-3">
-                <span className="mt-0.5 shrink-0 text-xs font-bold text-emerald-600">{i + 1}</span>
-                <span className="text-sm">{o}</span>
-              </li>
-            ))}
-          </ul>
+          {opportunities.length > 0 ? (
+            <ul className="mt-4 space-y-2">
+              {opportunities.map((o, i) => (
+                <li key={i} className="flex items-start gap-3 rounded-xl bg-emerald-50 p-3">
+                  <span className="mt-0.5 shrink-0 text-xs font-bold text-emerald-600">{i + 1}</span>
+                  <span className="text-sm">{o}</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-4 text-sm text-slate-400">No opportunities data available.</p>
+          )}
         </div>
       </section>
 
@@ -204,7 +219,7 @@ function Metric({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-xl border border-slate-200 p-4">
       <p className="text-xs font-medium text-slate-400">{label}</p>
-      <p className="mt-2 text-lg font-semibold">{value}</p>
+      <p className="mt-2 text-lg font-semibold">{value ?? '—'}</p>
     </div>
   );
 }
