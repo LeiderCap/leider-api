@@ -180,21 +180,35 @@ export default function HomePage() {
           </div>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { who: 'Enterprises', headline: 'Increase Transformation Yield™', items: ['Understanding™','Blueprint™','Guided Transformation™','Transformation Partner™'] },
-              { who: 'Investors', headline: 'Find Value Hidden in Plain Sight', items: ['Equity Reclamation™','Trust Infrastructure Analysis™','Public Company Scorecards™','Transformation Risk™'] },
-              { who: 'Governments', headline: 'Increase Institutional Capacity', items: ['Workforce Transformation™','Civic Transformation™','Trust Infrastructure™','Policy Analysis™'] },
-              { who: 'Individuals', headline: 'Unlock More of Your Potential', items: ['Lens Discovery™','Learn It™','Transform It™','Founding Member™'] },
-            ].map(({ who, headline, items }) => (
-              <div key={who} className="card p-5">
-                <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">{who}</p>
-                <h3 className="mt-2 font-semibold leading-snug">{headline}</h3>
-                <ul className="mt-4 space-y-2">
-                  {items.map((item) => (
-                    <li key={item} className="text-sm text-slate-600">→ {item}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+              { who: 'Enterprises', headline: 'Increase Transformation Yield™', items: ['Understanding™','Blueprint™','Guided Transformation™','Transformation Partner™'], href: null },
+              { who: 'Investors', headline: 'Find Value Hidden in Plain Sight', items: ['Equity Reclamation™','Trust Infrastructure Analysis™','Public Company Scorecards™','Transformation Risk™'], href: null },
+              { who: 'Governments', headline: 'Increase Institutional Capacity', items: ['Workforce Transformation™','Civic Transformation™','Trust Infrastructure™','Policy Analysis™'], href: '/governments' },
+              { who: 'Individuals', headline: 'Unlock More of Your Potential', items: ['Lens Discovery™','Learn It™','Transform It™','Founding Member™'], href: null },
+            ].map(({ who, headline, items, href }) => {
+              const inner = (
+                <>
+                  <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">{who}</p>
+                  <h3 className="mt-2 font-semibold leading-snug">{headline}</h3>
+                  {href && (
+                    <p className="mt-1 text-xs font-medium text-slate-500">View solutions →</p>
+                  )}
+                  <ul className="mt-4 space-y-2">
+                    {items.map((item) => (
+                      <li key={item} className="text-sm text-slate-600">→ {item}</li>
+                    ))}
+                  </ul>
+                </>
+              );
+              return href ? (
+                <Link key={who} href={href} className="card p-5 block hover:border-slate-300 hover:shadow-md transition-shadow">
+                  {inner}
+                </Link>
+              ) : (
+                <div key={who} className="card p-5">
+                  {inner}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
