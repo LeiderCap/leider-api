@@ -58,7 +58,7 @@ Use this exact JSON shape:
   "execution_score": "Emerging | Developing | Advanced | Transforming | Leading",
 
   "yield_score": "Emerging | Developing | Advanced | Transforming | Leading",
-  "equity_reclamation": "percentage or range e.g. 12% or N/A",
+  "equity_reclamation": "percentage or range e.g. 12%, or 'Private — additional details needed' for private companies",
   "transformation_capacity_gap": "Minimal | Moderate | Significant | Critical",
 
   "opportunity_value": "estimated value range",
@@ -78,7 +78,7 @@ Evaluate through these lenses:
 - Courage: willingness to make difficult, necessary transformation decisions
 - Execution: track record and capacity for sustained implementation
 - Transformation Yield™: value realized per unit of intelligence invested
-- Equity Reclamation™: gap between intrinsic and realized value where relevant
+- Equity Reclamation™: gap between intrinsic and realized value where relevant; for private companies use 'Private — additional details needed'
 
 Be honest about uncertainty. Use ranges. Mark confidence appropriately.
 Do not invent precise financial values when confidence is low.`;

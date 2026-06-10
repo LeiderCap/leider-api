@@ -32,6 +32,9 @@ export function LensCard({ item }: { item: LensSnapshot }) {
     });
   }
 
+  const equityDisplay = (val: string) =>
+    val === 'N/A' ? 'Private — additional details needed' : val;
+
   const determinants: { label: string; key: keyof LensSnapshot }[] = [
     { label: 'Intelligence™', key: 'intelligence_score' },
     { label: 'Absorbability™', key: 'absorbability_score' },
@@ -100,6 +103,10 @@ export function LensCard({ item }: { item: LensSnapshot }) {
           <span className="rounded-full border border-slate-200 bg-white px-2 py-0.5 text-xs text-slate-500">
             {item.confidence}
           </span>
+        </div>
+        <div className="mt-2 border-t border-slate-200 pt-2">
+          <p className="text-xs text-slate-400">Equity Reclamation™</p>
+          <p className="mt-0.5 text-xs font-semibold">{equityDisplay(item.equity_reclamation)}</p>
         </div>
       </div>
 
