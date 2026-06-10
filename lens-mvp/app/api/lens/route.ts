@@ -3,6 +3,8 @@ import { auth } from '@clerk/nextjs/server';
 import { createLensSnapshot } from '@/lib/lens-service';
 import { getSupabaseClient } from '@/lib/supabase';
 
+export const maxDuration = 30;
+
 async function logSearch(query: string, userId: string | null) {
   try {
     const supabase = getSupabaseClient();

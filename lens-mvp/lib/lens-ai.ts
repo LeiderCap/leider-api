@@ -131,7 +131,7 @@ async function callOpenAI(query: string) {
       authorization: `Bearer ${apiKey}`
     },
     body: JSON.stringify({
-      model: process.env.OPENAI_MODEL ?? 'gpt-4o-mini',
+      model: process.env.OPENAI_MODEL ?? 'gpt-3.5-turbo',
       temperature: 0.2,
       response_format: { type: 'json_object' },
       messages: [
