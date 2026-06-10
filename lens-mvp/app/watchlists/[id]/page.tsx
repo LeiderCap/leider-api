@@ -1,21 +1,17 @@
-import { auth } from '@clerk/nextjs/server';
-import { redirect, notFound } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { getSupabaseClient } from '@/lib/supabase';
 import { LensCard } from '@/components/LensCard';
 import { LensSnapshot } from '@/lib/types';
 import Link from 'next/link';
 
-async function getWatchlist(id: string, userId: string) {
+async function getWatchlist(id: string) {
   const supabase = getSupabaseClient();
   if (!supabase) return null;
-
   const { data, error } = await supabase
     .from('watchlists')
     .select('id, name, created_at')
     .eq('id', id)
-    .eq('user_id', userId)
     .maybeSingle();
-
   if (error || !data) return null;
   return data;
 }
@@ -23,14 +19,11 @@ async function getWatchlist(id: string, userId: string) {
 async function getWatchlistCompanies(watchlistId: string): Promise<LensSnapshot[]> {
   const supabase = getSupabaseClient();
   if (!supabase) return [];
-
   const { data, error } = await supabase
     .from('watchlist_companies')
     .select('company_id, companies(*, lens_scores(*))')
     .eq('watchlist_id', watchlistId);
-
   if (error || !data) return [];
-
   return data
     .map((row: any) => {
       const company = row.companies;
@@ -67,14 +60,12 @@ async function getWatchlistCompanies(watchlistId: string): Promise<LensSnapshot[
     .filter(Boolean) as LensSnapshot[];
 }
 
-export default async function WatchlistDetailPage({ params }: { params: { id: string } }) {
-  const { userId } = await auth();
-  if (!userId) redirect('/sign-in');
-
-  const watchlist = await getWatchlist(params.id, userId);
+export default async function WatchlistDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const watchlist = await getWatchlist(id);
   if (!watchlist) notFound();
 
-  const companies = await getWatchlistCompanies(params.id);
+  const companies = await getWatchlistCompanies(id);
 
   return (
     <main className="mx-auto min-h-screen max-w-6xl px-6 py-10">
@@ -85,7 +76,6 @@ export default async function WatchlistDetailPage({ params }: { params: { id: st
         <h1 className="text-3xl font-bold">{watchlist.name}</h1>
         <p className="mt-1 text-sm text-slate-500">{companies.length} companies</p>
       </div>
-
       {companies.length === 0 ? (
         <div className="card mt-8 p-8 text-center">
           <h2 className="text-xl font-semibold">No companies in this watchlist yet.</h2>

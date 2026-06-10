@@ -1,47 +1,16 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@clerk/nextjs/server';
 import { getSupabaseClient } from '@/lib/supabase';
 
-export async function POST(request: Request) {
-  const { userId } = await auth();
-  if (!userId) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+// Watchlists API — auth will be added back in a future task
+// For now, requires user_id in the request body / query params
 
-  const body = await request.json().catch(() => ({}));
-  const name = String(body.name ?? '').trim();
-  if (!name) {
-    return NextResponse.json({ error: 'name is required' }, { status: 400 });
-  }
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const userId = searchParams.get('user_id');
+  if (!userId) return NextResponse.json({ watchlists: [] });
 
   const supabase = getSupabaseClient();
-  if (!supabase) {
-    return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
-  }
-
-  const { data, error } = await supabase
-    .from('watchlists')
-    .insert({ user_id: userId, name })
-    .select()
-    .single();
-
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
-  }
-
-  return NextResponse.json({ watchlist: data });
-}
-
-export async function GET() {
-  const { userId } = await auth();
-  if (!userId) {
-    return NextResponse.json({ watchlists: [] });
-  }
-
-  const supabase = getSupabaseClient();
-  if (!supabase) {
-    return NextResponse.json({ watchlists: [] });
-  }
+  if (!supabase) return NextResponse.json({ watchlists: [] });
 
   const { data } = await supabase
     .from('watchlists')
@@ -50,4 +19,27 @@ export async function GET() {
     .order('created_at', { ascending: false });
 
   return NextResponse.json({ watchlists: data ?? [] });
+}
+
+export async function POST(request: Request) {
+  const body = await request.json().catch(() => ({}));
+  const name = String(body.name ?? '').trim();
+  const userId = String(body.user_id ?? '').trim();
+
+  if (!name || !userId) {
+    return NextResponse.json({ error: 'name and user_id are required' }, { status: 400 });
+  }
+
+  const supabase = getSupabaseClient();
+  if (!supabase) return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
+
+  const { data, error } = await supabase
+    .from('watchlists')
+    .insert({ user_id: userId, name })
+    .select()
+    .single();
+
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+
+  return NextResponse.json({ watchlist: data });
 }
