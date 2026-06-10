@@ -1,7 +1,6 @@
 import { getLensByIdOrCache } from '@/lib/lens-service';
 import { BlueprintRequestForm } from '@/components/BlueprintRequestForm';
 import { LensSnapshot, CapacityGap } from '@/lib/types';
-import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import ShareButton from './ShareButton';
@@ -46,7 +45,21 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 export default async function LensDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const item = await getLensByIdOrCache(id);
-  if (!item) notFound();
+
+  if (!item) {
+    return (
+      <main className="mx-auto min-h-screen max-w-4xl px-6 py-10">
+        <Link href="/search" className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
+          ← Back to Search
+        </Link>
+        <div className="card mt-10 p-10 text-center">
+          <h1 className="text-2xl font-bold">Lens Card Not Found</h1>
+          <p className="mt-3 text-slate-600">We couldn&apos;t generate a Lens Card™ for <strong>{id}</strong>. Please try searching again.</p>
+          <Link href="/search" className="btn btn-primary mt-6 inline-flex">Run The Lens™</Link>
+        </div>
+      </main>
+    );
+  }
 
   const rc = ratingClass[item.tcs_score] ?? 'rating-emerging';
   const gc = gapClass[item.transformation_capacity_gap] ?? gapClass.Moderate;

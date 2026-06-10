@@ -162,19 +162,28 @@ export async function getLensByIdOrCache(id: string): Promise<LensSnapshot | nul
   if (seedHit) return seedHit;
 
   const supabase = getSupabaseClient();
-  if (!supabase) return null;
+  if (supabase) {
+    const { data } = await supabase
+      .from('companies')
+      .select('*, lens_scores(*)')
+      .eq('id', id)
+      .maybeSingle();
 
-  const { data } = await supabase
-    .from('companies')
-    .select('*, lens_scores(*)')
-    .eq('id', id)
-    .maybeSingle();
+    if (data) {
+      const hasScore = Array.isArray(data.lens_scores)
+        ? data.lens_scores.length > 0
+        : !!data.lens_scores;
+      if (hasScore) return mapDbToSnapshot(data);
+    }
+  }
 
-  if (!data) return null;
-  // Supabase returns lens_scores as an array; treat empty array as missing
-  const hasScore = Array.isArray(data.lens_scores)
-    ? data.lens_scores.length > 0
-    : !!data.lens_scores;
-  if (!hasScore) return null;
-  return mapDbToSnapshot(data);
+  // Not found in DB — regenerate via AI using the id as the query
+  try {
+    const generated = await generateLensSnapshot(id);
+    await saveLensSnapshot(generated);
+    return generated;
+  } catch (err) {
+    console.error('getLensByIdOrCache: AI regeneration failed for id:', id, err);
+    return null;
+  }
 }
