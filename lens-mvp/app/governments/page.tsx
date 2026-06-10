@@ -134,6 +134,7 @@ function GovernmentInquiryForm() {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
           company_id: 'government-inquiry',
+          company_name: form.organization || 'Government Inquiry',
           name: form.name,
           email: form.email,
           organization: form.organization
