@@ -63,7 +63,7 @@ Use this exact JSON shape:
 
   "opportunity_value": "estimated value range",
   "confidence": "Low | Moderate | High",
-  "top_unlock": "single highest-leverage transformation unlock",
+  "top_unlock": "single highest-leverage transformation unlock; for private companies with insufficient public data use: 'To ensure accuracy, private companies require more information from the client. Request a Blueprint™ for your Unlock options.'",
 
   "constraints": ["constraint 1", "constraint 2", "constraint 3"],
   "opportunities": ["opportunity 1", "opportunity 2", "opportunity 3"],

@@ -71,6 +71,9 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
   const isUnlockable = (val: string) =>
     !val || val === 'N/A' || val === 'Private — additional details needed';
 
+  const PRIVATE_TOP_UNLOCK = 'To ensure accuracy, private companies require more information from the client. Request a Blueprint™ for your Unlock options.';
+  const topUnlockDisplay = topUnlock.trim() || PRIVATE_TOP_UNLOCK;
+
   const determinants: { label: string; key: keyof LensSnapshot }[] = [
     { label: 'Intelligence™',   key: 'intelligence_score' },
     { label: 'Absorbability™',  key: 'absorbability_score' },
@@ -158,12 +161,10 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
       </section>
 
       {/* Top Unlock™ */}
-      {topUnlock && (
-        <section className="card mt-6 overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 p-6 text-white">
-          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Top Unlock™</p>
-          <p className="mt-3 text-2xl font-bold leading-snug">{topUnlock}</p>
-        </section>
-      )}
+      <section className="card mt-6 overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 p-6 text-white">
+        <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Top Unlock™</p>
+        <p className="mt-3 text-2xl font-bold leading-snug">{topUnlockDisplay}</p>
+      </section>
 
       {/* Constraints + Opportunities */}
       <section className="mt-6 grid gap-5 sm:grid-cols-2">

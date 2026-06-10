@@ -35,6 +35,9 @@ export function LensCard({ item }: { item: LensSnapshot }) {
   const isUnlockable = (val: string) =>
     !val || val === 'N/A' || val === 'Private — additional details needed';
 
+  const PRIVATE_TOP_UNLOCK = 'To ensure accuracy, private companies require more information from the client. Request a Blueprint™ for your Unlock options.';
+  const topUnlockDisplay = item.top_unlock?.trim() || PRIVATE_TOP_UNLOCK;
+
   const determinants: { label: string; key: keyof LensSnapshot }[] = [
     { label: 'Intelligence™', key: 'intelligence_score' },
     { label: 'Absorbability™', key: 'absorbability_score' },
@@ -94,7 +97,7 @@ export function LensCard({ item }: { item: LensSnapshot }) {
       {/* Top Unlock + Opportunity */}
       <div className="mt-4 rounded-xl bg-slate-50 p-4">
         <p className="text-xs font-semibold text-slate-400">Top Unlock™</p>
-        <p className="mt-1 text-sm font-semibold leading-snug">{item.top_unlock}</p>
+        <p className="mt-1 text-sm font-semibold leading-snug">{topUnlockDisplay}</p>
         <div className="mt-3 flex items-center justify-between">
           <div>
             <p className="text-xs text-slate-400">Estimated Opportunity™</p>
