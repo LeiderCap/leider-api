@@ -21,6 +21,13 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
+  // TCP™ — Transformation Intent Event™ foundation (Phase 3: ICS™)
+  void supabase.from('transformation_events').insert({
+    event_type: 'watchlist_add',
+    entity_id: companyId,
+    event_data: { watchlist: id, company: companyId, timestamp: new Date().toISOString() }
+  }).then(undefined, () => { /* non-fatal */ });
+
   return NextResponse.json({ added: true });
 }
 

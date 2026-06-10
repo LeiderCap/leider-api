@@ -36,6 +36,14 @@ export async function POST(request: Request) {
   const { error } = await supabase.from('saved_cards').upsert({ user_id: userId, company_id: companyId });
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
+  // TCP™ — Interest Event™ foundation (Phase 3: ICS™ — Intelligence Compounding Score™)
+  void supabase.from('transformation_events').insert({
+    event_type: 'save_card',
+    user_id: userId,
+    entity_id: companyId,
+    event_data: { company: companyId, timestamp: new Date().toISOString() }
+  }).then(undefined, () => { /* non-fatal */ });
+
   return NextResponse.json({ saved: true });
 }
 

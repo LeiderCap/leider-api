@@ -164,13 +164,13 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
       </section>
 
       {/* Top Unlock™ */}
-      <section className="card mt-6 overflow-hidden rounded-2xl border border-slate-800 p-6" style={{ backgroundColor: '#0f172a', color: '#ffffff' }}>
-        <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: '#94a3b8' }}>Top Unlock™</p>
+      <section className="card mt-6 p-6">
+        <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Top Unlock™</p>
         {item.top_unlock && (
-          <p className="mt-3 text-2xl font-bold leading-snug" style={{ color: '#ffffff' }}>{item.top_unlock}</p>
+          <p className="mt-3 text-slate-700 leading-7">{item.top_unlock}</p>
         )}
         {!item.top_unlock && (
-          <p className="mt-3 leading-7" style={{ color: '#e2e8f0' }}>{PRIVATE_TOP_UNLOCK}</p>
+          <p className="mt-3 text-slate-700 leading-7">{PRIVATE_TOP_UNLOCK}</p>
         )}
       </section>
 

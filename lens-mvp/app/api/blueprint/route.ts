@@ -85,6 +85,20 @@ export async function POST(request: Request) {
       console.error('Unexpected error in sendNotificationEmail:', err);
     });
 
+    // TCP™ — Transformation Intent Event™ (Blueprint™ request)
+    // Future: DVI™ — Decision Visibility Infrastructure™ (Phase 2)
+    if (supabase) {
+      void supabase.from('transformation_events').insert({
+        event_type: 'blueprint_request',
+        entity_id: payload.company_id,
+        event_data: {
+          company: companyName,
+          organization: payload.organization || null,
+          timestamp: new Date().toISOString()
+        }
+      }).then(undefined, () => { /* non-fatal */ });
+    }
+
     return NextResponse.json({ ok: true });
   } catch (error) {
     console.error('Blueprint inquiry failed:', error);

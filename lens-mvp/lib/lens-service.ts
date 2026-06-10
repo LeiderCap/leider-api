@@ -1,3 +1,13 @@
+// ============================================================
+// TRANSFORMATION INTELLIGENCE™ — ARCHITECTURE ROADMAP
+// ============================================================
+// TCP™  — Transformation Capacity Score™ (active, Phase 1)
+// GPTP™ — General-Purpose Technology Transformation Principle™
+//           (active in AI prompt, Phase 1)
+// DVI™  — Decision Visibility Infrastructure™ (Phase 2)
+// ICP™  — Intelligence Compounding Principle™ (Phase 3)
+// ICS™  — Intelligence Compounding Score™ (Phase 3)
+// ============================================================
 import seed from '@/data/seed.json';
 import { LensSnapshot } from './types';
 import { getSupabaseClient } from './supabase';

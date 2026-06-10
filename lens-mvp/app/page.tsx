@@ -12,22 +12,22 @@ export default function HomePage() {
       <section className="relative overflow-hidden bg-slate-900 px-6 py-28 text-center text-white">
         <div className="mx-auto max-w-4xl">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-400">
-            Transformation Intelligence™
+            The Measurement System for Transformation Capacity™
           </p>
           <h1 className="mt-5 text-5xl font-bold leading-tight tracking-tight sm:text-7xl">
-            The future is not limited by intelligence.
+            Most organizations deploy AI.
             <br />
-            <span className="text-slate-400">It is limited by our ability to transform.</span>
+            <span className="text-slate-400">Few organizations transform because of AI.</span>
           </h1>
           <p className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-slate-300">
-            Artificial intelligence is making intelligence abundant.
-            Transformation remains scarce.
-            The Lens™ helps people, organizations, investors, and governments
-            convert intelligence into realized outcomes.
+            General-purpose technologies create possibility.
+            Transformation creates value.
+            Discover where trust, governance, absorbability, courage, and execution
+            are limiting outcomes.
           </p>
           <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-            <Link href="/search" className="btn btn-primary px-6 py-3 text-base">Run The Lens™</Link>
-            <a href="#the-problem" className="btn btn-ghost px-6 py-3 text-base text-slate-300 hover:text-white hover:bg-white/10">Explore the framework</a>
+            <Link href="/search" className="btn btn-primary px-6 py-3 text-base">Run Lens Analysis™</Link>
+            <a href="#the-problem" className="btn btn-ghost px-6 py-3 text-base text-slate-300 hover:text-white hover:bg-white/10">Explore Transformation Capacity™</a>
           </div>
         </div>
         {/* subtle grid decoration */}

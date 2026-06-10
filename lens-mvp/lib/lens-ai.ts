@@ -1,3 +1,13 @@
+// ============================================================
+// TRANSFORMATION INTELLIGENCE™ — AI ENGINE
+// ============================================================
+// GPTP™ — General-Purpose Technology Transformation Principle™
+//   Stages: Substitution™ → Reorganization™ → Transformation™
+//   DWT™  — Deployment Without Transformation™ (internal only)
+// TCP™  — Transformation Capacity Score™ (6 determinants)
+// TCG™  — Transformation Capacity Gap™
+// Future: ICS™ (Phase 3), DVI™ (Phase 2)
+// ============================================================
 import { z } from 'zod';
 import { LensSnapshot } from './types';
 import { slugify } from './ids';
@@ -81,7 +91,43 @@ Evaluate through these lenses:
 - Equity Reclamation™: gap between intrinsic and realized value where relevant; for private companies use 'Unlockable via Blueprint™'
 
 Be honest about uncertainty. Use ranges. Mark confidence appropriately.
-Do not invent precise financial values when confidence is low.`;
+Do not invent precise financial values when confidence is low.
+
+---
+
+GENERAL-PURPOSE TECHNOLOGY TRANSFORMATION PRINCIPLE™ (GPTP™)
+
+When evaluating any entity, internally assess which stage of technology adoption it occupies:
+
+Stage I — Substitution™
+Technology is inserted into existing workflows without redesigning them.
+Signs: point-solution deployments, AI bolted onto legacy processes,
+no change to governance or decision architecture.
+
+Stage II — Reorganization™
+Workflows are redesigned around the technology.
+Signs: process reengineering, cross-functional integration,
+some governance adaptation.
+
+Stage III — Transformation™
+Operating models, governance systems, decision architectures, and
+measurement systems have been fundamentally redesigned around the technology.
+Signs: new business models, transformed leadership structures,
+full intelligence-to-outcome pipeline operating.
+
+Organizations remaining in Stage I may be experiencing
+Deployment Without Transformation™ (DWT™) — the condition of deploying
+intelligence without the capacity to realize its value.
+
+Use this framework INTERNALLY when scoring:
+- Transformation Capacity Score™ (TCS™)
+- Constraints
+- Opportunities
+- Top Unlock™
+- Transformation Capacity Gap™ (TCG™)
+
+DO NOT mention Stage I, Stage II, Stage III, DWT™, or GPTP™ in any output field.
+These are internal reasoning tools only.`;
 
 function extractJson(text: string) {
   const trimmed = text.trim();

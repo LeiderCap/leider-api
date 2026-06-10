@@ -4,11 +4,20 @@ import { getSupabaseClient } from '@/lib/supabase';
 
 export const maxDuration = 30;
 
-async function logSearch(query: string) {
+async function logSearch(query: string, entityId?: string) {
   try {
     const supabase = getSupabaseClient();
     if (!supabase) return;
+    // Legacy searches table
     await supabase.from('searches').insert({ query });
+    // TCP™ — Transformation Capacity Score™ event foundation
+    // GPTP™ — General-Purpose Technology Transformation Principle™ event foundation
+    // Future: ICS™ — Intelligence Compounding Score™ (Phase 3)
+    await supabase.from('transformation_events').insert({
+      event_type: 'search',
+      entity_id: entityId ?? null,
+      event_data: { query, timestamp: new Date().toISOString() }
+    });
   } catch {
     // Non-fatal: don't fail the request if logging fails
   }
@@ -23,10 +32,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Query is required.' }, { status: 400 });
     }
 
-    // Log search (non-blocking)
-    logSearch(query);
-
     const snapshot = await createLensSnapshot(query);
+    // Log search with entity_id (non-blocking)
+    logSearch(query, snapshot.id);
     return NextResponse.json({ snapshot });
   } catch (error) {
     console.error('Lens generation failed:', error);
