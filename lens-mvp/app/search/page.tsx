@@ -1,17 +1,27 @@
 import { LensCard } from '@/components/LensCard';
 import { SearchBox } from '@/components/SearchBox';
-import { createLensSnapshot, getSeedTrending } from '@/lib/lens-service';
+import { getSeedTrending } from '@/lib/lens-service';
 import Link from 'next/link';
 
-export default async function SearchPage({ searchParams }: { searchParams: { q?: string } }) {
-  const query = searchParams.q ?? '';
+export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
+  const { q } = await searchParams;
+  const query = q ?? '';
   let results = getSeedTrending();
   let isLive = false;
   let error = '';
 
   if (query.trim()) {
     try {
-      results = [await createLensSnapshot(query)];
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://leider-api.vercel.app';
+      const response = await fetch(`${baseUrl}/api/lens`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ query }),
+        cache: 'no-store',
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Search failed.');
+      results = data.snapshot ? [data.snapshot] : [];
       isLive = true;
     } catch (err) {
       results = [];
@@ -50,12 +60,8 @@ export default async function SearchPage({ searchParams }: { searchParams: { q?:
 
       {error && (
         <div className="card mt-8 p-8">
-          <h2 className="text-lg font-semibold text-slate-900">Lens configuration needed</h2>
+          <h2 className="text-lg font-semibold text-slate-900">Lens generation failed</h2>
           <p className="mt-2 text-sm text-slate-600">{error}</p>
-          <p className="mt-4 text-sm text-slate-500">
-            Add <code className="rounded bg-slate-100 px-1.5 py-0.5 text-xs">ANTHROPIC_API_KEY</code> or{' '}
-            <code className="rounded bg-slate-100 px-1.5 py-0.5 text-xs">OPENAI_API_KEY</code> to <code className="rounded bg-slate-100 px-1.5 py-0.5 text-xs">.env.local</code> to enable live Lens generation.
-          </p>
         </div>
       )}
 
@@ -68,7 +74,7 @@ export default async function SearchPage({ searchParams }: { searchParams: { q?:
       {results.length === 0 && !error && (
         <div className="card mt-8 p-8 text-center">
           <h2 className="text-xl font-semibold">No Lens Card found.</h2>
-          <p className="mt-2 text-slate-600">Try a different search term or configure an AI provider.</p>
+          <p className="mt-2 text-slate-600">Try a different search term.</p>
         </div>
       )}
     </main>
