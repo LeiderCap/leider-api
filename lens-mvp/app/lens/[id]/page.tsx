@@ -28,8 +28,9 @@ const gapDescription: Record<CapacityGap, string> = {
   Critical:    'The organization is severely unable to convert intelligence into outcomes. Fundamental transformation capacity building is required.',
 };
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  const item = await getLensByIdOrCache(params.id);
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const item = await getLensByIdOrCache(id);
   if (!item) return { title: 'Not Found' };
   return {
     title: `${item.name} — Lens Snapshot™`,
@@ -42,8 +43,9 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   };
 }
 
-export default async function LensDetailPage({ params }: { params: { id: string } }) {
-  const item = await getLensByIdOrCache(params.id);
+export default async function LensDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const item = await getLensByIdOrCache(id);
   if (!item) notFound();
 
   const rc = ratingClass[item.tcs_score] ?? 'rating-emerging';

@@ -73,7 +73,12 @@ export async function getCachedLens(query: string): Promise<LensSnapshot | null>
     .eq('id', slug)
     .maybeSingle();
 
-  if (byId.data && byId.data.lens_scores) return mapDbToSnapshot(byId.data);
+  if (byId.data) {
+    const hasScore = Array.isArray(byId.data.lens_scores)
+      ? byId.data.lens_scores.length > 0
+      : !!byId.data.lens_scores;
+    if (hasScore) return mapDbToSnapshot(byId.data);
+  }
 
   const byName = await supabase
     .from('companies')
@@ -82,7 +87,12 @@ export async function getCachedLens(query: string): Promise<LensSnapshot | null>
     .limit(1)
     .maybeSingle();
 
-  if (byName.data && byName.data.lens_scores) return mapDbToSnapshot(byName.data);
+  if (byName.data) {
+    const hasScore = Array.isArray(byName.data.lens_scores)
+      ? byName.data.lens_scores.length > 0
+      : !!byName.data.lens_scores;
+    if (hasScore) return mapDbToSnapshot(byName.data);
+  }
 
   const byTicker = await supabase
     .from('companies')
@@ -91,7 +101,12 @@ export async function getCachedLens(query: string): Promise<LensSnapshot | null>
     .limit(1)
     .maybeSingle();
 
-  if (byTicker.data && byTicker.data.lens_scores) return mapDbToSnapshot(byTicker.data);
+  if (byTicker.data) {
+    const hasScore = Array.isArray(byTicker.data.lens_scores)
+      ? byTicker.data.lens_scores.length > 0
+      : !!byTicker.data.lens_scores;
+    if (hasScore) return mapDbToSnapshot(byTicker.data);
+  }
   return null;
 }
 
@@ -155,6 +170,11 @@ export async function getLensByIdOrCache(id: string): Promise<LensSnapshot | nul
     .eq('id', id)
     .maybeSingle();
 
-  if (!data || !data.lens_scores) return null;
+  if (!data) return null;
+  // Supabase returns lens_scores as an array; treat empty array as missing
+  const hasScore = Array.isArray(data.lens_scores)
+    ? data.lens_scores.length > 0
+    : !!data.lens_scores;
+  if (!hasScore) return null;
   return mapDbToSnapshot(data);
 }
