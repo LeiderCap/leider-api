@@ -68,8 +68,8 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
   const topUnlock: string = item.top_unlock ?? '';
   const constraints: string[] = Array.isArray(item.constraints) ? item.constraints : [];
   const opportunities: string[] = Array.isArray(item.opportunities) ? item.opportunities : [];
-  const equityDisplay = (val: string) =>
-    val === 'N/A' ? 'Private — additional details needed' : val;
+  const isUnlockable = (val: string) =>
+    !val || val === 'N/A' || val === 'Private — additional details needed';
 
   const determinants: { label: string; key: keyof LensSnapshot }[] = [
     { label: 'Intelligence™',   key: 'intelligence_score' },
@@ -144,7 +144,14 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
         <h2 className="text-xl font-bold">Supporting Scores</h2>
         <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
           <Metric label="Transformation Yield™" value={item.yield_score} />
-          <Metric label="Equity Reclamation™"   value={equityDisplay(item.equity_reclamation)} />
+          {isUnlockable(item.equity_reclamation) ? (
+            <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4">
+              <p className="text-xs font-medium text-slate-400">Equity Reclamation™</p>
+              <p className="mt-2 text-sm font-semibold text-indigo-700">Unlockable via Blueprint™</p>
+            </div>
+          ) : (
+            <Metric label="Equity Reclamation™" value={item.equity_reclamation} />
+          )}
           <Metric label="Opportunity Value"      value={item.opportunity_value} />
           <Metric label="Confidence"             value={item.confidence} />
         </div>

@@ -32,8 +32,8 @@ export function LensCard({ item }: { item: LensSnapshot }) {
     });
   }
 
-  const equityDisplay = (val: string) =>
-    val === 'N/A' ? 'Private — additional details needed' : val;
+  const isUnlockable = (val: string) =>
+    !val || val === 'N/A' || val === 'Private — additional details needed';
 
   const determinants: { label: string; key: keyof LensSnapshot }[] = [
     { label: 'Intelligence™', key: 'intelligence_score' },
@@ -106,7 +106,13 @@ export function LensCard({ item }: { item: LensSnapshot }) {
         </div>
         <div className="mt-2 border-t border-slate-200 pt-2">
           <p className="text-xs text-slate-400">Equity Reclamation™</p>
-          <p className="mt-0.5 text-xs font-semibold">{equityDisplay(item.equity_reclamation)}</p>
+          {isUnlockable(item.equity_reclamation) ? (
+            <p className="mt-0.5 text-xs font-semibold text-indigo-600">
+              Unlockable via Blueprint™
+            </p>
+          ) : (
+            <p className="mt-0.5 text-xs font-semibold">{item.equity_reclamation}</p>
+          )}
         </div>
       </div>
 
