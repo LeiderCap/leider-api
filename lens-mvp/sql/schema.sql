@@ -1,3 +1,20 @@
+-- ============================================
+-- TRANSFORMATION INTELLIGENCE™ DATA SCHEMA
+-- ============================================
+-- Phase 1 (MVP): companies, lens_scores,
+--   saved_cards, watchlists, searches,
+--   enterprise_inquiries
+-- Phase 2: decision_records, dvi_scores
+-- Phase 3: transformation_memory,
+--   intelligence_compounding_scores
+-- Graph Layer: transformation_graph (Phase 3+)
+-- ============================================
+-- transformation_events is created in Phase 1
+-- but activated in Phase 3.
+-- Events are the atomic unit of intelligence
+-- compounding. Preserve them from day one.
+-- ============================================
+
 -- Lens MVP schema v1.0
 create table if not exists users (
   id uuid primary key default gen_random_uuid(),
@@ -77,3 +94,28 @@ create table if not exists enterprise_inquiries (
   status text default 'new',
   created_at timestamptz default now()
 );
+
+-- ============================================
+-- TRANSFORMATION EVENTS (Phase 1 foundation,
+-- activated in Phase 3)
+-- ============================================
+CREATE TABLE IF NOT EXISTS transformation_events (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  event_type TEXT NOT NULL,
+  user_id TEXT,
+  entity_id TEXT,
+  event_data JSONB DEFAULT '{}',
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_transformation_events_user_id
+  ON transformation_events(user_id);
+
+CREATE INDEX IF NOT EXISTS idx_transformation_events_entity_id
+  ON transformation_events(entity_id);
+
+CREATE INDEX IF NOT EXISTS idx_transformation_events_event_type
+  ON transformation_events(event_type);
+
+CREATE INDEX IF NOT EXISTS idx_transformation_events_created_at
+  ON transformation_events(created_at);
