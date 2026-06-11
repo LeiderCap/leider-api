@@ -3,6 +3,7 @@ import { LensCard } from '@/components/LensCard';
 import { SearchBox } from '@/components/SearchBox';
 import { getSeedTrending } from '@/lib/lens-service';
 import { TransformationDial } from '@/components/TransformationDial';
+import { TransformationChain } from '@/components/TransformationChain';
 
 export default function HomePage() {
   const trending = getSeedTrending();
@@ -260,28 +261,7 @@ export default function HomePage() {
                 <Link href="/search" className="btn btn-primary px-6 py-3">Turn the Dial™ →</Link>
               </div>
             </div>
-            <div className="flex flex-col items-center gap-1">
-              {[
-                'Intelligence',
-                'Absorbability',
-                'Trust',
-                'Governance',
-                'Courage',
-                'Execution',
-                'Transformation',
-                'Value Realization',
-                'Flourishing',
-              ].map((step, i, arr) => (
-                <div key={step} className="flex flex-col items-center">
-                  <div className="rounded-xl border border-slate-700 bg-slate-800 px-6 py-3 text-sm font-semibold text-white min-w-[200px] text-center">
-                    {step}
-                  </div>
-                  {i < arr.length - 1 && (
-                    <div className="h-5 w-px bg-slate-700" />
-                  )}
-                </div>
-              ))}
-            </div>
+            <TransformationChain />
           </div>
         </div>
       </section>
