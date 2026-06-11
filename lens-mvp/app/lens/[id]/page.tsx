@@ -9,6 +9,7 @@ import type { Metadata } from 'next';
 import ShareButton from './ShareButton';
 import { ScorecardExplainer } from './ScorecardExplainer';
 import { DeterminantsSection } from './DeterminantsSection';
+import { TcsHero } from './TcsHero';
 
 const ratingClass: Record<string, string> = {
   Leading:      'rating-leading',
@@ -114,38 +115,15 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
         <ScorecardExplainer />
       </div>
 
-      {/* Hero */}
-      <div className="mt-6 flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Lens Snapshot™</p>
-          <h1 className="mt-2 text-4xl font-bold">{item.name}</h1>
-          {item.ticker ? (
-            <p className="mt-1 text-sm text-slate-500">{item.ticker} · {item.industry}</p>
-          ) : (
-            <p className="mt-1 text-sm text-slate-500">{item.industry}</p>
-          )}
-          <p className="mt-3 text-slate-600">{item.description}</p>
-        </div>
-        {/* TCS™ headline */}
-        <div className="flex flex-col items-end gap-2">
-          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Transformation Capacity Score™</p>
-          <span className={`rounded-2xl border-2 px-6 py-2 text-2xl font-bold ${rc}`}>
-            {item.tcs_score}
-          </span>
-          {/* Rating Legend */}
-          <div className="flex items-center gap-1 flex-wrap justify-end">
-            {TIERS.map((tier, i) => (
-              <span key={tier} className="flex items-center gap-1">
-                <span className={`inline-block h-2 w-2 rounded-full ${tierDotColor[tier]}`} />
-                <span className="text-xs text-slate-400">{tier}</span>
-                {i < TIERS.length - 1 && (
-                  <span className="text-xs text-slate-300 mx-0.5">→</span>
-                )}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
+      {/* Hero — TcsHero is a client component for the ⓘ modal + scale indicator */}
+      <TcsHero
+        name={item.name}
+        ticker={item.ticker}
+        industry={item.industry}
+        description={item.description}
+        tcsScore={item.tcs_score}
+      />
+
 
       {/* Six Determinants — client component with info modals + progress bars */}
       <DeterminantsSection determinants={determinantData} />
