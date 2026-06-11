@@ -285,7 +285,7 @@ export function LensCard({ item }: { item: LensSnapshot }) {
         {/* Header */}
         <div className="flex items-start justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Lens Card™</p>
+            <Link href="/lens-card" className="text-xs font-semibold uppercase tracking-widest text-slate-400 hover:text-teal-600 transition-colors">Lens Card™</Link>
             <h3 className="mt-1 text-2xl font-bold">{item.name}</h3>
             {item.ticker ? (
               <p className="text-xs text-slate-500">{item.ticker} · {item.industry}</p>

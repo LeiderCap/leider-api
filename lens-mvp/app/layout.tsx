@@ -36,16 +36,33 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </header>
         {children}
-        <footer className="border-t border-slate-200 bg-white px-6 py-10">
+        <footer className="border-t border-slate-200 bg-white px-6 py-12">
           <div className="mx-auto max-w-6xl">
-            <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
+            <div className="grid gap-10 sm:grid-cols-3">
+              {/* Brand */}
               <div>
-                <p className="font-bold">The Lens™</p>
-                <p className="mt-1 text-sm text-slate-500">See reality. Find opportunity. Know what to do next.</p>
+                <p className="font-bold text-slate-900">The Lens™</p>
+                <p className="mt-2 text-sm leading-6 text-slate-500">See reality. Find opportunity. Know what to do next.</p>
+                <p className="mt-3 text-xs text-slate-400">Transformation Intelligence™ · Equity Reclamation™ · AIROI™</p>
               </div>
-              <p className="text-sm text-slate-400">
-                Transformation Intelligence™ · Equity Reclamation™ · AIROI™
-              </p>
+              {/* Learn */}
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Learn</p>
+                <ul className="mt-4 space-y-2">
+                  <li><Link href="/lens-card" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">What is a Lens Card™?</Link></li>
+                  <li><Link href="/methodology" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">Methodology</Link></li>
+                </ul>
+              </div>
+              {/* Solutions */}
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Solutions</p>
+                <ul className="mt-4 space-y-2">
+                  <li><Link href="/enterprises" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">For Enterprises</Link></li>
+                  <li><Link href="/investors" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">For Investors</Link></li>
+                  <li><Link href="/governments" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">For Governments</Link></li>
+                  <li><Link href="/individuals" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">For Individuals</Link></li>
+                </ul>
+              </div>
             </div>
           </div>
         </footer>

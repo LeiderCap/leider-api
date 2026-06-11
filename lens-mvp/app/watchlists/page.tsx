@@ -15,7 +15,7 @@ export default async function WatchlistsPage() {
       </div>
       <div className="card mt-8 p-8 text-center">
         <h2 className="text-xl font-semibold">Sign in to manage watchlists.</h2>
-        <p className="mt-2 text-slate-600">Authentication is coming soon. In the meantime, search for any company to generate a Lens Card™.</p>
+        <p className="mt-2 text-slate-600">Authentication is coming soon. In the meantime, search for any company to generate a <Link href="/lens-card" className="text-teal-600 hover:underline">Lens Card™</Link>.</p>
         <Link href="/search" className="btn btn-primary mt-4 inline-flex">Run The Lens™</Link>
       </div>
     </main>
