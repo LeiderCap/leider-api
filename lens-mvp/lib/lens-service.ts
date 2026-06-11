@@ -94,6 +94,7 @@ function mapDbToSnapshot(row: any): LensSnapshot {
     secondary_constraint: score?.secondary_constraint ?? undefined,
     system_constraint: score?.system_constraint ?? null,
     gptp_stage: score?.gptp_stage ?? undefined,
+    transformation_momentum: score?.transformation_momentum ?? 'Unknown',
 
     updated_at: score?.updated_at ?? row.created_at
   };
@@ -214,6 +215,7 @@ export async function saveLensSnapshot(snapshot: LensSnapshot) {
     secondary_constraint: snapshot.secondary_constraint ?? null,
     system_constraint: snapshot.system_constraint ?? null,
     gptp_stage: snapshot.gptp_stage ?? null,
+    transformation_momentum: snapshot.transformation_momentum ?? 'Unknown',
 
     updated_at: new Date().toISOString()
   });

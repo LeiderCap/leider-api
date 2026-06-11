@@ -57,7 +57,8 @@ const LensAiSchema = z.object({
   primary_constraint: z.string().min(1),
   secondary_constraint: z.string().min(1),
   system_constraint: z.string().nullable().optional(),
-  gptp_stage: z.enum(['Substitution', 'Reorganization', 'Transformation'])
+  gptp_stage: z.enum(['Substitution', 'Reorganization', 'Transformation']),
+  transformation_momentum: z.enum(['Accelerating', 'Stable', 'Decelerating', 'Unknown']).default('Unknown')
 });
 
 export const LENS_SYSTEM_PROMPT = `You are The Lens™, the measurement system for Transformation Capacity™.
@@ -116,7 +117,8 @@ Use this exact JSON shape:
   "primary_constraint": "name of the lowest-scoring domain",
   "secondary_constraint": "name of the second-lowest-scoring domain",
   "system_constraint": "interaction effect description if applicable, or null",
-  "gptp_stage": "Substitution | Reorganization | Transformation"
+  "gptp_stage": "Substitution | Reorganization | Transformation",
+  "transformation_momentum": "Accelerating | Stable | Decelerating | Unknown"
 }
 
 Evaluate through these lenses:
@@ -135,6 +137,16 @@ Evaluate through these lenses:
 
 Be honest about uncertainty. Use ranges. Mark confidence appropriately.
 Do not invent precise financial values when confidence is low.
+
+TRANSFORMATION MOMENTUM™:
+Based on available public signals — recent announcements, leadership changes, strategic initiatives,
+market position changes, AI adoption signals — assess whether this organization's transformation
+capacity appears to be:
+  Accelerating — visible signals of improving capacity (recent AI investments, leadership changes toward transformation, new strategic initiatives)
+  Stable — no clear directional signal
+  Decelerating — signals of declining capacity (leadership departures, strategic retreats, missed transformations)
+  Unknown — insufficient public data to assess direction
+Use 'Unknown' when there is genuinely insufficient public signal.
 
 ---
 
@@ -407,6 +419,7 @@ export async function generateLensSnapshot(query: string): Promise<LensSnapshot>
     secondary_constraint: parsed.secondary_constraint,
     system_constraint: parsed.system_constraint ?? null,
     gptp_stage: parsed.gptp_stage,
+    transformation_momentum: parsed.transformation_momentum ?? 'Unknown',
 
     updated_at: new Date().toISOString()
   };

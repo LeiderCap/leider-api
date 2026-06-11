@@ -58,7 +58,15 @@ const tierPosition: Record<string, number> = {
 
 // ── Modal content definitions ─────────────────────────────────
 
-type ModalKey = 'tcs' | 'scale' | 'tcg' | 'determinant';
+// Momentum badge config
+const MOMENTUM_CONFIG: Record<string, { arrow: string; badgeClass: string }> = {
+  Accelerating: { arrow: '↑', badgeClass: 'border-emerald-200 bg-emerald-50 text-emerald-700' },
+  Stable:       { arrow: '→', badgeClass: 'border-slate-200 bg-slate-50 text-slate-600' },
+  Decelerating: { arrow: '↓', badgeClass: 'border-amber-200 bg-amber-50 text-amber-700' },
+  Unknown:      { arrow: '?',  badgeClass: 'border-slate-200 bg-slate-50 text-slate-400' },
+};
+
+type ModalKey = 'tcs' | 'scale' | 'tcg' | 'determinant' | 'momentum';
 
 interface ModalState {
   type: ModalKey;
@@ -251,6 +259,37 @@ function InfoModal({ modal, onClose }: { modal: ModalState; onClose: () => void 
             <p className="text-sm text-slate-600 leading-6">{DETERMINANT_TOOLTIPS[modal.key] ?? ''}</p>
           </>
         )}
+
+        {modal.type === 'momentum' && (
+          <>
+            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-1">Signal</p>
+            <h3 className="text-base font-bold text-slate-900 mb-3">Transformation Momentum™</h3>
+            <p className="text-sm text-slate-600 leading-6 mb-4">
+              Transformation Momentum™ measures the direction of change in transformation capacity — whether
+              this organization appears to be building or losing transformation capability over time.
+              Accelerating organizations are improving faster than their current TCS™ suggests.
+            </p>
+            <div className="space-y-3">
+              {[
+                { label: 'Accelerating', arrow: '↑', color: 'text-emerald-700', text: 'Visible signals of improving transformation capacity.' },
+                { label: 'Stable', arrow: '→', color: 'text-slate-600', text: 'No clear directional signal detected.' },
+                { label: 'Decelerating', arrow: '↓', color: 'text-amber-700', text: 'Signals of declining transformation capacity.' },
+                { label: 'Unknown', arrow: '?', color: 'text-slate-400', text: 'Insufficient public data to assess direction.' },
+              ].map(({ label, arrow, color, text }) => (
+                <div key={label} className="flex items-start gap-3">
+                  <span className={`mt-0.5 shrink-0 text-base font-bold ${color}`}>{arrow}</span>
+                  <div>
+                    <p className="text-sm font-bold text-slate-800">{label}</p>
+                    <p className="text-xs text-slate-500 leading-5">{text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="mt-4 text-xs text-slate-400 leading-5">
+              Momentum is assessed from public signals only. It is directional, not predictive.
+            </p>
+          </>
+        )}
       </div>
     </div>
   );
@@ -381,6 +420,28 @@ export function LensCard({ item }: { item: LensSnapshot }) {
         <Link href="/methodology" className="mt-0.5 text-xs text-slate-400 hover:text-slate-600 underline underline-offset-2">
           Rated by Lens Ratings Methodology™ v1.1 →
         </Link>
+
+        {/* Transformation Momentum™ badge */}
+        {(() => {
+          const momentum = item.transformation_momentum ?? 'Unknown';
+          const cfg = MOMENTUM_CONFIG[momentum] ?? MOMENTUM_CONFIG.Unknown;
+          return (
+            <div className="mt-3 flex items-center gap-2">
+              <p className="text-xs text-slate-400">Momentum™:</p>
+              <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-semibold ${cfg.badgeClass}`}>
+                <span>{cfg.arrow}</span>
+                <span>{momentum}</span>
+              </span>
+              <button
+                onClick={() => setActiveModal({ type: 'momentum', key: 'momentum' })}
+                className="text-slate-400 hover:text-slate-600 active:text-slate-600 text-xs leading-none"
+                aria-label="What is Transformation Momentum™?"
+              >
+                ⓘ
+              </button>
+            </div>
+          );
+        })()}
 
         {/* Six determinants — 2-column grid, full labels, no truncation */}
         <div className="mt-4 grid grid-cols-2 gap-2">

@@ -165,6 +165,24 @@ CREATE INDEX IF NOT EXISTS idx_transformation_events_created_at
 -- ============================================
 
 -- ============================================
+-- v1.3 Migration — Transformation Momentum™
+-- Run in Supabase SQL Editor:
+-- ============================================
+-- ALTER TABLE lens_scores
+--   ADD COLUMN IF NOT EXISTS transformation_momentum text;
+-- ============================================
+
+-- ============================================
+-- WAITLIST TABLE — Stack the Deck™ Phase 2
+-- ============================================
+CREATE TABLE IF NOT EXISTS waitlist (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  email text NOT NULL,
+  feature text DEFAULT 'stack-the-deck',
+  created_at timestamptz DEFAULT now()
+);
+
+-- ============================================
 -- Clear cache to regenerate with new analysis fields:
 -- delete from lens_scores;
 -- delete from companies;

@@ -1,6 +1,7 @@
 export type RatingTier = 'Emerging' | 'Developing' | 'Advanced' | 'Transforming' | 'Leading';
 export type ConfidenceLevel = 'Low' | 'Moderate' | 'High';
 export type CapacityGap = 'Minimal' | 'Moderate' | 'Significant' | 'Critical';
+export type TransformationMomentum = 'Accelerating' | 'Stable' | 'Decelerating' | 'Unknown';
 
 export type Company = {
   id: string;
@@ -66,6 +67,7 @@ export interface LensSnapshot {
   secondary_constraint?: string;
   system_constraint?: string | null;
   gptp_stage?: 'Substitution' | 'Reorganization' | 'Transformation';
+  transformation_momentum?: TransformationMomentum;
 
   updated_at: string;
 }

@@ -1,9 +1,75 @@
+'use client';
+// STACK THE DECK™ PHASE ROADMAP
+// Phase I:  Lens Discovery™ — What is possible?
+// Phase II: Compare™ — What is better?
+// Phase III: Stack the Deck™ — How do I improve odds?
+// Phase IV: Transformation Intelligence™ — What next?
+// Phase V:  Decision Visibility Infrastructure™ — Why?
+// Phase VI: Transformation Memory™ — What did we learn?
 import Link from 'next/link';
+import { useState } from 'react';
 import { LensCard } from '@/components/LensCard';
 import { SearchBox } from '@/components/SearchBox';
 import { getSeedTrending } from '@/lib/lens-service';
 import { TransformationDial } from '@/components/TransformationDial';
 import { TransformationChain } from '@/components/TransformationChain';
+
+function StackWaitlistForm() {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email.trim()) return;
+    setStatus('loading');
+    try {
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim(), feature: 'stack-the-deck' }),
+      });
+      if (res.ok) {
+        setStatus('success');
+        setEmail('');
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
+  }
+
+  if (status === 'success') {
+    return (
+      <p className="mt-4 text-sm font-semibold text-teal-700">
+        ✓ You&apos;re on the list. We&apos;ll reach out when Stack the Deck™ launches.
+      </p>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="mt-4 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+      <input
+        type="email"
+        required
+        placeholder="your@email.com"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="w-full rounded-lg border border-teal-300 bg-white px-4 py-2 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-400 sm:w-72"
+      />
+      <button
+        type="submit"
+        disabled={status === 'loading'}
+        className="btn btn-primary shrink-0 text-sm disabled:opacity-60"
+      >
+        {status === 'loading' ? 'Joining...' : 'Join Waitlist'}
+      </button>
+      {status === 'error' && (
+        <p className="text-xs text-red-600">Something went wrong. Please try again.</p>
+      )}
+    </form>
+  );
+}
 
 export default function HomePage() {
   const trending = getSeedTrending();
@@ -388,6 +454,71 @@ export default function HomePage() {
       </section>
 
       {/* ── Enterprise CTA ───────────────────────────────────── */}
+
+      {/* ── Stack the Deck™ ─────────────────────────────────────── */}
+      <section id="stack-the-deck" className="section border-t border-slate-100 bg-white">
+        <div className="mx-auto max-w-4xl">
+          <div className="text-center">
+            <div className="inline-flex items-center gap-2 rounded-full border border-teal-200 bg-teal-50 px-3 py-1 mb-4">
+              <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
+              <span className="text-xs font-semibold text-teal-700">Coming in Phase 2</span>
+            </div>
+            <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl">Stack the Deck™</h2>
+            <p className="mx-auto mt-5 max-w-2xl text-lg text-slate-600 leading-8">
+              Successful transformation rarely results from a single action. It emerges from the deliberate
+              alignment of reinforcing conditions — the right trust, the right governance, the right courage,
+              at the right moment.
+            </p>
+            <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-600 leading-8">
+              Stack the Deck™ helps you identify, compare, and assemble the combinations of transformation
+              factors that increase the probability of your desired outcomes.
+            </p>
+            <p className="mt-4 text-base font-semibold text-slate-800 italic">
+              Not prediction. Probability improvement.
+            </p>
+          </div>
+
+          {/* Four coming-soon feature cards */}
+          <div className="mt-10 grid gap-4 sm:grid-cols-2">
+            {[
+              {
+                title: 'Investor Stack™',
+                body: 'Build a portfolio of organizations selected for transformation capacity, momentum, and unlock potential.',
+              },
+              {
+                title: 'Enterprise Stack™',
+                body: 'Design your transformation initiative portfolio for maximum reinforcement and minimum constraint.',
+              },
+              {
+                title: 'Workforce Stack™',
+                body: 'Combine skills, capabilities, and incentives to maximize transformation adaptability.',
+              },
+              {
+                title: 'Compare™',
+                body: 'Compare transformation capacity across companies, industries, or time periods side by side.',
+              },
+            ].map(({ title, body }) => (
+              <div key={title} className="relative rounded-xl border border-slate-200 bg-slate-50 p-5 opacity-70">
+                <div className="absolute right-3 top-3">
+                  <span className="rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-[10px] font-semibold text-amber-700">
+                    Coming Phase 2
+                  </span>
+                </div>
+                <p className="text-sm font-bold text-slate-800">{title}</p>
+                <p className="mt-2 text-sm text-slate-500 leading-6">{body}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Waitlist capture form */}
+          <div className="mt-10 rounded-2xl border border-teal-200 bg-teal-50 p-6 text-center">
+            <p className="text-sm font-semibold text-teal-800">Join the waitlist for Stack the Deck™</p>
+            <p className="mt-1 text-xs text-teal-600">Be the first to access Phase 2 features.</p>
+            <StackWaitlistForm />
+          </div>
+        </div>
+      </section>
+
       <section id="enterprise" className="section bg-slate-900 text-white text-center">
         <div className="mx-auto max-w-3xl">
           <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Enterprise</p>
