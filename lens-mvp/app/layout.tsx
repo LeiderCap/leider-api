@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'The Lens™ — Transformation Intelligence',
-  description: 'Discover hidden opportunities, trapped value, and transformation potential for any company, industry, or idea.',
+  description: 'Intelligence is no longer the bottleneck. Knowing what to do with it is. The Lens™ helps organizations find their unlock and know what to do next.',
   openGraph: {
     title: 'The Lens™ — Transformation Intelligence',
     description: 'The future is not limited by intelligence. It is limited by our ability to transform.',
@@ -41,7 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
               <div>
                 <p className="font-bold">The Lens™</p>
-                <p className="mt-1 text-sm text-slate-500">Measurement system for Transformation Capacity™</p>
+                <p className="mt-1 text-sm text-slate-500">See reality. Find opportunity. Know what to do next.</p>
               </div>
               <p className="text-sm text-slate-400">
                 Transformation Intelligence™ · Equity Reclamation™ · AIROI™

@@ -12,22 +12,20 @@ export default function HomePage() {
       <section className="relative overflow-hidden bg-slate-900 px-6 py-28 text-center text-white">
         <div className="mx-auto max-w-4xl">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-400">
-            The Measurement System for Transformation Capacity™
+            Transformation Intelligence™
           </p>
           <h1 className="mt-5 text-5xl font-bold leading-tight tracking-tight sm:text-7xl">
-            Most organizations deploy AI.
+            Intelligence is no longer the bottleneck.
             <br />
-            <span className="text-slate-400">Few organizations transform because of AI.</span>
+            <span className="text-slate-400">Knowing what to do with it is.</span>
           </h1>
           <p className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-slate-300">
-            General-purpose technologies create possibility.
-            Transformation creates value.
-            Discover where trust, governance, absorbability, courage, and execution
-            are limiting outcomes.
+            Organizations are drowning in intelligence but struggling to convert it into outcomes.
+            The Lens™ identifies what you can unlock — and what to do next.
           </p>
           <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-            <Link href="/search" className="btn btn-primary px-6 py-3 text-base">Run Lens Analysis™</Link>
-            <a href="#the-problem" className="btn btn-ghost px-6 py-3 text-base text-slate-300 hover:text-white hover:bg-white/10">Explore Transformation Capacity™</a>
+            <Link href="/search" className="btn btn-primary px-6 py-3 text-base">Find Your Unlock™</Link>
+            <a href="#how-it-works" className="btn btn-ghost px-6 py-3 text-base text-slate-300 hover:text-white hover:bg-white/10">See How It Works</a>
           </div>
         </div>
         {/* subtle grid decoration */}
@@ -61,7 +59,7 @@ export default function HomePage() {
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">The Problem</p>
             <h2 className="mt-4 text-4xl font-bold leading-tight sm:text-5xl">
-              The world is drowning in intelligence and starving for transformation.
+              Too much intelligence. Not enough outcomes.
             </h2>
             <p className="mt-6 text-lg leading-8 text-slate-600">
               AI solved the intelligence problem. It exposed the transformation problem.
@@ -70,16 +68,74 @@ export default function HomePage() {
 
           <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { label: 'Old world', heading: 'Scarcity of Intelligence', body: 'Success required access to rare expertise, proprietary data, or expensive analysis.' },
-              { label: 'New world', heading: 'Intelligence is Abundant', body: 'AI has made intelligence abundant, cheap, and accessible to every organization on earth.' },
-              { label: 'The bottleneck', heading: 'Scarcity of Transformation', body: 'The constraint has shifted. Most organizations cannot absorb, govern, or act on the intelligence they now possess.' },
-            ].map(({ label, heading, body }) => (
+              {
+                icon: '🔒',
+                label: 'The Old World',
+                heading: 'Intelligence Was Scarce',
+                body: 'Success required access to rare expertise, proprietary data, and expensive analysis.',
+              },
+              {
+                icon: '⚡',
+                label: 'The Shift',
+                heading: 'Now Intelligence Is Abundant',
+                body: 'AI has made intelligence cheap, fast, and accessible to every organization on earth.',
+              },
+              {
+                icon: '🎯',
+                label: 'The New Problem',
+                heading: 'But Outcomes Remain Scarce',
+                body: 'The bottleneck shifted. Most organizations cannot convert the intelligence they have into decisions, action, and results.',
+              },
+            ].map(({ icon, label, heading, body }) => (
               <div key={label} className="card p-6">
-                <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">{label}</p>
+                <div className="text-2xl">{icon}</div>
+                <p className="mt-3 text-xs font-semibold uppercase tracking-widest text-slate-400">{label}</p>
                 <h3 className="mt-2 text-xl font-semibold">{heading}</h3>
                 <p className="mt-3 text-sm leading-7 text-slate-600">{body}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── How It Works ─────────────────────────────────────── */}
+      <section id="how-it-works" className="section bg-slate-50">
+        <div className="section-inner">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">How It Works</p>
+            <h2 className="mt-4 text-4xl font-bold leading-tight">
+              See reality. Find opportunity. Know what to do next.
+            </h2>
+          </div>
+
+          <div className="mt-14 grid gap-6 sm:grid-cols-3">
+            {[
+              {
+                step: '01',
+                heading: 'See Reality',
+                body: 'Search any company, industry, government, or idea. The Lens™ generates an instant Transformation Capacity Snapshot™ showing exactly where intelligence is being converted — and where it isn\'t.',
+              },
+              {
+                step: '02',
+                heading: 'Find Your Unlock™',
+                body: 'Every Lens Card reveals the highest-leverage opportunity — the single unlock that creates the most value. No jargon. No complexity. Just: here\'s what\'s possible.',
+              },
+              {
+                step: '03',
+                heading: 'Know What To Do Next',
+                body: 'The Lens™ identifies constraints, opportunities, and transformation pathways. The question is no longer "what do we know?" It\'s "what do we do next?"',
+              },
+            ].map(({ step, heading, body }) => (
+              <div key={step} className="card p-6">
+                <p className="text-3xl font-bold text-slate-200">{step}</p>
+                <h3 className="mt-3 text-lg font-semibold">{heading}</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-600">{body}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 text-center">
+            <Link href="/search" className="btn btn-primary px-8 py-3 text-base">Run The Lens™ Now</Link>
           </div>
         </div>
       </section>
@@ -91,15 +147,14 @@ export default function HomePage() {
             <div>
               <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">The Framework</p>
               <h2 className="mt-4 text-4xl font-bold leading-tight">
-                Most systems optimize intelligence.<br />
-                <span className="text-slate-400">We optimize the entire chain.</span>
+                Every failure to convert intelligence into outcomes follows the same pattern.
               </h2>
               <p className="mt-6 text-slate-300 leading-8">
-                Every failure to transform follows the same pattern: a break somewhere in the chain between intelligence and flourishing.
+                A break somewhere in the chain between intelligence and value.
                 The Lens™ finds the break.
               </p>
               <div className="mt-8">
-                <Link href="/search" className="btn btn-primary px-6 py-3">Find your break →</Link>
+                <Link href="/search" className="btn btn-primary px-6 py-3">Find Your Unlock™ →</Link>
               </div>
             </div>
             <div className="flex flex-col items-center gap-1">
@@ -140,10 +195,26 @@ export default function HomePage() {
           </div>
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { icon: '🔍', label: 'Hidden Constraints™', body: 'The invisible forces preventing transformation.' },
-              { icon: '🤝', label: 'Trust Deficits™', body: 'Where relationships and governance break the chain.' },
-              { icon: '⚡', label: 'Transformation Yield™', body: 'How efficiently intelligence becomes value.' },
-              { icon: '📈', label: 'Equity Reclamation™', body: 'The gap between intrinsic and realized value.' },
+              {
+                icon: '🔓',
+                label: 'Unlock Opportunities™',
+                body: 'The highest-leverage opportunities hidden inside every organization, industry, and market.',
+              },
+              {
+                icon: '🚧',
+                label: 'Hidden Constraints™',
+                body: 'The invisible forces preventing intelligence from becoming outcomes.',
+              },
+              {
+                icon: '📈',
+                label: 'Trapped Value™',
+                body: 'The gap between what is possible and what is being realized — your Transformation Capacity Gap™.',
+              },
+              {
+                icon: '🧭',
+                label: 'What To Do Next™',
+                body: 'Concrete transformation pathways ranked by expected value and feasibility.',
+              },
             ].map(({ icon, label, body }) => (
               <div key={label} className="card p-5">
                 <div className="text-2xl">{icon}</div>
@@ -205,17 +276,19 @@ export default function HomePage() {
       </section>
 
       {/* ── Enterprise CTA ───────────────────────────────────── */}
-      <section className="section bg-slate-900 text-white text-center">
+      <section id="enterprise" className="section bg-slate-900 text-white text-center">
         <div className="mx-auto max-w-3xl">
           <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Enterprise</p>
           <h2 className="mt-4 text-4xl font-bold">
-            Ready to unlock your transformation potential?
+            What could your organization unlock?
           </h2>
           <p className="mt-6 text-lg text-slate-300">
-            Run a Lens Snapshot™ on your organization, then request a Blueprint™ scoping your largest transformation opportunity.
+            Most organizations have more opportunity than they realize. The Lens™ finds it in seconds.
+            A Blueprint™ shows you how to reach it.
           </p>
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <Link href="/search" className="btn btn-primary px-8 py-3 text-base">Run The Lens™</Link>
+            <Link href="/search" className="btn btn-primary px-8 py-3 text-base">Find Your Unlock™</Link>
+            <a href="#enterprise" className="btn btn-ghost px-8 py-3 text-base text-slate-300 hover:text-white hover:bg-white/10">Request Blueprint™</a>
           </div>
           <p className="mt-6 text-sm text-slate-500">
             Founding Transformation Member™ · $12/year during launch
