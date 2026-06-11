@@ -3,11 +3,11 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'The Lens™ — Transformation Intelligence',
-  description: 'Intelligence is no longer the bottleneck. Knowing what to do with it is. The Lens™ helps organizations find their unlock and know what to do next.',
+  title: 'The Lens™ — Turn the Dial. Explore What’s Possible.',
+  description: 'The Lens™ reveals opportunities, risks, constraints, and possibilities that are difficult to see from a single perspective. Transformation Intelligence™ helps you discover what others miss.',
   openGraph: {
-    title: 'The Lens™ — Transformation Intelligence',
-    description: 'The future is not limited by intelligence. It is limited by our ability to transform.',
+    title: 'The Lens™ — Turn the Dial. Explore What’s Possible.',
+    description: 'The Lens™ reveals opportunities, risks, constraints, and possibilities that are difficult to see from a single perspective.',
     type: 'website',
   }
 };
