@@ -347,6 +347,11 @@ export default function HomePage() {
                     <li key={item} className="text-sm text-slate-600">→ {item}</li>
                   ))}
                 </ul>
+                {who === 'Enterprises' && (
+                  <Link href="/enterprises" className="btn btn-primary w-full mt-4 text-center text-sm">
+                    Explore Enterprise Solutions →
+                  </Link>
+                )}
                 {who === 'Governments' && (
                   <Link href="/governments" className="btn btn-primary w-full mt-4 text-center text-sm">
                     Explore Government Solutions →
