@@ -568,11 +568,12 @@ export default function HomePage() {
               { who: 'Enterprises', headline: 'Increase Transformation Yield™', items: ['Understanding™', 'Blueprint™', 'Guided Transformation™', 'Transformation Partner™'] },
               { who: 'Investors', headline: 'Find Value Hidden in Plain Sight', items: ['Equity Reclamation™', 'Trust Infrastructure Analysis™', 'Public Company Scorecards™', 'Transformation Risk™'] },
               { who: 'Governments', headline: 'Increase Institutional Capacity', items: ['Workforce Transformation™', 'Civic Transformation™', 'Trust Infrastructure™', 'Policy Analysis™'] },
-              { who: 'Individuals', headline: 'Unlock More of Your Potential', items: ['Lens Discovery™', 'Learn It™', 'Transform It™', 'Founding Member™'] },
-            ].map(({ who, headline, items }) => (
+              { who: 'INDIVIDUALS', headline: 'My Lens™', subheadline: 'Human Transformation Intelligence™', items: ['Personal Discovery™', 'Learn It™ (Phase 2)', 'Stack the Deck™ (Phase 2)', 'Personal Blueprint™ (Phase 2)'] },
+            ].map(({ who, headline, subheadline, items }: { who: string; headline: string; subheadline?: string; items: string[] }) => (
               <div key={who} className="card p-5 flex flex-col">
                 <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">{who}</p>
                 <h3 className="mt-2 font-semibold leading-snug">{headline}</h3>
+                {subheadline && <p className="mt-0.5 text-xs text-teal-600 font-medium">{subheadline}</p>}
                 <ul className="mt-4 space-y-2 flex-1">
                   {items.map((item) => (
                     <li key={item} className="text-sm text-slate-600">→ {item}</li>
@@ -593,9 +594,9 @@ export default function HomePage() {
                     Explore Government Solutions →
                   </Link>
                 )}
-                {who === 'Individuals' && (
+                {who === 'INDIVIDUALS' && (
                   <Link href="/individuals" className="btn btn-primary w-full mt-4 text-center text-sm">
-                    Explore Individual Solutions →
+                    Explore My Lens™ →
                   </Link>
                 )}
               </div>

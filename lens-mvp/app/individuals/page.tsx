@@ -1,109 +1,155 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
 
-const SOLUTIONS = [
+export const metadata: Metadata = {
+  title: 'My Lens™ — Human Transformation Intelligence™ | The Lens™',
+  description:
+    'My Lens™ is your personal transformation intelligence. Discover what is possible, what is constraining you, and what actions increase your transformation probability.',
+};
+
+const CONSUMER_PRODUCTS = [
   {
     number: '01',
-    name: 'Lens Discovery™',
-    badge: 'Free',
-    badgeColor: 'bg-teal-50 border-teal-200 text-teal-700',
-    what: "Free access to The Lens™ search engine — run analyses on any company, industry, government, or idea.",
-    why: "Understanding transformation capacity gives you an edge in every professional context — job decisions, investment decisions, business decisions, and career strategy.",
-    cta: { label: 'Try It Now — Free', href: '/search' },
+    name: 'My Lens™',
+    badge: null,
+    badgeColor: '',
+    what: 'Your personal Lens Analysis™ — applied to your career, your goals, your organization, or any idea you are pursuing.',
+    why: 'Most people have more potential than they can see. My Lens™ reveals what others miss about your specific situation.',
+    cta: { label: 'Run My Lens™ — Free', href: '/search' },
+    color: 'border-teal-200 bg-teal-50',
+    numberColor: 'text-teal-600',
   },
   {
     number: '02',
     name: 'Learn It™',
-    badge: 'Coming Soon',
-    badgeColor: 'bg-slate-100 border-slate-200 text-slate-500',
-    what: "Lens-curated learning pathways organized around transformation concepts, industries, and skill areas.",
-    why: "The most valuable professionals in the Intelligence Era will be those who understand how to convert intelligence into outcomes — not just those who can access it.",
+    badge: 'Coming Phase 2',
+    badgeColor: 'bg-amber-100 text-amber-700',
+    what: 'A personalized transformation learning profile built from your interests, searches, and engagement with The Lens™.',
+    why: 'Learning optimized for your specific gaps, not a generic curriculum.',
     cta: null,
+    color: 'border-slate-200 bg-white',
+    numberColor: 'text-slate-400',
   },
   {
     number: '03',
-    name: 'Transform It™',
-    badge: 'Coming Soon',
-    badgeColor: 'bg-slate-100 border-slate-200 text-slate-500',
-    what: "Personal transformation planning tools that apply Transformation Intelligence™ to individual goals, career paths, and development objectives.",
-    why: "The same framework that helps organizations identify their transformation capacity applies to individuals. Where are your personal constraints? What is your highest-leverage unlock?",
+    name: 'Stack the Deck™',
+    badge: 'Coming Phase 2',
+    badgeColor: 'bg-amber-100 text-amber-700',
+    what: 'Identify and align the specific conditions most likely to improve your transformation outcomes.',
+    why: 'Successful transformation emerges from deliberate alignment of reinforcing conditions — not isolated actions.',
     cta: null,
+    color: 'border-slate-200 bg-white',
+    numberColor: 'text-slate-400',
   },
   {
     number: '04',
-    name: 'Founding Transformation Member™',
-    badge: '$12/year',
-    badgeColor: 'bg-amber-50 border-amber-200 text-amber-700',
-    what: "Early access membership at $12/year (launching price) — including unlimited saved cards, watchlists, alerts, and early access to new features.",
-    why: "The Lens™ is being built for a world where transformation capacity is the defining source of advantage. Founding members help shape what that looks like — and get access at launch pricing permanently.",
-    cta: { label: 'Become a Founding Member™', href: '#founding' },
+    name: 'Personal Transformation Blueprint™',
+    badge: 'Coming Phase 2',
+    badgeColor: 'bg-amber-100 text-amber-700',
+    what: 'An actionable personalized roadmap translating your transformation intelligence into a specific pathway forward.',
+    why: 'Knowing what is possible is the beginning. A blueprint makes it executable.',
+    cta: null,
+    color: 'border-slate-200 bg-white',
+    numberColor: 'text-slate-400',
   },
+];
+
+const HTC_DETERMINANTS = [
+  { name: 'Learning Capacity™', desc: 'How quickly you absorb new ideas', color: 'border-teal-200 bg-teal-50', label: 'text-teal-700' },
+  { name: 'Adaptability™', desc: 'How effectively you navigate change', color: 'border-blue-200 bg-blue-50', label: 'text-blue-700' },
+  { name: 'Trust™', desc: 'The strength of your relationship network', color: 'border-violet-200 bg-violet-50', label: 'text-violet-700' },
+  { name: 'Courage™', desc: 'Your willingness to act on what you know', color: 'border-amber-200 bg-amber-50', label: 'text-amber-700' },
+  { name: 'Execution™', desc: 'Your ability to complete what you start', color: 'border-emerald-200 bg-emerald-50', label: 'text-emerald-700' },
+  { name: 'Resilience™', desc: 'Your capacity to recover and continue', color: 'border-rose-200 bg-rose-50', label: 'text-rose-700' },
 ];
 
 export default function IndividualsPage() {
   return (
-    <main>
-      {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-slate-900 px-6 py-20 text-center text-white">
-        <div className="mx-auto max-w-4xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-teal-400">
-            For Individuals
+    <main className="min-h-screen">
+
+      {/* ── Hero ─────────────────────────────────────────────────────────── */}
+      <section className="bg-slate-900 px-6 py-20 text-center">
+        <div className="mx-auto max-w-3xl">
+          <p className="text-xs font-bold uppercase tracking-[0.25em] text-teal-400">
+            Human Transformation Intelligence™
           </p>
-          <h1 className="mt-5 text-5xl font-bold leading-tight tracking-tight sm:text-6xl">
-            Unlock More of Your Potential.
+          <h1 className="mt-4 text-5xl font-bold text-white sm:text-6xl" style={{ fontFamily: 'Georgia, serif' }}>
+            My Lens™
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-300">
-            The same intelligence that is transforming organizations is available to you. The
-            question is whether you have the capacity to convert it into outcomes that matter.
+            Your personal transformation intelligence. Discover what is possible, what is constraining you,
+            what capabilities remain underutilized, and what actions increase your transformation probability.
           </p>
-          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-            <Link href="/search" className="btn btn-primary px-6 py-3 text-base">
-              Start with Lens Discovery™ — Free
-            </Link>
-            <a
-              href="#founding"
-              className="btn btn-ghost px-6 py-3 text-base text-slate-300 hover:text-white hover:bg-white/10"
+          <div className="mt-10">
+            <Link
+              href="/search"
+              className="inline-block rounded-full bg-teal-500 px-8 py-3 text-sm font-semibold text-white shadow-lg hover:bg-teal-400 transition-colors"
             >
-              Become a Founding Member™ — $12/year
-            </a>
+              Run My Lens™
+            </Link>
           </div>
         </div>
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(20,184,166,0.06),transparent_70%)]" />
       </section>
 
-      {/* ── Individual Solutions ──────────────────────────────── */}
-      <section className="section bg-white">
-        <div className="section-inner">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Individual Solutions</p>
-            <h2 className="mt-4 text-4xl font-bold leading-tight">
-              Four ways The Lens™ helps individuals unlock potential.
+      {/* ── N-of-1 Principle ─────────────────────────────────────────────── */}
+      <section className="border-b border-slate-100 bg-white px-6 py-16">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+            The N-of-1 Principle™
+          </p>
+          <h2 className="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">
+            You are not an average.
+          </h2>
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+            Every system designed to help you — healthcare, education, career development — was optimized
+            for populations. Not for you specifically. As intelligence becomes abundant, that changes.
+            My Lens™ is designed for one person: you.
+          </p>
+        </div>
+      </section>
+
+      {/* ── Four Consumer Products ───────────────────────────────────────── */}
+      <section className="border-b border-slate-100 bg-slate-50 px-6 py-16">
+        <div className="mx-auto max-w-4xl">
+          <div className="text-center">
+            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+              Consumer Products
+            </p>
+            <h2 className="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">
+              Your transformation journey.
             </h2>
           </div>
-          <div className="mt-14 grid gap-6 sm:grid-cols-2">
-            {SOLUTIONS.map(({ number, name, badge, badgeColor, what, why, cta }) => (
-              <div key={name} className="card p-6 sm:p-8 flex flex-col">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-start gap-3">
-                    <span className="text-2xl font-bold text-slate-200 flex-shrink-0">{number}</span>
-                    <h3 className="text-lg font-bold text-slate-900 leading-snug">{name}</h3>
+
+          <div className="mt-12 grid gap-5 sm:grid-cols-2">
+            {CONSUMER_PRODUCTS.map(({ number, name, badge, badgeColor, what, why, cta, color, numberColor }) => (
+              <div key={name} className={`rounded-xl border p-6 ${color}`}>
+                <div className="flex items-start justify-between gap-2">
+                  <div>
+                    <p className={`text-3xl font-bold ${numberColor}`}>{number}</p>
+                    <p className="mt-1 text-base font-bold text-slate-900">{name}</p>
                   </div>
-                  <span className={`flex-shrink-0 rounded-full border px-2.5 py-0.5 text-xs font-semibold ${badgeColor}`}>
-                    {badge}
-                  </span>
+                  {badge && (
+                    <span className={`shrink-0 rounded-full px-2.5 py-0.5 text-[10px] font-semibold ${badgeColor}`}>
+                      {badge}
+                    </span>
+                  )}
                 </div>
-                <div className="mt-4 space-y-4 flex-1">
+                <div className="mt-4 space-y-3">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-1">What it is</p>
-                    <p className="text-sm leading-7 text-slate-600">{what}</p>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">What it is</p>
+                    <p className="mt-1 text-sm leading-6 text-slate-700">{what}</p>
                   </div>
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-1">Why it matters</p>
-                    <p className="text-sm leading-7 text-slate-600">{why}</p>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">Why it matters</p>
+                    <p className="mt-1 text-sm leading-6 text-slate-700">{why}</p>
                   </div>
                 </div>
                 {cta && (
                   <div className="mt-5">
-                    <Link href={cta.href} className="btn btn-primary w-full text-center text-sm py-2.5">
+                    <Link
+                      href={cta.href}
+                      className="inline-block rounded-full bg-teal-500 px-5 py-2 text-xs font-semibold text-white hover:bg-teal-400 transition-colors"
+                    >
                       {cta.label}
                     </Link>
                   </div>
@@ -114,57 +160,56 @@ export default function IndividualsPage() {
         </div>
       </section>
 
-      {/* ── Founding Member CTA ───────────────────────────────── */}
-      <section id="founding" className="section bg-slate-900 text-white text-center">
-        <div className="mx-auto max-w-3xl">
-          <p className="text-xs font-semibold uppercase tracking-widest text-amber-400">Founding Member™</p>
-          <h2 className="mt-4 text-4xl font-bold leading-tight">
-            Shape the future of Transformation Intelligence™.
-          </h2>
-          <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-slate-300">
-            Founding members get permanent launch pricing, unlimited access, and a direct line to
-            the product roadmap. The Lens™ is being built for a world where transformation capacity
-            is the defining source of advantage.
-          </p>
-          <div className="mt-8 inline-block rounded-2xl border border-amber-400/30 bg-amber-400/10 px-6 py-3">
-            <p className="text-2xl font-bold text-amber-300">$12 / year</p>
-            <p className="mt-1 text-sm text-slate-400">Launching price — locked in permanently</p>
+      {/* ── Human Transformation Capacity™ ──────────────────────────────── */}
+      <section className="border-b border-slate-100 bg-white px-6 py-16">
+        <div className="mx-auto max-w-4xl">
+          <div className="text-center">
+            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+              Human Transformation Capacity™
+            </p>
+            <h2 className="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">
+              Your personal TCS™.
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-600">
+              Just as organizations have a Transformation Capacity Score™, every individual has a{' '}
+              <strong>Human Transformation Capacity™ (HTC™)</strong> — the ability to learn, adapt, absorb
+              change, integrate capability, and sustain improvement. My Lens™ helps you understand and
+              improve yours.
+            </p>
           </div>
-          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <Link href="/search" className="btn btn-primary px-8 py-3 text-base">
-              Start with Lens Discovery™ — Free
-            </Link>
-            <a
-              href="mailto:hello@leider.ai?subject=Founding%20Member%20Interest"
-              className="btn btn-ghost px-8 py-3 text-base text-amber-300 hover:text-amber-200 hover:bg-amber-400/10"
-            >
-              Become a Founding Member™ →
-            </a>
+
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {HTC_DETERMINANTS.map(({ name, desc, color, label }) => (
+              <div key={name} className={`rounded-xl border p-5 ${color}`}>
+                <p className={`text-sm font-bold ${label}`}>{name}</p>
+                <p className="mt-1 text-sm leading-6 text-slate-600">{desc}</p>
+              </div>
+            ))}
           </div>
-          <p className="mt-6 text-xs text-slate-500">
-            Founding membership is currently by invitation and waitlist. We will reach out as spots open.
-          </p>
         </div>
       </section>
 
-      {/* ── Free CTA ─────────────────────────────────────────── */}
-      <section className="section bg-white text-center">
+      {/* ── CTA ──────────────────────────────────────────────────────────── */}
+      <section className="bg-slate-900 px-6 py-16 text-center">
         <div className="mx-auto max-w-2xl">
-          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Start Now</p>
-          <h2 className="mt-4 text-3xl font-bold">
-            Lens Discovery™ is free. No account required.
+          <h2 className="text-3xl font-bold text-white sm:text-4xl">
+            Start with My Lens™ — it&apos;s free.
           </h2>
-          <p className="mt-4 text-slate-600 leading-7">
-            Run an analysis on any company, industry, government, or idea. See transformation
-            capacity the way professionals see it.
+          <p className="mx-auto mt-5 max-w-xl text-lg leading-8 text-slate-300">
+            Search anything that matters to you. Your career. Your company. Your industry. Your goals.
+            My Lens™ shows you what is possible.
           </p>
-          <div className="mt-8">
-            <Link href="/search" className="btn btn-primary px-8 py-3 text-base">
-              Turn the Dial™ — Start Free
+          <div className="mt-10">
+            <Link
+              href="/search"
+              className="inline-block rounded-full bg-teal-500 px-8 py-3 text-sm font-semibold text-white shadow-lg hover:bg-teal-400 transition-colors"
+            >
+              Run My Lens™ Now
             </Link>
           </div>
         </div>
       </section>
+
     </main>
   );
 }

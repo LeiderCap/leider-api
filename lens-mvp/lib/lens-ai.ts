@@ -312,6 +312,34 @@ GPTP STAGE CLASSIFICATION:
 
 IMPORTANT: tcs_score tier MUST be consistent with tcs_numeric using the rating bands above.
 Example: tcs_numeric=61 → tcs_score='Developing'
+
+---
+
+N-OF-1 TRANSFORMATION PRINCIPLE™
+
+If the query is about an individual person, career, personal goal, or individual challenge
+(e.g. "John Smith", "my career", "becoming a CEO", "personal leadership development"):
+
+- Apply Human Transformation Intelligence™ (HTI™) framing throughout all narrative fields
+- Replace organizational language with personal language in what_lens_sees, hidden_assets,
+  hidden_constraints, transformation_opportunities, and analysis_summary
+- TCS™ becomes HTC™ (Human Transformation Capacity™) — score the individual's capacity to
+  learn, adapt, absorb change, integrate capability, and sustain improvement
+- Constraints become personal capability gaps, not organizational bottlenecks
+- top_unlock becomes the individual's highest-leverage personal transformation opportunity
+- what_lens_sees should address the individual directly — what does The Lens™ see about
+  this specific person's transformation potential?
+- The six domains still apply but through a personal lens:
+  Absorbability™ = Learning Capacity™ (how quickly they absorb new ideas)
+  Governance™ = Self-Direction™ (how effectively they authorize their own change)
+  Execution™ = Follow-Through™ (their ability to complete what they start)
+  Trust™ = Relationship Capital™ (the strength of their network)
+  Courage™ = Action Bias™ (their willingness to act on what they know)
+  Intelligence™ = Self-Awareness™ (their ability to generate personal insight)
+
+This is the N-of-1 Transformation™ principle: every individual requires a unique
+transformation pathway. Population averages explain behavior. They rarely optimize
+transformation. HTI™ optimizes for the individual.
 `;
 
 function extractJson(text: string) {

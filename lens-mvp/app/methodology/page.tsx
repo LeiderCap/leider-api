@@ -338,6 +338,74 @@ export default function MethodologyPage() {
         </div>
       </section>
 
+
+      {/* ── Two Transformation Tracks ────────────────────────────────── */}
+      <section className="border-b border-slate-100 bg-slate-50 px-6 py-16">
+        <div className="mx-auto max-w-4xl">
+          <div className="text-center">
+            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+              Two Transformation Tracks
+            </p>
+            <h2 className="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">
+              Two Transformation Tracks.
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-slate-600">
+              One constitutional framework. Two expressions.
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-6 sm:grid-cols-2">
+            {/* Enterprise Track */}
+            <div className="rounded-xl border border-slate-200 bg-white p-6">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Enterprise Track</p>
+              <p className="mt-1 text-base font-bold text-slate-900">Transformation Intelligence™</p>
+              <div className="mt-5 flex flex-col gap-2">
+                {[
+                  'Lens Analysis™',
+                  'TCS™',
+                  'Blueprint™',
+                  'Guided Transformation™',
+                  'Partner™',
+                ].map((step, i, arr) => (
+                  <div key={step} className="flex flex-col items-start">
+                    <span className="rounded-lg bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700">{step}</span>
+                    {i < arr.length - 1 && <span className="ml-3 mt-0.5 text-slate-300 text-sm">↓</span>}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Consumer Track */}
+            <div className="rounded-xl border border-teal-200 bg-teal-50 p-6">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-teal-600">Consumer Track</p>
+              <p className="mt-1 text-base font-bold text-slate-900">Human Transformation Intelligence™ (HTI™)</p>
+              <div className="mt-5 flex flex-col gap-2">
+                {[
+                  'My Lens™',
+                  'HTC™',
+                  'Learn It™',
+                  'Stack the Deck™',
+                  'Personal Blueprint™',
+                ].map((step, i, arr) => (
+                  <div key={step} className="flex flex-col items-start">
+                    <span className="rounded-lg bg-teal-100 px-3 py-1.5 text-xs font-semibold text-teal-800">{step}</span>
+                    {i < arr.length - 1 && <span className="ml-3 mt-0.5 text-teal-300 text-sm">↓</span>}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 rounded-xl border border-slate-200 bg-white p-5 text-center">
+            <p className="text-sm text-slate-600 leading-7">
+              The same constitutional principles apply to both. Organizations and individuals face the same
+              fundamental challenge: converting intelligence into realized outcomes.{' '}
+              <strong>The pathways are personalized. The framework is universal.</strong>
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Section 1: Core Principle */}
       <section className="mx-auto max-w-4xl px-6 py-14">
         <div className="card p-8 text-center">
