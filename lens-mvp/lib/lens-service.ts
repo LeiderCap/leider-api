@@ -70,6 +70,14 @@ function mapDbToSnapshot(row: any): LensSnapshot {
     opportunity_value: score?.opportunity_value ?? 'N/A',
     confidence: score?.confidence ?? 'Low',
     top_unlock: score?.top_unlock ?? 'Unknown',
+    // v1.2 Lens Analysis™ narrative fields
+    what_lens_sees: score?.what_lens_sees ?? '',
+    value_creation_model: score?.value_creation_model ?? '',
+    hidden_assets: score?.hidden_assets ?? '',
+    hidden_constraints: score?.hidden_constraints ?? '',
+    transformation_opportunities: score?.transformation_opportunities ?? '',
+    analysis_summary: score?.analysis_summary ?? '',
+
     constraints: score?.constraints ?? [],
     opportunities: score?.opportunities ?? [],
     summary: score?.summary ?? '',
@@ -182,6 +190,14 @@ export async function saveLensSnapshot(snapshot: LensSnapshot) {
     opportunity_value: snapshot.opportunity_value,
     confidence: snapshot.confidence,
     top_unlock: snapshot.top_unlock,
+    // v1.2 Lens Analysis™ narrative fields
+    what_lens_sees: snapshot.what_lens_sees ?? null,
+    value_creation_model: snapshot.value_creation_model ?? null,
+    hidden_assets: snapshot.hidden_assets ?? null,
+    hidden_constraints: snapshot.hidden_constraints ?? null,
+    transformation_opportunities: snapshot.transformation_opportunities ?? null,
+    analysis_summary: snapshot.analysis_summary ?? null,
+
     constraints: snapshot.constraints,
     opportunities: snapshot.opportunities,
     summary: snapshot.summary,

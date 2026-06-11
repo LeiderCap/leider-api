@@ -48,11 +48,11 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const item = await getLensByIdOrCache(id);
   if (!item) return { title: 'Not Found' };
   return {
-    title: `${item.name} — Lens Snapshot™`,
-    description: item.summary,
+    title: `${item.name} — Lens Analysis™`,
+    description: item.analysis_summary || item.summary,
     openGraph: {
       title: `${item.name} — Transformation Capacity Score™: ${item.tcs_score}`,
-      description: item.summary,
+      description: item.analysis_summary || item.summary,
       type: 'article',
     }
   };
@@ -77,7 +77,6 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
     );
   }
 
-  const rc = ratingClass[item.tcs_score] ?? 'rating-emerging';
   const gc = gapClass[item.transformation_capacity_gap] ?? gapClass.Moderate;
 
   // Defensive normalisation
@@ -86,9 +85,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
   const isUnlockable = (val: string) =>
     !val || val === 'N/A' || val === 'Private — additional details needed';
 
-  const PRIVATE_TOP_UNLOCK = 'To ensure accuracy, private companies require more information from the client. Request a Blueprint™ for your Unlock options.';
-
-  console.log('[LensDetailPage] id:', id, '| top_unlock raw:', JSON.stringify(item.top_unlock));
+  const PRIVATE_TOP_UNLOCK = 'To ensure accuracy, private companies require more information from the client. Request a Transformation Capacity Assessment™ for your Unlock options.';
 
   const determinants: { label: string; key: keyof LensSnapshot }[] = [
     { label: 'Intelligence™',   key: 'intelligence_score' },
@@ -114,29 +111,99 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
     Transformation:  { label: 'Stage III — Transformation™', color: 'text-emerald-700 bg-emerald-50 border-emerald-200', desc: 'Operating models, governance systems, and decision architectures have been fundamentally redesigned around intelligence.' },
   };
 
+  const hasAnalysis = !!(
+    item.what_lens_sees ||
+    item.value_creation_model ||
+    item.hidden_assets ||
+    item.hidden_constraints ||
+    item.transformation_opportunities ||
+    item.analysis_summary
+  );
+
   return (
     <main className="mx-auto min-h-screen max-w-4xl px-6 py-10">
       <Link href="/search" className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
         ← Back to Search
       </Link>
 
-      {/* Scorecard Explainer — collapsible client component */}
-      <div className="mt-4">
+      {/* ── 1. What Lens Sees™ — dark hero card ───────────────────────────── */}
+      {hasAnalysis && (
+        <div className="mt-8 space-y-4">
+          {/* Entity header */}
+          <div>
+            <h1 className="text-3xl font-bold text-slate-900">{item.name}</h1>
+            <p className="mt-1 text-sm text-slate-500">Lens Analysis™ · Transformation Intelligence™</p>
+          </div>
+
+          {item.what_lens_sees && (
+            <div className="rounded-xl bg-slate-900 p-6 text-white">
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-teal-400">What Lens Sees™</p>
+              <p className="mt-3 text-base leading-8 text-slate-100">{item.what_lens_sees}</p>
+            </div>
+          )}
+
+          {/* ── 2–5. Analysis Narrative Cards ─────────────────────────────── */}
+          <div className="grid gap-4 sm:grid-cols-2">
+            {item.value_creation_model && (
+              <div className="rounded-xl border border-slate-200 bg-white p-5">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">How Value Is Created</p>
+                <p className="mt-2 text-sm leading-7 text-slate-700">{item.value_creation_model}</p>
+              </div>
+            )}
+            {item.hidden_assets && (
+              <div className="rounded-xl border border-teal-200 bg-teal-50 p-5">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Hidden Assets™</p>
+                <p className="mt-2 text-sm leading-7 text-slate-700">{item.hidden_assets}</p>
+              </div>
+            )}
+            {item.hidden_constraints && (
+              <div className="rounded-xl border border-slate-200 bg-white p-5">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Hidden Constraints™</p>
+                <p className="mt-2 text-sm leading-7 text-slate-700">{item.hidden_constraints}</p>
+              </div>
+            )}
+            {item.transformation_opportunities && (
+              <div className="rounded-xl border border-teal-200 bg-teal-50 p-5">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Transformation Opportunities™</p>
+                <p className="mt-2 text-sm leading-7 text-slate-700">{item.transformation_opportunities}</p>
+              </div>
+            )}
+          </div>
+
+          {/* ── 6. Lens Verdict™ ──────────────────────────────────────────── */}
+          {item.analysis_summary && (
+            <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Lens Verdict™</p>
+              <p className="mt-2 text-sm italic leading-7 text-slate-700">{item.analysis_summary}</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ── 7. TCS™ Scorecard ─────────────────────────────────────────────── */}
+      <div className={hasAnalysis ? 'mt-10' : 'mt-8'}>
+        {hasAnalysis && (
+          <div className="mb-3 flex items-center gap-3">
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">TCS™ Scorecard</p>
+            <div className="h-px flex-1 bg-slate-200" />
+          </div>
+        )}
+
+        {/* Scorecard Explainer — collapsible client component */}
         <ScorecardExplainer />
+
+        {/* TcsHero — client component for the ⓘ modal + scale indicator */}
+        <TcsHero
+          name={item.name}
+          ticker={item.ticker}
+          industry={item.industry}
+          description={item.description}
+          tcsScore={item.tcs_score}
+        />
+
+        {/* Six Determinants — client component with info modals + progress bars */}
+        <DeterminantsSection determinants={determinantData} />
       </div>
-
-      {/* Hero — TcsHero is a client component for the ⓘ modal + scale indicator */}
-      <TcsHero
-        name={item.name}
-        ticker={item.ticker}
-        industry={item.industry}
-        description={item.description}
-        tcsScore={item.tcs_score}
-      />
-
-
-      {/* Six Determinants — client component with info modals + progress bars */}
-      <DeterminantsSection determinants={determinantData} />
 
       {/* v1.1 Scoring Breakdown */}
       {item.tcs_numeric != null && (
@@ -176,7 +243,21 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
         </section>
       )}
 
-      {/* v1.1 Constraint Diagnostics */}
+      {/* ── 8. Transformation Capacity Gap™ ───────────────────────────────── */}
+      <section className="card mt-6 p-6">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <h2 className="text-xl font-bold">Transformation Capacity Gap™</h2>
+            <p className="mt-1 text-sm text-slate-500">The gap between intelligence access and transformation realization.</p>
+          </div>
+          <span className={`rounded-full border px-4 py-1.5 text-sm font-bold ${gc}`}>
+            {item.transformation_capacity_gap}
+          </span>
+        </div>
+        <p className="mt-4 text-slate-600">{gapDescription[item.transformation_capacity_gap]}</p>
+      </section>
+
+      {/* ── 9. Constraint Diagnostics™ ────────────────────────────────────── */}
       {(item.primary_constraint || item.system_constraint) && (
         <section className="card mt-6 p-6">
           <h2 className="text-xl font-bold">Constraint Diagnostics™</h2>
@@ -226,20 +307,6 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
           </div>
         </section>
       )}
-
-      {/* Transformation Capacity Gap™ */}
-      <section className="card mt-6 p-6">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <h2 className="text-xl font-bold">Transformation Capacity Gap™</h2>
-            <p className="mt-1 text-sm text-slate-500">The gap between intelligence access and transformation realization.</p>
-          </div>
-          <span className={`rounded-full border px-4 py-1.5 text-sm font-bold ${gc}`}>
-            {item.transformation_capacity_gap}
-          </span>
-        </div>
-        <p className="mt-4 text-slate-600">{gapDescription[item.transformation_capacity_gap]}</p>
-      </section>
 
       {/* Supporting Scores */}
       <section className="card mt-6 p-6">
@@ -304,18 +371,20 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
       </section>
 
       {/* Lens Narrative */}
-      <section className="card mt-6 p-6">
-        <h2 className="text-xl font-bold">Lens Narrative™</h2>
-        <p className="mt-3 leading-8 text-slate-700">{item.summary}</p>
-      </section>
+      {item.summary && (
+        <section className="card mt-6 p-6">
+          <h2 className="text-xl font-bold">Lens Narrative™</h2>
+          <p className="mt-3 leading-8 text-slate-700">{item.summary}</p>
+        </section>
+      )}
 
-      {/* Blueprint CTA */}
+      {/* ── 10. Blueprint™ CTA ────────────────────────────────────────────── */}
       <section className="card mt-6 p-6 bg-slate-50">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Enterprise</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Go Deeper</p>
             <h2 className="mt-1 text-xl font-bold">Unlock Potential: {item.opportunity_value}</h2>
-            <p className="mt-1 text-sm text-slate-600">Request a deeper Blueprint™ assessment from The Lens™ team.</p>
+            <p className="mt-1 text-sm text-slate-600">Request a full Transformation Capacity Assessment™ from The Lens™ team.</p>
           </div>
           <div className="flex flex-wrap gap-2">
             <BlueprintRequestForm companyId={item.id} companyName={item.name} />

@@ -150,3 +150,22 @@ CREATE INDEX IF NOT EXISTS idx_transformation_events_created_at
 --   ADD COLUMN IF NOT EXISTS system_constraint text,
 --   ADD COLUMN IF NOT EXISTS gptp_stage text;
 -- ============================================
+
+-- ============================================
+-- v1.2 Migration — Lens Analysis™ narrative fields
+-- Run in Supabase SQL Editor:
+-- ============================================
+-- ALTER TABLE lens_scores
+--   ADD COLUMN IF NOT EXISTS what_lens_sees text,
+--   ADD COLUMN IF NOT EXISTS value_creation_model text,
+--   ADD COLUMN IF NOT EXISTS hidden_assets text,
+--   ADD COLUMN IF NOT EXISTS hidden_constraints text,
+--   ADD COLUMN IF NOT EXISTS transformation_opportunities text,
+--   ADD COLUMN IF NOT EXISTS analysis_summary text;
+-- ============================================
+
+-- ============================================
+-- Clear cache to regenerate with new analysis fields:
+-- delete from lens_scores;
+-- delete from companies;
+-- ============================================

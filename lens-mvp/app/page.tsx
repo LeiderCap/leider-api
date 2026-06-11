@@ -320,7 +320,21 @@ export default function HomePage() {
             <Link href="/search" className="btn btn-secondary hidden sm:inline-flex">See all →</Link>
           </div>
           <div className="grid gap-5 lg:grid-cols-3">
-            {trending.map((item) => <LensCard key={item.id} item={item} />)}
+            {trending.map((item) => (
+              <div key={item.id} className="flex flex-col gap-0">
+                <LensCard item={item} />
+                {item.what_lens_sees && (
+                  <div className="mt-2 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+                    <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-slate-400 mb-1">What Lens Sees™</p>
+                    <p className="text-xs leading-5 text-slate-600">
+                      {item.what_lens_sees.length > 120
+                        ? item.what_lens_sees.slice(0, 120).trimEnd() + '…'
+                        : item.what_lens_sees}
+                    </p>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </section>

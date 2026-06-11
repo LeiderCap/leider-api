@@ -35,6 +35,13 @@ const LensAiSchema = z.object({
   confidence: z.enum(['Low', 'Moderate', 'High']),
   top_unlock: z.string().min(1),
   
+  what_lens_sees: z.string().min(1),
+  value_creation_model: z.string().min(1),
+  hidden_assets: z.string().min(1),
+  hidden_constraints: z.string().min(1),
+  transformation_opportunities: z.string().min(1),
+  analysis_summary: z.string().min(1),
+
   constraints: z.array(z.string()).min(1).max(5),
   opportunities: z.array(z.string()).min(1).max(5),
   summary: z.string().min(1),
@@ -87,6 +94,13 @@ Use this exact JSON shape:
   "opportunity_value": "If ticker is non-empty (PUBLIC company): MUST provide a real dollar estimate range e.g. '$2B-$4B'. If ticker is empty (PRIVATE company): use 'Undetermined'",
   "confidence": "Low | Moderate | High",
   "top_unlock": "If ticker is non-empty (PUBLIC company): MUST provide a real, specific, highest-leverage transformation opportunity — never use the private company placeholder. If ticker is empty (PRIVATE company) with insufficient public data: use exactly 'To ensure accuracy, private companies require more information from the client. Request a Blueprint™ for your Unlock options.'",
+
+  "what_lens_sees": "2-3 sentence opening that proves The Lens understands this specific organization — its business model, core advantage, and actual constraints. This must feel like The Lens genuinely understands the entity, not a generic description. Start with the entity name.",
+  "value_creation_model": "2-3 sentences explaining exactly how this organization creates value — what is the core mechanism of value creation?",
+  "hidden_assets": "2-3 sentences identifying underutilized advantages — what does this organization have that it is not fully leveraging?",
+  "hidden_constraints": "2-3 sentences identifying the real constraints limiting growth or transformation — what is actually holding this organization back?",
+  "transformation_opportunities": "2-3 sentences describing the highest-leverage transformation opportunities — now that constraints are understood, what unlocks are available?",
+  "analysis_summary": "1-2 sentence synthesis — the single most important thing The Lens sees about this organization's transformation potential.",
 
   "constraints": ["constraint 1", "constraint 2", "constraint 3"],
   "opportunities": ["opportunity 1", "opportunity 2", "opportunity 3"],
@@ -364,6 +378,14 @@ export async function generateLensSnapshot(query: string): Promise<LensSnapshot>
     confidence: parsed.confidence,
     top_unlock: parsed.top_unlock,
     
+    // v1.2 Lens Analysis™ narrative fields
+    what_lens_sees: parsed.what_lens_sees,
+    value_creation_model: parsed.value_creation_model,
+    hidden_assets: parsed.hidden_assets,
+    hidden_constraints: parsed.hidden_constraints,
+    transformation_opportunities: parsed.transformation_opportunities,
+    analysis_summary: parsed.analysis_summary,
+
     constraints: parsed.constraints,
     opportunities: parsed.opportunities,
     summary: parsed.summary,

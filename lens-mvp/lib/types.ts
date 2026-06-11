@@ -42,6 +42,14 @@ export interface LensSnapshot {
   top_unlock: string;
 
   // Narrative
+  what_lens_sees: string;
+  value_creation_model: string;
+  hidden_assets: string;
+  hidden_constraints: string;
+  transformation_opportunities: string;
+  analysis_summary: string;
+  
+  // Legacy Narrative (kept for backwards compatibility during transition)
   constraints: string[];
   opportunities: string[];
   summary: string;
