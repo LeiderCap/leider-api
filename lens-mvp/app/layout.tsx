@@ -25,6 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/#the-problem" className="nav-link">The Problem</Link>
               <Link href="/#transformation-chain" className="nav-link">Framework</Link>
               <Link href="/#for-whom" className="nav-link">Who It's For</Link>
+              <Link href="/methodology" className="nav-link">Methodology</Link>
               <Link href="/search" className="nav-link">Search</Link>
               <Link href="/saved" className="nav-link">Saved</Link>
               <Link href="/watchlists" className="nav-link">Watchlists</Link>

@@ -318,6 +318,9 @@ export function LensCard({ item }: { item: LensSnapshot }) {
         </div>
 
         <p className="mt-2 text-xs text-slate-400">Transformation Capacity Score™</p>
+        <Link href="/methodology" className="mt-0.5 text-xs text-slate-400 hover:text-slate-600 underline underline-offset-2">
+          Rated by Lens Ratings Methodology™ v1.0 →
+        </Link>
 
         {/* Six determinants — 2-column grid, full labels, no truncation */}
         <div className="mt-4 grid grid-cols-2 gap-2">

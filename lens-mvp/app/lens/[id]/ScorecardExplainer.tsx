@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 
 export function ScorecardExplainer() {
@@ -57,6 +58,12 @@ export function ScorecardExplainer() {
             <li><strong>Moderate</strong> — Reasonable public data available</li>
             <li><strong>High</strong> — Extensive verified data available</li>
           </ul>
+          <p className="border-t border-slate-200 pt-3 text-xs text-slate-400">
+            Scores calculated using{' '}
+            <Link href="/methodology" className="underline underline-offset-2 hover:text-slate-600">
+              Lens Ratings Methodology™ v1.0
+            </Link>
+          </p>
         </div>
       )}
     </div>

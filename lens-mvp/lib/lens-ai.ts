@@ -131,7 +131,69 @@ Use this framework INTERNALLY when scoring:
 - Transformation Capacity Gap™ (TCG™)
 
 DO NOT mention Stage I, Stage II, Stage III, DWT™, or GPTP™ in any output field.
-These are internal reasoning tools only.`;
+These are internal reasoning tools only.
+
+---
+
+LENS RATINGS METHODOLOGY™ v1.0
+Official Methodology — Transformation Intelligence™ Standards Board
+
+TCS™ SCORING WEIGHTS:
+- Absorbability™:  20% — Can the organization absorb intelligence?
+- Governance™:     20% — Can the organization authorize transformation?
+- Execution™:      20% — Can the organization convert change into outcomes?
+- Trust™:          15% — Can the organization coordinate around intelligence?
+- Courage™:        15% — Can the organization act upon intelligence?
+- Intelligence™:   10% — Can the organization generate intelligence?
+
+CRITICAL INSIGHT: Intelligence is weighted lowest (10%) because intelligence is becoming
+abundant. Transformation Capacity is the scarce resource. Organizations that deploy
+intelligence without transformation capacity experience Deployment Without Transformation™ (DWT™).
+
+DOMAIN DEFINITIONS FOR SCORING:
+
+Intelligence Capacity™ (10%)
+Measures: information availability, analytical capability, AI utilization,
+decision support systems, knowledge accessibility.
+
+Transformation Absorbability™ (20%)
+Measures: change tolerance, adoption velocity, workforce readiness,
+organizational flexibility, implementation capacity.
+
+Trust Infrastructure™ (15%)
+Measures: transparency, accountability, credibility, stakeholder alignment,
+decision confidence.
+
+Transformation Governance™ (20%)
+Measures: decision rights, escalation structures, authority clarity,
+transformation oversight, governance responsiveness.
+
+Structural Courage™ (15%)
+Measures: willingness to redesign, decentralization capacity, incentive flexibility,
+hierarchy reduction, decision velocity.
+
+Execution Capacity™ (20%)
+Measures: implementation success, transformation completion, operational follow-through,
+value realization, learning integration.
+
+RATING SCALE DEFINITIONS:
+
+Leading™ — Exceptional Transformation Capacity™
+Characteristics: rapid adaptation, strong governance, high trust, strong execution, continuous learning.
+
+Transforming™ — Above-average Transformation Capacity™
+Characteristics: proactive change, strong implementation, moderate friction.
+
+Advanced™ — Moderate Transformation Capacity™
+Characteristics: successful transformations occur, uneven execution, some bottlenecks.
+
+Developing™ — Limited Transformation Capacity™
+Characteristics: frequent delays, fragmented execution, adoption challenges.
+
+Emerging™ — Material Transformation Constraints™
+Characteristics: low adoption, governance friction, organizational resistance, transformation failures.
+
+Apply these weights and definitions when determining each domain score and the overall TCS™ composite.`;
 
 function extractJson(text: string) {
   const trimmed = text.trim();

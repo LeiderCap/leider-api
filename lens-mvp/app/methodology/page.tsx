@@ -1,0 +1,366 @@
+import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Lens Ratings Methodology™ v1.0 — Transformation Intelligence™ Standards Board',
+  description:
+    'The official measurement standard for Transformation Capacity™ — the ability to convert intelligence into realized outcomes.',
+};
+
+const DOMAINS = [
+  {
+    name: 'Intelligence Capacity™',
+    weight: 10,
+    question: 'Can the organization generate intelligence?',
+    measures: [
+      'Information availability',
+      'Analytical capability',
+      'AI utilization',
+      'Decision support systems',
+      'Knowledge accessibility',
+    ],
+    color: 'border-slate-300 bg-slate-50',
+    bar: 'bg-slate-400',
+  },
+  {
+    name: 'Transformation Absorbability™',
+    weight: 20,
+    question: 'Can the organization absorb intelligence?',
+    measures: [
+      'Change tolerance',
+      'Adoption velocity',
+      'Workforce readiness',
+      'Organizational flexibility',
+      'Implementation capacity',
+    ],
+    color: 'border-blue-200 bg-blue-50',
+    bar: 'bg-blue-500',
+  },
+  {
+    name: 'Trust Infrastructure™',
+    weight: 15,
+    question: 'Can the organization coordinate around intelligence?',
+    measures: [
+      'Transparency',
+      'Accountability',
+      'Credibility',
+      'Stakeholder alignment',
+      'Decision confidence',
+    ],
+    color: 'border-teal-200 bg-teal-50',
+    bar: 'bg-teal-500',
+  },
+  {
+    name: 'Transformation Governance™',
+    weight: 20,
+    question: 'Can the organization authorize transformation?',
+    measures: [
+      'Decision rights',
+      'Escalation structures',
+      'Authority clarity',
+      'Transformation oversight',
+      'Governance responsiveness',
+    ],
+    color: 'border-indigo-200 bg-indigo-50',
+    bar: 'bg-indigo-500',
+  },
+  {
+    name: 'Structural Courage™',
+    weight: 15,
+    question: 'Can the organization act upon intelligence?',
+    measures: [
+      'Willingness to redesign',
+      'Decentralization capacity',
+      'Incentive flexibility',
+      'Hierarchy reduction',
+      'Decision velocity',
+    ],
+    color: 'border-amber-200 bg-amber-50',
+    bar: 'bg-amber-500',
+  },
+  {
+    name: 'Execution Capacity™',
+    weight: 20,
+    question: 'Can the organization convert change into outcomes?',
+    measures: [
+      'Implementation success',
+      'Transformation completion',
+      'Operational follow-through',
+      'Value realization',
+      'Learning integration',
+    ],
+    color: 'border-emerald-200 bg-emerald-50',
+    bar: 'bg-emerald-500',
+  },
+];
+
+const SCORING_WEIGHTS = [
+  { label: 'Absorbability™', weight: 20, bar: 'bg-blue-500' },
+  { label: 'Governance™', weight: 20, bar: 'bg-indigo-500' },
+  { label: 'Execution™', weight: 20, bar: 'bg-emerald-500' },
+  { label: 'Trust™', weight: 15, bar: 'bg-teal-500' },
+  { label: 'Courage™', weight: 15, bar: 'bg-amber-500' },
+  { label: 'Intelligence™', weight: 10, bar: 'bg-slate-400' },
+];
+
+const TIERS = [
+  {
+    tier: 'Leading™',
+    subtitle: 'Exceptional Transformation Capacity™',
+    traits: ['Rapid adaptation', 'Strong governance', 'High trust', 'Strong execution', 'Continuous learning'],
+    color: 'rating-leading',
+  },
+  {
+    tier: 'Transforming™',
+    subtitle: 'Above-average Transformation Capacity™',
+    traits: ['Proactive change', 'Strong implementation', 'Moderate friction'],
+    color: 'rating-transforming',
+  },
+  {
+    tier: 'Advanced™',
+    subtitle: 'Moderate Transformation Capacity™',
+    traits: ['Successful transformations occur', 'Uneven execution', 'Some bottlenecks'],
+    color: 'rating-advanced',
+  },
+  {
+    tier: 'Developing™',
+    subtitle: 'Limited Transformation Capacity™',
+    traits: ['Frequent delays', 'Fragmented execution', 'Adoption challenges'],
+    color: 'rating-developing',
+  },
+  {
+    tier: 'Emerging™',
+    subtitle: 'Material Transformation Constraints™',
+    traits: ['Low adoption', 'Governance friction', 'Organizational resistance', 'Transformation failures'],
+    color: 'rating-emerging',
+  },
+];
+
+const STAGES = [
+  {
+    stage: 'Stage I',
+    name: 'Substitution™',
+    description: 'Technology inserted into existing workflows.',
+    note: 'Risk',
+    noteText: 'Deployment Without Transformation™ (DWT™)',
+    noteColor: 'text-red-600',
+    bg: 'bg-slate-50 border-slate-200',
+  },
+  {
+    stage: 'Stage II',
+    name: 'Reorganization™',
+    description: 'Workflows redesigned around technology.',
+    note: 'Benefit',
+    noteText: 'Accelerated productivity.',
+    noteColor: 'text-amber-700',
+    bg: 'bg-amber-50 border-amber-200',
+  },
+  {
+    stage: 'Stage III',
+    name: 'Transformation™',
+    description: 'Operating models redesigned around technology.',
+    note: 'Benefit',
+    noteText: 'Structural advantage.',
+    noteColor: 'text-emerald-700',
+    bg: 'bg-emerald-50 border-emerald-200',
+  },
+];
+
+export default function MethodologyPage() {
+  return (
+    <main className="min-h-screen">
+      {/* Hero */}
+      <section className="border-b border-slate-100 bg-white px-6 py-16 text-center">
+        <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+          Transformation Intelligence™ Standards Board
+        </p>
+        <h1 className="mt-4 text-4xl font-bold text-slate-900 sm:text-5xl">
+          Lens Ratings Methodology™
+        </h1>
+        <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-600">
+          The official measurement standard for Transformation Capacity™ — the ability to convert
+          intelligence into realized outcomes.
+        </p>
+        <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5">
+          <span className="h-2 w-2 rounded-full bg-emerald-500" />
+          <span className="text-sm font-semibold text-emerald-700">Version 1.0 · Ratified</span>
+        </div>
+      </section>
+
+      {/* Section 1: Core Principle */}
+      <section className="mx-auto max-w-4xl px-6 py-14">
+        <div className="card p-8 text-center">
+          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Core Principle</p>
+          <h2 className="mt-4 text-2xl font-bold text-slate-900 sm:text-3xl">
+            Organizations do not outperform because they possess more intelligence.
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl text-lg text-slate-600 leading-8">
+            Organizations outperform because they possess greater{' '}
+            <strong>Transformation Capacity™</strong>. As intelligence becomes abundant, sustainable
+            advantage accrues to organizations capable of converting intelligence into transformation
+            and transformation into value.
+          </p>
+        </div>
+      </section>
+
+      {/* Section 2: Scoring Weights */}
+      <section className="border-t border-slate-100 bg-slate-50 px-6 py-14">
+        <div className="mx-auto max-w-4xl">
+          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Architecture</p>
+          <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">TCS™ Scoring Architecture</h2>
+          <p className="mt-2 text-slate-500">
+            Intelligence is weighted lowest because intelligence is abundant.{' '}
+            <strong>Transformation Capacity is scarce.</strong>
+          </p>
+
+          <div className="mt-8 space-y-4">
+            {SCORING_WEIGHTS.map(({ label, weight, bar }) => (
+              <div key={label} className="flex items-center gap-4">
+                <p className="w-44 shrink-0 text-sm font-semibold text-slate-700">{label}</p>
+                <div className="flex-1 rounded-full bg-slate-200 h-4">
+                  <div
+                    className={`${bar} h-4 rounded-full transition-all`}
+                    style={{ width: `${weight * 5}%` }}
+                  />
+                </div>
+                <p className="w-10 shrink-0 text-right text-sm font-bold text-slate-700">{weight}%</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 rounded-xl border border-amber-200 bg-amber-50 p-5">
+            <p className="text-sm font-semibold text-amber-800">
+              Critical Insight: Deployment Without Transformation™ (DWT™)
+            </p>
+            <p className="mt-1 text-sm text-amber-700 leading-6">
+              Organizations that deploy intelligence without transformation capacity experience
+              DWT™ — the condition of possessing intelligence without the capacity to realize its
+              value. This is why Intelligence™ is weighted at only 10%: having intelligence is no
+              longer the constraint.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 3: Six Domains */}
+      <section className="mx-auto max-w-4xl px-6 py-14">
+        <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Domains</p>
+        <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">The Six Scoring Domains</h2>
+        <p className="mt-2 text-slate-500">
+          Each domain answers a fundamental question about transformation capacity.
+        </p>
+
+        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          {DOMAINS.map(({ name, weight, question, measures, color, bar }) => (
+            <div key={name} className={`rounded-xl border p-5 ${color}`}>
+              <div className="flex items-start justify-between gap-2">
+                <p className="text-sm font-bold text-slate-900">{name}</p>
+                <span className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-bold text-white ${bar}`}>
+                  {weight}%
+                </span>
+              </div>
+              <p className="mt-2 text-xs font-semibold text-slate-500 italic">{question}</p>
+              <ul className="mt-3 space-y-1">
+                {measures.map((m) => (
+                  <li key={m} className="flex items-center gap-2 text-xs text-slate-600">
+                    <span className={`inline-block h-1.5 w-1.5 shrink-0 rounded-full ${bar}`} />
+                    {m}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Section 4: Rating Scale */}
+      <section className="border-t border-slate-100 bg-slate-50 px-6 py-14">
+        <div className="mx-auto max-w-4xl">
+          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Rating Scale</p>
+          <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">Five-Tier Rating Scale</h2>
+          <p className="mt-2 text-slate-500">
+            Each tier represents a distinct level of Transformation Capacity™.
+          </p>
+
+          <div className="mt-8 space-y-3">
+            {TIERS.map(({ tier, subtitle, traits, color }) => (
+              <div key={tier} className={`rounded-xl border p-5 ${color}`}>
+                <div className="flex flex-wrap items-baseline gap-2">
+                  <p className="text-base font-bold">{tier}</p>
+                  <p className="text-sm font-medium opacity-70">{subtitle}</p>
+                </div>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {traits.map((t) => (
+                    <span key={t} className="rounded-full border border-current border-opacity-20 bg-white bg-opacity-40 px-2 py-0.5 text-xs font-medium">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section 5: GPT Stages */}
+      <section className="mx-auto max-w-4xl px-6 py-14">
+        <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+          Classification Framework
+        </p>
+        <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
+          General-Purpose Technology Transformation Stages™
+        </h2>
+        <p className="mt-2 text-slate-500">
+          Every organization occupies one of three stages of technology adoption.
+        </p>
+
+        <div className="mt-8 grid gap-4 sm:grid-cols-3">
+          {STAGES.map(({ stage, name, description, note, noteText, noteColor, bg }) => (
+            <div key={stage} className={`rounded-xl border p-5 ${bg}`}>
+              <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">{stage}</p>
+              <p className="mt-1 text-base font-bold text-slate-900">{name}</p>
+              <p className="mt-2 text-sm text-slate-600 leading-5">{description}</p>
+              <p className={`mt-3 text-xs font-semibold ${noteColor}`}>
+                {note}: {noteText}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Section 6: Constitutional Declaration */}
+      <section className="px-6 py-16" style={{ backgroundColor: '#0f172a' }}>
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+            Constitutional Declaration
+          </p>
+          <blockquote className="mt-6 text-xl font-semibold leading-9 text-white sm:text-2xl">
+            "The Transformation Capacity Score™ is the foundational measurement of the
+            Transformation Economy™. As intelligence becomes abundant, sustainable advantage
+            increasingly accrues to organizations capable of converting intelligence into
+            transformation and transformation into value."
+          </blockquote>
+          <p className="mt-6 text-sm text-slate-400">
+            Transformation Intelligence™ Standards Board · Lens Ratings Methodology™ v1.0
+          </p>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="border-t border-slate-100 bg-white px-6 py-14 text-center">
+        <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+          See It In Action
+        </p>
+        <h2 className="mt-3 text-2xl font-bold text-slate-900">
+          See The Methodology In Action
+        </h2>
+        <p className="mx-auto mt-3 max-w-md text-slate-500">
+          Run a Lens Analysis™ on any organization and see how the methodology scores it in real time.
+        </p>
+        <Link href="/search" className="btn btn-primary mt-6 inline-flex">
+          Run Lens Analysis™ →
+        </Link>
+      </section>
+    </main>
+  );
+}
