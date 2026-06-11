@@ -308,6 +308,9 @@ export function LensCard({ item }: { item: LensSnapshot }) {
             </div>
             <span className={`shrink-0 rounded-full border px-3 py-1 text-sm font-bold ${rc}`}>
               {item.tcs_score}
+              {item.tcs_numeric != null && (
+                <span className="ml-1 text-xs font-normal opacity-70">{item.tcs_numeric}/100</span>
+              )}
             </span>
             {/* Five-step E·D·A·T·L scale with ⓘ */}
             <TcsScaleIndicator
@@ -319,7 +322,7 @@ export function LensCard({ item }: { item: LensSnapshot }) {
 
         <p className="mt-2 text-xs text-slate-400">Transformation Capacity Score™</p>
         <Link href="/methodology" className="mt-0.5 text-xs text-slate-400 hover:text-slate-600 underline underline-offset-2">
-          Rated by Lens Ratings Methodology™ v1.0 →
+          Rated by Lens Ratings Methodology™ v1.1 →
         </Link>
 
         {/* Six determinants — 2-column grid, full labels, no truncation */}
@@ -327,7 +330,10 @@ export function LensCard({ item }: { item: LensSnapshot }) {
           {determinants.map(({ label, key }) => {
             const val = (item[key] as string) ?? 'Emerging';
             const dc = ratingClass[val] ?? 'rating-emerging';
-            const pct = tierPercent[val] ?? 20;
+            // Use numeric score if available, else fall back to tier percent
+            const numericKey = (key as string).replace('_score', '_numeric') as keyof LensSnapshot;
+            const numericVal = item[numericKey] as number | undefined;
+            const pct = numericVal != null ? numericVal : tierPercent[val] ?? 20;
             const barColor = tierDotColor[val] ?? 'bg-slate-400';
             return (
               <div key={key} className={`rounded-lg border px-3 py-2 ${dc}`}>
@@ -341,7 +347,12 @@ export function LensCard({ item }: { item: LensSnapshot }) {
                     ⓘ
                   </button>
                 </div>
-                <p className="mt-1 text-xs font-bold">{val}</p>
+                <div className="mt-1 flex items-baseline justify-between">
+                  <p className="text-xs font-bold">{val}</p>
+                  {numericVal != null && (
+                    <p className="text-xs font-semibold opacity-80">{numericVal}</p>
+                  )}
+                </div>
                 {/* Progress bar */}
                 <div className="mt-1.5 w-full rounded-full bg-white bg-opacity-50 h-1.5">
                   <div
@@ -353,6 +364,20 @@ export function LensCard({ item }: { item: LensSnapshot }) {
             );
           })}
         </div>
+
+        {/* Primary Constraint callout */}
+        {item.primary_constraint && (
+          <div className="mt-3 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2">
+            <p className="text-xs font-semibold text-amber-700">
+              ⚠️ Primary Constraint™: {item.primary_constraint}
+            </p>
+            {item.secondary_constraint && (
+              <p className="mt-0.5 text-xs text-amber-600">
+                Secondary: {item.secondary_constraint}
+              </p>
+            )}
+          </div>
+        )}
 
         {/* Transformation Capacity Gap™ with ⓘ */}
         <div className="mt-3 flex items-center gap-2">

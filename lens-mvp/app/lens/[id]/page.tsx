@@ -99,10 +99,20 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
     { label: 'Execution™',      key: 'execution_score' },
   ];
 
-  const determinantData = determinants.map(({ label, key }) => ({
-    label,
-    value: (item[key] as string) ?? 'Emerging',
-  }));
+  const determinantData = determinants.map(({ label, key }) => {
+    const numericKey = (key as string).replace('_score', '_numeric') as keyof LensSnapshot;
+    return {
+      label,
+      value: (item[key] as string) ?? 'Emerging',
+      numeric: item[numericKey] as number | undefined,
+    };
+  });
+
+  const gptp_stage_label: Record<string, { label: string; color: string; desc: string }> = {
+    Substitution:    { label: 'Stage I — Substitution™',    color: 'text-amber-700 bg-amber-50 border-amber-200',   desc: 'Technology is inserted into existing workflows without redesigning them. Intelligence is deployed but transformation capacity is not being built.' },
+    Reorganization:  { label: 'Stage II — Reorganization™',  color: 'text-blue-700 bg-blue-50 border-blue-200',     desc: 'Workflows are being redesigned around the technology. Cross-functional integration and governance adaptation are underway.' },
+    Transformation:  { label: 'Stage III — Transformation™', color: 'text-emerald-700 bg-emerald-50 border-emerald-200', desc: 'Operating models, governance systems, and decision architectures have been fundamentally redesigned around intelligence.' },
+  };
 
   return (
     <main className="mx-auto min-h-screen max-w-4xl px-6 py-10">
@@ -127,6 +137,95 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
 
       {/* Six Determinants — client component with info modals + progress bars */}
       <DeterminantsSection determinants={determinantData} />
+
+      {/* v1.1 Scoring Breakdown */}
+      {item.tcs_numeric != null && (
+        <section className="card mt-6 p-6">
+          <h2 className="text-xl font-bold">TCS™ Scoring Breakdown</h2>
+          <p className="mt-1 text-sm text-slate-500">Weighted composite score — Lens Ratings Methodology™ v1.1</p>
+          <div className="mt-4 space-y-3">
+            {[
+              { label: 'Absorbability™',  weight: 20, val: item.absorbability_numeric },
+              { label: 'Governance™',     weight: 20, val: item.governance_numeric },
+              { label: 'Execution™',      weight: 20, val: item.execution_numeric },
+              { label: 'Trust™',          weight: 15, val: item.trust_numeric },
+              { label: 'Courage™',        weight: 15, val: item.courage_numeric },
+              { label: 'Intelligence™',   weight: 10, val: item.intelligence_numeric },
+            ].map(({ label, weight, val }) => (
+              <div key={label} className="flex items-center gap-3">
+                <div className="w-32 shrink-0">
+                  <p className="text-xs font-semibold text-slate-700">{label}</p>
+                  <p className="text-xs text-slate-400">{weight}% weight</p>
+                </div>
+                <div className="flex-1">
+                  <div className="w-full rounded-full bg-slate-100 h-2">
+                    <div
+                      className="bg-blue-500 h-2 rounded-full transition-all"
+                      style={{ width: `${val ?? 0}%` }}
+                    />
+                  </div>
+                </div>
+                <p className="w-10 text-right text-sm font-bold text-slate-800">{val ?? '—'}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-4">
+            <p className="text-sm font-semibold text-slate-600">TCS™ Composite Score</p>
+            <p className="text-2xl font-bold text-slate-900">{item.tcs_numeric}<span className="text-sm font-normal text-slate-400">/100</span></p>
+          </div>
+        </section>
+      )}
+
+      {/* v1.1 Constraint Diagnostics */}
+      {(item.primary_constraint || item.system_constraint) && (
+        <section className="card mt-6 p-6">
+          <h2 className="text-xl font-bold">Constraint Diagnostics™</h2>
+          <p className="mt-1 text-sm text-slate-500">The domains most limiting this organization&apos;s transformation capacity.</p>
+          <div className="mt-4 space-y-3">
+            {item.primary_constraint && (
+              <div className="flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4">
+                <span className="mt-0.5 shrink-0 text-base">⚠️</span>
+                <div>
+                  <p className="text-sm font-bold text-amber-800">Primary Constraint™</p>
+                  <p className="text-sm text-amber-700">{item.primary_constraint}</p>
+                </div>
+              </div>
+            )}
+            {item.secondary_constraint && (
+              <div className="flex items-start gap-3 rounded-xl border border-orange-200 bg-orange-50 p-4">
+                <span className="mt-0.5 shrink-0 text-base">⚠️</span>
+                <div>
+                  <p className="text-sm font-bold text-orange-800">Secondary Constraint™</p>
+                  <p className="text-sm text-orange-700">{item.secondary_constraint}</p>
+                </div>
+              </div>
+            )}
+            {item.system_constraint && (
+              <div className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4">
+                <span className="mt-0.5 shrink-0 text-base">🔗</span>
+                <div>
+                  <p className="text-sm font-bold text-red-800">System Constraint™</p>
+                  <p className="text-sm text-red-700">{item.system_constraint}</p>
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* v1.1 GPTP Stage */}
+      {item.gptp_stage && gptp_stage_label[item.gptp_stage] && (
+        <section className="card mt-6 p-6">
+          <h2 className="text-xl font-bold">Transformation Stage™</h2>
+          <p className="mt-1 text-sm text-slate-500">Where this organization sits in the General-Purpose Technology Transformation Principle™ (GPTP™).</p>
+          <div className="mt-4">
+            <span className={`inline-block rounded-full border px-4 py-1.5 text-sm font-bold ${gptp_stage_label[item.gptp_stage].color}`}>
+              {gptp_stage_label[item.gptp_stage].label}
+            </span>
+            <p className="mt-3 text-slate-600 leading-7">{gptp_stage_label[item.gptp_stage].desc}</p>
+          </div>
+        </section>
+      )}
 
       {/* Transformation Capacity Gap™ */}
       <section className="card mt-6 p-6">

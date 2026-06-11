@@ -66,6 +66,7 @@ function InfoModal({ title, body, onClose }: { title: string; body: string; onCl
 interface DeterminantItem {
   label: string;
   value: string;
+  numeric?: number;
 }
 
 export function DeterminantsSection({ determinants }: { determinants: DeterminantItem[] }) {
@@ -87,16 +88,21 @@ export function DeterminantsSection({ determinants }: { determinants: Determinan
           The six factors that determine Transformation Capacity™. Tap ⓘ for definitions.
         </p>
         <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {determinants.map(({ label, value }) => {
+          {determinants.map(({ label, value, numeric }) => {
             const dc = ratingClass[value] ?? 'rating-emerging';
-            const pct = tierPercent[value] ?? 20;
+            const pct = numeric != null ? numeric : (tierPercent[value] ?? 20);
             const barColor = tierBarColor[value] ?? 'bg-slate-400';
             return (
               <div key={label} className={`rounded-xl border p-4 ${dc}`}>
                 <div className="flex items-center justify-between gap-2">
                   <p className="text-sm font-semibold">{label}</p>
                   <div className="flex items-center gap-2 shrink-0">
-                    <p className="text-sm font-bold">{value}</p>
+                    <p className="text-sm font-bold">
+                      {value}
+                      {numeric != null && (
+                        <span className="ml-1 text-xs font-normal opacity-70">{numeric}</span>
+                      )}
+                    </p>
                     <button
                       onClick={() => setActiveInfo(label)}
                       className="text-sm leading-none opacity-60 hover:opacity-100 active:opacity-100"

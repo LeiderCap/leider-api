@@ -73,6 +73,20 @@ function mapDbToSnapshot(row: any): LensSnapshot {
     constraints: score?.constraints ?? [],
     opportunities: score?.opportunities ?? [],
     summary: score?.summary ?? '',
+
+    // v1.1 numerical scoring
+    tcs_numeric: score?.tcs_numeric ?? undefined,
+    absorbability_numeric: score?.absorbability_numeric ?? undefined,
+    governance_numeric: score?.governance_numeric ?? undefined,
+    execution_numeric: score?.execution_numeric ?? undefined,
+    trust_numeric: score?.trust_numeric ?? undefined,
+    courage_numeric: score?.courage_numeric ?? undefined,
+    intelligence_numeric: score?.intelligence_numeric ?? undefined,
+    primary_constraint: score?.primary_constraint ?? undefined,
+    secondary_constraint: score?.secondary_constraint ?? undefined,
+    system_constraint: score?.system_constraint ?? null,
+    gptp_stage: score?.gptp_stage ?? undefined,
+
     updated_at: score?.updated_at ?? row.created_at
   };
 }
@@ -171,6 +185,20 @@ export async function saveLensSnapshot(snapshot: LensSnapshot) {
     constraints: snapshot.constraints,
     opportunities: snapshot.opportunities,
     summary: snapshot.summary,
+
+    // v1.1 numerical scoring
+    tcs_numeric: snapshot.tcs_numeric ?? null,
+    absorbability_numeric: snapshot.absorbability_numeric ?? null,
+    governance_numeric: snapshot.governance_numeric ?? null,
+    execution_numeric: snapshot.execution_numeric ?? null,
+    trust_numeric: snapshot.trust_numeric ?? null,
+    courage_numeric: snapshot.courage_numeric ?? null,
+    intelligence_numeric: snapshot.intelligence_numeric ?? null,
+    primary_constraint: snapshot.primary_constraint ?? null,
+    secondary_constraint: snapshot.secondary_constraint ?? null,
+    system_constraint: snapshot.system_constraint ?? null,
+    gptp_stage: snapshot.gptp_stage ?? null,
+
     updated_at: new Date().toISOString()
   });
 }

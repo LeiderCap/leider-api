@@ -37,7 +37,20 @@ const LensAiSchema = z.object({
   
   constraints: z.array(z.string()).min(1).max(5),
   opportunities: z.array(z.string()).min(1).max(5),
-  summary: z.string().min(1)
+  summary: z.string().min(1),
+
+  // v1.1 numerical scoring
+  tcs_numeric: z.number().min(0).max(100),
+  absorbability_numeric: z.number().min(0).max(100),
+  governance_numeric: z.number().min(0).max(100),
+  execution_numeric: z.number().min(0).max(100),
+  trust_numeric: z.number().min(0).max(100),
+  courage_numeric: z.number().min(0).max(100),
+  intelligence_numeric: z.number().min(0).max(100),
+  primary_constraint: z.string().min(1),
+  secondary_constraint: z.string().min(1),
+  system_constraint: z.string().nullable().optional(),
+  gptp_stage: z.enum(['Substitution', 'Reorganization', 'Transformation'])
 });
 
 export const LENS_SYSTEM_PROMPT = `You are The Lens™, the measurement system for Transformation Capacity™.
@@ -77,7 +90,19 @@ Use this exact JSON shape:
 
   "constraints": ["constraint 1", "constraint 2", "constraint 3"],
   "opportunities": ["opportunity 1", "opportunity 2", "opportunity 3"],
-  "summary": "2-3 sentence Lens narrative focused on transformation capacity"
+  "summary": "2-3 sentence Lens narrative focused on transformation capacity",
+
+  "tcs_numeric": 0-100 integer (weighted composite — see formula below),
+  "absorbability_numeric": 0-100 integer,
+  "governance_numeric": 0-100 integer,
+  "execution_numeric": 0-100 integer,
+  "trust_numeric": 0-100 integer,
+  "courage_numeric": 0-100 integer,
+  "intelligence_numeric": 0-100 integer,
+  "primary_constraint": "name of the lowest-scoring domain",
+  "secondary_constraint": "name of the second-lowest-scoring domain",
+  "system_constraint": "interaction effect description if applicable, or null",
+  "gptp_stage": "Substitution | Reorganization | Transformation"
 }
 
 Evaluate through these lenses:
@@ -193,7 +218,51 @@ Characteristics: frequent delays, fragmented execution, adoption challenges.
 Emerging™ — Material Transformation Constraints™
 Characteristics: low adoption, governance friction, organizational resistance, transformation failures.
 
-Apply these weights and definitions when determining each domain score and the overall TCS™ composite.`;
+Apply these weights and definitions when determining each domain score and the overall TCS™ composite.
+
+LENS RATINGS METHODOLOGY™ v1.1 — NUMERICAL SCORING
+
+Each of the six domains must be scored 0-100:
+
+DOMAIN WEIGHTS:
+Absorbability™:  20% — Can the organization absorb change?
+Governance™:     20% — Can the organization authorize change?
+Execution™:      20% — Can the organization convert plans to outcomes?
+Trust™:          15% — Can the organization coordinate around change?
+Courage™:        15% — Can the organization act on what it knows?
+Intelligence™:   10% — Can the organization generate intelligence?
+
+SCORING SCALE PER DOMAIN:
+90-100 = Exceptional
+80-89  = Strong
+70-79  = Advanced
+60-69  = Developing
+Below 60 = Constrained
+
+TCS™ FORMULA (weighted additive, normalized to 0-100):
+tcs_numeric = (0.20 × absorbability_numeric) + (0.20 × governance_numeric)
+            + (0.20 × execution_numeric) + (0.15 × trust_numeric)
+            + (0.15 × courage_numeric) + (0.10 × intelligence_numeric)
+
+TCS™ RATING BANDS (use these to set tcs_score tier):
+85-100  = Leading™
+75-84   = Transforming™
+65-74   = Advanced™
+55-64   = Developing™
+Below 55 = Emerging™
+
+CONSTRAINT DIAGNOSTICS:
+- primary_constraint: the name of the lowest-scoring domain
+- secondary_constraint: the name of the second-lowest-scoring domain
+- system_constraint: describe interaction effects if material (e.g. 'High Intelligence + Low Courage = Transformation Paralysis™ — organization knows what to do but cannot act on it'), or return null
+
+GPTP STAGE CLASSIFICATION:
+- gptp_stage must be one of: Substitution | Reorganization | Transformation
+  (based on your internal GPTP™ assessment — do NOT expose stage names in other output fields)
+
+IMPORTANT: tcs_score tier MUST be consistent with tcs_numeric using the rating bands above.
+Example: tcs_numeric=61 → tcs_score='Developing'
+`;
 
 function extractJson(text: string) {
   const trimmed = text.trim();
@@ -298,7 +367,20 @@ export async function generateLensSnapshot(query: string): Promise<LensSnapshot>
     constraints: parsed.constraints,
     opportunities: parsed.opportunities,
     summary: parsed.summary,
-    
+
+    // v1.1 numerical scoring
+    tcs_numeric: parsed.tcs_numeric,
+    absorbability_numeric: parsed.absorbability_numeric,
+    governance_numeric: parsed.governance_numeric,
+    execution_numeric: parsed.execution_numeric,
+    trust_numeric: parsed.trust_numeric,
+    courage_numeric: parsed.courage_numeric,
+    intelligence_numeric: parsed.intelligence_numeric,
+    primary_constraint: parsed.primary_constraint,
+    secondary_constraint: parsed.secondary_constraint,
+    system_constraint: parsed.system_constraint ?? null,
+    gptp_stage: parsed.gptp_stage,
+
     updated_at: new Date().toISOString()
   };
 }

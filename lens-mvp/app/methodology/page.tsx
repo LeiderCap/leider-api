@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Lens Ratings Methodology™ v1.0 — Transformation Intelligence™ Standards Board',
+  title: 'Lens Ratings Methodology™ v1.1 — Transformation Intelligence™ Standards Board',
   description:
     'The official measurement standard for Transformation Capacity™ — the ability to convert intelligence into realized outcomes.',
 };
@@ -175,7 +175,7 @@ export default function MethodologyPage() {
           Transformation Intelligence™ Standards Board
         </p>
         <h1 className="mt-4 text-4xl font-bold text-slate-900 sm:text-5xl">
-          Lens Ratings Methodology™
+          Lens Ratings Methodology™ v1.1
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-600">
           The official measurement standard for Transformation Capacity™ — the ability to convert
@@ -183,7 +183,7 @@ export default function MethodologyPage() {
         </p>
         <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5">
           <span className="h-2 w-2 rounded-full bg-emerald-500" />
-          <span className="text-sm font-semibold text-emerald-700">Version 1.0 · Ratified</span>
+          <span className="text-sm font-semibold text-emerald-700">Version 1.1 · Ratified</span>
         </div>
       </section>
 
@@ -328,6 +328,46 @@ export default function MethodologyPage() {
         </div>
       </section>
 
+      {/* Section 5b: v1.1 Additions */}
+      <section className="mx-auto max-w-4xl px-6 py-14">
+        <div className="card p-8">
+          <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3 py-1 mb-4">
+            <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+            <span className="text-xs font-semibold text-blue-700">New in v1.1</span>
+          </div>
+          <h2 className="text-2xl font-bold text-slate-900">Version 1.1 Additions</h2>
+          <p className="mt-2 text-slate-500">Three new measurement capabilities added in this version.</p>
+
+          <div className="mt-8 space-y-6">
+            <div className="rounded-xl border border-slate-200 p-5">
+              <p className="text-sm font-bold text-slate-800">1. Numerical 0–100 Scoring</p>
+              <p className="mt-1 text-sm text-slate-600 leading-6">
+                Each determinant now produces a precise numerical score (0–100) in addition to the tier label.
+                The TCS™ Composite Score is the weighted average of all six determinant scores.
+                This enables trend tracking, benchmarking, and more precise gap analysis.
+              </p>
+            </div>
+            <div className="rounded-xl border border-amber-200 bg-amber-50 p-5">
+              <p className="text-sm font-bold text-amber-800">2. Constraint Diagnostics™</p>
+              <p className="mt-1 text-sm text-amber-700 leading-6">
+                Every Lens Card™ now identifies the Primary Constraint™, Secondary Constraint™, and
+                System Constraint™ — the specific domains most limiting transformation capacity.
+                Constraint Diagnostics™ enable targeted intervention rather than broad transformation programs.
+              </p>
+            </div>
+            <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-5">
+              <p className="text-sm font-bold text-emerald-800">3. GPTP™ Stage Classification</p>
+              <p className="mt-1 text-sm text-emerald-700 leading-6">
+                Each organization is now classified into one of three General-Purpose Technology
+                Transformation Principle™ (GPTP™) stages: Substitution™, Reorganization™, or
+                Transformation™. Stage classification determines the type of intervention required
+                and the risk of Deployment Without Transformation™ (DWT™).
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Section 6: Constitutional Declaration */}
       <section className="px-6 py-16" style={{ backgroundColor: '#0f172a' }}>
         <div className="mx-auto max-w-3xl text-center">
@@ -341,7 +381,7 @@ export default function MethodologyPage() {
             transformation and transformation into value."
           </blockquote>
           <p className="mt-6 text-sm text-slate-400">
-            Transformation Intelligence™ Standards Board · Lens Ratings Methodology™ v1.0
+            Transformation Intelligence™ Standards Board · Lens Ratings Methodology™ v1.1
           </p>
         </div>
       </section>

@@ -133,3 +133,20 @@ CREATE INDEX IF NOT EXISTS idx_transformation_events_created_at
 -- After running, re-search affected companies to
 -- regenerate correct scores via the AI pipeline.
 -- ============================================
+
+-- ============================================
+-- v1.1 Migration — run in Supabase SQL Editor:
+-- ============================================
+-- ALTER TABLE lens_scores
+--   ADD COLUMN IF NOT EXISTS tcs_numeric integer,
+--   ADD COLUMN IF NOT EXISTS absorbability_numeric integer,
+--   ADD COLUMN IF NOT EXISTS governance_numeric integer,
+--   ADD COLUMN IF NOT EXISTS execution_numeric integer,
+--   ADD COLUMN IF NOT EXISTS trust_numeric integer,
+--   ADD COLUMN IF NOT EXISTS courage_numeric integer,
+--   ADD COLUMN IF NOT EXISTS intelligence_numeric integer,
+--   ADD COLUMN IF NOT EXISTS primary_constraint text,
+--   ADD COLUMN IF NOT EXISTS secondary_constraint text,
+--   ADD COLUMN IF NOT EXISTS system_constraint text,
+--   ADD COLUMN IF NOT EXISTS gptp_stage text;
+-- ============================================

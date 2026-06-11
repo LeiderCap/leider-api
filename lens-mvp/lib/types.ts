@@ -46,5 +46,18 @@ export interface LensSnapshot {
   opportunities: string[];
   summary: string;
 
+  // v1.1 numerical scoring
+  tcs_numeric?: number;
+  absorbability_numeric?: number;
+  governance_numeric?: number;
+  execution_numeric?: number;
+  trust_numeric?: number;
+  courage_numeric?: number;
+  intelligence_numeric?: number;
+  primary_constraint?: string;
+  secondary_constraint?: string;
+  system_constraint?: string | null;
+  gptp_stage?: 'Substitution' | 'Reorganization' | 'Transformation';
+
   updated_at: string;
 }
