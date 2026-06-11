@@ -352,7 +352,12 @@ export async function generateLensSnapshot(query: string): Promise<LensSnapshot>
   }
 
   const parsed = LensAiSchema.parse(JSON.parse(extractJson(text)));
-  const id = slugify(parsed.ticker || parsed.name || query);
+  // ID is always derived from the canonical company name returned by the AI.
+  // This prevents collisions where short queries like "oak" produce the same
+  // slug for unrelated companies (e.g. "Oaktree Capital" vs "Oak Street Health").
+  // Tickers are intentionally NOT used as the primary ID source because two
+  // different companies can share a ticker across exchanges.
+  const id = slugify(parsed.name || query);
 
   return {
     id,
