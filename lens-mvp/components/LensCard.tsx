@@ -32,10 +32,16 @@ export function LensCard({ item }: { item: LensSnapshot }) {
     });
   }
 
+  const PRIVATE_TOP_UNLOCK = 'To ensure accuracy, private companies require more information from the client. Request a Blueprint™ for your Unlock options.';
+
   const isUnlockable = (val: string) =>
     !val || val === 'N/A' || val === 'Private — additional details needed';
 
-  const PRIVATE_TOP_UNLOCK = 'To ensure accuracy, private companies require more information from the client. Request a Blueprint™ for your Unlock options.';
+  // Detect stale private-company fallback data on a public company (has ticker)
+  const isStalePrivateFallback =
+    !!item.ticker &&
+    !!(item.top_unlock?.toLowerCase().includes('private companies require'));
+
   const topUnlockDisplay = item.top_unlock?.trim() || PRIVATE_TOP_UNLOCK;
 
   const determinants: { label: string; key: keyof LensSnapshot }[] = [
@@ -97,7 +103,13 @@ export function LensCard({ item }: { item: LensSnapshot }) {
       {/* Top Unlock + Opportunity */}
       <div className="mt-4 rounded-xl bg-slate-50 p-4">
         <p className="text-xs font-semibold text-slate-400">Top Unlock™</p>
-        <p className="mt-1 text-sm font-semibold leading-snug">{topUnlockDisplay}</p>
+        {isStalePrivateFallback ? (
+          <p className="mt-1 text-sm text-amber-700 font-medium leading-snug">
+            Analysis updating — <Link href={`/lens/${item.id}`} className="underline">view full card</Link> for latest data.
+          </p>
+        ) : (
+          <p className="mt-1 text-sm font-semibold leading-snug">{topUnlockDisplay}</p>
+        )}
         <div className="mt-3 flex items-center justify-between">
           <div>
             <p className="text-xs text-slate-400">Estimated Opportunity™</p>

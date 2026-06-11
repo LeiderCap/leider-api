@@ -119,3 +119,17 @@ CREATE INDEX IF NOT EXISTS idx_transformation_events_event_type
 
 CREATE INDEX IF NOT EXISTS idx_transformation_events_created_at
   ON transformation_events(created_at);
+
+-- ============================================
+-- DATA QUALITY: STALE PRIVATE-COMPANY CACHE
+-- ============================================
+-- Run manually in Supabase SQL editor to clear
+-- bad cached data where public companies were
+-- incorrectly scored with private-company fallbacks:
+--
+-- DELETE FROM lens_scores
+-- WHERE top_unlock LIKE '%private companies require%';
+--
+-- After running, re-search affected companies to
+-- regenerate correct scores via the AI pipeline.
+-- ============================================

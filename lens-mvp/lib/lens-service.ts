@@ -36,6 +36,14 @@ export function searchSeed(query: string) {
   return seedRecords.filter((item) => matches(item, query));
 }
 
+/** Returns true if a cached snapshot has stale private-company fallback data for a public company. */
+function isStalePrivateFallback(snapshot: LensSnapshot): boolean {
+  return (
+    !!snapshot.ticker &&
+    !!(snapshot.top_unlock?.toLowerCase().includes('private companies require'))
+  );
+}
+
 function mapDbToSnapshot(row: any): LensSnapshot {
   const score = Array.isArray(row.lens_scores) ? row.lens_scores[0] : row.lens_scores;
   return {
@@ -87,7 +95,11 @@ export async function getCachedLens(query: string): Promise<LensSnapshot | null>
     const hasScore = Array.isArray(byId.data.lens_scores)
       ? byId.data.lens_scores.length > 0
       : !!byId.data.lens_scores;
-    if (hasScore) return mapDbToSnapshot(byId.data);
+    if (hasScore) {
+      const snap = mapDbToSnapshot(byId.data);
+      if (!isStalePrivateFallback(snap)) return snap;
+      console.log('[lens-service] Stale private fallback detected for public company:', snap.id, '— regenerating.');
+    }
   }
 
   const byName = await supabase
@@ -101,7 +113,11 @@ export async function getCachedLens(query: string): Promise<LensSnapshot | null>
     const hasScore = Array.isArray(byName.data.lens_scores)
       ? byName.data.lens_scores.length > 0
       : !!byName.data.lens_scores;
-    if (hasScore) return mapDbToSnapshot(byName.data);
+    if (hasScore) {
+      const snap = mapDbToSnapshot(byName.data);
+      if (!isStalePrivateFallback(snap)) return snap;
+      console.log('[lens-service] Stale private fallback detected for public company:', snap.id, '— regenerating.');
+    }
   }
 
   const byTicker = await supabase
@@ -115,7 +131,11 @@ export async function getCachedLens(query: string): Promise<LensSnapshot | null>
     const hasScore = Array.isArray(byTicker.data.lens_scores)
       ? byTicker.data.lens_scores.length > 0
       : !!byTicker.data.lens_scores;
-    if (hasScore) return mapDbToSnapshot(byTicker.data);
+    if (hasScore) {
+      const snap = mapDbToSnapshot(byTicker.data);
+      if (!isStalePrivateFallback(snap)) return snap;
+      console.log('[lens-service] Stale private fallback detected for public company:', snap.id, '— regenerating.');
+    }
   }
   return null;
 }
@@ -183,7 +203,11 @@ export async function getLensByIdOrCache(id: string): Promise<LensSnapshot | nul
       const hasScore = Array.isArray(data.lens_scores)
         ? data.lens_scores.length > 0
         : !!data.lens_scores;
-      if (hasScore) return mapDbToSnapshot(data);
+      if (hasScore) {
+        const snap = mapDbToSnapshot(data);
+        if (!isStalePrivateFallback(snap)) return snap;
+        console.log('[lens-service] Stale private fallback detected for public company:', snap.id, '— regenerating.');
+      }
     }
   }
 

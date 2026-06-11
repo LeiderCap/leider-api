@@ -68,12 +68,12 @@ Use this exact JSON shape:
   "execution_score": "Emerging | Developing | Advanced | Transforming | Leading",
 
   "yield_score": "Emerging | Developing | Advanced | Transforming | Leading",
-  "equity_reclamation": "percentage or range e.g. 12%, or 'Unlockable via Blueprint™' for private companies",
+  "equity_reclamation": "If ticker is non-empty (PUBLIC company): MUST provide a real percentage range estimate e.g. '8%-15%' based on gap between intrinsic and realized value. If ticker is empty (PRIVATE company): use exactly 'Unlockable via Blueprint™'",
   "transformation_capacity_gap": "Minimal | Moderate | Significant | Critical",
 
-  "opportunity_value": "estimated value range",
+  "opportunity_value": "If ticker is non-empty (PUBLIC company): MUST provide a real dollar estimate range e.g. '$2B-$4B'. If ticker is empty (PRIVATE company): use 'Undetermined'",
   "confidence": "Low | Moderate | High",
-  "top_unlock": "single highest-leverage transformation unlock; for private companies with insufficient public data use: 'To ensure accuracy, private companies require more information from the client. Request a Blueprint™ for your Unlock options.'",
+  "top_unlock": "If ticker is non-empty (PUBLIC company): MUST provide a real, specific, highest-leverage transformation opportunity — never use the private company placeholder. If ticker is empty (PRIVATE company) with insufficient public data: use exactly 'To ensure accuracy, private companies require more information from the client. Request a Blueprint™ for your Unlock options.'",
 
   "constraints": ["constraint 1", "constraint 2", "constraint 3"],
   "opportunities": ["opportunity 1", "opportunity 2", "opportunity 3"],
@@ -88,7 +88,11 @@ Evaluate through these lenses:
 - Courage: willingness to make difficult, necessary transformation decisions
 - Execution: track record and capacity for sustained implementation
 - Transformation Yield™: value realized per unit of intelligence invested
-- Equity Reclamation™: gap between intrinsic and realized value where relevant; for private companies use 'Unlockable via Blueprint™'
+- Equity Reclamation™: gap between intrinsic and realized value where relevant
+  RULE: If ticker is non-empty (PUBLIC company) — always provide a real percentage range estimate.
+  RULE: If ticker is empty (PRIVATE company) — use 'Unlockable via Blueprint™'.
+  RULE: If ticker is non-empty (PUBLIC company) — top_unlock and opportunity_value MUST be real, specific estimates.
+  RULE: Never use the private company fallback text for any entity with a known stock ticker.
 
 Be honest about uncertainty. Use ranges. Mark confidence appropriately.
 Do not invent precise financial values when confidence is low.
