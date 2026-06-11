@@ -38,7 +38,30 @@ const tierPosition: Record<string, number> = {
   Emerging: 0, Developing: 1, Advanced: 2, Transforming: 3, Leading: 4,
 };
 
-// Full tier definitions for the TCS™ modal
+// ── Modal content definitions ─────────────────────────────────
+
+type ModalKey = 'tcs' | 'scale' | 'tcg' | 'determinant';
+
+interface ModalState {
+  type: ModalKey;
+  key: string; // determinant label for 'determinant' type; ignored otherwise
+}
+
+const DETERMINANT_TOOLTIPS: Record<string, string> = {
+  'Intelligence™':
+    'The quality and availability of intelligence inputs available to this organization. High intelligence access enables better decisions and faster adaptation.',
+  'Absorbability™':
+    "The organization's capacity to absorb, process, and operationalize new intelligence. Low absorbability means intelligence exists but cannot be converted into action.",
+  'Trust™':
+    'The strength of trust infrastructure across leadership, teams, systems, and governance. Trust is a prerequisite for transformation — without it, change stalls.',
+  'Governance™':
+    'The quality of decision-making structures, velocity, and accountability. Poor governance creates friction that slows or blocks transformation.',
+  'Courage™':
+    'The willingness to make difficult, necessary transformation decisions. Structural courage determines whether organizations act on what they know.',
+  'Execution™':
+    'The track record and capacity for sustained implementation. Organizations can plan transformation but fail to execute it.',
+};
+
 const TCS_TIER_ROWS: { tier: string; abbr: string; dot: string; text: string }[] = [
   {
     tier: 'Emerging', abbr: 'E', dot: 'bg-slate-400',
@@ -62,29 +85,7 @@ const TCS_TIER_ROWS: { tier: string; abbr: string; dot: string; text: string }[]
   },
 ];
 
-const DETERMINANT_TOOLTIPS: Record<string, string> = {
-  'Intelligence™':
-    'The quality and availability of intelligence inputs available to this organization. High intelligence access enables better decisions and faster adaptation.',
-  'Absorbability™':
-    "The organization's capacity to absorb, process, and operationalize new intelligence. Low absorbability means intelligence exists but cannot be converted into action.",
-  'Trust™':
-    'The strength of trust infrastructure across leadership, teams, systems, and governance. Trust is a prerequisite for transformation — without it, change stalls.',
-  'Governance™':
-    'The quality of decision-making structures, velocity, and accountability. Poor governance creates friction that slows or blocks transformation.',
-  'Courage™':
-    'The willingness to make difficult, necessary transformation decisions. Structural courage determines whether organizations act on what they know.',
-  'Execution™':
-    'The track record and capacity for sustained implementation. Organizations can plan transformation but fail to execute it.',
-};
-
 // ── Info Modal ────────────────────────────────────────────────
-
-type ModalType = 'tcs' | 'determinant';
-
-interface ModalState {
-  type: ModalType;
-  key: string;
-}
 
 function InfoModal({ modal, onClose }: { modal: ModalState; onClose: () => void }) {
   return (
@@ -105,7 +106,7 @@ function InfoModal({ modal, onClose }: { modal: ModalState; onClose: () => void 
           ×
         </button>
 
-        {modal.type === 'tcs' ? (
+        {modal.type === 'tcs' && (
           <>
             <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-1">Scorecard</p>
             <h3 className="text-base font-bold text-slate-900 mb-2">Transformation Capacity Score™ (TCS™)</h3>
@@ -128,7 +129,65 @@ function InfoModal({ modal, onClose }: { modal: ModalState; onClose: () => void 
               The TCS™ is composed of six determinants: Intelligence · Absorbability · Trust · Governance · Courage · Execution
             </p>
           </>
-        ) : (
+        )}
+
+        {modal.type === 'scale' && (
+          <>
+            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-1">Scale</p>
+            <h3 className="text-base font-bold text-slate-900 mb-2">The Five-Tier Transformation Scale</h3>
+            <p className="text-sm text-slate-600 leading-6 mb-4">
+              This scale shows where the organization sits across five levels of Transformation Capacity™.
+            </p>
+            <div className="space-y-3">
+              {TCS_TIER_ROWS.map(({ tier, abbr, dot, text }) => (
+                <div key={tier} className="flex items-start gap-3">
+                  <span className={`mt-0.5 shrink-0 inline-flex items-center justify-center rounded-full h-5 w-5 text-xs font-bold text-white ${dot}`}>
+                    {abbr}
+                  </span>
+                  <div>
+                    <p className="text-sm font-bold text-slate-800">{tier}</p>
+                    <p className="text-xs text-slate-500 leading-5">{text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="mt-4 text-xs text-slate-400 leading-5">
+              The highlighted letter shows the current TCS™ rating.
+            </p>
+          </>
+        )}
+
+        {modal.type === 'tcg' && (
+          <>
+            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-1">Gap Analysis</p>
+            <h3 className="text-base font-bold text-slate-900 mb-2">Transformation Capacity Gap™ (TCG™)</h3>
+            <p className="text-sm text-slate-600 leading-6 mb-3">
+              The Transformation Capacity Gap™ measures the distance between where this organization is today and where it could be.
+            </p>
+            <p className="text-sm text-slate-600 leading-6 mb-4">
+              It represents unrealized value — the outcomes that are possible but not yet being achieved due to insufficient transformation capacity.
+            </p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3">Four Gap Levels</p>
+            <div className="space-y-3">
+              {[
+                { level: 'Minimal', color: 'bg-emerald-500', text: 'Small gap. The organization is close to realizing its full transformation potential.' },
+                { level: 'Moderate', color: 'bg-amber-500', text: 'Meaningful gap exists. Targeted interventions can close it and unlock significant value.' },
+                { level: 'Significant', color: 'bg-orange-500', text: 'Large gap. Structural changes to governance, absorbability, or courage are needed to unlock potential.' },
+                { level: 'Critical', color: 'bg-red-500', text: 'Major gap. Fundamental transformation capacity constraints are preventing value realization. Urgent intervention required.' },
+              ].map(({ level, color, text }) => (
+                <div key={level} className="flex items-start gap-3">
+                  <span className={`mt-1 shrink-0 inline-block h-2.5 w-2.5 rounded-full ${color}`} />
+                  <div>
+                    <p className="text-sm font-bold text-slate-800">{level}</p>
+                    <p className="text-xs text-slate-500 leading-5">{text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+
+        {modal.type === 'determinant' && (
           <>
             <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-1">Definition</p>
             <h3 className="text-base font-bold text-slate-900 mb-3">{modal.key}</h3>
@@ -142,7 +201,7 @@ function InfoModal({ modal, onClose }: { modal: ModalState; onClose: () => void 
 
 // ── TCS Scale Indicator (E · D · A · T · L) ──────────────────
 
-function TcsScaleIndicator({ current }: { current: string }) {
+function TcsScaleIndicator({ current, onInfo }: { current: string; onInfo: () => void }) {
   const pos = tierPosition[current] ?? 0;
   return (
     <div className="flex items-center gap-1 mt-1">
@@ -152,9 +211,9 @@ function TcsScaleIndicator({ current }: { current: string }) {
         return (
           <span key={tier} className="flex items-center gap-0.5">
             <span
-              className={`inline-flex items-center justify-center rounded-full text-xs font-bold transition-all ${
+              className={`inline-flex items-center justify-center rounded-full font-bold transition-all ${
                 isActive
-                  ? `${dot} text-white h-5 w-5`
+                  ? `${dot} text-white h-5 w-5 text-xs`
                   : 'bg-slate-100 text-slate-400 h-4 w-4 text-[10px]'
               }`}
             >
@@ -166,6 +225,14 @@ function TcsScaleIndicator({ current }: { current: string }) {
           </span>
         );
       })}
+      {/* ⓘ icon for the scale */}
+      <button
+        onClick={onInfo}
+        className="ml-1 text-slate-400 hover:text-slate-600 active:text-slate-600 text-xs leading-none"
+        aria-label="What does this scale mean?"
+      >
+        ⓘ
+      </button>
     </div>
   );
 }
@@ -198,6 +265,7 @@ export function LensCard({ item }: { item: LensSnapshot }) {
 
   const topUnlockDisplay = item.top_unlock?.trim() || PRIVATE_TOP_UNLOCK;
 
+  // Task 2: 2-column grid with full labels — no truncation
   const determinants: { label: string; key: keyof LensSnapshot }[] = [
     { label: 'Intelligence™', key: 'intelligence_score' },
     { label: 'Absorbability™', key: 'absorbability_score' },
@@ -209,7 +277,6 @@ export function LensCard({ item }: { item: LensSnapshot }) {
 
   return (
     <>
-      {/* Info Modal */}
       {activeModal && (
         <InfoModal modal={activeModal} onClose={() => setActiveModal(null)} />
       )}
@@ -242,24 +309,27 @@ export function LensCard({ item }: { item: LensSnapshot }) {
             <span className={`shrink-0 rounded-full border px-3 py-1 text-sm font-bold ${rc}`}>
               {item.tcs_score}
             </span>
-            {/* Five-step E·D·A·T·L scale */}
-            <TcsScaleIndicator current={item.tcs_score} />
+            {/* Five-step E·D·A·T·L scale with ⓘ */}
+            <TcsScaleIndicator
+              current={item.tcs_score}
+              onInfo={() => setActiveModal({ type: 'scale', key: 'scale' })}
+            />
           </div>
         </div>
 
         <p className="mt-2 text-xs text-slate-400">Transformation Capacity Score™</p>
 
-        {/* Six determinants grid with ⓘ and progress bars */}
-        <div className="mt-4 grid grid-cols-3 gap-2">
+        {/* Six determinants — 2-column grid, full labels, no truncation */}
+        <div className="mt-4 grid grid-cols-2 gap-2">
           {determinants.map(({ label, key }) => {
             const val = (item[key] as string) ?? 'Emerging';
             const dc = ratingClass[val] ?? 'rating-emerging';
             const pct = tierPercent[val] ?? 20;
             const barColor = tierDotColor[val] ?? 'bg-slate-400';
             return (
-              <div key={key} className={`rounded-lg border px-2 py-1.5 ${dc}`}>
+              <div key={key} className={`rounded-lg border px-3 py-2 ${dc}`}>
                 <div className="flex items-center justify-between gap-1">
-                  <p className="text-xs font-semibold leading-none truncate">{label}</p>
+                  <p className="text-xs font-semibold leading-none">{label}</p>
                   <button
                     onClick={() => setActiveModal({ type: 'determinant', key: label })}
                     className="shrink-0 text-xs leading-none opacity-60 hover:opacity-100 active:opacity-100"
@@ -281,12 +351,19 @@ export function LensCard({ item }: { item: LensSnapshot }) {
           })}
         </div>
 
-        {/* Transformation Capacity Gap™ */}
+        {/* Transformation Capacity Gap™ with ⓘ */}
         <div className="mt-3 flex items-center gap-2">
           <p className="text-xs text-slate-400">Transformation Capacity Gap™:</p>
           <span className={`rounded-full border px-2 py-0.5 text-xs font-semibold ${gc}`}>
             {item.transformation_capacity_gap}
           </span>
+          <button
+            onClick={() => setActiveModal({ type: 'tcg', key: 'tcg' })}
+            className="text-slate-400 hover:text-slate-600 active:text-slate-600 text-xs leading-none"
+            aria-label="What is the Transformation Capacity Gap™?"
+          >
+            ⓘ
+          </button>
         </div>
 
         {/* Top Unlock + Opportunity */}
