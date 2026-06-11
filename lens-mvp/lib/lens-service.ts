@@ -108,6 +108,7 @@ function mapDbToSnapshot(row: any): LensSnapshot {
     system_constraint: score?.system_constraint ?? null,
     gptp_stage: score?.gptp_stage ?? undefined,
     transformation_momentum: score?.transformation_momentum ?? 'Unknown',
+    opportunity_visibility_gap: score?.opportunity_visibility_gap ?? undefined,
 
     updated_at: score?.updated_at ?? row.created_at
   };
@@ -229,6 +230,7 @@ export async function saveLensSnapshot(snapshot: LensSnapshot) {
     system_constraint: snapshot.system_constraint ?? null,
     gptp_stage: snapshot.gptp_stage ?? null,
     transformation_momentum: snapshot.transformation_momentum ?? 'Unknown',
+    opportunity_visibility_gap: snapshot.opportunity_visibility_gap ?? null,
 
     updated_at: new Date().toISOString()
   });

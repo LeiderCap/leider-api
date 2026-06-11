@@ -142,6 +142,30 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
             </div>
           )}
 
+          {/* OVG™ Callout */}
+          {item.opportunity_visibility_gap && (
+            <div className="flex flex-wrap items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
+              <p className="text-xs font-semibold text-slate-500">Opportunity Visibility Gap™:</p>
+              <span className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${
+                item.opportunity_visibility_gap === 'High'
+                  ? 'bg-red-50 text-red-700 border border-red-200'
+                  : item.opportunity_visibility_gap === 'Moderate'
+                  ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                  : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+              }`}>
+                {item.opportunity_visibility_gap}
+              </span>
+              <p className="text-xs text-slate-400">
+                {item.opportunity_visibility_gap === 'High'
+                  ? 'Significant hidden value — large gap between available and visible opportunities'
+                  : item.opportunity_visibility_gap === 'Moderate'
+                  ? 'Some opportunities visible, others remain hidden'
+                  : 'Good visibility into own opportunities — gap is small'}
+              </p>
+            </div>
+          )}
+
+
           {/* ── 2–5. Analysis Narrative Cards ─────────────────────────────── */}
           <div className="grid gap-4 sm:grid-cols-2">
             {item.value_creation_model && (

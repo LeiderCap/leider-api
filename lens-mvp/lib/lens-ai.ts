@@ -58,7 +58,8 @@ const LensAiSchema = z.object({
   secondary_constraint: z.string().min(1),
   system_constraint: z.string().nullable().optional(),
   gptp_stage: z.enum(['Substitution', 'Reorganization', 'Transformation']),
-  transformation_momentum: z.enum(['Accelerating', 'Stable', 'Decelerating', 'Unknown']).default('Unknown')
+  transformation_momentum: z.enum(['Accelerating', 'Stable', 'Decelerating', 'Unknown']).default('Unknown'),
+  opportunity_visibility_gap: z.enum(['High', 'Moderate', 'Low']).default('Moderate')
 });
 
 export const LENS_SYSTEM_PROMPT = `You are The Lens™, the measurement system for Transformation Capacity™.
@@ -118,8 +119,14 @@ Use this exact JSON shape:
   "secondary_constraint": "name of the second-lowest-scoring domain",
   "system_constraint": "interaction effect description if applicable, or null",
   "gptp_stage": "Substitution | Reorganization | Transformation",
-  "transformation_momentum": "Accelerating | Stable | Decelerating | Unknown"
+  "transformation_momentum": "Accelerating | Stable | Decelerating | Unknown",
+  "opportunity_visibility_gap": "High | Moderate | Low"
 }
+
+For opportunity_visibility_gap:
+- High = large gap between available and visible opportunities; significant hidden value exists
+- Moderate = some opportunities visible, others hidden; partial visibility
+- Low = organization has good visibility into its own opportunities; gap is small
 
 Evaluate through these lenses:
 - Intelligence: quality and availability of intelligence inputs
@@ -420,6 +427,7 @@ export async function generateLensSnapshot(query: string): Promise<LensSnapshot>
     system_constraint: parsed.system_constraint ?? null,
     gptp_stage: parsed.gptp_stage,
     transformation_momentum: parsed.transformation_momentum ?? 'Unknown',
+    opportunity_visibility_gap: parsed.opportunity_visibility_gap ?? 'Moderate',
 
     updated_at: new Date().toISOString()
   };

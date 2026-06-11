@@ -24,7 +24,7 @@ export function SearchBox({ initialValue = '' }: { initialValue?: string }) {
       <input
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder="Turn the dial on any company, industry, government, or idea..."
+        placeholder="What do you want to see differently?"
         className="min-w-0 flex-1 rounded-xl px-4 py-3 text-sm outline-none placeholder:text-slate-400"
         autoFocus={false}
       />

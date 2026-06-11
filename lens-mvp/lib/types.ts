@@ -68,6 +68,7 @@ export interface LensSnapshot {
   system_constraint?: string | null;
   gptp_stage?: 'Substitution' | 'Reorganization' | 'Transformation';
   transformation_momentum?: TransformationMomentum;
+  opportunity_visibility_gap?: 'High' | 'Moderate' | 'Low';
 
   updated_at: string;
 }

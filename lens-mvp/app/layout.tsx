@@ -3,11 +3,11 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'The Lens™ — Turn the Dial. Explore What’s Possible.',
-  description: 'The Lens™ reveals opportunities, risks, constraints, and possibilities that are difficult to see from a single perspective. Transformation Intelligence™ helps you discover what others miss.',
+  title: 'The Lens™ — See What You’re Missing',
+  description: 'The Lens™ is Opportunity Visibility Infrastructure™ for the Intelligence Age. Reveal hidden opportunities, trapped value, and transformation possibilities across any company, industry, or government on earth.',
   openGraph: {
-    title: 'The Lens™ — Turn the Dial. Explore What’s Possible.',
-    description: 'The Lens™ reveals opportunities, risks, constraints, and possibilities that are difficult to see from a single perspective.',
+    title: 'The Lens™ — See What You’re Missing',
+    description: 'The Lens™ is Opportunity Visibility Infrastructure™ for the Intelligence Age. Reveal hidden opportunities, trapped value, and transformation possibilities across any company, industry, or government on earth.',
     type: 'website',
   }
 };
@@ -46,7 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {/* Brand */}
               <div>
                 <p className="font-bold text-slate-900">The Lens™</p>
-                <p className="mt-2 text-sm leading-6 text-slate-500">See reality. Find opportunity. Know what to do next.</p>
+                <p className="mt-2 text-sm leading-6 text-slate-500">You see the world through your lens. The Lens™ helps you see what matters.</p>
                 <p className="mt-3 text-xs text-slate-400">Transformation Intelligence™ · Equity Reclamation™ · AIROI™</p>
               </div>
               {/* Learn */}

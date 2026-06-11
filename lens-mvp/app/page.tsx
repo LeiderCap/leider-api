@@ -80,16 +80,20 @@ export default function HomePage() {
       <section className="relative overflow-hidden bg-slate-900 px-6 py-20 text-center text-white">
         <div className="mx-auto max-w-5xl">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-teal-400">
-            Transformation Intelligence™
+            Opportunity Visibility Infrastructure™
           </p>
           <h1 className="mt-5 text-5xl font-bold leading-tight tracking-tight sm:text-7xl">
             Turn the Dial.™
             <br />
             <span className="text-slate-400">Explore What&apos;s Possible.</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-300">
-            The Lens™ reveals opportunities, risks, constraints, and possibilities that are difficult
-            to see from a single perspective. Discover what others miss.
+          <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-teal-300 font-medium">
+            You see the world through your lens. The Lens™ helps you see what matters.
+          </p>
+          <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-slate-300">
+            Organizations don&apos;t miss opportunities because they lack intelligence. They miss them because
+            opportunities remain invisible. The Lens™ reveals what others miss — across any company, industry,
+            government, or idea on earth.
           </p>
 
           {/* Interactive Dial */}
@@ -97,20 +101,15 @@ export default function HomePage() {
             <TransformationDial />
           </div>
 
-          <p className="mx-auto mt-4 max-w-xl text-sm text-slate-400 leading-6">
-            Every organization operates within a frontier of unrealized possibilities.
-            The Lens™ helps reveal it.
-          </p>
-
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Link href="/search" className="btn btn-primary px-6 py-3 text-base">
-              Turn the Dial™
+              See What You&apos;re Missing™
             </Link>
             <a
               href="#how-it-works"
               className="btn btn-ghost px-6 py-3 text-base text-slate-300 hover:text-white hover:bg-white/10"
             >
-              See the World Differently
+              Explore The Framework
             </a>
           </div>
         </div>
@@ -138,47 +137,196 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Explore What's Possible (How It Works) ───────────── */}
-      <section id="how-it-works" className="section bg-slate-50">
+
+      {/* ── Opportunity Visibility Gap™ ─────────────────────── */}
+      <section id="ovg" className="section bg-white border-b border-slate-100">
         <div className="section-inner">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
-              Exploration Intelligence™
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-xs font-semibold uppercase tracking-widest text-teal-600">
+              Opportunity Visibility Gap™
             </p>
-            <h2 className="mt-4 text-4xl font-bold leading-tight">
-              See the world differently. Discover what others miss.
+            <h2 className="mt-4 text-4xl font-bold leading-tight text-slate-900 sm:text-5xl">
+              Every organization has an<br />Opportunity Visibility Gap™.
             </h2>
+            <p className="mt-5 text-lg leading-8 text-slate-600">
+              The difference between the opportunities available to your organization
+              and the opportunities currently visible to it.
+            </p>
+            <p className="mt-3 text-base font-semibold text-slate-800">
+              A large OVG™ means substantial hidden value. The Lens™ is designed to close it.
+            </p>
           </div>
 
           <div className="mt-14 grid gap-6 sm:grid-cols-3">
             {[
               {
-                icon: '🔭',
-                heading: 'Turn the Dial™',
-                body: "Search any company, industry, government, or idea. The Lens™ generates an instant view of transformation capacity — revealing what is possible from angles most people never consider.",
+                icon: '📊',
+                heading: 'You Have The Intelligence',
+                body: 'AI has made information abundant. Most organizations have more data, more reports, more dashboards than they can process.',
               },
               {
-                icon: '🗺️',
-                heading: 'Explore the Frontier™',
-                body: "Every organization operates within a frontier of unrealized possibilities. The Lens™ maps it — showing where value is trapped, where constraints exist, and which opportunities are worth pursuing.",
+                icon: '🔍',
+                heading: 'But Opportunities Stay Hidden',
+                body: "Despite this intelligence abundance, organizations continue to miss opportunities — not because they don\u2019t exist, but because they aren\u2019t visible.",
               },
               {
-                icon: '🧭',
-                heading: 'Navigate What\'s Next™',
-                body: "Transformation Intelligence™ doesn't tell you what to think. It helps you explore possibility spaces you couldn't see before — then shows you the path worth taking.",
+                icon: '🎯',
+                heading: 'The Lens™ Closes The Gap',
+                body: 'The Lens™ is Opportunity Visibility Infrastructure™ for the Intelligence Age. It reveals what is possible before asking what should be done.',
               },
             ].map(({ icon, heading, body }) => (
-              <div key={heading} className="card p-6">
+              <div key={heading} className="card p-6 border-t-2 border-teal-400">
                 <div className="text-3xl">{icon}</div>
-                <h3 className="mt-3 text-lg font-semibold">{heading}</h3>
+                <h3 className="mt-3 text-lg font-semibold text-slate-900">{heading}</h3>
                 <p className="mt-3 text-sm leading-7 text-slate-600">{body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Industry Translation ─────────────────────────────── */}
+      <section id="industry-visibility" className="section bg-slate-50">
+        <div className="section-inner">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+              Opportunity Visibility™ By Audience
+            </p>
+            <h2 className="mt-4 text-4xl font-bold leading-tight">
+              What becomes visible depends on where you look.
+            </h2>
+          </div>
+
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                audience: 'Media & Entertainment',
+                label: 'Narrative Opportunity Visibility™',
+                body: 'What stories are being overlooked? What audiences remain underserved? What commercial opportunities remain hidden?',
+              },
+              {
+                audience: 'Healthcare',
+                label: 'Outcome Opportunity Visibility™',
+                body: 'What interventions create the greatest improvement? Where do outcomes break down? Which transformation initiatives matter most?',
+              },
+              {
+                audience: 'Finance',
+                label: 'Enterprise Value Opportunity Visibility™',
+                body: 'Where is value trapped? Which strategic opportunities remain invisible? Which transformation paths create the highest returns?',
+              },
+              {
+                audience: 'Venture Capital',
+                label: 'Investment Opportunity Visibility™',
+                body: 'Which founders possess hidden potential? Which markets are being misunderstood? Which companies have the greatest transformation capacity?',
+              },
+              {
+                audience: 'Government',
+                label: 'Public Impact Opportunity Visibility™',
+                body: 'Which initiatives create the highest public benefit? Where can transformation create measurable citizen outcomes?',
+              },
+              {
+                audience: 'Individuals',
+                label: 'Personal Opportunity Visibility™',
+                body: 'What opportunities am I overlooking? What matters most right now? What path creates the greatest future value?',
+              },
+            ].map(({ audience, label, body }) => (
+              <div key={audience} className="card p-5">
+                <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">{audience}</p>
+                <h3 className="mt-2 text-sm font-bold text-teal-700">{label}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600">{body}</p>
               </div>
             ))}
           </div>
 
           <div className="mt-10 text-center">
             <Link href="/search" className="btn btn-primary px-8 py-3 text-base">
-              Turn the Dial™ Now
+              See What You&apos;re Missing™
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Opportunity Visibility Stack™ (How It Works) ─────────── */}
+      <section id="how-it-works" className="section bg-slate-50">
+        <div className="section-inner">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+              Opportunity Visibility Stack™
+            </p>
+            <h2 className="mt-4 text-4xl font-bold leading-tight">
+              From visibility to transformation.
+            </h2>
+          </div>
+
+          <div className="mx-auto mt-14 max-w-xl">
+            {[
+              {
+                step: 'See™',
+                product: 'The Lens™',
+                body: 'Reveals hidden opportunities across any entity, industry, or idea on earth.',
+                available: true,
+              },
+              {
+                step: 'Understand™',
+                product: 'Transformation Intelligence™',
+                body: 'Explains the implications, constraints, and transformation pathways available.',
+                available: true,
+              },
+              {
+                step: 'Prioritize™',
+                product: 'Enterprise Value Frontier™',
+                body: 'Ranks opportunities by expected value, complexity, and organizational readiness.',
+                available: false,
+              },
+              {
+                step: 'Design™',
+                product: 'Transformation Blueprint™',
+                body: 'Creates executable pathways from opportunity to realized outcome.',
+                available: false,
+              },
+              {
+                step: 'Transform™',
+                product: 'Realized Outcomes',
+                body: 'Realized outcomes. Compounding advantage.',
+                available: false,
+              },
+            ].map(({ step, product, body, available }, i, arr) => (
+              <div key={step} className="flex flex-col items-start">
+                <div className={`w-full rounded-xl border p-5 flex items-start gap-4 ${
+                  available ? 'border-teal-200 bg-teal-50' : 'border-slate-100 bg-white'
+                }`}>
+                  <div className={`mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold ${
+                    available ? 'bg-teal-500 text-white' : 'bg-slate-200 text-slate-500'
+                  }`}>
+                    {i + 1}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <p className={`font-bold text-base ${
+                        available ? 'text-teal-800' : 'text-slate-700'
+                      }`}>{step}</p>
+                      <p className={`text-sm font-medium ${
+                        available ? 'text-teal-600' : 'text-slate-400'
+                      }`}>— {product}</p>
+                      {!available && (
+                        <span className="rounded-full border border-slate-200 bg-white px-2 py-0.5 text-xs font-medium text-slate-400">
+                          Coming Soon
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-1 text-sm leading-6 text-slate-600">{body}</p>
+                  </div>
+                </div>
+                {i < arr.length - 1 && (
+                  <div className="ml-9 h-5 w-px bg-slate-200" />
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 text-center">
+            <Link href="/search" className="btn btn-primary px-8 py-3 text-base">
+              See What You&apos;re Missing™
             </Link>
           </div>
         </div>
