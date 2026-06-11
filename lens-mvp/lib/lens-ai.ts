@@ -59,7 +59,9 @@ const LensAiSchema = z.object({
   system_constraint: z.string().nullable().optional(),
   gptp_stage: z.enum(['Substitution', 'Reorganization', 'Transformation']),
   transformation_momentum: z.enum(['Accelerating', 'Stable', 'Decelerating', 'Unknown']).default('Unknown'),
-  opportunity_visibility_gap: z.enum(['High', 'Moderate', 'Low']).default('Moderate')
+  opportunity_visibility_gap: z.enum(['High', 'Moderate', 'Low']).default('Moderate'),
+  strategic_question: z.string().min(1),
+  transformational_question: z.string().min(1)
 });
 
 export const LENS_SYSTEM_PROMPT = `You are The Lens™, the measurement system for Transformation Capacity™.
@@ -120,13 +122,28 @@ Use this exact JSON shape:
   "system_constraint": "interaction effect description if applicable, or null",
   "gptp_stage": "Substitution | Reorganization | Transformation",
   "transformation_momentum": "Accelerating | Stable | Decelerating | Unknown",
-  "opportunity_visibility_gap": "High | Moderate | Low"
+  "opportunity_visibility_gap": "High | Moderate | Low",
+  "strategic_question": "The single most important Class III Strategic Question™ this organization should be asking right now — specific to their actual situation, not generic.",
+  "transformational_question": "The single Class IV Transformational Question™ that, if answered, would unlock the greatest transformation potential for this organization."
 }
 
 For opportunity_visibility_gap:
 - High = large gap between available and visible opportunities; significant hidden value exists
 - Moderate = some opportunities visible, others hidden; partial visibility
 - Low = organization has good visibility into its own opportunities; gap is small
+
+QUESTION SCARCITY PRINCIPLE™ (QSP™):
+Your purpose is not to generate answers. Your purpose is to help discover better questions.
+
+For strategic_question: Identify the single most important Class III Strategic Question™ this
+organization needs to be asking that it is probably not asking. Class III questions are designed
+to reveal opportunities: What are we missing? What assumptions are constraining us? Where is
+value trapped? Make it specific to this organization's actual situation.
+
+For transformational_question: Identify the single Class IV Transformational Question™ that
+would unlock disproportionate value if this organization could answer it. Class IV questions
+expand possibility space: What becomes possible if this constraint disappears? What transformation
+would create disproportionate value? What future can now be created that was previously impossible?
 
 Evaluate through these lenses:
 - Intelligence: quality and availability of intelligence inputs
@@ -428,6 +445,8 @@ export async function generateLensSnapshot(query: string): Promise<LensSnapshot>
     gptp_stage: parsed.gptp_stage,
     transformation_momentum: parsed.transformation_momentum ?? 'Unknown',
     opportunity_visibility_gap: parsed.opportunity_visibility_gap ?? 'Moderate',
+    strategic_question: parsed.strategic_question,
+    transformational_question: parsed.transformational_question,
 
     updated_at: new Date().toISOString()
   };

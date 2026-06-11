@@ -10,6 +10,7 @@ import ShareButton from './ShareButton';
 import { ScorecardExplainer } from './ScorecardExplainer';
 import { DeterminantsSection } from './DeterminantsSection';
 import { TcsHero } from './TcsHero';
+import { QspInfoButton } from '@/components/QspInfoButton';
 
 const ratingClass: Record<string, string> = {
   Leading:      'rating-leading',
@@ -193,6 +194,34 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
               </div>
             )}
           </div>
+
+          {/* ── 5b. The Questions Worth Asking™ ──────────────────────────────── */}
+          {(item.strategic_question || item.transformational_question) && (
+            <div className="space-y-3">
+              <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-400">The Questions Worth Asking™</p>
+              {item.strategic_question && (
+                <div className="relative rounded-xl bg-slate-900 p-5 text-white">
+                  <div className="flex items-start justify-between gap-2">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-blue-400">Class III — Strategic Question™</p>
+                    <QspInfoButton />
+                  </div>
+                  <p className="mt-2 text-base leading-7 text-slate-100 font-medium">&ldquo;{item.strategic_question}&rdquo;</p>
+                  <p className="mt-2 text-xs text-slate-400">What this organization should be asking right now.</p>
+                </div>
+              )}
+              {item.transformational_question && (
+                <div className="relative rounded-xl bg-slate-900 p-5 text-white">
+                  <div className="flex items-start justify-between gap-2">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-400">Class IV — Transformational Question™</p>
+                    <QspInfoButton />
+                  </div>
+                  <p className="mt-2 text-base leading-7 text-slate-100 font-medium">&ldquo;{item.transformational_question}&rdquo;</p>
+                  <p className="mt-2 text-xs text-slate-400">The question that unlocks disproportionate value.</p>
+                </div>
+              )}
+            </div>
+          )}
+
 
           {/* ── 6. Lens Verdict™ ──────────────────────────────────────────── */}
           {item.analysis_summary && (

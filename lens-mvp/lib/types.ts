@@ -69,6 +69,8 @@ export interface LensSnapshot {
   gptp_stage?: 'Substitution' | 'Reorganization' | 'Transformation';
   transformation_momentum?: TransformationMomentum;
   opportunity_visibility_gap?: 'High' | 'Moderate' | 'Low';
+  strategic_question?: string;
+  transformational_question?: string;
 
   updated_at: string;
 }

@@ -91,9 +91,12 @@ export default function HomePage() {
             You see the world through your lens. The Lens™ helps you see what matters.
           </p>
           <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-slate-300">
-            Organizations don&apos;t miss opportunities because they lack intelligence. They miss them because
-            opportunities remain invisible. The Lens™ reveals what others miss — across any company, industry,
-            government, or idea on earth.
+            In a world of abundant intelligence, the competitive advantage is no longer better answers.
+            It is better questions.
+          </p>
+          <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-slate-400">
+            The Lens™ is a Question Discovery Engine™ — revealing the opportunities hidden inside
+            the intelligence you already possess.
           </p>
 
           {/* Interactive Dial */}

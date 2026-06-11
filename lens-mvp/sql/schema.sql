@@ -191,6 +191,15 @@ CREATE TABLE IF NOT EXISTS waitlist (
 -- ============================================
 
 -- ============================================
+-- v1.5 Migration — Question Scarcity Principle™ (QSP™)
+-- Run in Supabase SQL Editor:
+-- ============================================
+-- ALTER TABLE lens_scores
+--   ADD COLUMN IF NOT EXISTS strategic_question text,
+--   ADD COLUMN IF NOT EXISTS transformational_question text;
+-- ============================================
+
+-- ============================================
 -- Clear cache to regenerate with new analysis fields:
 -- delete from lens_scores;
 -- delete from companies;

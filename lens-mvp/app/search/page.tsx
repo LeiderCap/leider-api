@@ -3,6 +3,7 @@ import { SearchBox } from '@/components/SearchBox';
 import { getSeedTrending } from '@/lib/lens-service';
 import Link from 'next/link';
 import type { LensSnapshot } from '@/lib/types';
+import { QspInfoButton } from '@/components/QspInfoButton';
 
 // ── Analysis Narrative Section ────────────────────────────────────────────────
 
@@ -88,7 +89,34 @@ function LensAnalysisSection({ item, isLive }: { item: LensSnapshot; isLive: boo
         <AnalysisNarrativeCard label="Transformation Opportunities™" body={item.transformation_opportunities} accent />
       </div>
 
-      {/* Section 4 — Lens Verdict™ */}
+      {/* Section 4 — The Questions Worth Asking™ */}
+      {(item.strategic_question || item.transformational_question) && (
+        <div className="space-y-3">
+          <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-400">The Questions Worth Asking™</p>
+          {item.strategic_question && (
+            <div className="relative rounded-xl bg-slate-900 p-5 text-white">
+              <div className="flex items-start justify-between gap-2">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-blue-400">Class III — Strategic Question™</p>
+                <QspInfoButton />
+              </div>
+              <p className="mt-2 text-base leading-7 text-slate-100 font-medium">&ldquo;{item.strategic_question}&rdquo;</p>
+              <p className="mt-2 text-xs text-slate-400">What this organization should be asking right now.</p>
+            </div>
+          )}
+          {item.transformational_question && (
+            <div className="relative rounded-xl bg-slate-900 p-5 text-white">
+              <div className="flex items-start justify-between gap-2">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-400">Class IV — Transformational Question™</p>
+                <QspInfoButton />
+              </div>
+              <p className="mt-2 text-base leading-7 text-slate-100 font-medium">&ldquo;{item.transformational_question}&rdquo;</p>
+              <p className="mt-2 text-xs text-slate-400">The question that unlocks disproportionate value.</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Section 5 — Lens Verdict™ */}
       {item.analysis_summary && (
         <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
           <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Lens Verdict™</p>

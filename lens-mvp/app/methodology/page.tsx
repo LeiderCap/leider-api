@@ -193,6 +193,151 @@ export default function MethodologyPage() {
         </div>
       </section>
 
+      {/* ── Constitutional Foundation ─────────────────────────────── */}
+      <section className="border-b border-slate-100 bg-slate-900 px-6 py-16">
+        <div className="mx-auto max-w-3xl">
+          <div className="text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-teal-400">
+              The Constitutional Foundation
+            </p>
+            <h2 className="mt-4 text-3xl font-bold text-white sm:text-4xl">
+              Why The Lens™ exists in an age of AI abundance.
+            </h2>
+          </div>
+
+          <div className="mt-14 flex flex-col items-center gap-0">
+            {[
+              {
+                abbr: 'IAP™',
+                title: 'Intelligence Abundance Principle™',
+                body: 'AI makes intelligence abundant. The historical advantage of knowing more dissolves.',
+                color: 'border-slate-600 bg-slate-800',
+                labelColor: 'text-slate-400',
+              },
+              {
+                abbr: 'QSP™',
+                title: 'Question Scarcity Principle™',
+                body: 'As answers are commoditized, questions become the scarce resource. Organizations that discover superior questions outperform those that merely generate superior answers.',
+                color: 'border-teal-700 bg-teal-900/40',
+                labelColor: 'text-teal-400',
+              },
+              {
+                abbr: 'ODC™',
+                title: 'Opportunity Discovery Corollary™',
+                body: 'Opportunity discovery becomes a primary source of economic value. The Lens™ is a Question Discovery Engine™.',
+                color: 'border-slate-600 bg-slate-800',
+                labelColor: 'text-slate-400',
+              },
+              {
+                abbr: 'TCP™',
+                title: 'Transformation Capacity Principle™',
+                body: 'Discovering the opportunity is only the beginning. Transformation Capacity™ determines who can act on what they discover.',
+                color: 'border-slate-600 bg-slate-800',
+                labelColor: 'text-slate-400',
+              },
+              {
+                abbr: 'TE™',
+                title: 'Transformation Efficiency™',
+                body: 'The organizations that win combine superior question discovery with superior transformation capacity.',
+                color: 'border-emerald-700 bg-emerald-900/30',
+                labelColor: 'text-emerald-400',
+              },
+            ].map(({ abbr, title, body, color, labelColor }, i, arr) => (
+              <div key={abbr} className="flex flex-col items-center w-full max-w-xl">
+                <div className={`w-full rounded-xl border p-5 ${color}`}>
+                  <p className={`text-[10px] font-bold uppercase tracking-[0.2em] ${labelColor}`}>{abbr}</p>
+                  <p className="mt-1 text-sm font-bold text-white">{title}</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-300">{body}</p>
+                </div>
+                {i < arr.length - 1 && (
+                  <div className="flex flex-col items-center py-2">
+                    <div className="h-4 w-px bg-slate-600" />
+                    <span className="text-slate-500 text-lg leading-none">↓</span>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Question Hierarchy™ ───────────────────────────────────── */}
+      <section className="border-b border-slate-100 bg-white px-6 py-16">
+        <div className="mx-auto max-w-4xl">
+          <div className="text-center">
+            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+              Question Hierarchy™
+            </p>
+            <h2 className="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">
+              Not all questions possess equal value.
+            </h2>
+          </div>
+
+          <div className="mt-12 grid gap-4 sm:grid-cols-2">
+            {[
+              {
+                cls: 'Class I',
+                name: 'Informational Questions™',
+                body: 'Questions designed to retrieve facts: What happened? What is the data? What does the report say? These questions are becoming fully automated by AI.',
+                label: 'Increasingly automated',
+                border: 'border-slate-200',
+                bg: 'bg-slate-50',
+                badge: 'bg-slate-100 text-slate-500',
+                heading: 'text-slate-700',
+              },
+              {
+                cls: 'Class II',
+                name: 'Analytical Questions™',
+                body: 'Questions designed to generate explanations: Why did this occur? What caused this result? What are the tradeoffs? These questions are being rapidly augmented by AI.',
+                label: 'Increasingly augmented',
+                border: 'border-amber-200',
+                bg: 'bg-amber-50',
+                badge: 'bg-amber-100 text-amber-700',
+                heading: 'text-amber-900',
+              },
+              {
+                cls: 'Class III',
+                name: 'Strategic Questions™',
+                body: 'Questions designed to reveal opportunities: What are we missing? What assumptions are constraining us? Where is value trapped? These questions are becoming more valuable as AI handles Classes I and II.',
+                label: 'Increasingly valuable',
+                border: 'border-blue-200',
+                bg: 'bg-blue-50',
+                badge: 'bg-blue-100 text-blue-700',
+                heading: 'text-blue-900',
+              },
+              {
+                cls: 'Class IV',
+                name: 'Transformational Questions™',
+                body: 'Questions designed to expand possibility space: What becomes possible if this constraint disappears? What transformation would create disproportionate value? What future can now be created that was previously impossible? These are the highest-value questions in the Transformation Economy.',
+                label: 'The highest value',
+                border: 'border-emerald-200',
+                bg: 'bg-emerald-50',
+                badge: 'bg-emerald-100 text-emerald-700',
+                heading: 'text-emerald-900',
+              },
+            ].map(({ cls, name, body, label, border, bg, badge, heading }) => (
+              <div key={cls} className={`rounded-xl border p-5 ${border} ${bg}`}>
+                <div className="flex items-start justify-between gap-2">
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">{cls}</p>
+                    <p className={`mt-1 text-sm font-bold ${heading}`}>{name}</p>
+                  </div>
+                  <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold ${badge}`}>{label}</span>
+                </div>
+                <p className="mt-3 text-sm leading-6 text-slate-600">{body}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 rounded-xl border border-teal-200 bg-teal-50 p-5 text-center">
+            <p className="text-sm font-semibold text-teal-800">
+              The Lens™ is designed to help organizations reach Class III and Class IV questions faster —
+              before competitors recognize them.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Section 1: Core Principle */}
       <section className="mx-auto max-w-4xl px-6 py-14">
         <div className="card p-8 text-center">
