@@ -4,6 +4,7 @@ import { getSeedTrending } from '@/lib/lens-service';
 import Link from 'next/link';
 import type { LensSnapshot } from '@/lib/types';
 import { QspInfoButton } from '@/components/QspInfoButton';
+import TrustQuadrantDiagnostic from '@/components/TrustQuadrantDiagnostic';
 
 // ── Analysis Narrative Section ────────────────────────────────────────────────
 
@@ -116,7 +117,18 @@ function LensAnalysisSection({ item, isLive }: { item: LensSnapshot; isLive: boo
         </div>
       )}
 
-      {/* Section 5 — Lens Verdict™ */}
+      {/* Section 5 — Trust Quadrant™ Diagnostic */}
+      {item.trust_numeric !== undefined && item.trust_numeric < 70 && item.trust_quadrant && (
+        <TrustQuadrantDiagnostic
+          trustNumeric={item.trust_numeric}
+          trustQuadrant={item.trust_quadrant}
+          trustQuadrantExplanation={item.trust_quadrant_explanation}
+          trustAlignmentGap={item.trust_alignment_gap}
+          trustAlignmentExplanation={item.trust_alignment_explanation}
+        />
+      )}
+
+      {/* Section 6 — Lens Verdict™ */}
       {item.analysis_summary && (
         <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
           <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Lens Verdict™</p>

@@ -61,7 +61,11 @@ const LensAiSchema = z.object({
   transformation_momentum: z.enum(['Accelerating', 'Stable', 'Decelerating', 'Unknown']).default('Unknown'),
   opportunity_visibility_gap: z.enum(['High', 'Moderate', 'Low']).default('Moderate'),
   strategic_question: z.string().min(1),
-  transformational_question: z.string().min(1)
+  transformational_question: z.string().min(1),
+  trust_quadrant: z.enum(['Rational Repair', 'Emotional Repair', 'Rational Replace', 'Emotional Replace', 'Mixed']).optional(),
+  trust_quadrant_explanation: z.string().optional(),
+  trust_alignment_gap: z.enum(['High', 'Moderate', 'Low', 'None']).optional(),
+  trust_alignment_explanation: z.string().optional()
 });
 
 export const LENS_SYSTEM_PROMPT = `You are The Lens™, the measurement system for Transformation Capacity™.
@@ -124,7 +128,11 @@ Use this exact JSON shape:
   "transformation_momentum": "Accelerating | Stable | Decelerating | Unknown",
   "opportunity_visibility_gap": "High | Moderate | Low",
   "strategic_question": "The single most important Class III Strategic Question™ this organization should be asking right now — specific to their actual situation, not generic.",
-  "transformational_question": "The single Class IV Transformational Question™ that, if answered, would unlock the greatest transformation potential for this organization."
+  "transformational_question": "The single Class IV Transformational Question™ that, if answered, would unlock the greatest transformation potential for this organization.",
+  "trust_quadrant": "Rational Repair | Emotional Repair | Rational Replace | Emotional Replace | Mixed (only include when trust_numeric < 70, otherwise omit)",
+  "trust_quadrant_explanation": "One sentence explaining what this trust quadrant means specifically for this organization in their industry language, not framework language. (only include when trust_numeric < 70)",
+  "trust_alignment_gap": "High | Moderate | Low | None (only include when trust_numeric < 70, otherwise omit)",
+  "trust_alignment_explanation": "One sentence describing the likely gap between where leadership thinks trust is and where stakeholders actually are. (only include when trust_numeric < 70)"
 }
 
 For opportunity_visibility_gap:
@@ -340,6 +348,43 @@ If the query is about an individual person, career, personal goal, or individual
 This is the N-of-1 Transformation™ principle: every individual requires a unique
 transformation pathway. Population averages explain behavior. They rarely optimize
 transformation. HTI™ optimizes for the individual.
+
+---
+
+TRUST QUADRANT PRINCIPLE™ (TQP™)
+
+When trust_numeric is below 70, identify which Trust Quadrant the organization is operating in
+and populate all four trust quadrant fields. When trust_numeric is 70 or above, omit all four
+trust quadrant fields from the response.
+
+Quadrant I — Rational Repair™
+"The system works but needs improvement."
+Stakeholders believe problems are solvable through evidence and incremental change.
+Signs: operational friction, process complaints, efficiency gaps.
+
+Quadrant II — Emotional Repair™
+"The system may work but I need to believe you care."
+Stakeholders seek empathy, alignment, shared values.
+Signs: workforce disengagement, culture complaints, communication breakdowns.
+
+Quadrant III — Rational Replace™
+"The current system cannot achieve the desired outcome."
+Stakeholders believe structural change is required.
+Signs: calls for new operating models, platform replacement discussions, disruption vulnerability.
+
+Quadrant IV — Emotional Replace™
+"The existing system has lost legitimacy."
+Stakeholders seek accountability, renewal, symbolic change.
+Signs: leadership crisis, institutional distrust, identity challenges.
+
+For trust_alignment_gap:
+- High = leadership and stakeholders are operating from fundamentally different trust assumptions
+- Moderate = some misalignment exists; leadership may be underestimating the depth of trust deficit
+- Low = leadership has reasonable awareness of the trust situation
+- None = trust is strong (use only when trust_numeric >= 70)
+
+For trust_quadrant_explanation: translate the quadrant into the organization's specific industry
+language. Do not use the quadrant name or framework terminology in the explanation.
 `;
 
 function extractJson(text: string) {
@@ -475,6 +520,10 @@ export async function generateLensSnapshot(query: string): Promise<LensSnapshot>
     opportunity_visibility_gap: parsed.opportunity_visibility_gap ?? 'Moderate',
     strategic_question: parsed.strategic_question,
     transformational_question: parsed.transformational_question,
+    trust_quadrant: parsed.trust_quadrant,
+    trust_quadrant_explanation: parsed.trust_quadrant_explanation,
+    trust_alignment_gap: parsed.trust_alignment_gap,
+    trust_alignment_explanation: parsed.trust_alignment_explanation,
 
     updated_at: new Date().toISOString()
   };

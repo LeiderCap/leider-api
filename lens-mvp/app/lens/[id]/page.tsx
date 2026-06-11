@@ -11,6 +11,7 @@ import { ScorecardExplainer } from './ScorecardExplainer';
 import { DeterminantsSection } from './DeterminantsSection';
 import { TcsHero } from './TcsHero';
 import { QspInfoButton } from '@/components/QspInfoButton';
+import TrustQuadrantDiagnostic from '@/components/TrustQuadrantDiagnostic';
 
 const ratingClass: Record<string, string> = {
   Leading:      'rating-leading',
@@ -222,6 +223,18 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
             </div>
           )}
 
+
+
+          {/* ── 5c. Trust Quadrant™ Diagnostic ─────────────────────────────── */}
+          {item.trust_numeric !== undefined && item.trust_numeric < 70 && item.trust_quadrant && (
+            <TrustQuadrantDiagnostic
+              trustNumeric={item.trust_numeric}
+              trustQuadrant={item.trust_quadrant}
+              trustQuadrantExplanation={item.trust_quadrant_explanation}
+              trustAlignmentGap={item.trust_alignment_gap}
+              trustAlignmentExplanation={item.trust_alignment_explanation}
+            />
+          )}
 
           {/* ── 6. Lens Verdict™ ──────────────────────────────────────────── */}
           {item.analysis_summary && (

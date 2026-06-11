@@ -111,6 +111,10 @@ function mapDbToSnapshot(row: any): LensSnapshot {
     opportunity_visibility_gap: score?.opportunity_visibility_gap ?? undefined,
     strategic_question: score?.strategic_question ?? undefined,
     transformational_question: score?.transformational_question ?? undefined,
+    trust_quadrant: score?.trust_quadrant ?? undefined,
+    trust_quadrant_explanation: score?.trust_quadrant_explanation ?? undefined,
+    trust_alignment_gap: score?.trust_alignment_gap ?? undefined,
+    trust_alignment_explanation: score?.trust_alignment_explanation ?? undefined,
 
     updated_at: score?.updated_at ?? row.created_at
   };
@@ -235,6 +239,10 @@ export async function saveLensSnapshot(snapshot: LensSnapshot) {
     opportunity_visibility_gap: snapshot.opportunity_visibility_gap ?? null,
     strategic_question: snapshot.strategic_question ?? null,
     transformational_question: snapshot.transformational_question ?? null,
+    trust_quadrant: snapshot.trust_quadrant ?? null,
+    trust_quadrant_explanation: snapshot.trust_quadrant_explanation ?? null,
+    trust_alignment_gap: snapshot.trust_alignment_gap ?? null,
+    trust_alignment_explanation: snapshot.trust_alignment_explanation ?? null,
 
     updated_at: new Date().toISOString()
   });

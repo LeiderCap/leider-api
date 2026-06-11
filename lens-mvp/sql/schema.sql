@@ -199,6 +199,16 @@ CREATE TABLE IF NOT EXISTS waitlist (
 --   ADD COLUMN IF NOT EXISTS transformational_question text;
 -- ============================================
 
+-- v1.6 Migration — Trust Quadrant Principle™ (TQP™)
+-- Run in Supabase SQL Editor:
+-- ============================================
+-- ALTER TABLE lens_scores
+--   ADD COLUMN IF NOT EXISTS trust_quadrant text,
+--   ADD COLUMN IF NOT EXISTS trust_quadrant_explanation text,
+--   ADD COLUMN IF NOT EXISTS trust_alignment_gap text,
+--   ADD COLUMN IF NOT EXISTS trust_alignment_explanation text;
+-- ============================================
+
 -- ============================================
 -- Clear cache to regenerate with new analysis fields:
 -- delete from lens_scores;
