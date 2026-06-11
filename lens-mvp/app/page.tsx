@@ -388,8 +388,8 @@ export default function HomePage() {
             <Link href="/search" className="btn btn-primary px-8 py-3 text-base">
               Turn the Dial™
             </Link>
-            <Link href="/governments#inquiry" className="btn btn-ghost px-8 py-3 text-base text-slate-300 hover:text-white hover:bg-white/10">
-              Request Blueprint™
+            <Link href="/assessment#request" className="btn btn-ghost px-8 py-3 text-base text-slate-300 hover:text-white hover:bg-white/10">
+              Request Transformation Capacity Assessment™
             </Link>
           </div>
         </div>

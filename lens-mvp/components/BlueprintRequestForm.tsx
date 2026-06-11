@@ -39,14 +39,14 @@ export function BlueprintRequestForm({ companyId, companyName }: { companyId: st
   }
 
   if (!open) {
-    return <button className="btn btn-primary" onClick={() => setOpen(true)}>Request Blueprint™</button>;
+    return <button className="btn btn-primary" onClick={() => setOpen(true)}>Request Transformation Capacity Assessment™</button>;
   }
 
   return (
     <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-5">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h3 className="text-lg font-semibold">Request Blueprint™</h3>
+          <h3 className="text-lg font-semibold">Request Transformation Capacity Assessment™</h3>
           <p className="mt-1 text-sm text-slate-600">Ask The Lens™ team to scope a deeper assessment for {companyName}.</p>
         </div>
         <button className="text-sm text-slate-500" onClick={() => setOpen(false)}>Close</button>

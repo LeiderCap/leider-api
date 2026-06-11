@@ -106,11 +106,37 @@ export default function EnterprisesPage() {
               href="#inquiry"
               className="btn btn-ghost px-6 py-3 text-base text-slate-300 hover:text-white hover:bg-white/10"
             >
-              Request Blueprint™
+              Request Transformation Capacity Assessment™
             </a>
           </div>
         </div>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(20,184,166,0.06),transparent_70%)]" />
+      </section>
+
+      {/* ── Enterprise Journey Pipeline ─────────────────────── */}
+      <section className="border-b border-slate-100 bg-white px-6 py-8">
+        <div className="mx-auto max-w-5xl">
+          <p className="mb-4 text-center text-xs font-semibold uppercase tracking-widest text-slate-400">The Enterprise Journey</p>
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            {[
+              { label: 'Lens Analysis™', href: '/search' },
+              { label: 'Assessment™', href: '/assessment' },
+              { label: 'Blueprint™', href: '#inquiry' },
+              { label: 'Guided Transformation™', href: '#inquiry' },
+              { label: 'Partner™', href: '#inquiry' },
+            ].map((step, idx, arr) => (
+              <>
+                <Link key={step.label} href={step.href}
+                  className="rounded-full border border-teal-200 bg-teal-50 px-4 py-1.5 text-sm font-medium text-teal-700 hover:bg-teal-100 transition-colors">
+                  {step.label}
+                </Link>
+                {idx < arr.length - 1 && (
+                  <span key={`arrow-${idx}`} className="text-slate-300 font-bold">→</span>
+                )}
+              </>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* ── The Enterprise Problem ────────────────────────────── */}
@@ -188,6 +214,13 @@ export default function EnterprisesPage() {
                         ))}
                       </div>
                     </div>
+                    {number === '01' && (
+                      <div className="mt-4">
+                        <Link href="/assessment" className="inline-flex items-center gap-1 text-sm font-medium text-teal-600 hover:text-teal-800 transition-colors">
+                          Request Transformation Capacity Assessment™ →
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -204,7 +237,7 @@ export default function EnterprisesPage() {
             What is your Transformation Capacity Gap™ costing you?
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-slate-300">
-            Run a free Lens Analysis™ on your organization. Then request a Blueprint™ to scope your
+            Run a free Lens Analysis™ on your organization. Then request a Transformation Capacity Assessment™ to scope your
             largest transformation opportunity.
           </p>
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
@@ -215,7 +248,7 @@ export default function EnterprisesPage() {
               href="#inquiry"
               className="btn btn-ghost px-8 py-3 text-base text-slate-300 hover:text-white hover:bg-white/10"
             >
-              Request Blueprint™
+              Request Transformation Capacity Assessment™
             </a>
           </div>
         </div>
@@ -227,7 +260,7 @@ export default function EnterprisesPage() {
           <div className="mx-auto max-w-2xl">
             <div className="text-center mb-10">
               <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Get Started</p>
-              <h2 className="mt-4 text-3xl font-bold">Request a Blueprint™</h2>
+              <h2 className="mt-4 text-3xl font-bold">Request Transformation Capacity Assessment™</h2>
               <p className="mt-3 text-slate-600">
                 Tell us about your organization. We will reach out to scope your transformation opportunity.
               </p>
@@ -236,7 +269,7 @@ export default function EnterprisesPage() {
             {status === 'success' ? (
               <div className="rounded-2xl border border-teal-200 bg-teal-50 p-8 text-center">
                 <div className="text-3xl mb-3">✓</div>
-                <h3 className="text-lg font-semibold text-teal-800">Blueprint™ Request Received</h3>
+                <h3 className="text-lg font-semibold text-teal-800">Assessment Request Received</h3>
                 <p className="mt-2 text-sm text-teal-700">
                   Thank you. We will review your request and be in touch shortly.
                 </p>
@@ -314,7 +347,7 @@ export default function EnterprisesPage() {
                   disabled={status === 'loading'}
                   className="btn btn-primary w-full py-3 text-base"
                 >
-                  {status === 'loading' ? 'Submitting…' : 'Request Blueprint™'}
+                  {status === 'loading' ? 'Submitting…' : 'Request Transformation Capacity Assessment™'}
                 </button>
               </form>
             )}

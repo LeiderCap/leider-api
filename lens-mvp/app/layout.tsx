@@ -51,6 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <ul className="mt-4 space-y-2">
                   <li><Link href="/lens-card" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">What is a Lens Card™?</Link></li>
                   <li><Link href="/methodology" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">Methodology</Link></li>
+                  <li><Link href="/assessment" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">Assessment Methodology</Link></li>
                 </ul>
               </div>
               {/* Solutions */}
