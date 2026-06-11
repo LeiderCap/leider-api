@@ -1,5 +1,5 @@
 // Server component — data fetching only.
-// The collapsible explainer is in ScorecardExplainer.tsx (client component).
+// Interactive elements (info modals, explainer) are in client components.
 
 import { getLensByIdOrCache } from '@/lib/lens-service';
 import { BlueprintRequestForm } from '@/components/BlueprintRequestForm';
@@ -8,6 +8,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import ShareButton from './ShareButton';
 import { ScorecardExplainer } from './ScorecardExplainer';
+import { DeterminantsSection } from './DeterminantsSection';
 
 const ratingClass: Record<string, string> = {
   Leading:      'rating-leading',
@@ -39,10 +40,6 @@ const tierDotColor: Record<string, string> = {
   Advanced:     'bg-blue-500',
   Developing:   'bg-amber-500',
   Emerging:     'bg-slate-400',
-};
-
-const tierIndex: Record<string, number> = {
-  Emerging: 1, Developing: 2, Advanced: 3, Transforming: 4, Leading: 5,
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
@@ -83,16 +80,14 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
   const gc = gapClass[item.transformation_capacity_gap] ?? gapClass.Moderate;
 
   // Defensive normalisation
-  const topUnlock: string = item.top_unlock ?? '';
   const constraints: string[] = Array.isArray(item.constraints) ? item.constraints : [];
   const opportunities: string[] = Array.isArray(item.opportunities) ? item.opportunities : [];
   const isUnlockable = (val: string) =>
     !val || val === 'N/A' || val === 'Private — additional details needed';
 
   const PRIVATE_TOP_UNLOCK = 'To ensure accuracy, private companies require more information from the client. Request a Blueprint™ for your Unlock options.';
-  const topUnlockDisplay = topUnlock.trim() || PRIVATE_TOP_UNLOCK;
 
-  console.log('[LensDetailPage] id:', id, '| top_unlock raw:', JSON.stringify(item.top_unlock), '| display:', topUnlockDisplay);
+  console.log('[LensDetailPage] id:', id, '| top_unlock raw:', JSON.stringify(item.top_unlock));
 
   const determinants: { label: string; key: keyof LensSnapshot }[] = [
     { label: 'Intelligence™',   key: 'intelligence_score' },
@@ -103,13 +98,18 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
     { label: 'Execution™',      key: 'execution_score' },
   ];
 
+  const determinantData = determinants.map(({ label, key }) => ({
+    label,
+    value: (item[key] as string) ?? 'Emerging',
+  }));
+
   return (
     <main className="mx-auto min-h-screen max-w-4xl px-6 py-10">
       <Link href="/search" className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
         ← Back to Search
       </Link>
 
-      {/* Scorecard Explainer — collapsible, collapsed by default */}
+      {/* Scorecard Explainer — collapsible client component */}
       <div className="mt-4">
         <ScorecardExplainer />
       </div>
@@ -147,41 +147,8 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
         </div>
       </div>
 
-      {/* Six Determinants with dot-scale */}
-      <section className="card mt-8 p-6">
-        <h2 className="text-xl font-bold">TCS™ Determinants</h2>
-        <p className="mt-1 text-sm text-slate-500">The six factors that determine Transformation Capacity™.</p>
-        <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {determinants.map(({ label, key }) => {
-            const val = (item[key] as string) ?? 'Emerging';
-            const dc = ratingClass[val] ?? 'rating-emerging';
-            const score = tierIndex[val] ?? 1;
-            const dotColor = tierDotColor[val] ?? 'bg-slate-400';
-            return (
-              <div key={key} className={`rounded-xl border p-4 ${dc}`}>
-                <div className="flex items-center justify-between">
-                  <p className="text-xs font-semibold">{label}</p>
-                  <p className="text-sm font-bold">{val}</p>
-                </div>
-                {/* Dot scale */}
-                <div className="mt-2 flex items-center gap-1.5">
-                  {[1, 2, 3, 4, 5].map((n) => (
-                    <span
-                      key={n}
-                      className={`inline-block h-2.5 w-2.5 rounded-full border ${
-                        n <= score
-                          ? `${dotColor} border-transparent`
-                          : 'bg-white border-current opacity-30'
-                      }`}
-                    />
-                  ))}
-                  <span className="ml-1 text-xs opacity-60">{score}/5</span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
+      {/* Six Determinants — client component with info modals + progress bars */}
+      <DeterminantsSection determinants={determinantData} />
 
       {/* Transformation Capacity Gap™ */}
       <section className="card mt-6 p-6">
