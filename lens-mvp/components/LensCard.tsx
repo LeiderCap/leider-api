@@ -19,6 +19,76 @@ const gapClass: Record<CapacityGap, string> = {
   Critical:    'text-red-700 bg-red-50 border-red-200',
 };
 
+const TIERS = ['Emerging', 'Developing', 'Advanced', 'Transforming', 'Leading'] as const;
+
+const tierDotColor: Record<string, string> = {
+  Leading:      'bg-emerald-500',
+  Transforming: 'bg-teal-500',
+  Advanced:     'bg-blue-500',
+  Developing:   'bg-amber-500',
+  Emerging:     'bg-slate-400',
+};
+
+const DETERMINANT_TOOLTIPS: Record<string, string> = {
+  'Intelligence™':
+    'The quality and availability of intelligence inputs available to this organization. High intelligence access enables better decisions and faster adaptation.',
+  'Absorbability™':
+    "The organization's capacity to absorb, process, and operationalize new intelligence. Low absorbability means intelligence exists but cannot be converted into action.",
+  'Trust™':
+    'The strength of trust infrastructure across leadership, teams, systems, and governance. Trust is a prerequisite for transformation — without it, change stalls.',
+  'Governance™':
+    'The quality of decision-making structures, velocity, and accountability. Poor governance creates friction that slows or blocks transformation.',
+  'Courage™':
+    'The willingness to make difficult, necessary transformation decisions. Structural courage determines whether organizations act on what they know.',
+  'Execution™':
+    'The track record and capacity for sustained implementation. Organizations can plan transformation but fail to execute it.',
+};
+
+// ── Rating Scale Legend ───────────────────────────────────────
+
+function RatingLegend() {
+  return (
+    <div className="flex items-center gap-1 flex-wrap">
+      {TIERS.map((tier, i) => (
+        <span key={tier} className="flex items-center gap-1">
+          <span className={`inline-block h-2 w-2 rounded-full ${tierDotColor[tier]}`} />
+          <span className="text-xs text-slate-400">{tier}</span>
+          {i < TIERS.length - 1 && (
+            <span className="text-xs text-slate-300 mx-0.5">→</span>
+          )}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+// ── Determinant Badge with Tooltip ───────────────────────────
+
+function DeterminantBadge({ label, value }: { label: string; value: string }) {
+  const dc = ratingClass[value] ?? 'rating-emerging';
+  const tooltip = DETERMINANT_TOOLTIPS[label] ?? '';
+  return (
+    <div className="group relative">
+      <div className={`rounded-lg border px-2 py-1.5 text-center cursor-default ${dc}`}>
+        <p className="text-xs font-semibold leading-none">{label}</p>
+        <p className="mt-1 text-xs font-bold">{value}</p>
+      </div>
+      {/* CSS-only tooltip */}
+      <div
+        className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-56 -translate-x-1/2 rounded-lg bg-slate-900 px-3 py-2 text-xs leading-5 text-white opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100"
+        role="tooltip"
+      >
+        <p className="font-semibold mb-1">{label}</p>
+        <p className="text-slate-300">{tooltip}</p>
+        {/* Arrow */}
+        <span className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-slate-900" />
+      </div>
+    </div>
+  );
+}
+
+// ── LensCard ─────────────────────────────────────────────────
+
 export function LensCard({ item }: { item: LensSnapshot }) {
   const rc = ratingClass[item.tcs_score] ?? 'rating-emerging';
   const gc = gapClass[item.transformation_capacity_gap] ?? gapClass.Moderate;
@@ -32,7 +102,8 @@ export function LensCard({ item }: { item: LensSnapshot }) {
     });
   }
 
-  const PRIVATE_TOP_UNLOCK = 'To ensure accuracy, private companies require more information from the client. Request a Blueprint™ for your Unlock options.';
+  const PRIVATE_TOP_UNLOCK =
+    'To ensure accuracy, private companies require more information from the client. Request a Blueprint™ for your Unlock options.';
 
   const isUnlockable = (val: string) =>
     !val || val === 'N/A' || val === 'Private — additional details needed';
@@ -75,21 +146,21 @@ export function LensCard({ item }: { item: LensSnapshot }) {
         </div>
       </div>
 
-      {/* TCS™ label */}
+      {/* TCS™ label + Rating Legend */}
       <p className="mt-1 text-xs text-slate-400">Transformation Capacity Score™</p>
+      <div className="mt-2">
+        <RatingLegend />
+      </div>
 
-      {/* Six determinants grid */}
+      {/* Six determinants grid with tooltips */}
       <div className="mt-4 grid grid-cols-3 gap-2">
-        {determinants.map(({ label, key }) => {
-          const val = item[key] as string;
-          const dc = ratingClass[val] ?? 'rating-emerging';
-          return (
-            <div key={key} className={`rounded-lg border px-2 py-1.5 text-center ${dc}`}>
-              <p className="text-xs font-semibold leading-none">{label}</p>
-              <p className="mt-1 text-xs font-bold">{val}</p>
-            </div>
-          );
-        })}
+        {determinants.map(({ label, key }) => (
+          <DeterminantBadge
+            key={key}
+            label={label}
+            value={(item[key] as string) ?? 'Emerging'}
+          />
+        ))}
       </div>
 
       {/* Transformation Capacity Gap™ */}
@@ -105,7 +176,11 @@ export function LensCard({ item }: { item: LensSnapshot }) {
         <p className="text-xs font-semibold text-slate-400">Top Unlock™</p>
         {isStalePrivateFallback ? (
           <p className="mt-1 text-sm text-amber-700 font-medium leading-snug">
-            Analysis updating — <Link href={`/lens/${item.id}`} className="underline">view full card</Link> for latest data.
+            Analysis updating —{' '}
+            <Link href={`/lens/${item.id}`} className="underline">
+              view full card
+            </Link>{' '}
+            for latest data.
           </p>
         ) : (
           <p className="mt-1 text-sm font-semibold leading-snug">{topUnlockDisplay}</p>
@@ -133,10 +208,14 @@ export function LensCard({ item }: { item: LensSnapshot }) {
 
       {/* Actions */}
       <div className="mt-5 flex gap-2 border-t border-slate-100 pt-4">
-        <Link href={`/lens/${item.id}`} className="btn btn-primary flex-1 text-center text-sm">Learn more</Link>
+        <Link href={`/lens/${item.id}`} className="btn btn-primary flex-1 text-center text-sm">
+          Learn more
+        </Link>
         <button className="btn btn-secondary text-sm">Save</button>
         <div className="relative">
-          <button onClick={handleShare} className="btn btn-secondary text-sm">Share</button>
+          <button onClick={handleShare} className="btn btn-secondary text-sm">
+            Share
+          </button>
           {copied && (
             <span className="absolute -top-8 left-1/2 -translate-x-1/2 rounded bg-slate-900 px-2 py-1 text-xs text-white whitespace-nowrap">
               Copied!

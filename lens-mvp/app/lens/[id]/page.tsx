@@ -1,9 +1,13 @@
+// Server component — data fetching only.
+// The collapsible explainer is in ScorecardExplainer.tsx (client component).
+
 import { getLensByIdOrCache } from '@/lib/lens-service';
 import { BlueprintRequestForm } from '@/components/BlueprintRequestForm';
 import { LensSnapshot, CapacityGap } from '@/lib/types';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import ShareButton from './ShareButton';
+import { ScorecardExplainer } from './ScorecardExplainer';
 
 const ratingClass: Record<string, string> = {
   Leading:      'rating-leading',
@@ -25,6 +29,20 @@ const gapDescription: Record<CapacityGap, string> = {
   Moderate:    'There is a meaningful gap between intelligence access and transformation realization. Targeted interventions can close it.',
   Significant: 'A large portion of transformation potential remains unrealized. Structural or cultural barriers are limiting conversion.',
   Critical:    'The organization is severely unable to convert intelligence into outcomes. Fundamental transformation capacity building is required.',
+};
+
+const TIERS = ['Emerging', 'Developing', 'Advanced', 'Transforming', 'Leading'] as const;
+
+const tierDotColor: Record<string, string> = {
+  Leading:      'bg-emerald-500',
+  Transforming: 'bg-teal-500',
+  Advanced:     'bg-blue-500',
+  Developing:   'bg-amber-500',
+  Emerging:     'bg-slate-400',
+};
+
+const tierIndex: Record<string, number> = {
+  Emerging: 1, Developing: 2, Advanced: 3, Transforming: 4, Leading: 5,
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
@@ -64,7 +82,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
   const rc = ratingClass[item.tcs_score] ?? 'rating-emerging';
   const gc = gapClass[item.transformation_capacity_gap] ?? gapClass.Moderate;
 
-  // Defensive normalisation — Supabase may return these as null/undefined
+  // Defensive normalisation
   const topUnlock: string = item.top_unlock ?? '';
   const constraints: string[] = Array.isArray(item.constraints) ? item.constraints : [];
   const opportunities: string[] = Array.isArray(item.opportunities) ? item.opportunities : [];
@@ -74,7 +92,6 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
   const PRIVATE_TOP_UNLOCK = 'To ensure accuracy, private companies require more information from the client. Request a Blueprint™ for your Unlock options.';
   const topUnlockDisplay = topUnlock.trim() || PRIVATE_TOP_UNLOCK;
 
-  // Debug: log to Vercel function logs so we can confirm the value
   console.log('[LensDetailPage] id:', id, '| top_unlock raw:', JSON.stringify(item.top_unlock), '| display:', topUnlockDisplay);
 
   const determinants: { label: string; key: keyof LensSnapshot }[] = [
@@ -92,6 +109,11 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
         ← Back to Search
       </Link>
 
+      {/* Scorecard Explainer — collapsible, collapsed by default */}
+      <div className="mt-4">
+        <ScorecardExplainer />
+      </div>
+
       {/* Hero */}
       <div className="mt-6 flex flex-wrap items-start justify-between gap-4">
         <div>
@@ -105,26 +127,56 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
           <p className="mt-3 text-slate-600">{item.description}</p>
         </div>
         {/* TCS™ headline */}
-        <div className="flex flex-col items-end gap-1">
+        <div className="flex flex-col items-end gap-2">
           <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Transformation Capacity Score™</p>
           <span className={`rounded-2xl border-2 px-6 py-2 text-2xl font-bold ${rc}`}>
             {item.tcs_score}
           </span>
+          {/* Rating Legend */}
+          <div className="flex items-center gap-1 flex-wrap justify-end">
+            {TIERS.map((tier, i) => (
+              <span key={tier} className="flex items-center gap-1">
+                <span className={`inline-block h-2 w-2 rounded-full ${tierDotColor[tier]}`} />
+                <span className="text-xs text-slate-400">{tier}</span>
+                {i < TIERS.length - 1 && (
+                  <span className="text-xs text-slate-300 mx-0.5">→</span>
+                )}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Six Determinants */}
+      {/* Six Determinants with dot-scale */}
       <section className="card mt-8 p-6">
         <h2 className="text-xl font-bold">TCS™ Determinants</h2>
         <p className="mt-1 text-sm text-slate-500">The six factors that determine Transformation Capacity™.</p>
-        <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
+        <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
           {determinants.map(({ label, key }) => {
             const val = (item[key] as string) ?? 'Emerging';
             const dc = ratingClass[val] ?? 'rating-emerging';
+            const score = tierIndex[val] ?? 1;
+            const dotColor = tierDotColor[val] ?? 'bg-slate-400';
             return (
               <div key={key} className={`rounded-xl border p-4 ${dc}`}>
-                <p className="text-xs font-semibold">{label}</p>
-                <p className="mt-2 text-lg font-bold">{val}</p>
+                <div className="flex items-center justify-between">
+                  <p className="text-xs font-semibold">{label}</p>
+                  <p className="text-sm font-bold">{val}</p>
+                </div>
+                {/* Dot scale */}
+                <div className="mt-2 flex items-center gap-1.5">
+                  {[1, 2, 3, 4, 5].map((n) => (
+                    <span
+                      key={n}
+                      className={`inline-block h-2.5 w-2.5 rounded-full border ${
+                        n <= score
+                          ? `${dotColor} border-transparent`
+                          : 'bg-white border-current opacity-30'
+                      }`}
+                    />
+                  ))}
+                  <span className="ml-1 text-xs opacity-60">{score}/5</span>
+                </div>
               </div>
             );
           })}
@@ -166,10 +218,9 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
       {/* Top Unlock™ */}
       <section className="card mt-6 p-6">
         <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Top Unlock™</p>
-        {item.top_unlock && (
+        {item.top_unlock ? (
           <p className="mt-3 text-slate-700 leading-7">{item.top_unlock}</p>
-        )}
-        {!item.top_unlock && (
+        ) : (
           <p className="mt-3 text-slate-700 leading-7">{PRIVATE_TOP_UNLOCK}</p>
         )}
       </section>
