@@ -352,9 +352,19 @@ export default function HomePage() {
                     Explore Enterprise Solutions →
                   </Link>
                 )}
+                {who === 'Investors' && (
+                  <Link href="/investors" className="btn btn-primary w-full mt-4 text-center text-sm">
+                    Explore Investor Solutions →
+                  </Link>
+                )}
                 {who === 'Governments' && (
                   <Link href="/governments" className="btn btn-primary w-full mt-4 text-center text-sm">
                     Explore Government Solutions →
+                  </Link>
+                )}
+                {who === 'Individuals' && (
+                  <Link href="/individuals" className="btn btn-primary w-full mt-4 text-center text-sm">
+                    Explore Individual Solutions →
                   </Link>
                 )}
               </div>
