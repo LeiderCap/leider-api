@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 
 const DOMAINS = [
   {
+    id: 'intelligence',
     name: 'Intelligence Capacity™',
     weight: 10,
     question: 'Can the organization generate intelligence?',
@@ -23,6 +24,7 @@ const DOMAINS = [
     bar: 'bg-slate-400',
   },
   {
+    id: 'absorbability',
     name: 'Transformation Absorbability™',
     weight: 20,
     question: 'Can the organization absorb intelligence?',
@@ -37,6 +39,7 @@ const DOMAINS = [
     bar: 'bg-blue-500',
   },
   {
+    id: 'trust',
     name: 'Trust Infrastructure™',
     weight: 15,
     question: 'Can the organization coordinate around intelligence?',
@@ -51,6 +54,7 @@ const DOMAINS = [
     bar: 'bg-teal-500',
   },
   {
+    id: 'governance',
     name: 'Transformation Governance™',
     weight: 20,
     question: 'Can the organization authorize transformation?',
@@ -65,6 +69,7 @@ const DOMAINS = [
     bar: 'bg-indigo-500',
   },
   {
+    id: 'courage',
     name: 'Structural Courage™',
     weight: 15,
     question: 'Can the organization act upon intelligence?',
@@ -79,6 +84,7 @@ const DOMAINS = [
     bar: 'bg-amber-500',
   },
   {
+    id: 'execution',
     name: 'Execution Capacity™',
     weight: 20,
     question: 'Can the organization convert change into outcomes?',
@@ -251,8 +257,8 @@ export default function MethodologyPage() {
         </p>
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
-          {DOMAINS.map(({ name, weight, question, measures, color, bar }) => (
-            <div key={name} className={`rounded-xl border p-5 ${color}`}>
+          {DOMAINS.map(({ id, name, weight, question, measures, color, bar }) => (
+            <div key={name} id={id} className={`rounded-xl border p-5 ${color} scroll-mt-20`}>
               <div className="flex items-start justify-between gap-2">
                 <p className="text-sm font-bold text-slate-900">{name}</p>
                 <span className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-bold text-white ${bar}`}>

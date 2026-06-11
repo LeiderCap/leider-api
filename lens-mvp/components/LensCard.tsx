@@ -1,5 +1,23 @@
 'use client';
 
+// PHASE 2 — Constitutional Explainability Layer™
+// TODO: Replace /methodology anchors with individual
+// constitutional principle pages:
+// /constitution/intelligence-abundance-principle
+// /constitution/absorbability-principle
+// /constitution/trust-infrastructure-principle
+// /constitution/governance-principle
+// /constitution/courage-to-transform-principle
+// /constitution/execution-capacity-principle
+//
+// TODO: Add Transformation Opportunity Score™ (TOS™)
+// TOS = Potential TCS - Current TCS
+// High TOS = trapped transformation capacity
+//
+// TODO: Add Determinant Gap Analysis™ (DGA™)
+// Surface organizations with single-domain constraints
+// These represent highest unlock potential
+
 import Link from 'next/link';
 import { useState } from 'react';
 import { LensSnapshot, CapacityGap } from '@/lib/types';
@@ -46,6 +64,45 @@ interface ModalState {
   type: ModalKey;
   key: string; // determinant label for 'determinant' type; ignored otherwise
 }
+
+// Methodology anchor slugs for each determinant
+const DETERMINANT_ANCHORS: Record<string, string> = {
+  'Intelligence™':  'intelligence',
+  'Absorbability™': 'absorbability',
+  'Trust™':         'trust',
+  'Governance™':    'governance',
+  'Courage™':       'courage',
+  'Execution™':     'execution',
+};
+
+// Constraint gap callout definitions
+const CONSTRAINT_CALLOUTS: Record<string, { title: string; body: string; anchor: string }> = {
+  'Courage™': {
+    title: 'Courage Gap™ Detected',
+    body: 'This organization shows strong capacity in other domains but a significant Courage constraint. This pattern often indicates high unlock potential.',
+    anchor: 'courage',
+  },
+  'Trust™': {
+    title: 'Trust Deficit™ Detected',
+    body: 'A significant Trust constraint is limiting transformation velocity. Trust is a prerequisite for change — without it, even well-resourced initiatives stall.',
+    anchor: 'trust',
+  },
+  'Governance™': {
+    title: 'Governance Friction™ Detected',
+    body: 'Governance is the primary drag on this organization’s transformation capacity. Decision rights, accountability, and escalation structures need attention.',
+    anchor: 'governance',
+  },
+  'Absorbability™': {
+    title: 'Absorbability Gap™ Detected',
+    body: 'This organization has access to intelligence but lacks the capacity to absorb and operationalize it. Intelligence is being wasted.',
+    anchor: 'absorbability',
+  },
+  'Execution™': {
+    title: 'Execution Gap™ Detected',
+    body: 'Strong plans exist but execution capacity is the binding constraint. Delivery capability and realization discipline need to be built.',
+    anchor: 'execution',
+  },
+};
 
 const DETERMINANT_TOOLTIPS: Record<string, string> = {
   'Intelligence™':
@@ -360,24 +417,77 @@ export function LensCard({ item }: { item: LensSnapshot }) {
                     style={{ width: `${pct}%` }}
                   />
                 </div>
+                {/* Learn Why → link (Phase 1 placeholder for Constitutional Explainability Layer™) */}
+                {DETERMINANT_ANCHORS[label] && (
+                  <Link
+                    href={`/methodology#${DETERMINANT_ANCHORS[label]}`}
+                    className="mt-1.5 block text-[10px] text-slate-400 hover:text-slate-600 hover:underline underline-offset-2 transition-colors"
+                  >
+                    Learn why →
+                  </Link>
+                )}
               </div>
             );
           })}
         </div>
 
-        {/* Primary Constraint callout */}
-        {item.primary_constraint && (
-          <div className="mt-3 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2">
-            <p className="text-xs font-semibold text-amber-700">
-              ⚠️ Primary Constraint™: {item.primary_constraint}
-            </p>
-            {item.secondary_constraint && (
-              <p className="mt-0.5 text-xs text-amber-600">
-                Secondary: {item.secondary_constraint}
-              </p>
-            )}
-          </div>
-        )}
+        {/* Primary Constraint callout + Constraint Gap™ callouts */}
+        {(() => {
+          // Determine if a severe constraint callout should be shown.
+          // Conditions: numeric score < 55 AND the domain is primary or secondary constraint.
+          const constraintDomainMap: Record<string, { numericKey: keyof LensSnapshot; label: string }> = {
+            'Courage':       { numericKey: 'courage_numeric',       label: 'Courage™' },
+            'Trust':         { numericKey: 'trust_numeric',         label: 'Trust™' },
+            'Governance':    { numericKey: 'governance_numeric',    label: 'Governance™' },
+            'Absorbability': { numericKey: 'absorbability_numeric', label: 'Absorbability™' },
+            'Execution':     { numericKey: 'execution_numeric',     label: 'Execution™' },
+          };
+
+          const primaryLabel = item.primary_constraint ?? '';
+          const secondaryLabel = item.secondary_constraint ?? '';
+
+          // Find the first matching severe constraint to surface
+          const severeCallout = Object.entries(constraintDomainMap).find(([domain, { numericKey, label }]) => {
+            const isConstraint = primaryLabel.toLowerCase().includes(domain.toLowerCase()) ||
+                                 secondaryLabel.toLowerCase().includes(domain.toLowerCase());
+            const numericVal = item[numericKey] as number | undefined;
+            return isConstraint && numericVal != null && numericVal < 55;
+          });
+
+          return (
+            <>
+              {item.primary_constraint && (
+                <div className="mt-3 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2">
+                  <p className="text-xs font-semibold text-amber-700">
+                    ⚠️ Primary Constraint™: {item.primary_constraint}
+                  </p>
+                  {item.secondary_constraint && (
+                    <p className="mt-0.5 text-xs text-amber-600">
+                      Secondary: {item.secondary_constraint}
+                    </p>
+                  )}
+                </div>
+              )}
+              {severeCallout && (() => {
+                const [, { label }] = severeCallout;
+                const callout = CONSTRAINT_CALLOUTS[label];
+                if (!callout) return null;
+                return (
+                  <div className="mt-2 rounded-lg border border-amber-300 bg-amber-50 px-3 py-2.5">
+                    <p className="text-xs font-bold text-amber-800">{callout.title}</p>
+                    <p className="mt-1 text-xs text-amber-700 leading-5">{callout.body}</p>
+                    <Link
+                      href={`/methodology#${callout.anchor}`}
+                      className="mt-1.5 block text-[10px] text-amber-600 hover:text-amber-800 hover:underline underline-offset-2 transition-colors"
+                    >
+                      Learn about the {label.replace('™', '')}-to-Transform Principle™ →
+                    </Link>
+                  </div>
+                );
+              })()}
+            </>
+          );
+        })()}
 
         {/* Transformation Capacity Gap™ with ⓘ */}
         <div className="mt-3 flex items-center gap-2">

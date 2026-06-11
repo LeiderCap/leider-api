@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 
 const ratingClass: Record<string, string> = {
@@ -20,6 +21,45 @@ const tierBarColor: Record<string, string> = {
 
 const tierPercent: Record<string, number> = {
   Emerging: 20, Developing: 40, Advanced: 60, Transforming: 80, Leading: 100,
+};
+
+// Methodology anchor slugs for each determinant
+const DETERMINANT_ANCHORS: Record<string, string> = {
+  'Intelligence™':  'intelligence',
+  'Absorbability™': 'absorbability',
+  'Trust™':         'trust',
+  'Governance™':    'governance',
+  'Courage™':       'courage',
+  'Execution™':     'execution',
+};
+
+// Constraint gap callout definitions
+const CONSTRAINT_CALLOUTS: Record<string, { title: string; body: string; anchor: string }> = {
+  'Courage™': {
+    title: 'Courage Gap™ Detected',
+    body: 'This organization shows strong capacity in other domains but a significant Courage constraint. This pattern often indicates high unlock potential.',
+    anchor: 'courage',
+  },
+  'Trust™': {
+    title: 'Trust Deficit™ Detected',
+    body: 'A significant Trust constraint is limiting transformation velocity. Trust is a prerequisite for change — without it, even well-resourced initiatives stall.',
+    anchor: 'trust',
+  },
+  'Governance™': {
+    title: 'Governance Friction™ Detected',
+    body: 'Governance is the primary drag on this organization\'s transformation capacity. Decision rights, accountability, and escalation structures need attention.',
+    anchor: 'governance',
+  },
+  'Absorbability™': {
+    title: 'Absorbability Gap™ Detected',
+    body: 'This organization has access to intelligence but lacks the capacity to absorb and operationalize it. Intelligence is being wasted.',
+    anchor: 'absorbability',
+  },
+  'Execution™': {
+    title: 'Execution Gap™ Detected',
+    body: 'Strong plans exist but execution capacity is the binding constraint. Delivery capability and realization discipline need to be built.',
+    anchor: 'execution',
+  },
 };
 
 const DETERMINANT_TOOLTIPS: Record<string, string> = {
@@ -58,6 +98,14 @@ function InfoModal({ title, body, onClose }: { title: string; body: string; onCl
         <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-1">Definition</p>
         <h3 className="text-base font-bold text-slate-900 mb-3">{title}</h3>
         <p className="text-sm text-slate-600 leading-6">{body}</p>
+        {DETERMINANT_ANCHORS[title] && (
+          <Link
+            href={`/methodology#${DETERMINANT_ANCHORS[title]}`}
+            className="mt-4 block text-xs text-slate-400 hover:text-slate-600 hover:underline underline-offset-2 transition-colors"
+          >
+            Learn more in the Methodology →
+          </Link>
+        )}
       </div>
     </div>
   );
@@ -69,8 +117,23 @@ interface DeterminantItem {
   numeric?: number;
 }
 
-export function DeterminantsSection({ determinants }: { determinants: DeterminantItem[] }) {
+interface DeterminantsSectionProps {
+  determinants: DeterminantItem[];
+  primaryConstraint?: string;
+  secondaryConstraint?: string;
+}
+
+export function DeterminantsSection({ determinants, primaryConstraint, secondaryConstraint }: DeterminantsSectionProps) {
   const [activeInfo, setActiveInfo] = useState<string | null>(null);
+
+  // Find the first severe constraint callout to show (numeric < 55 AND is primary/secondary constraint)
+  const severeCallout = determinants.find(({ label, numeric }) => {
+    if (numeric == null || numeric >= 55) return false;
+    const domain = label.replace('™', '');
+    const isPrimary = (primaryConstraint ?? '').toLowerCase().includes(domain.toLowerCase());
+    const isSecondary = (secondaryConstraint ?? '').toLowerCase().includes(domain.toLowerCase());
+    return (isPrimary || isSecondary) && CONSTRAINT_CALLOUTS[label];
+  });
 
   return (
     <>
@@ -119,10 +182,37 @@ export function DeterminantsSection({ determinants }: { determinants: Determinan
                     style={{ width: `${pct}%` }}
                   />
                 </div>
+                {/* Learn Why → link (Phase 1 placeholder for Constitutional Explainability Layer™) */}
+                {DETERMINANT_ANCHORS[label] && (
+                  <Link
+                    href={`/methodology#${DETERMINANT_ANCHORS[label]}`}
+                    className="mt-2 block text-[11px] text-slate-400 hover:text-slate-600 hover:underline underline-offset-2 transition-colors"
+                  >
+                    Learn why →
+                  </Link>
+                )}
               </div>
             );
           })}
         </div>
+
+        {/* Constraint Gap™ callout — shown when a domain is < 55 and is primary/secondary constraint */}
+        {severeCallout && (() => {
+          const callout = CONSTRAINT_CALLOUTS[severeCallout.label];
+          if (!callout) return null;
+          return (
+            <div className="mt-4 rounded-xl border border-amber-300 bg-amber-50 p-4">
+              <p className="text-sm font-bold text-amber-800">{callout.title}</p>
+              <p className="mt-1 text-sm text-amber-700 leading-6">{callout.body}</p>
+              <Link
+                href={`/methodology#${callout.anchor}`}
+                className="mt-2 block text-xs text-amber-600 hover:text-amber-800 hover:underline underline-offset-2 transition-colors"
+              >
+                Learn about the {severeCallout.label.replace('™', '')}-to-Transform Principle™ →
+              </Link>
+            </div>
+          );
+        })()}
       </section>
     </>
   );

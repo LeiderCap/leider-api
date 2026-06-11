@@ -202,7 +202,11 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
         />
 
         {/* Six Determinants — client component with info modals + progress bars */}
-        <DeterminantsSection determinants={determinantData} />
+        <DeterminantsSection
+          determinants={determinantData}
+          primaryConstraint={item.primary_constraint}
+          secondaryConstraint={item.secondary_constraint}
+        />
       </div>
 
       {/* v1.1 Scoring Breakdown */}
@@ -377,6 +381,21 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
           <p className="mt-3 leading-8 text-slate-700">{item.summary}</p>
         </section>
       )}
+
+      {/* ── Explore The Methodology™ ─────────────────────────────────────── */}
+      <section className="mt-6 rounded-xl border border-slate-100 bg-white p-5 text-center">
+        <p className="text-sm text-slate-500">
+          Want to understand the framework behind these scores?
+        </p>
+        <div className="mt-3 flex flex-wrap items-center justify-center gap-3">
+          <Link href="/methodology" className="btn btn-secondary text-sm">
+            Explore The Methodology™ →
+          </Link>
+          <Link href="/methodology" className="text-sm text-slate-400 hover:text-slate-600 hover:underline underline-offset-2 transition-colors">
+            Read The Ratings Methodology™ v1.1 →
+          </Link>
+        </div>
+      </section>
 
       {/* ── 10. Blueprint™ CTA ────────────────────────────────────────────── */}
       <section className="card mt-6 p-6 bg-slate-50">
