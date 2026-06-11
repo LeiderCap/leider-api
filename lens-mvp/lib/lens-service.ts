@@ -8,6 +8,19 @@
 // ICP™  — Intelligence Compounding Principle™ (Phase 3)
 // ICS™  — Intelligence Compounding Score™ (Phase 3)
 // ============================================================
+//
+// TRANSFORMATION GRID™ ARCHITECTURE
+// The Lens™ is Layer 0 — Discovery
+// transformation_events table = Layer 2 (Event Layer)
+// Future: Transformation Graph™ = Layer 3
+// Future: Transformation Grid™ = Layer 4
+// Future: Possible Knowledge Base™ = Layer 5
+// Future: Enterprise Transformation Twin™ = Layer 6
+//
+// Every search, save, and blueprint request is already
+// being recorded as a Transformation Event™.
+// The foundation of the Grid is already being built.
+// ============================================================
 import seed from '@/data/seed.json';
 import { LensSnapshot } from './types';
 import { getSupabaseClient } from './supabase';

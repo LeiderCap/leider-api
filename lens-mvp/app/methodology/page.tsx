@@ -389,6 +389,12 @@ export default function MethodologyPage() {
           <p className="mt-6 text-sm text-slate-400">
             Transformation Intelligence™ Standards Board · Lens Ratings Methodology™ v1.1
           </p>
+          <p className="mt-8 text-sm leading-7 text-slate-400 max-w-2xl mx-auto">
+            The Lens™ is the discovery layer of the Transformation Grid™ — an enterprise architecture
+            for making transformation observable at scale. As transformation events accumulate, they form
+            the Transformation Graph™: organizational memory that compounds over time. The Lens™ is where
+            that journey begins.
+          </p>
         </div>
       </section>
 

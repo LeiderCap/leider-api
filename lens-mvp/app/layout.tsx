@@ -85,9 +85,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     </p>
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-slate-400 uppercase tracking-wide">Phase 3 — Future</p>
+                    <p className="text-xs font-bold text-slate-400 uppercase tracking-wide">Phase 3 — Enterprise Platform</p>
                     <p className="mt-1 text-xs text-slate-400 leading-5">
-                      Decision Visibility Infrastructure™ · Intelligence Compounding Score™ · Transformation Memory™ · Transformation Graph™
+                      Transformation Grid™ · Transformation Graph™ · Decision Visibility Infrastructure™ · Intelligence Compounding Score™
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-slate-300 uppercase tracking-wide">Phase 4 — Enterprise OS</p>
+                    <p className="mt-1 text-xs text-slate-400 leading-5">
+                      Possible Knowledge Base™ · Enterprise Transformation Twin™ · Transformation Memory Infrastructure™
                     </p>
                   </div>
                 </div>
