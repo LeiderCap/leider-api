@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import Link from 'next/link';
+import SaveButton from '@/components/SaveButton';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -250,6 +251,13 @@ export default function GoDeepPage() {
               </div>
               <ScoreBar score={result.tcs_c_score} />
               <p className="mt-4 text-sm leading-6 text-slate-300">{result.score_interpretation}</p>
+              <div className="mt-4 flex justify-end">
+                <SaveButton
+                  itemType="go_deep_analysis"
+                  title={content.slice(0, 60)}
+                  content={result as unknown as Record<string, unknown>}
+                />
+              </div>
             </section>
 
             {/* Block 2 — Layer Coverage */}
@@ -391,12 +399,19 @@ export default function GoDeepPage() {
                   </div>
                 </div>
 
-                <button
-                  onClick={() => { setRewrite(null); }}
-                  className="mt-4 text-xs text-teal-500 hover:text-teal-300 transition-colors"
-                >
-                  ← Run another rewrite
-                </button>
+                <div className="mt-4 flex items-center justify-between flex-wrap gap-3">
+                  <button
+                    onClick={() => { setRewrite(null); }}
+                    className="text-xs text-teal-500 hover:text-teal-300 transition-colors"
+                  >
+                    ← Run another rewrite
+                  </button>
+                  <SaveButton
+                    itemType="go_deep_rewrite"
+                    title={content.slice(0, 60)}
+                    content={{ ...rewrite, original_score: result?.tcs_c_score } as unknown as Record<string, unknown>}
+                  />
+                </div>
               </section>
             )}
 

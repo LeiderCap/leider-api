@@ -12,6 +12,7 @@ import { DeterminantsSection } from './DeterminantsSection';
 import { TcsHero } from './TcsHero';
 import { QspInfoButton } from '@/components/QspInfoButton';
 import TrustQuadrantDiagnostic from '@/components/TrustQuadrantDiagnostic';
+import SaveButton from '@/components/SaveButton';
 
 const ratingClass: Record<string, string> = {
   Leading:      'rating-leading',
@@ -475,7 +476,11 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
           </div>
           <div className="flex flex-wrap gap-2">
             <BlueprintRequestForm companyId={item.id} companyName={item.name} />
-            <button className="btn btn-secondary">Save to Watchlist™</button>
+            <SaveButton
+              itemType="lens_card"
+              title={item.name}
+              content={item as unknown as Record<string, unknown>}
+            />
             <ShareButton id={item.id} />
           </div>
         </div>

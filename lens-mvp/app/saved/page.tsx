@@ -1,26 +1,356 @@
-import { getSupabaseClient } from '@/lib/supabase';
-import { LensCard } from '@/components/LensCard';
-import { LensSnapshot } from '@/lib/types';
+'use client';
+
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-// Saved page — auth will be added back in a future task
-// For now, shows a placeholder until auth is wired
+// ─── Types ────────────────────────────────────────────────────────────────────
 
-export default async function SavedPage() {
+interface SavedItem {
+  id: string;
+  item_type: 'lens_card' | 'go_deep_analysis' | 'go_deep_rewrite';
+  title: string | null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  content: Record<string, any> | null;
+  created_at: string;
+}
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+function getOrCreateSessionId(): string {
+  if (typeof window === 'undefined') return '';
+  let sid = localStorage.getItem('lens_session_id');
+  if (!sid) {
+    sid = crypto.randomUUID();
+    localStorage.setItem('lens_session_id', sid);
+  }
+  return sid;
+}
+
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+}
+
+// ─── Section config ───────────────────────────────────────────────────────────
+
+const SECTION_CONFIG: Record<
+  SavedItem['item_type'],
+  { label: string; eyebrow: string; color: string; border: string; bg: string; emptyHref: string; emptyLabel: string }
+> = {
+  lens_card: {
+    label: 'Lens Cards™',
+    eyebrow: 'LENS CARD™',
+    color: 'text-teal-400',
+    border: 'border-teal-800',
+    bg: 'bg-teal-950',
+    emptyHref: '/search',
+    emptyLabel: 'Run Lens Analysis™',
+  },
+  go_deep_analysis: {
+    label: 'Go Deep™ Analyses',
+    eyebrow: 'GO DEEP™ ANALYSIS',
+    color: 'text-amber-400',
+    border: 'border-amber-800',
+    bg: 'bg-amber-950',
+    emptyHref: '/go-deep',
+    emptyLabel: 'Run Go Deep™',
+  },
+  go_deep_rewrite: {
+    label: 'Go Deep™ Rewrites',
+    eyebrow: 'GO DEEP™ REWRITE',
+    color: 'text-indigo-400',
+    border: 'border-indigo-800',
+    bg: 'bg-indigo-950',
+    emptyHref: '/go-deep',
+    emptyLabel: 'Run Go Deep™',
+  },
+};
+
+// ─── Item Card ────────────────────────────────────────────────────────────────
+
+function SavedItemCard({
+  item,
+  onDelete,
+}: {
+  item: SavedItem;
+  onDelete: (id: string) => void;
+}) {
+  const [expanded, setExpanded] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const cfg = SECTION_CONFIG[item.item_type];
+
+  async function handleDelete() {
+    if (deleting) return;
+    setDeleting(true);
+    try {
+      await fetch(`/api/memory/item/${item.id}`, { method: 'DELETE' });
+      onDelete(item.id);
+    } catch {
+      setDeleting(false);
+    }
+  }
+
   return (
-    <main className="mx-auto min-h-screen max-w-6xl px-6 py-10">
-      <Link href="/search" className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
-        ← Back to Search
-      </Link>
-      <div className="mt-6">
-        <h1 className="text-3xl font-bold">Saved Cards</h1>
-        <p className="mt-1 text-sm text-slate-500">Your saved Lens Cards™.</p>
+    <div className={`rounded-xl border ${cfg.border} ${cfg.bg} p-4`}>
+      <div className="flex items-start justify-between gap-3 flex-wrap">
+        <div className="flex-1 min-w-0">
+          <p className={`text-[10px] font-semibold uppercase tracking-widest ${cfg.color} mb-0.5`}>
+            {cfg.eyebrow}
+          </p>
+          <p className="text-sm font-semibold text-white leading-5 truncate">
+            {item.title ?? '(untitled)'}
+          </p>
+          <p className="text-[10px] text-slate-500 mt-0.5">{formatDate(item.created_at)}</p>
+        </div>
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            onClick={() => setExpanded((v) => !v)}
+            className="rounded-lg border border-slate-600 px-3 py-1.5 text-xs font-semibold text-slate-300 hover:border-teal-500 hover:text-teal-300 transition-colors"
+          >
+            {expanded ? 'Collapse' : 'View'}
+          </button>
+          <button
+            onClick={handleDelete}
+            disabled={deleting}
+            className="rounded-lg border border-red-800 px-3 py-1.5 text-xs font-semibold text-red-400 hover:border-red-500 hover:text-red-300 disabled:opacity-50 transition-colors"
+          >
+            {deleting ? '...' : 'Delete'}
+          </button>
+        </div>
       </div>
-      <div className="card mt-8 p-8 text-center">
-        <h2 className="text-xl font-semibold">Sign in to view saved cards.</h2>
-        <p className="mt-2 text-slate-600">Authentication is coming soon. In the meantime, search for any company to generate a <Link href="/lens-card" className="text-teal-600 hover:underline">Lens Card™</Link>.</p>
-        <Link href="/search" className="btn btn-primary mt-4 inline-flex">Run The Lens™</Link>
+
+      {expanded && item.content && (
+        <div className="mt-4 rounded-lg border border-slate-700 bg-slate-900 p-4 overflow-auto max-h-[500px]">
+          <ExpandedContent item={item} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Expanded Content ─────────────────────────────────────────────────────────
+
+function ExpandedContent({ item }: { item: SavedItem }) {
+  const c = item.content;
+  if (!c) return <p className="text-xs text-slate-500">No content stored.</p>;
+
+  if (item.item_type === 'lens_card') {
+    return (
+      <div className="space-y-3 text-sm text-slate-300">
+        {c.what_lens_sees && (
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-teal-400 mb-1">What Lens Sees™</p>
+            <p className="leading-6">{c.what_lens_sees}</p>
+          </div>
+        )}
+        {c.analysis_summary && (
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-teal-400 mb-1">Lens Verdict™</p>
+            <p className="italic leading-6">{c.analysis_summary}</p>
+          </div>
+        )}
+        {c.tcs_score !== undefined && (
+          <div className="flex items-center gap-3">
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-slate-400">TCS™</p>
+            <span className="text-2xl font-bold text-white">{c.tcs_score}</span>
+            {c.tcs_rating && <span className="text-xs text-slate-400">{c.tcs_rating}</span>}
+          </div>
+        )}
+        <Link
+          href={`/lens/${c.id}`}
+          className="inline-block mt-1 text-xs font-semibold text-teal-400 hover:text-teal-300 underline underline-offset-2"
+        >
+          View Full Lens Card™ →
+        </Link>
       </div>
+    );
+  }
+
+  if (item.item_type === 'go_deep_analysis') {
+    return (
+      <div className="space-y-3 text-sm text-slate-300">
+        {c.tcs_c_score !== undefined && (
+          <div className="flex items-center gap-3">
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-slate-400">TCS-C™</p>
+            <span className="text-2xl font-bold text-white">{c.tcs_c_score}</span>
+            {c.tier && <span className="text-xs text-slate-400">{c.tier}</span>}
+          </div>
+        )}
+        {c.score_interpretation && (
+          <p className="leading-6 text-slate-400">{c.score_interpretation}</p>
+        )}
+        {Array.isArray(c.layers) && c.layers.length > 0 && (
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-amber-400 mb-2">Layer Coverage</p>
+            <div className="grid grid-cols-2 gap-1">
+              {c.layers.map((l: { layer_number: number; layer_name: string; status: string }) => (
+                <div key={l.layer_number} className="flex items-center gap-1.5 text-xs">
+                  <span className={l.status === 'present' ? 'text-emerald-400' : l.status === 'partial' ? 'text-amber-400' : 'text-slate-500'}>
+                    {l.status === 'present' ? '✓' : l.status === 'partial' ? '◐' : '✗'}
+                  </span>
+                  <span className="text-slate-400 truncate">{l.layer_name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  if (item.item_type === 'go_deep_rewrite') {
+    return (
+      <div className="space-y-3 text-sm text-slate-300">
+        {c.estimated_new_score !== undefined && (
+          <div className="flex items-center gap-3">
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-slate-400">Est. TCS-C™</p>
+            <span className="text-2xl font-bold text-white">{c.estimated_new_score}</span>
+            {c.original_score !== undefined && (
+              <span className="text-xs text-indigo-400">(+{c.estimated_new_score - c.original_score} from original)</span>
+            )}
+          </div>
+        )}
+        {c.rewrite_summary && (
+          <p className="italic leading-6 text-indigo-200 border-l-2 border-indigo-700 pl-3">{c.rewrite_summary}</p>
+        )}
+        {c.revised_content && (
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-indigo-400 mb-2">Revised Content</p>
+            <p className="whitespace-pre-wrap leading-7 text-slate-300 text-xs">{c.revised_content}</p>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <pre className="text-xs text-slate-400 whitespace-pre-wrap overflow-auto">
+      {JSON.stringify(c, null, 2)}
+    </pre>
+  );
+}
+
+// ─── Section ──────────────────────────────────────────────────────────────────
+
+function SavedSection({
+  type,
+  items,
+  onDelete,
+}: {
+  type: SavedItem['item_type'];
+  items: SavedItem[];
+  onDelete: (id: string) => void;
+}) {
+  const cfg = SECTION_CONFIG[type];
+  return (
+    <section>
+      <div className="flex items-center gap-3 mb-4">
+        <h2 className={`text-base font-bold ${cfg.color}`}>{cfg.label}</h2>
+        <span className="rounded-full border border-slate-700 bg-slate-800 px-2.5 py-0.5 text-xs text-slate-400">
+          {items.length}
+        </span>
+      </div>
+      {items.length === 0 ? (
+        <div className="rounded-xl border border-slate-800 bg-slate-900 px-5 py-6 text-center">
+          <p className="text-sm text-slate-500">No {cfg.label.toLowerCase()} saved yet.</p>
+          <Link
+            href={cfg.emptyHref}
+            className="mt-3 inline-block text-xs font-semibold text-teal-400 hover:text-teal-300 underline underline-offset-2"
+          >
+            {cfg.emptyLabel} →
+          </Link>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {items.map((item) => (
+            <SavedItemCard key={item.id} item={item} onDelete={onDelete} />
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
+
+// ─── Main Page ────────────────────────────────────────────────────────────────
+
+export default function SavedPage() {
+  const [items, setItems] = useState<SavedItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const sid = getOrCreateSessionId();
+    if (!sid) { setLoading(false); return; }
+
+    fetch(`/api/memory/session/${sid}`)
+      .then((r) => r.json())
+      .then((data) => setItems(data.items ?? []))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
+
+  function handleDelete(id: string) {
+    setItems((prev) => prev.filter((i) => i.id !== id));
+  }
+
+  const lensCards    = items.filter((i) => i.item_type === 'lens_card');
+  const analyses     = items.filter((i) => i.item_type === 'go_deep_analysis');
+  const rewrites     = items.filter((i) => i.item_type === 'go_deep_rewrite');
+  const totalCount   = items.length;
+
+  return (
+    <main className="min-h-screen bg-slate-950 text-white">
+
+      {/* ── Header ─────────────────────────────────────────────── */}
+      <section className="border-b border-slate-800 px-4 py-12">
+        <div className="mx-auto max-w-3xl">
+          <p className="text-xs font-semibold uppercase tracking-widest text-teal-400 mb-2">
+            Transformation Memory Layer™
+          </p>
+          <h1 className="text-3xl font-bold">Saved</h1>
+          <p className="mt-2 text-sm text-slate-400">
+            Your saved Lens Cards™, Go Deep™ Analyses, and Go Deep™ Rewrites — stored by session.
+          </p>
+        </div>
+      </section>
+
+      {/* ── Content ────────────────────────────────────────────── */}
+      <section className="px-4 py-10">
+        <div className="mx-auto max-w-3xl">
+          {loading ? (
+            <div className="text-center py-16 text-slate-500 text-sm">Loading saved items...</div>
+          ) : totalCount === 0 ? (
+            <div className="rounded-2xl border border-slate-800 bg-slate-900 px-6 py-12 text-center">
+              <p className="text-slate-400 text-sm mb-1">Nothing saved yet.</p>
+              <p className="text-slate-500 text-xs mb-6">Run The Lens™ or Go Deep™ to get started.</p>
+              <div className="flex flex-wrap justify-center gap-3">
+                <Link
+                  href="/search"
+                  className="rounded-xl bg-teal-600 px-5 py-2.5 text-sm font-bold text-white hover:bg-teal-500 transition-colors"
+                >
+                  Run Lens Analysis™ →
+                </Link>
+                <Link
+                  href="/go-deep"
+                  className="rounded-xl border border-slate-700 px-5 py-2.5 text-sm font-semibold text-slate-300 hover:border-slate-500 hover:text-white transition-colors"
+                >
+                  Go Deep™ →
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-10">
+              <SavedSection type="lens_card"        items={lensCards} onDelete={handleDelete} />
+              <SavedSection type="go_deep_analysis" items={analyses}  onDelete={handleDelete} />
+              <SavedSection type="go_deep_rewrite"  items={rewrites}  onDelete={handleDelete} />
+            </div>
+          )}
+        </div>
+      </section>
     </main>
   );
 }
