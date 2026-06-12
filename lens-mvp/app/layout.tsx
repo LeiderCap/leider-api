@@ -1,6 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import NavRunButton from '@/components/NavRunButton';
 
 export const metadata: Metadata = {
   title: 'The Lens™ — See What You’re Missing',
@@ -36,7 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/watchlists" className="nav-link">Watchlists</Link>
             </nav>
             <div className="flex items-center gap-2">
-              <Link href="/search" className="btn btn-primary">Run The Lens™</Link>
+              <NavRunButton />
             </div>
           </div>
         </header>
