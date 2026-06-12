@@ -193,7 +193,7 @@ function BlueprintDisplay({
         </p>
         <h1 className="mt-1 text-3xl font-bold text-white">{entityName}</h1>
         <p className="mt-1 text-sm" style={{ color: '#94A3B8' }}>
-          Generated {generatedDate} · Powered by Transformation Intelligence™ · LeiderCap
+          Generated {generatedDate} · Powered by Transformation Intelligence™ · The Lens™
         </p>
       </div>
 
@@ -219,8 +219,8 @@ function BlueprintDisplay({
             {entityName}
           </div>
           <div style={{ fontSize: '10px', color: '#94A3B8' }}>
-            Generated {generatedDate} &nbsp;·&nbsp; Powered by Transformation Intelligence™ &nbsp;·&nbsp; LeiderCap
-          </div>
+          Generated {generatedDate} &nbsp;·&nbsp; Powered by Transformation Intelligence™ &nbsp;·&nbsp; The Lens™
+        </div>
         </div>
 
         {/* Sections */}
@@ -302,9 +302,9 @@ function BlueprintDisplay({
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
               <span style={{
                 display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                width: '20px', height: '20px', borderRadius: '50%',
+                width: '22px', height: '22px', minWidth: '22px', borderRadius: '50%',
                 backgroundColor: '#F97316', color: '#FFFFFF',
-                fontSize: '9px', fontWeight: 700, flexShrink: 0,
+                fontSize: '10px', fontWeight: 700, lineHeight: '22px', textAlign: 'center', flexShrink: 0,
               }}>{n}</span>
               <span style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' as const, color: '#F97316' }}>
                 {title}
