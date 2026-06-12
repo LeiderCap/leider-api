@@ -26,7 +26,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/#transformation-chain" className="nav-link">Framework</Link>
               <Link href="/#for-whom" className="nav-link">Who It's For</Link>
               <Link href="/methodology" className="nav-link">Methodology</Link>
-              <Link href="/#stack-the-deck" className="nav-link flex items-center gap-1">
+              <Link href="/go-deep" className="nav-link">Go Deep™</Link>
+               <Link href="/#stack-the-deck" className="nav-link flex items-center gap-1">
                 Stack the Deck™
                 <span className="rounded-full border border-amber-200 bg-amber-50 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-amber-700">Soon</span>
               </Link>
@@ -57,6 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <li><Link href="/methodology" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">Methodology</Link></li>
                    <li><Link href="/assessment" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">Assessment Methodology</Link></li>
                    <li><Link href="/individuals" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">My Lens™ — Consumer</Link></li>
+                   <li><Link href="/go-deep" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">Go Deep™ — Content Analysis</Link></li>
                    <li><Link href="/individuals" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">Human Transformation Intelligence™</Link></li>
                  </ul>
                </div>

@@ -222,3 +222,18 @@ CREATE TABLE IF NOT EXISTS waitlist (
 --   ADD COLUMN IF NOT EXISTS detected_industry text,
 --   ADD COLUMN IF NOT EXISTS constraint_translations jsonb;
 -- ============================================
+
+-- ─── v1.8 Go Deep™ — CTS™ Content Transformation System™ ────────────────────
+-- Run in Supabase SQL Editor:
+
+CREATE TABLE IF NOT EXISTS go_deep_analyses (
+  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  content_input text NOT NULL,
+  tcs_c_score integer,
+  tier text,
+  score_interpretation text,
+  layers jsonb,
+  builder jsonb,
+  delta jsonb,
+  created_at timestamp with time zone DEFAULT now()
+);
