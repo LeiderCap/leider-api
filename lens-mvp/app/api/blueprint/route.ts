@@ -5,10 +5,12 @@ import { Resend } from 'resend';
 
 const BlueprintSchema = z.object({
   company_id: z.string().min(1),
-  name: z.string().min(1).optional().or(z.literal('')),
+  name: z.string().optional().or(z.literal('')),
   email: z.string().email(),
   organization: z.string().optional().or(z.literal('')),
-  message: z.string().optional().or(z.literal(''))
+  role: z.string().optional().or(z.literal('')),
+  message: z.string().optional().or(z.literal('')),
+  company_name: z.string().optional().or(z.literal('')),
 });
 
 async function sendNotificationEmail(
@@ -19,7 +21,7 @@ async function sendNotificationEmail(
   const notifyEmail = process.env.BLUEPRINT_NOTIFY_EMAIL || 'sleider@gmail.com';
 
   if (!apiKey) {
-    console.log('RESEND_API_KEY not set — skipping email notification.');
+    console.log('[blueprint] RESEND_API_KEY not set — skipping email notification.');
     return;
   }
 
@@ -35,12 +37,13 @@ async function sendNotificationEmail(
     : `https://leider-api.vercel.app/lens/${payload.company_id}`;
 
   const text = [
-    `New Blueprint™ Request`,
+    `New Blueprint™ / Assessment Request`,
     ``,
     `Company:      ${companyName}`,
     `Name:         ${payload.name || '(not provided)'}`,
     `Email:        ${payload.email}`,
     `Organization: ${payload.organization || '(not provided)'}`,
+    `Role:         ${payload.role || '(not provided)'}`,
     `Message:      ${payload.message || '(not provided)'}`,
     `Submitted:    ${submitted} PT`,
     ``,
@@ -55,27 +58,31 @@ async function sendNotificationEmail(
   });
 
   if (error) {
-    console.error('Resend email failed:', error);
+    console.error('[blueprint] Resend email failed:', error);
   } else {
-    console.log(`Blueprint™ notification email sent to ${notifyEmail} for: ${companyName}`);
+    console.log(`[blueprint] Notification email sent to ${notifyEmail} for: ${companyName}`);
   }
 }
 
 export async function POST(request: Request) {
   try {
     const rawBody = await request.json();
-    console.log('[blueprint] incoming payload:', JSON.stringify(rawBody));
+    console.log('[blueprint] Incoming payload:', JSON.stringify(rawBody));
 
+    // Validate — email is required, everything else is optional
     const payload = BlueprintSchema.parse(rawBody);
-    const supabase = getSupabaseClient();
+    console.log('[blueprint] Zod validation passed');
 
-    // Use company_name from payload if provided (government inquiries pass org name),
-    // otherwise fall back to company_id as display name.
-    let companyName: string = (rawBody.company_name as string) || payload.company_id;
+    const supabase = getSupabaseClient();
+    console.log('[blueprint] Supabase client:', supabase ? 'initialized' : 'NOT available');
+
+    // Use company_name from payload if provided, otherwise fall back to company_id
+    let companyName: string = payload.company_name || payload.company_id;
 
     if (supabase) {
-      // For known company IDs (not government inquiries), look up the name in Supabase
-      if (payload.company_id !== 'government-inquiry') {
+      // For known company IDs (not special inquiry types), look up the name in Supabase
+      const specialIds = ['government-inquiry', 'enterprise-inquiry', 'investor-inquiry', 'assessment-inquiry', 'individual-inquiry'];
+      if (!specialIds.includes(payload.company_id)) {
         const { data: company } = await supabase
           .from('companies')
           .select('name')
@@ -84,50 +91,48 @@ export async function POST(request: Request) {
         if (company?.name) companyName = company.name;
       }
 
-      // Insert into enterprise_inquiries.
-      // Maps old field names (organization, message) to current schema (company, notes).
+      // Build insert payload — map form fields to enterprise_inquiries columns
+      // Organization → company, Role → role (new column), Message → notes
       const insertData: Record<string, unknown> = {
         name: payload.name || null,
         email: payload.email,
         company: payload.organization || companyName || null,
-        request_type: payload.company_id === 'government-inquiry'
-          ? 'government_inquiry'
-          : 'blueprint_request',
+        role: payload.role || null,
+        request_type: payload.company_id,
         notes: payload.message || null,
       };
 
-      const { error } = await supabase.from('enterprise_inquiries').insert(insertData);
+      console.log('[blueprint] Insert payload:', JSON.stringify(insertData));
+
+      const { data, error } = await supabase
+        .from('enterprise_inquiries')
+        .insert(insertData)
+        .select();
+
+      console.log('[blueprint] Insert result:', { data, error });
 
       if (error) {
-        console.error('[blueprint] Supabase insert error:', error);
-        throw error;
+        // Log the full error but do NOT throw — we still want to send the email
+        // and return success so the user doesn't see a false failure
+        console.error('[blueprint] Supabase insert error (non-fatal):', {
+          code: error.code,
+          message: error.message,
+          hint: error.hint,
+          details: error.details,
+        });
       }
     } else {
-      console.log('Blueprint inquiry received without Supabase configured:', payload);
+      console.log('[blueprint] No Supabase — inquiry received:', payload);
     }
 
     // Send notification email — best-effort, never fails the request
     sendNotificationEmail(payload, companyName).catch((err) => {
-      console.error('Unexpected error in sendNotificationEmail:', err);
+      console.error('[blueprint] Unexpected error in sendNotificationEmail:', err);
     });
-
-    // TCP™ — Transformation Intent Event™ (Blueprint™ request)
-    // Future: DVI™ — Decision Visibility Infrastructure™ (Phase 2)
-    if (supabase) {
-      void supabase.from('transformation_events').insert({
-        event_type: 'blueprint_request',
-        entity_id: payload.company_id !== 'government-inquiry' ? payload.company_id : null,
-        event_data: {
-          company: companyName,
-          organization: payload.organization || null,
-          timestamp: new Date().toISOString(),
-        },
-      }).then(undefined, () => { /* non-fatal */ });
-    }
 
     return NextResponse.json({ ok: true });
   } catch (error) {
-    console.error('Blueprint inquiry failed:', error);
+    console.error('[blueprint] Route error:', error);
     return NextResponse.json(
       { error: error instanceof Error ? error.message : 'Blueprint inquiry failed.' },
       { status: 400 }
