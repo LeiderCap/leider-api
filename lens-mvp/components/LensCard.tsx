@@ -21,6 +21,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { LensSnapshot, CapacityGap } from '@/lib/types';
+import SaveButton from '@/components/SaveButton';
 
 const ratingClass: Record<string, string> = {
   Leading:      'rating-leading',
@@ -620,7 +621,12 @@ export function LensCard({ item }: { item: LensSnapshot }) {
           <Link href={`/lens/${item.id}`} className="btn btn-primary flex-1 text-center text-sm">
             Learn more
           </Link>
-          <button className="btn btn-secondary text-sm">Save</button>
+          <SaveButton
+            itemType="lens_card"
+            title={item.name}
+            content={item as unknown as Record<string, unknown>}
+            className="text-sm"
+          />
           <div className="relative">
             <button onClick={handleShare} className="btn btn-secondary text-sm">
               Share
