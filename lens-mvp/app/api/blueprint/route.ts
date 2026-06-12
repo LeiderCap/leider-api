@@ -85,18 +85,16 @@ export async function POST(request: Request) {
       }
 
       // Insert into enterprise_inquiries.
-      // For government inquiries, company_id is set to NULL to avoid FK violation.
+      // Maps old field names (organization, message) to current schema (company, notes).
       const insertData: Record<string, unknown> = {
         name: payload.name || null,
         email: payload.email,
-        organization: payload.organization || null,
-        message: payload.message || null,
-        status: 'new',
+        company: payload.organization || companyName || null,
+        request_type: payload.company_id === 'government-inquiry'
+          ? 'government_inquiry'
+          : 'blueprint_request',
+        notes: payload.message || null,
       };
-
-      if (payload.company_id !== 'government-inquiry') {
-        insertData.company_id = payload.company_id;
-      }
 
       const { error } = await supabase.from('enterprise_inquiries').insert(insertData);
 

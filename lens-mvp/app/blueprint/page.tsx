@@ -34,11 +34,184 @@ function getOrCreateSessionId(): string {
   return sid;
 }
 
-const confidenceColors: Record<string, string> = {
-  High: 'bg-emerald-100 text-emerald-800 border border-emerald-300',
-  Medium: 'bg-amber-100 text-amber-800 border border-amber-300',
-  Low: 'bg-red-100 text-red-800 border border-red-300',
-};
+// ── Print styles injected once when PDF export is triggered ───────────────────
+
+const PRINT_STYLE_ID = 'blueprint-print-styles';
+
+function injectPrintStyles() {
+  if (document.getElementById(PRINT_STYLE_ID)) return;
+  const style = document.createElement('style');
+  style.id = PRINT_STYLE_ID;
+  style.textContent = `
+    @media print {
+      /* Hide everything except the blueprint output */
+      body > * { display: none !important; }
+      #blueprint-print-root { display: block !important; }
+
+      /* Page setup */
+      @page {
+        margin: 0.6in 0.7in;
+        size: letter;
+      }
+
+      /* Reset */
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+      /* Print root wrapper */
+      #blueprint-print-root {
+        font-family: 'Georgia', serif;
+        color: #1E293B;
+        font-size: 10pt;
+        line-height: 1.6;
+      }
+
+      /* Header block */
+      .bp-header {
+        background-color: #0F172A !important;
+        color: white !important;
+        padding: 28px 32px 24px;
+        margin-bottom: 24px;
+        page-break-inside: avoid;
+      }
+      .bp-header-eyebrow {
+        font-size: 7.5pt;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: #F97316 !important;
+        margin-bottom: 6px;
+      }
+      .bp-header-title {
+        font-size: 22pt;
+        font-weight: 700;
+        color: #FFFFFF !important;
+        margin: 0 0 8px;
+        line-height: 1.2;
+      }
+      .bp-header-meta {
+        font-size: 8pt;
+        color: #94A3B8 !important;
+      }
+
+      /* Section */
+      .bp-section {
+        margin-bottom: 18px;
+        page-break-inside: avoid;
+        border-bottom: 1px solid #E2E8F0;
+        padding-bottom: 16px;
+      }
+      .bp-section:last-of-type { border-bottom: none; }
+
+      .bp-section-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 8px;
+      }
+      .bp-section-num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background-color: #F97316 !important;
+        color: #FFFFFF !important;
+        font-size: 7pt;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+      .bp-section-title {
+        font-size: 8pt;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #F97316 !important;
+      }
+      .bp-section-body {
+        font-size: 9.5pt;
+        color: #1E293B !important;
+        line-height: 1.65;
+        margin-left: 28px;
+      }
+
+      /* Lists */
+      .bp-list { list-style: none; padding: 0; margin: 0; }
+      .bp-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        margin-bottom: 5px;
+        font-size: 9.5pt;
+        color: #1E293B !important;
+        line-height: 1.55;
+      }
+      .bp-list-bullet { color: #F97316 !important; flex-shrink: 0; margin-top: 1px; }
+      .bp-list-check { color: #0D9488 !important; flex-shrink: 0; margin-top: 1px; }
+      .bp-list-warn { color: #EF4444 !important; flex-shrink: 0; margin-top: 1px; }
+      .bp-list-arrow { color: #F97316 !important; flex-shrink: 0; margin-top: 1px; }
+      .bp-list-diamond { color: #94A3B8 !important; flex-shrink: 0; margin-top: 1px; }
+
+      /* Ordered list (First 90 Days) */
+      .bp-ordered-list { list-style: none; padding: 0; margin: 0; }
+      .bp-ordered-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        margin-bottom: 6px;
+        font-size: 9.5pt;
+        color: #1E293B !important;
+        line-height: 1.55;
+      }
+      .bp-step-num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background-color: #F97316 !important;
+        color: #FFFFFF !important;
+        font-size: 6.5pt;
+        font-weight: 700;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+
+      /* Confidence badge */
+      .bp-confidence-high { color: #065F46 !important; background: #D1FAE5 !important; border: 1px solid #6EE7B7; padding: 2px 10px; border-radius: 20px; font-size: 8.5pt; font-weight: 700; }
+      .bp-confidence-medium { color: #92400E !important; background: #FEF3C7 !important; border: 1px solid #FCD34D; padding: 2px 10px; border-radius: 20px; font-size: 8.5pt; font-weight: 700; }
+      .bp-confidence-low { color: #991B1B !important; background: #FEE2E2 !important; border: 1px solid #FCA5A5; padding: 2px 10px; border-radius: 20px; font-size: 8.5pt; font-weight: 700; }
+      .bp-confidence-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .bp-confidence-rationale {
+        font-size: 9.5pt;
+        color: #1E293B !important;
+      }
+
+      /* Footer — fixed at bottom of every page */
+      .bp-footer {
+        position: fixed;
+        bottom: 0.3in;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 7pt;
+        color: #94A3B8 !important;
+        border-top: 1px solid #E2E8F0;
+        padding-top: 6px;
+      }
+
+      /* Hide screen-only elements */
+      .print\\:hidden, .no-print { display: none !important; }
+    }
+  `;
+  document.head.appendChild(style);
+}
 
 // ── Request Modal ─────────────────────────────────────────────────────────────
 
@@ -61,7 +234,10 @@ function RequestModal({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
-      if (!res.ok) throw new Error('Submit failed');
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error ?? 'Submit failed');
+      }
       setStatus('success');
     } catch {
       setStatus('error');
@@ -169,6 +345,7 @@ function BlueprintDisplay({
   onRequestOpen: () => void;
 }) {
   const [saveState, setSaveState] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+  const generatedDate = new Date().toLocaleDateString('en-US', { dateStyle: 'long' });
 
   async function handleSave() {
     if (saveState === 'saving') return;
@@ -194,161 +371,310 @@ function BlueprintDisplay({
   }
 
   function handleExportPDF() {
-    // Trigger print dialog which allows Save as PDF
-    window.print();
+    injectPrintStyles();
+    // Small delay to ensure styles are applied before print dialog opens
+    setTimeout(() => window.print(), 80);
   }
 
+  const confidenceBadgeClass =
+    blueprint.confidence_level === 'High'
+      ? 'bp-confidence-high'
+      : blueprint.confidence_level === 'Medium'
+      ? 'bp-confidence-medium'
+      : 'bp-confidence-low';
+
   return (
-    <div id="blueprint-output" className="mt-8 space-y-6">
-      {/* Header */}
-      <div className="rounded-2xl border-2 p-6" style={{ borderColor: '#F97316', background: '#FFF7ED' }}>
-        <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: '#EA6C0A' }}>
-          Transformation Blueprint™
-        </p>
-        <h1 className="mt-1 text-3xl font-bold text-slate-900">{entityName}</h1>
-        <p className="mt-1 text-sm text-slate-500">
-          Generated {new Date().toLocaleDateString('en-US', { dateStyle: 'long' })} · Powered by Transformation Intelligence™ · LeiderCap
-        </p>
-      </div>
-
-      {/* 1. Executive Summary */}
-      <Section title="Executive Summary™" number={1}>
-        <p className="text-sm leading-7 text-slate-700">{blueprint.executive_summary}</p>
-      </Section>
-
-      {/* 2. Current State */}
-      <Section title="Current State™" number={2}>
-        <p className="text-sm leading-7 text-slate-700">{blueprint.current_state}</p>
-      </Section>
-
-      {/* 3. Transformation Opportunity */}
-      <Section title="Transformation Opportunity™" number={3}>
-        <p className="text-sm leading-7 text-slate-700">{blueprint.transformation_opportunity}</p>
-      </Section>
-
-      {/* 4. Strategic Constraints */}
-      <Section title="Strategic Constraints™" number={4}>
-        <ul className="mt-1 space-y-1.5">
-          {blueprint.strategic_constraints.map((c, i) => (
-            <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
-              <span className="mt-0.5 shrink-0 text-orange-500">•</span>
-              {c}
-            </li>
-          ))}
-        </ul>
-      </Section>
-
-      {/* 5. Value Potential */}
-      <Section title="Value Potential™" number={5}>
-        <p className="text-sm leading-7 text-slate-700">{blueprint.value_potential}</p>
-      </Section>
-
-      {/* 6. First 90 Days */}
-      <Section title="First 90 Days™" number={6}>
-        <ol className="mt-1 space-y-2">
-          {blueprint.first_90_days.map((step, i) => (
-            <li key={i} className="flex items-start gap-3 text-sm text-slate-700">
-              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white" style={{ backgroundColor: '#F97316' }}>
-                {i + 1}
-              </span>
-              {step}
-            </li>
-          ))}
-        </ol>
-      </Section>
-
-      {/* 7. Key Metrics */}
-      <Section title="Key Metrics™" number={7}>
-        <ul className="mt-1 space-y-1.5">
-          {blueprint.key_metrics.map((m, i) => (
-            <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
-              <span className="mt-0.5 shrink-0 text-teal-500">✓</span>
-              {m}
-            </li>
-          ))}
-        </ul>
-      </Section>
-
-      {/* 8. Transformation Risks */}
-      <Section title="Transformation Risks™" number={8}>
-        <ul className="mt-1 space-y-1.5">
-          {blueprint.transformation_risks.map((r, i) => (
-            <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
-              <span className="mt-0.5 shrink-0 text-red-400">⚠</span>
-              {r}
-            </li>
-          ))}
-        </ul>
-      </Section>
-
-      {/* 9. Recommended Actions */}
-      <Section title="Recommended Actions™" number={9}>
-        <ul className="mt-1 space-y-1.5">
-          {blueprint.recommended_actions.map((a, i) => (
-            <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
-              <span className="mt-0.5 shrink-0 text-orange-500">→</span>
-              {a}
-            </li>
-          ))}
-        </ul>
-      </Section>
-
-      {/* 10. Next Transformation Event */}
-      <Section title="Next Transformation Event™" number={10}>
-        <p className="text-sm leading-7 text-slate-700">{blueprint.next_transformation_event}</p>
-      </Section>
-
-      {/* 11. Confidence Level */}
-      <Section title="Confidence Level™" number={11}>
-        <div className="flex items-center gap-3">
-          <span className={`rounded-full px-3 py-1 text-sm font-bold ${confidenceColors[blueprint.confidence_level] ?? ''}`}>
-            {blueprint.confidence_level}
-          </span>
-          <p className="text-sm text-slate-600">{blueprint.confidence_rationale}</p>
+    <>
+      {/* ── Screen view ── */}
+      <div id="blueprint-output" className="mt-8 space-y-6 no-print">
+        {/* Header — screen */}
+        <div className="rounded-2xl p-6" style={{ backgroundColor: '#0F172A' }}>
+          <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: '#F97316' }}>
+            Transformation Blueprint™
+          </p>
+          <h1 className="mt-1 text-3xl font-bold text-white">{entityName}</h1>
+          <p className="mt-1 text-sm" style={{ color: '#94A3B8' }}>
+            Generated {generatedDate} · Powered by Transformation Intelligence™ · LeiderCap
+          </p>
         </div>
-      </Section>
 
-      {/* 12. Key Assumptions */}
-      <Section title="Key Assumptions™" number={12}>
-        <ul className="mt-1 space-y-1.5">
-          {blueprint.key_assumptions.map((a, i) => (
-            <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
-              <span className="mt-0.5 shrink-0 text-slate-400">◈</span>
-              {a}
-            </li>
-          ))}
-        </ul>
-      </Section>
+        {/* Sections — screen */}
+        <Section title="Executive Summary™" number={1}>
+          <p className="text-sm leading-7 text-slate-700">{blueprint.executive_summary}</p>
+        </Section>
+        <Section title="Current State™" number={2}>
+          <p className="text-sm leading-7 text-slate-700">{blueprint.current_state}</p>
+        </Section>
+        <Section title="Transformation Opportunity™" number={3}>
+          <p className="text-sm leading-7 text-slate-700">{blueprint.transformation_opportunity}</p>
+        </Section>
+        <Section title="Strategic Constraints™" number={4}>
+          <ul className="mt-1 space-y-1.5">
+            {blueprint.strategic_constraints.map((c, i) => (
+              <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
+                <span className="mt-0.5 shrink-0 text-orange-500">•</span>{c}
+              </li>
+            ))}
+          </ul>
+        </Section>
+        <Section title="Value Potential™" number={5}>
+          <p className="text-sm leading-7 text-slate-700">{blueprint.value_potential}</p>
+        </Section>
+        <Section title="First 90 Days™" number={6}>
+          <ol className="mt-1 space-y-2">
+            {blueprint.first_90_days.map((step, i) => (
+              <li key={i} className="flex items-start gap-3 text-sm text-slate-700">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white" style={{ backgroundColor: '#F97316' }}>{i + 1}</span>
+                {step}
+              </li>
+            ))}
+          </ol>
+        </Section>
+        <Section title="Key Metrics™" number={7}>
+          <ul className="mt-1 space-y-1.5">
+            {blueprint.key_metrics.map((m, i) => (
+              <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
+                <span className="mt-0.5 shrink-0 text-teal-500">✓</span>{m}
+              </li>
+            ))}
+          </ul>
+        </Section>
+        <Section title="Transformation Risks™" number={8}>
+          <ul className="mt-1 space-y-1.5">
+            {blueprint.transformation_risks.map((r, i) => (
+              <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
+                <span className="mt-0.5 shrink-0 text-red-400">⚠</span>{r}
+              </li>
+            ))}
+          </ul>
+        </Section>
+        <Section title="Recommended Actions™" number={9}>
+          <ul className="mt-1 space-y-1.5">
+            {blueprint.recommended_actions.map((a, i) => (
+              <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
+                <span className="mt-0.5 shrink-0 text-orange-500">→</span>{a}
+              </li>
+            ))}
+          </ul>
+        </Section>
+        <Section title="Next Transformation Event™" number={10}>
+          <p className="text-sm leading-7 text-slate-700">{blueprint.next_transformation_event}</p>
+        </Section>
+        <Section title="Confidence Level™" number={11}>
+          <div className="flex items-center gap-3 flex-wrap">
+            <span className={`rounded-full px-3 py-1 text-sm font-bold ${
+              blueprint.confidence_level === 'High'
+                ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                : blueprint.confidence_level === 'Medium'
+                ? 'bg-amber-100 text-amber-800 border border-amber-300'
+                : 'bg-red-100 text-red-800 border border-red-300'
+            }`}>
+              {blueprint.confidence_level}
+            </span>
+            <p className="text-sm text-slate-600">{blueprint.confidence_rationale}</p>
+          </div>
+        </Section>
+        <Section title="Key Assumptions™" number={12}>
+          <ul className="mt-1 space-y-1.5">
+            {blueprint.key_assumptions.map((a, i) => (
+              <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
+                <span className="mt-0.5 shrink-0 text-slate-400">◈</span>{a}
+              </li>
+            ))}
+          </ul>
+        </Section>
 
-      {/* Action Buttons */}
-      <div className="flex flex-wrap gap-3 border-t border-slate-200 pt-6 print:hidden">
-        <button
-          onClick={handleSave}
-          className="btn btn-primary px-6 py-2.5"
-          style={saveState === 'saved' ? { backgroundColor: '#059669', color: 'white' } : undefined}
-        >
-          {saveState === 'saving' ? 'Saving...' : saveState === 'saved' ? '✓ Blueprint Saved' : saveState === 'error' ? 'Error — retry' : 'Save Blueprint™'}
-        </button>
-        <button
-          onClick={handleExportPDF}
-          className="btn rounded-xl px-6 py-2.5 font-bold text-white"
-          style={{ backgroundColor: '#0F172A' }}
-        >
-          Export as PDF™
-        </button>
-        <button
-          onClick={onRequestOpen}
-          className="btn btn-secondary px-6 py-2.5"
-        >
-          Request Full Transformation Blueprint™
-        </button>
+        {/* Action Buttons */}
+        <div className="flex flex-wrap gap-3 border-t border-slate-200 pt-6">
+          <button
+            onClick={handleSave}
+            className="btn btn-primary px-6 py-2.5"
+            style={saveState === 'saved' ? { backgroundColor: '#059669', color: 'white' } : undefined}
+          >
+            {saveState === 'saving' ? 'Saving...' : saveState === 'saved' ? '✓ Blueprint Saved' : saveState === 'error' ? 'Error — retry' : 'Save Blueprint™'}
+          </button>
+          <button
+            onClick={handleExportPDF}
+            className="btn rounded-xl px-6 py-2.5 font-bold text-white"
+            style={{ backgroundColor: '#0F172A' }}
+          >
+            Export as PDF™
+          </button>
+          <button
+            onClick={onRequestOpen}
+            className="btn btn-secondary px-6 py-2.5"
+          >
+            Request Full Transformation Blueprint™
+          </button>
+        </div>
       </div>
 
-      {/* Print footer */}
-      <div className="hidden print:block mt-8 border-t border-slate-200 pt-4 text-center text-xs text-slate-400">
-        Powered by Transformation Intelligence™ · LeiderCap · thelens.ai
+      {/* ── Print-only branded output ── */}
+      <div id="blueprint-print-root" style={{ display: 'none' }}>
+        {/* Fixed footer on every page */}
+        <div className="bp-footer">
+          Transformation Intelligence™ · LeiderCap · lensanalysis.com
+        </div>
+
+        {/* Header */}
+        <div className="bp-header">
+          <div className="bp-header-eyebrow">Transformation Blueprint™</div>
+          <div className="bp-header-title">{entityName}</div>
+          <div className="bp-header-meta">
+            Generated {generatedDate} &nbsp;·&nbsp; Powered by Transformation Intelligence™ &nbsp;·&nbsp; LeiderCap
+          </div>
+        </div>
+
+        {/* Section 1 */}
+        <div className="bp-section">
+          <div className="bp-section-header">
+            <span className="bp-section-num">1</span>
+            <span className="bp-section-title">Executive Summary™</span>
+          </div>
+          <div className="bp-section-body">{blueprint.executive_summary}</div>
+        </div>
+
+        {/* Section 2 */}
+        <div className="bp-section">
+          <div className="bp-section-header">
+            <span className="bp-section-num">2</span>
+            <span className="bp-section-title">Current State™</span>
+          </div>
+          <div className="bp-section-body">{blueprint.current_state}</div>
+        </div>
+
+        {/* Section 3 */}
+        <div className="bp-section">
+          <div className="bp-section-header">
+            <span className="bp-section-num">3</span>
+            <span className="bp-section-title">Transformation Opportunity™</span>
+          </div>
+          <div className="bp-section-body">{blueprint.transformation_opportunity}</div>
+        </div>
+
+        {/* Section 4 */}
+        <div className="bp-section">
+          <div className="bp-section-header">
+            <span className="bp-section-num">4</span>
+            <span className="bp-section-title">Strategic Constraints™</span>
+          </div>
+          <div className="bp-section-body">
+            <ul className="bp-list">
+              {blueprint.strategic_constraints.map((c, i) => (
+                <li key={i}><span className="bp-list-bullet">•</span><span>{c}</span></li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Section 5 */}
+        <div className="bp-section">
+          <div className="bp-section-header">
+            <span className="bp-section-num">5</span>
+            <span className="bp-section-title">Value Potential™</span>
+          </div>
+          <div className="bp-section-body">{blueprint.value_potential}</div>
+        </div>
+
+        {/* Section 6 */}
+        <div className="bp-section">
+          <div className="bp-section-header">
+            <span className="bp-section-num">6</span>
+            <span className="bp-section-title">First 90 Days™</span>
+          </div>
+          <div className="bp-section-body">
+            <ol className="bp-ordered-list">
+              {blueprint.first_90_days.map((step, i) => (
+                <li key={i}><span className="bp-step-num">{i + 1}</span><span>{step}</span></li>
+              ))}
+            </ol>
+          </div>
+        </div>
+
+        {/* Section 7 */}
+        <div className="bp-section">
+          <div className="bp-section-header">
+            <span className="bp-section-num">7</span>
+            <span className="bp-section-title">Key Metrics™</span>
+          </div>
+          <div className="bp-section-body">
+            <ul className="bp-list">
+              {blueprint.key_metrics.map((m, i) => (
+                <li key={i}><span className="bp-list-check">✓</span><span>{m}</span></li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Section 8 */}
+        <div className="bp-section">
+          <div className="bp-section-header">
+            <span className="bp-section-num">8</span>
+            <span className="bp-section-title">Transformation Risks™</span>
+          </div>
+          <div className="bp-section-body">
+            <ul className="bp-list">
+              {blueprint.transformation_risks.map((r, i) => (
+                <li key={i}><span className="bp-list-warn">⚠</span><span>{r}</span></li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Section 9 */}
+        <div className="bp-section">
+          <div className="bp-section-header">
+            <span className="bp-section-num">9</span>
+            <span className="bp-section-title">Recommended Actions™</span>
+          </div>
+          <div className="bp-section-body">
+            <ul className="bp-list">
+              {blueprint.recommended_actions.map((a, i) => (
+                <li key={i}><span className="bp-list-arrow">→</span><span>{a}</span></li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Section 10 */}
+        <div className="bp-section">
+          <div className="bp-section-header">
+            <span className="bp-section-num">10</span>
+            <span className="bp-section-title">Next Transformation Event™</span>
+          </div>
+          <div className="bp-section-body">{blueprint.next_transformation_event}</div>
+        </div>
+
+        {/* Section 11 */}
+        <div className="bp-section">
+          <div className="bp-section-header">
+            <span className="bp-section-num">11</span>
+            <span className="bp-section-title">Confidence Level™</span>
+          </div>
+          <div className="bp-section-body">
+            <div className="bp-confidence-row">
+              <span className={confidenceBadgeClass}>{blueprint.confidence_level}</span>
+              <span className="bp-confidence-rationale">{blueprint.confidence_rationale}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Section 12 */}
+        <div className="bp-section">
+          <div className="bp-section-header">
+            <span className="bp-section-num">12</span>
+            <span className="bp-section-title">Key Assumptions™</span>
+          </div>
+          <div className="bp-section-body">
+            <ul className="bp-list">
+              {blueprint.key_assumptions.map((a, i) => (
+                <li key={i}><span className="bp-list-diamond">◈</span><span>{a}</span></li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
