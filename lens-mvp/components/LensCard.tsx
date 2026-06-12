@@ -340,6 +340,7 @@ export function LensCard({ item }: { item: LensSnapshot }) {
   const gc = gapClass[item.transformation_capacity_gap] ?? gapClass.Moderate;
   const [copied, setCopied] = useState(false);
   const [activeModal, setActiveModal] = useState<ModalState | null>(null);
+  const [navigating, setNavigating] = useState(false);
 
   function handleShare() {
     const url = `${window.location.origin}/lens/${item.id}`;
@@ -617,8 +618,17 @@ export function LensCard({ item }: { item: LensSnapshot }) {
 
         {/* Actions */}
         <div className="mt-5 flex gap-2 border-t border-slate-100 pt-4">
-          <Link href={`/lens/${item.id}`} className="btn btn-primary flex-1 text-center text-sm">
-            Learn more
+          <Link
+            href={`/lens/${item.id}`}
+            onClick={() => setNavigating(true)}
+            className="btn btn-primary flex-1 text-center text-sm"
+          >
+            {navigating ? (
+              <span className="flex items-center justify-center gap-2">
+                <span className="inline-block h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                Hang tight, digging deeper...
+              </span>
+            ) : 'Learn more'}
           </Link>
           <div className="relative">
             <button onClick={handleShare} className="btn btn-secondary text-sm">

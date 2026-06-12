@@ -355,7 +355,8 @@ export default function GoDeepPage() {
                   <button
                     onClick={handleRewrite}
                     disabled={rewriting}
-                    className="w-full rounded-xl bg-amber-600 px-6 py-3.5 text-sm font-bold text-white hover:bg-amber-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    style={!rewriting ? { backgroundColor: '#F97316', color: '#0F172A' } : undefined}
+                    className="w-full rounded-xl px-6 py-3.5 text-sm font-bold disabled:opacity-50 disabled:cursor-not-allowed transition-colors" onMouseEnter={(e) => { if (!rewriting) (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#EA6C0A'; }} onMouseLeave={(e) => { if (!rewriting) (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#F97316'; }}
                   >
                     {rewriting ? 'Rewriting with Go Deep™...' : 'Rewrite with Go Deep™'}
                   </button>

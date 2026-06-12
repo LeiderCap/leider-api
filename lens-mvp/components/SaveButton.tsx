@@ -29,6 +29,7 @@ export default function SaveButton({
   className = '',
 }: SaveButtonProps) {
   const [state, setState] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+  const [hovered, setHovered] = useState(false);
 
   const displayLabel =
     label ??
@@ -48,25 +49,34 @@ export default function SaveButton({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ item_type: itemType, title, content, session_id }),
       });
-      if (!res.ok) throw new Error('Save failed');
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || 'Save failed');
+      }
       setState('saved');
-    } catch {
+    } catch (err) {
+      console.error('[SaveButton] Save error:', err);
       setState('error');
       setTimeout(() => setState('idle'), 3000);
     }
   }
 
+  const isIdle = state === 'idle';
+
   return (
     <button
       onClick={handleSave}
-      className={`rounded-lg border px-4 py-2 text-xs font-semibold transition-colors cursor-pointer ${
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={isIdle ? { backgroundColor: hovered ? '#EA6C0A' : '#F97316', color: '#0F172A' } : undefined}
+      className={`rounded-lg px-4 py-2 text-xs font-bold transition-colors cursor-pointer ${
         state === 'saved'
-          ? 'border-emerald-600 bg-emerald-900 text-emerald-300'
+          ? 'bg-emerald-600 text-white'
           : state === 'saving'
-          ? 'border-slate-500 bg-slate-700 text-slate-400'
+          ? 'bg-slate-200 text-slate-500'
           : state === 'error'
-          ? 'border-red-600 bg-red-900 text-red-300'
-          : 'border-slate-600 bg-slate-800 text-slate-300 hover:border-teal-500 hover:text-teal-300'
+          ? 'bg-red-100 text-red-700 border border-red-300'
+          : ''
       } ${className}`}
     >
       {state === 'saving'
