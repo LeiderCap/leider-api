@@ -116,6 +116,11 @@ Use this exact JSON shape:
 
   "constraints": ["constraint 1", "constraint 2", "constraint 3"],
   "opportunities": ["opportunity 1", "opportunity 2", "opportunity 3"],
+
+IMPORTANT ARRAY LIMITS (strictly enforced):
+- constraints: return EXACTLY 3 to 5 items. Never fewer than 3, never more than 5.
+- opportunities: return EXACTLY 3 to 5 items. Never fewer than 3, never more than 5.
+
   "summary": "2-3 sentence Lens narrative focused on transformation capacity",
 
   "tcs_numeric": 0-100 integer (weighted composite — see formula below),
@@ -801,6 +806,14 @@ export async function generateLensSnapshot(query: string): Promise<LensSnapshot>
     rawOutput.opportunity_visibility_gap =
       OVG_MAP[rawOutput.opportunity_visibility_gap.toLowerCase().trim()] ??
       rawOutput.opportunity_visibility_gap;
+  }
+
+  // Truncate arrays that have .max() limits in the Zod schema
+  if (Array.isArray(rawOutput.constraints) && rawOutput.constraints.length > 5) {
+    rawOutput.constraints = rawOutput.constraints.slice(0, 5);
+  }
+  if (Array.isArray(rawOutput.opportunities) && rawOutput.opportunities.length > 5) {
+    rawOutput.opportunities = rawOutput.opportunities.slice(0, 5);
   }
 
   const parsed = LensAiSchema.parse(rawOutput);
