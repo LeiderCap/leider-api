@@ -256,3 +256,31 @@ CREATE INDEX IF NOT EXISTS idx_saved_items_created_at ON saved_items(created_at)
 
 -- Disable RLS so the service role key (and anon key) can write freely:
 ALTER TABLE saved_items DISABLE ROW LEVEL SECURITY;
+
+-- ─── v2.0 Migration — Transformation Blueprint™ ──────────────────────────────
+-- Run in Supabase SQL Editor:
+
+CREATE TABLE IF NOT EXISTS blueprints (
+  id              uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
+  entity_name     text,
+  entity_type     text,
+  source_lens_card jsonb,
+  blueprint       jsonb,
+  session_id      text,
+  created_at      timestamp with time zone DEFAULT now()
+);
+
+ALTER TABLE blueprints DISABLE ROW LEVEL SECURITY;
+
+-- enterprise_inquiries (updated schema with request_type and notes)
+CREATE TABLE IF NOT EXISTS enterprise_inquiries (
+  id           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  name         text,
+  email        text,
+  company      text,
+  request_type text,
+  notes        text,
+  created_at   timestamp with time zone DEFAULT now()
+);
+
+ALTER TABLE enterprise_inquiries DISABLE ROW LEVEL SECURITY;
