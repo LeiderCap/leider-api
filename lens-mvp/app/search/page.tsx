@@ -5,6 +5,7 @@ import Link from 'next/link';
 import type { LensSnapshot } from '@/lib/types';
 import { QspInfoButton } from '@/components/QspInfoButton';
 import TrustQuadrantDiagnostic from '@/components/TrustQuadrantDiagnostic';
+import SaveButton from '@/components/SaveButton';
 
 // ── Analysis Narrative Section ────────────────────────────────────────────────
 
@@ -208,15 +209,26 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
           </div>
 
           {/* Section 6 — Blueprint CTA */}
-          <div className="mt-8 rounded-xl border border-slate-200 bg-slate-50 p-6 text-center">
-            <p className="text-sm font-semibold text-slate-700">Want to go deeper?</p>
-            <p className="mt-1 text-sm text-slate-500">
-              A Transformation Capacity Assessment™ reveals the full picture — constraints, opportunities, and a blueprint for action.
-            </p>
-            <div className="mt-4">
-              <Link href="/assessment#request" className="btn btn-primary">
-                Request Transformation Capacity Assessment™
-              </Link>
+          <div className="mt-8 rounded-xl border border-slate-200 bg-slate-50 p-6">
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-slate-700">Want to go deeper?</p>
+                <p className="mt-1 text-sm text-slate-500">
+                  A Transformation Capacity Assessment™ reveals the full picture — constraints, opportunities, and a blueprint for action.
+                </p>
+                <div className="mt-4">
+                  <Link href="/assessment#request" className="btn btn-primary">
+                    Request Transformation Capacity Assessment™
+                  </Link>
+                </div>
+              </div>
+              <div className="shrink-0">
+                <SaveButton
+                  itemType="lens_card"
+                  title={singleItem.name}
+                  content={singleItem as unknown as Record<string, unknown>}
+                />
+              </div>
             </div>
           </div>
         </div>
