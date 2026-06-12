@@ -237,3 +237,22 @@ CREATE TABLE IF NOT EXISTS go_deep_analyses (
   delta jsonb,
   created_at timestamp with time zone DEFAULT now()
 );
+
+-- ─── v1.9 Migration — Transformation Memory Layer™ ───────────────────────────
+-- saved_items replaces saved_cards for session-based (no-auth) saves.
+-- Run in Supabase SQL Editor:
+
+CREATE TABLE IF NOT EXISTS saved_items (
+  id          uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
+  session_id  text        NOT NULL,
+  item_type   text        NOT NULL CHECK (item_type IN ('lens_card', 'go_deep_analysis', 'go_deep_rewrite')),
+  title       text,
+  content     jsonb,
+  created_at  timestamptz DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_saved_items_session_id ON saved_items(session_id);
+CREATE INDEX IF NOT EXISTS idx_saved_items_created_at ON saved_items(created_at);
+
+-- Disable RLS so the service role key (and anon key) can write freely:
+ALTER TABLE saved_items DISABLE ROW LEVEL SECURITY;
