@@ -148,6 +148,21 @@ Use this exact JSON shape:
   }
 }
 
+IMPORTANT: The following fields must be returned with EXACT values as listed below.
+Do not paraphrase, abbreviate, capitalize differently, or use any other value.
+
+trust_quadrant must be exactly one of (when trust_numeric < 70):
+"Rational Repair", "Emotional Repair", "Rational Replace", "Emotional Replace", "Mixed"
+
+trust_alignment_gap must be exactly one of (when trust_numeric < 70):
+"High", "Moderate", "Low", "None"
+
+transformation_momentum must be exactly one of:
+"Accelerating", "Stable", "Decelerating", "Unknown"
+
+opportunity_visibility_gap must be exactly one of:
+"High", "Moderate", "Low"
+
 For opportunity_visibility_gap:
 - High = large gap between available and visible opportunities; significant hidden value exists
 - Moderate = some opportunities visible, others hidden; partial visibility
@@ -739,7 +754,56 @@ export async function generateLensSnapshot(query: string): Promise<LensSnapshot>
     throw new Error('No AI provider configured. Add ANTHROPIC_API_KEY or OPENAI_API_KEY to .env.local.');
   }
 
-  const parsed = LensAiSchema.parse(JSON.parse(extractJson(text)));
+  // Normalize AI output before Zod validation to handle casing/phrasing variations
+  const TRUST_QUADRANT_MAP: Record<string, string> = {
+    'rational repair':   'Rational Repair',
+    'emotional repair':  'Emotional Repair',
+    'rational replace':  'Rational Replace',
+    'emotional replace': 'Emotional Replace',
+    'mixed':             'Mixed',
+  };
+  const TRUST_ALIGNMENT_GAP_MAP: Record<string, string> = {
+    'high':     'High',
+    'moderate': 'Moderate',
+    'low':      'Low',
+    'none':     'None',
+  };
+  const TRANSFORMATION_MOMENTUM_MAP: Record<string, string> = {
+    'accelerating': 'Accelerating',
+    'stable':       'Stable',
+    'decelerating': 'Decelerating',
+    'unknown':      'Unknown',
+  };
+  const OVG_MAP: Record<string, string> = {
+    'high':     'High',
+    'moderate': 'Moderate',
+    'low':      'Low',
+  };
+
+  const rawOutput = JSON.parse(extractJson(text));
+
+  if (rawOutput.trust_quadrant) {
+    rawOutput.trust_quadrant =
+      TRUST_QUADRANT_MAP[rawOutput.trust_quadrant.toLowerCase().trim()] ??
+      rawOutput.trust_quadrant;
+  }
+  if (rawOutput.trust_alignment_gap) {
+    rawOutput.trust_alignment_gap =
+      TRUST_ALIGNMENT_GAP_MAP[rawOutput.trust_alignment_gap.toLowerCase().trim()] ??
+      rawOutput.trust_alignment_gap;
+  }
+  if (rawOutput.transformation_momentum) {
+    rawOutput.transformation_momentum =
+      TRANSFORMATION_MOMENTUM_MAP[rawOutput.transformation_momentum.toLowerCase().trim()] ??
+      rawOutput.transformation_momentum;
+  }
+  if (rawOutput.opportunity_visibility_gap) {
+    rawOutput.opportunity_visibility_gap =
+      OVG_MAP[rawOutput.opportunity_visibility_gap.toLowerCase().trim()] ??
+      rawOutput.opportunity_visibility_gap;
+  }
+
+  const parsed = LensAiSchema.parse(rawOutput);
   // ID is always derived from the canonical company name returned by the AI.
   // This prevents collisions where short queries like "oak" produce the same
   // slug for unrelated companies (e.g. "Oaktree Capital" vs "Oak Street Health").
