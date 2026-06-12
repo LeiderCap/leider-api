@@ -4,10 +4,10 @@ import { useState } from 'react';
 
 interface Props {
   trustNumeric: number;
-  trustQuadrant?: string;
-  trustQuadrantExplanation?: string;
-  trustAlignmentGap?: string;
-  trustAlignmentExplanation?: string;
+  trustQuadrant?: string | null;
+  trustQuadrantExplanation?: string | null;
+  trustAlignmentGap?: string | null;
+  trustAlignmentExplanation?: string | null;
 }
 
 const quadrantConfig: Record<string, { color: string; bg: string; border: string; dot: string }> = {

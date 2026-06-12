@@ -71,10 +71,10 @@ export interface LensSnapshot {
   opportunity_visibility_gap?: 'High' | 'Moderate' | 'Low';
   strategic_question?: string;
   transformational_question?: string;
-  trust_quadrant?: string;
-  trust_quadrant_explanation?: string;
-  trust_alignment_gap?: string;
-  trust_alignment_explanation?: string;
+  trust_quadrant?: string | null;
+  trust_quadrant_explanation?: string | null;
+  trust_alignment_gap?: string | null;
+  trust_alignment_explanation?: string | null;
 
   // v1.7 Industry Translation Layer™
   detected_industry?: string;

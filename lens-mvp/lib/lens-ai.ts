@@ -62,10 +62,10 @@ const LensAiSchema = z.object({
   opportunity_visibility_gap: z.enum(['High', 'Moderate', 'Low']).default('Moderate'),
   strategic_question: z.string().min(1),
   transformational_question: z.string().min(1),
-  trust_quadrant: z.string().optional(),
-  trust_quadrant_explanation: z.string().optional(),
-  trust_alignment_gap: z.string().optional(),
-  trust_alignment_explanation: z.string().optional(),
+  trust_quadrant: z.string().nullable().optional(),
+  trust_quadrant_explanation: z.string().nullable().optional(),
+  trust_alignment_gap: z.string().nullable().optional(),
+  trust_alignment_explanation: z.string().nullable().optional(),
 
   // v1.7 Industry Translation Layer™
   detected_industry: z.string().optional(),
