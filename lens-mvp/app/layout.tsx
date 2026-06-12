@@ -36,7 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/watchlists" className="nav-link">Watchlists</Link>
             </nav>
             <div className="flex items-center gap-2">
-              <Link href="/search" className="btn btn-secondary">Run The Lens™</Link>
+              <Link href="/search" className="btn btn-primary">Run The Lens™</Link>
             </div>
           </div>
         </header>

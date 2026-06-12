@@ -1,12 +1,18 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export function SearchBox({ initialValue = '' }: { initialValue?: string }) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [query, setQuery] = useState(initialValue);
   const [loading, setLoading] = useState(false);
+
+  // Reset loading state whenever the URL search params change (navigation complete)
+  useEffect(() => {
+    setLoading(false);
+  }, [searchParams]);
 
   async function onSubmit(event: React.FormEvent) {
     event.preventDefault();

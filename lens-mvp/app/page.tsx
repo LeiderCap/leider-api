@@ -7,7 +7,7 @@
 // Phase V:  Decision Visibility Infrastructure™ — Why?
 // Phase VI: Transformation Memory™ — What did we learn?
 import Link from 'next/link';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { LensCard } from '@/components/LensCard';
 import { SearchBox } from '@/components/SearchBox';
 import { getSeedTrending } from '@/lib/lens-service';
@@ -125,7 +125,7 @@ export default function HomePage() {
           <p className="text-sm font-medium text-slate-500">
             Turn the dial on any company, industry, government, or idea
           </p>
-          <SearchBox />
+          <Suspense fallback={null}><SearchBox /></Suspense>
           <div className="mt-4 flex flex-wrap justify-center gap-2">
             {['Erie Insurance', 'Microsoft', 'California', 'Healthcare', 'AI Adoption', 'Workforce Transformation'].map((ex) => (
               <Link

@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { LensCard } from '@/components/LensCard';
 import { SearchBox } from '@/components/SearchBox';
 import { getSeedTrending } from '@/lib/lens-service';
@@ -175,7 +176,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
       <Link href="/" className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">← Back</Link>
 
       <div className="mt-6">
-        <SearchBox initialValue={query} />
+        <Suspense fallback={null}><SearchBox initialValue={query} /></Suspense>
       </div>
 
       {!query && (
