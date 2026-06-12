@@ -34,194 +34,28 @@ function getOrCreateSessionId(): string {
   return sid;
 }
 
-// ── Print styles injected once when PDF export is triggered ───────────────────
+// ── PDF export ────────────────────────────────────────────────────────────────
 
-const PRINT_STYLE_ID = 'blueprint-print-styles';
+async function exportBlueprintPDF(entityName: string) {
+  // Dynamic import to avoid SSR issues
+  const html2pdf = (await import('html2pdf.js')).default;
+  const element = document.getElementById('blueprint-content');
+  if (!element) return;
 
-function injectPrintStyles() {
-  if (document.getElementById(PRINT_STYLE_ID)) return;
-  const style = document.createElement('style');
-  style.id = PRINT_STYLE_ID;
-  style.textContent = `
-    @media print {
-      /* Hide everything except the blueprint output */
-      body > * { display: none !important; }
-      #blueprint-print-root { display: block !important; }
+  const opt = {
+    margin: [10, 15, 10, 15] as [number, number, number, number],
+    filename: `Transformation-Blueprint-${entityName.replace(/\s+/g, '-')}.pdf`,
+    image: { type: 'jpeg' as const, quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true, logging: false },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' as const },
+  };
 
-      /* Page setup */
-      @page {
-        margin: 0.6in 0.7in;
-        size: letter;
-      }
-
-      /* Reset */
-      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-
-      /* Print root wrapper */
-      #blueprint-print-root {
-        font-family: 'Georgia', serif;
-        color: #1E293B;
-        font-size: 10pt;
-        line-height: 1.6;
-      }
-
-      /* Header block */
-      .bp-header {
-        background-color: #0F172A !important;
-        color: white !important;
-        padding: 28px 32px 24px;
-        margin-bottom: 24px;
-        page-break-inside: avoid;
-      }
-      .bp-header-eyebrow {
-        font-size: 7.5pt;
-        font-weight: 700;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        color: #F97316 !important;
-        margin-bottom: 6px;
-      }
-      .bp-header-title {
-        font-size: 22pt;
-        font-weight: 700;
-        color: #FFFFFF !important;
-        margin: 0 0 8px;
-        line-height: 1.2;
-      }
-      .bp-header-meta {
-        font-size: 8pt;
-        color: #94A3B8 !important;
-      }
-
-      /* Section */
-      .bp-section {
-        margin-bottom: 18px;
-        page-break-inside: avoid;
-        border-bottom: 1px solid #E2E8F0;
-        padding-bottom: 16px;
-      }
-      .bp-section:last-of-type { border-bottom: none; }
-
-      .bp-section-header {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 8px;
-      }
-      .bp-section-num {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 18px;
-        height: 18px;
-        border-radius: 50%;
-        background-color: #F97316 !important;
-        color: #FFFFFF !important;
-        font-size: 7pt;
-        font-weight: 700;
-        flex-shrink: 0;
-      }
-      .bp-section-title {
-        font-size: 8pt;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: #F97316 !important;
-      }
-      .bp-section-body {
-        font-size: 9.5pt;
-        color: #1E293B !important;
-        line-height: 1.65;
-        margin-left: 28px;
-      }
-
-      /* Lists */
-      .bp-list { list-style: none; padding: 0; margin: 0; }
-      .bp-list li {
-        display: flex;
-        align-items: flex-start;
-        gap: 8px;
-        margin-bottom: 5px;
-        font-size: 9.5pt;
-        color: #1E293B !important;
-        line-height: 1.55;
-      }
-      .bp-list-bullet { color: #F97316 !important; flex-shrink: 0; margin-top: 1px; }
-      .bp-list-check { color: #0D9488 !important; flex-shrink: 0; margin-top: 1px; }
-      .bp-list-warn { color: #EF4444 !important; flex-shrink: 0; margin-top: 1px; }
-      .bp-list-arrow { color: #F97316 !important; flex-shrink: 0; margin-top: 1px; }
-      .bp-list-diamond { color: #94A3B8 !important; flex-shrink: 0; margin-top: 1px; }
-
-      /* Ordered list (First 90 Days) */
-      .bp-ordered-list { list-style: none; padding: 0; margin: 0; }
-      .bp-ordered-list li {
-        display: flex;
-        align-items: flex-start;
-        gap: 8px;
-        margin-bottom: 6px;
-        font-size: 9.5pt;
-        color: #1E293B !important;
-        line-height: 1.55;
-      }
-      .bp-step-num {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        background-color: #F97316 !important;
-        color: #FFFFFF !important;
-        font-size: 6.5pt;
-        font-weight: 700;
-        flex-shrink: 0;
-        margin-top: 1px;
-      }
-
-      /* Confidence badge */
-      .bp-confidence-high { color: #065F46 !important; background: #D1FAE5 !important; border: 1px solid #6EE7B7; padding: 2px 10px; border-radius: 20px; font-size: 8.5pt; font-weight: 700; }
-      .bp-confidence-medium { color: #92400E !important; background: #FEF3C7 !important; border: 1px solid #FCD34D; padding: 2px 10px; border-radius: 20px; font-size: 8.5pt; font-weight: 700; }
-      .bp-confidence-low { color: #991B1B !important; background: #FEE2E2 !important; border: 1px solid #FCA5A5; padding: 2px 10px; border-radius: 20px; font-size: 8.5pt; font-weight: 700; }
-      .bp-confidence-row {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        flex-wrap: wrap;
-      }
-      .bp-confidence-rationale {
-        font-size: 9.5pt;
-        color: #1E293B !important;
-      }
-
-      /* Footer — fixed at bottom of every page */
-      .bp-footer {
-        position: fixed;
-        bottom: 0.3in;
-        left: 0;
-        right: 0;
-        text-align: center;
-        font-size: 7pt;
-        color: #94A3B8 !important;
-        border-top: 1px solid #E2E8F0;
-        padding-top: 6px;
-      }
-
-      /* Hide screen-only elements */
-      .print\\:hidden, .no-print { display: none !important; }
-    }
-  `;
-  document.head.appendChild(style);
+  await html2pdf().set(opt).from(element).save();
 }
 
 // ── Request Modal ─────────────────────────────────────────────────────────────
 
-function RequestModal({
-  entityName,
-  onClose,
-}: {
-  entityName: string;
-  onClose: () => void;
-}) {
+function RequestModal({ entityName, onClose }: { entityName: string; onClose: () => void }) {
   const [form, setForm] = useState({ name: '', email: '', company: entityName, notes: '' });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
@@ -254,74 +88,37 @@ function RequestModal({
               Get a complete, human-verified Transformation Blueprint™ delivered by the LeiderCap team.
             </p>
           </div>
-          <button
-            onClick={onClose}
-            className="ml-4 text-slate-400 hover:text-slate-600 text-xl leading-none"
-            aria-label="Close"
-          >
-            ×
-          </button>
+          <button onClick={onClose} className="ml-4 text-slate-400 hover:text-slate-600 text-xl leading-none" aria-label="Close">×</button>
         </div>
-
         {status === 'success' ? (
           <div className="mt-6 rounded-xl bg-emerald-50 border border-emerald-200 p-5 text-center">
-            <p className="font-semibold text-emerald-800">
-              Thank you. The LeiderCap team will be in touch within 24 hours.
-            </p>
+            <p className="font-semibold text-emerald-800">Thank you. The LeiderCap team will be in touch within 24 hours.</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <div>
               <label className="block text-xs font-semibold text-slate-500 mb-1">Name</label>
-              <input
-                type="text"
-                value={form.name}
-                onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-orange-400"
-                placeholder="Your name"
-              />
+              <input type="text" value={form.name} onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-orange-400" placeholder="Your name" />
             </div>
             <div>
               <label className="block text-xs font-semibold text-slate-500 mb-1">Email *</label>
-              <input
-                type="email"
-                required
-                value={form.email}
-                onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-orange-400"
-                placeholder="you@company.com"
-              />
+              <input type="email" required value={form.email} onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-orange-400" placeholder="you@company.com" />
             </div>
             <div>
               <label className="block text-xs font-semibold text-slate-500 mb-1">Company</label>
-              <input
-                type="text"
-                value={form.company}
-                onChange={(e) => setForm((f) => ({ ...f, company: e.target.value }))}
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-orange-400"
-                placeholder="Company name"
-              />
+              <input type="text" value={form.company} onChange={(e) => setForm((f) => ({ ...f, company: e.target.value }))}
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-orange-400" placeholder="Company name" />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-slate-500 mb-1">
-                What are you trying to transform?
-              </label>
-              <textarea
-                rows={3}
-                value={form.notes}
-                onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))}
+              <label className="block text-xs font-semibold text-slate-500 mb-1">What are you trying to transform?</label>
+              <textarea rows={3} value={form.notes} onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))}
                 className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-orange-400 resize-none"
-                placeholder="Describe your transformation goal..."
-              />
+                placeholder="Describe your transformation goal..." />
             </div>
-            {status === 'error' && (
-              <p className="text-xs text-red-600">Something went wrong. Please try again.</p>
-            )}
-            <button
-              type="submit"
-              disabled={status === 'submitting'}
-              className="btn btn-primary w-full py-3 disabled:opacity-60"
-            >
+            {status === 'error' && <p className="text-xs text-red-600">Something went wrong. Please try again.</p>}
+            <button type="submit" disabled={status === 'submitting'} className="btn btn-primary w-full py-3 disabled:opacity-60">
               {status === 'submitting' ? 'Submitting...' : 'Submit Request'}
             </button>
           </form>
@@ -345,6 +142,7 @@ function BlueprintDisplay({
   onRequestOpen: () => void;
 }) {
   const [saveState, setSaveState] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+  const [exporting, setExporting] = useState(false);
   const generatedDate = new Date().toLocaleDateString('en-US', { dateStyle: 'long' });
 
   async function handleSave() {
@@ -370,315 +168,251 @@ function BlueprintDisplay({
     }
   }
 
-  function handleExportPDF() {
-    injectPrintStyles();
-    // Small delay to ensure styles are applied before print dialog opens
-    setTimeout(() => window.print(), 80);
+  async function handleExportPDF() {
+    setExporting(true);
+    try {
+      await exportBlueprintPDF(entityName);
+    } finally {
+      setExporting(false);
+    }
   }
 
-  const confidenceBadgeClass =
+  const confidenceBadgeStyle =
     blueprint.confidence_level === 'High'
-      ? 'bp-confidence-high'
+      ? { background: '#D1FAE5', color: '#065F46', border: '1px solid #6EE7B7' }
       : blueprint.confidence_level === 'Medium'
-      ? 'bp-confidence-medium'
-      : 'bp-confidence-low';
+      ? { background: '#FEF3C7', color: '#92400E', border: '1px solid #FCD34D' }
+      : { background: '#FEE2E2', color: '#991B1B', border: '1px solid #FCA5A5' };
 
   return (
-    <>
-      {/* ── Screen view ── */}
-      <div id="blueprint-output" className="mt-8 space-y-6 no-print">
-        {/* Header — screen */}
-        <div className="rounded-2xl p-6" style={{ backgroundColor: '#0F172A' }}>
-          <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: '#F97316' }}>
-            Transformation Blueprint™
-          </p>
-          <h1 className="mt-1 text-3xl font-bold text-white">{entityName}</h1>
-          <p className="mt-1 text-sm" style={{ color: '#94A3B8' }}>
-            Generated {generatedDate} · Powered by Transformation Intelligence™ · LeiderCap
-          </p>
-        </div>
-
-        {/* Sections — screen */}
-        <Section title="Executive Summary™" number={1}>
-          <p className="text-sm leading-7 text-slate-700">{blueprint.executive_summary}</p>
-        </Section>
-        <Section title="Current State™" number={2}>
-          <p className="text-sm leading-7 text-slate-700">{blueprint.current_state}</p>
-        </Section>
-        <Section title="Transformation Opportunity™" number={3}>
-          <p className="text-sm leading-7 text-slate-700">{blueprint.transformation_opportunity}</p>
-        </Section>
-        <Section title="Strategic Constraints™" number={4}>
-          <ul className="mt-1 space-y-1.5">
-            {blueprint.strategic_constraints.map((c, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
-                <span className="mt-0.5 shrink-0 text-orange-500">•</span>{c}
-              </li>
-            ))}
-          </ul>
-        </Section>
-        <Section title="Value Potential™" number={5}>
-          <p className="text-sm leading-7 text-slate-700">{blueprint.value_potential}</p>
-        </Section>
-        <Section title="First 90 Days™" number={6}>
-          <ol className="mt-1 space-y-2">
-            {blueprint.first_90_days.map((step, i) => (
-              <li key={i} className="flex items-start gap-3 text-sm text-slate-700">
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white" style={{ backgroundColor: '#F97316' }}>{i + 1}</span>
-                {step}
-              </li>
-            ))}
-          </ol>
-        </Section>
-        <Section title="Key Metrics™" number={7}>
-          <ul className="mt-1 space-y-1.5">
-            {blueprint.key_metrics.map((m, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
-                <span className="mt-0.5 shrink-0 text-teal-500">✓</span>{m}
-              </li>
-            ))}
-          </ul>
-        </Section>
-        <Section title="Transformation Risks™" number={8}>
-          <ul className="mt-1 space-y-1.5">
-            {blueprint.transformation_risks.map((r, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
-                <span className="mt-0.5 shrink-0 text-red-400">⚠</span>{r}
-              </li>
-            ))}
-          </ul>
-        </Section>
-        <Section title="Recommended Actions™" number={9}>
-          <ul className="mt-1 space-y-1.5">
-            {blueprint.recommended_actions.map((a, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
-                <span className="mt-0.5 shrink-0 text-orange-500">→</span>{a}
-              </li>
-            ))}
-          </ul>
-        </Section>
-        <Section title="Next Transformation Event™" number={10}>
-          <p className="text-sm leading-7 text-slate-700">{blueprint.next_transformation_event}</p>
-        </Section>
-        <Section title="Confidence Level™" number={11}>
-          <div className="flex items-center gap-3 flex-wrap">
-            <span className={`rounded-full px-3 py-1 text-sm font-bold ${
-              blueprint.confidence_level === 'High'
-                ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
-                : blueprint.confidence_level === 'Medium'
-                ? 'bg-amber-100 text-amber-800 border border-amber-300'
-                : 'bg-red-100 text-red-800 border border-red-300'
-            }`}>
-              {blueprint.confidence_level}
-            </span>
-            <p className="text-sm text-slate-600">{blueprint.confidence_rationale}</p>
-          </div>
-        </Section>
-        <Section title="Key Assumptions™" number={12}>
-          <ul className="mt-1 space-y-1.5">
-            {blueprint.key_assumptions.map((a, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
-                <span className="mt-0.5 shrink-0 text-slate-400">◈</span>{a}
-              </li>
-            ))}
-          </ul>
-        </Section>
-
-        {/* Action Buttons */}
-        <div className="flex flex-wrap gap-3 border-t border-slate-200 pt-6">
-          <button
-            onClick={handleSave}
-            className="btn btn-primary px-6 py-2.5"
-            style={saveState === 'saved' ? { backgroundColor: '#059669', color: 'white' } : undefined}
-          >
-            {saveState === 'saving' ? 'Saving...' : saveState === 'saved' ? '✓ Blueprint Saved' : saveState === 'error' ? 'Error — retry' : 'Save Blueprint™'}
-          </button>
-          <button
-            onClick={handleExportPDF}
-            className="btn rounded-xl px-6 py-2.5 font-bold text-white"
-            style={{ backgroundColor: '#0F172A' }}
-          >
-            Export as PDF™
-          </button>
-          <button
-            onClick={onRequestOpen}
-            className="btn btn-secondary px-6 py-2.5"
-          >
-            Request Full Transformation Blueprint™
-          </button>
-        </div>
+    <div className="mt-8 space-y-6">
+      {/* ── Screen header (not in PDF) ── */}
+      <div className="rounded-2xl p-6" style={{ backgroundColor: '#0F172A' }}>
+        <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: '#F97316' }}>
+          Transformation Blueprint™
+        </p>
+        <h1 className="mt-1 text-3xl font-bold text-white">{entityName}</h1>
+        <p className="mt-1 text-sm" style={{ color: '#94A3B8' }}>
+          Generated {generatedDate} · Powered by Transformation Intelligence™ · LeiderCap
+        </p>
       </div>
 
-      {/* ── Print-only branded output ── */}
-      <div id="blueprint-print-root" style={{ display: 'none' }}>
-        {/* Fixed footer on every page */}
-        <div className="bp-footer">
-          Transformation Intelligence™ · LeiderCap · lensanalysis.com
-        </div>
-
-        {/* Header */}
-        <div className="bp-header">
-          <div className="bp-header-eyebrow">Transformation Blueprint™</div>
-          <div className="bp-header-title">{entityName}</div>
-          <div className="bp-header-meta">
+      {/* ── PDF-targeted content div ── */}
+      <div id="blueprint-content" style={{
+        fontFamily: 'Georgia, serif',
+        color: '#1E293B',
+        fontSize: '13px',
+        lineHeight: '1.65',
+        background: '#FFFFFF',
+        padding: '0',
+      }}>
+        {/* PDF Header */}
+        <div style={{
+          backgroundColor: '#0F172A',
+          padding: '28px 32px 22px',
+          marginBottom: '24px',
+        }}>
+          <div style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#F97316', marginBottom: '6px' }}>
+            Transformation Blueprint™
+          </div>
+          <div style={{ fontSize: '24px', fontWeight: 700, color: '#FFFFFF', lineHeight: 1.2, marginBottom: '8px' }}>
+            {entityName}
+          </div>
+          <div style={{ fontSize: '10px', color: '#94A3B8' }}>
             Generated {generatedDate} &nbsp;·&nbsp; Powered by Transformation Intelligence™ &nbsp;·&nbsp; LeiderCap
           </div>
         </div>
 
-        {/* Section 1 */}
-        <div className="bp-section">
-          <div className="bp-section-header">
-            <span className="bp-section-num">1</span>
-            <span className="bp-section-title">Executive Summary™</span>
-          </div>
-          <div className="bp-section-body">{blueprint.executive_summary}</div>
-        </div>
-
-        {/* Section 2 */}
-        <div className="bp-section">
-          <div className="bp-section-header">
-            <span className="bp-section-num">2</span>
-            <span className="bp-section-title">Current State™</span>
-          </div>
-          <div className="bp-section-body">{blueprint.current_state}</div>
-        </div>
-
-        {/* Section 3 */}
-        <div className="bp-section">
-          <div className="bp-section-header">
-            <span className="bp-section-num">3</span>
-            <span className="bp-section-title">Transformation Opportunity™</span>
-          </div>
-          <div className="bp-section-body">{blueprint.transformation_opportunity}</div>
-        </div>
-
-        {/* Section 4 */}
-        <div className="bp-section">
-          <div className="bp-section-header">
-            <span className="bp-section-num">4</span>
-            <span className="bp-section-title">Strategic Constraints™</span>
-          </div>
-          <div className="bp-section-body">
-            <ul className="bp-list">
+        {/* Sections */}
+        {[
+          { n: 1, title: 'Executive Summary™', body: <p>{blueprint.executive_summary}</p> },
+          { n: 2, title: 'Current State™', body: <p>{blueprint.current_state}</p> },
+          { n: 3, title: 'Transformation Opportunity™', body: <p>{blueprint.transformation_opportunity}</p> },
+          { n: 4, title: 'Strategic Constraints™', body: (
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
               {blueprint.strategic_constraints.map((c, i) => (
-                <li key={i}><span className="bp-list-bullet">•</span><span>{c}</span></li>
+                <li key={i} style={{ display: 'flex', gap: '8px', marginBottom: '5px' }}>
+                  <span style={{ color: '#F97316', flexShrink: 0 }}>•</span><span>{c}</span>
+                </li>
               ))}
             </ul>
-          </div>
-        </div>
-
-        {/* Section 5 */}
-        <div className="bp-section">
-          <div className="bp-section-header">
-            <span className="bp-section-num">5</span>
-            <span className="bp-section-title">Value Potential™</span>
-          </div>
-          <div className="bp-section-body">{blueprint.value_potential}</div>
-        </div>
-
-        {/* Section 6 */}
-        <div className="bp-section">
-          <div className="bp-section-header">
-            <span className="bp-section-num">6</span>
-            <span className="bp-section-title">First 90 Days™</span>
-          </div>
-          <div className="bp-section-body">
-            <ol className="bp-ordered-list">
+          )},
+          { n: 5, title: 'Value Potential™', body: <p>{blueprint.value_potential}</p> },
+          { n: 6, title: 'First 90 Days™', body: (
+            <ol style={{ listStyle: 'none', padding: 0, margin: 0 }}>
               {blueprint.first_90_days.map((step, i) => (
-                <li key={i}><span className="bp-step-num">{i + 1}</span><span>{step}</span></li>
+                <li key={i} style={{ display: 'flex', gap: '8px', marginBottom: '6px', alignItems: 'flex-start' }}>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '18px', height: '18px', borderRadius: '50%', backgroundColor: '#F97316', color: '#fff', fontSize: '9px', fontWeight: 700, flexShrink: 0, marginTop: '1px' }}>{i + 1}</span>
+                  <span>{step}</span>
+                </li>
               ))}
             </ol>
-          </div>
-        </div>
-
-        {/* Section 7 */}
-        <div className="bp-section">
-          <div className="bp-section-header">
-            <span className="bp-section-num">7</span>
-            <span className="bp-section-title">Key Metrics™</span>
-          </div>
-          <div className="bp-section-body">
-            <ul className="bp-list">
+          )},
+          { n: 7, title: 'Key Metrics™', body: (
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
               {blueprint.key_metrics.map((m, i) => (
-                <li key={i}><span className="bp-list-check">✓</span><span>{m}</span></li>
+                <li key={i} style={{ display: 'flex', gap: '8px', marginBottom: '5px' }}>
+                  <span style={{ color: '#0D9488', flexShrink: 0 }}>✓</span><span>{m}</span>
+                </li>
               ))}
             </ul>
-          </div>
-        </div>
-
-        {/* Section 8 */}
-        <div className="bp-section">
-          <div className="bp-section-header">
-            <span className="bp-section-num">8</span>
-            <span className="bp-section-title">Transformation Risks™</span>
-          </div>
-          <div className="bp-section-body">
-            <ul className="bp-list">
+          )},
+          { n: 8, title: 'Transformation Risks™', body: (
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
               {blueprint.transformation_risks.map((r, i) => (
-                <li key={i}><span className="bp-list-warn">⚠</span><span>{r}</span></li>
+                <li key={i} style={{ display: 'flex', gap: '8px', marginBottom: '5px' }}>
+                  <span style={{ color: '#EF4444', flexShrink: 0 }}>⚠</span><span>{r}</span>
+                </li>
               ))}
             </ul>
-          </div>
-        </div>
-
-        {/* Section 9 */}
-        <div className="bp-section">
-          <div className="bp-section-header">
-            <span className="bp-section-num">9</span>
-            <span className="bp-section-title">Recommended Actions™</span>
-          </div>
-          <div className="bp-section-body">
-            <ul className="bp-list">
+          )},
+          { n: 9, title: 'Recommended Actions™', body: (
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
               {blueprint.recommended_actions.map((a, i) => (
-                <li key={i}><span className="bp-list-arrow">→</span><span>{a}</span></li>
+                <li key={i} style={{ display: 'flex', gap: '8px', marginBottom: '5px' }}>
+                  <span style={{ color: '#F97316', flexShrink: 0 }}>→</span><span>{a}</span>
+                </li>
               ))}
             </ul>
-          </div>
-        </div>
-
-        {/* Section 10 */}
-        <div className="bp-section">
-          <div className="bp-section-header">
-            <span className="bp-section-num">10</span>
-            <span className="bp-section-title">Next Transformation Event™</span>
-          </div>
-          <div className="bp-section-body">{blueprint.next_transformation_event}</div>
-        </div>
-
-        {/* Section 11 */}
-        <div className="bp-section">
-          <div className="bp-section-header">
-            <span className="bp-section-num">11</span>
-            <span className="bp-section-title">Confidence Level™</span>
-          </div>
-          <div className="bp-section-body">
-            <div className="bp-confidence-row">
-              <span className={confidenceBadgeClass}>{blueprint.confidence_level}</span>
-              <span className="bp-confidence-rationale">{blueprint.confidence_rationale}</span>
+          )},
+          { n: 10, title: 'Next Transformation Event™', body: <p>{blueprint.next_transformation_event}</p> },
+          { n: 11, title: 'Confidence Level™', body: (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' as const }}>
+              <span style={{ ...confidenceBadgeStyle, padding: '2px 12px', borderRadius: '20px', fontSize: '11px', fontWeight: 700 }}>
+                {blueprint.confidence_level}
+              </span>
+              <span>{blueprint.confidence_rationale}</span>
+            </div>
+          )},
+          { n: 12, title: 'Key Assumptions™', body: (
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+              {blueprint.key_assumptions.map((a, i) => (
+                <li key={i} style={{ display: 'flex', gap: '8px', marginBottom: '5px' }}>
+                  <span style={{ color: '#94A3B8', flexShrink: 0 }}>◈</span><span>{a}</span>
+                </li>
+              ))}
+            </ul>
+          )},
+        ].map(({ n, title, body }) => (
+          <div key={n} style={{
+            padding: '0 32px 18px',
+            marginBottom: '4px',
+            borderBottom: n < 12 ? '1px solid #E2E8F0' : 'none',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+              <span style={{
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                width: '20px', height: '20px', borderRadius: '50%',
+                backgroundColor: '#F97316', color: '#FFFFFF',
+                fontSize: '9px', fontWeight: 700, flexShrink: 0,
+              }}>{n}</span>
+              <span style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' as const, color: '#F97316' }}>
+                {title}
+              </span>
+            </div>
+            <div style={{ paddingLeft: '30px', fontSize: '12px', color: '#1E293B', lineHeight: '1.65' }}>
+              {body}
             </div>
           </div>
-        </div>
+        ))}
 
-        {/* Section 12 */}
-        <div className="bp-section">
-          <div className="bp-section-header">
-            <span className="bp-section-num">12</span>
-            <span className="bp-section-title">Key Assumptions™</span>
-          </div>
-          <div className="bp-section-body">
-            <ul className="bp-list">
-              {blueprint.key_assumptions.map((a, i) => (
-                <li key={i}><span className="bp-list-diamond">◈</span><span>{a}</span></li>
-              ))}
-            </ul>
-          </div>
+        {/* PDF Footer */}
+        <div style={{
+          padding: '14px 32px 0',
+          marginTop: '16px',
+          borderTop: '1px solid #E2E8F0',
+          textAlign: 'center',
+          fontSize: '9px',
+          color: '#94A3B8',
+        }}>
+          Transformation Intelligence™ · LeiderCap · lensanalysis.com
         </div>
       </div>
-    </>
+
+      {/* ── Screen sections (visible on page, not duplicated in PDF) ── */}
+      <div className="space-y-4">
+        <ScreenSection title="Executive Summary™" number={1}><p className="text-sm leading-7 text-slate-700">{blueprint.executive_summary}</p></ScreenSection>
+        <ScreenSection title="Current State™" number={2}><p className="text-sm leading-7 text-slate-700">{blueprint.current_state}</p></ScreenSection>
+        <ScreenSection title="Transformation Opportunity™" number={3}><p className="text-sm leading-7 text-slate-700">{blueprint.transformation_opportunity}</p></ScreenSection>
+        <ScreenSection title="Strategic Constraints™" number={4}>
+          <ul className="mt-1 space-y-1.5">{blueprint.strategic_constraints.map((c, i) => (
+            <li key={i} className="flex items-start gap-2 text-sm text-slate-700"><span className="mt-0.5 shrink-0 text-orange-500">•</span>{c}</li>
+          ))}</ul>
+        </ScreenSection>
+        <ScreenSection title="Value Potential™" number={5}><p className="text-sm leading-7 text-slate-700">{blueprint.value_potential}</p></ScreenSection>
+        <ScreenSection title="First 90 Days™" number={6}>
+          <ol className="mt-1 space-y-2">{blueprint.first_90_days.map((step, i) => (
+            <li key={i} className="flex items-start gap-3 text-sm text-slate-700">
+              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white" style={{ backgroundColor: '#F97316' }}>{i + 1}</span>{step}
+            </li>
+          ))}</ol>
+        </ScreenSection>
+        <ScreenSection title="Key Metrics™" number={7}>
+          <ul className="mt-1 space-y-1.5">{blueprint.key_metrics.map((m, i) => (
+            <li key={i} className="flex items-start gap-2 text-sm text-slate-700"><span className="mt-0.5 shrink-0 text-teal-500">✓</span>{m}</li>
+          ))}</ul>
+        </ScreenSection>
+        <ScreenSection title="Transformation Risks™" number={8}>
+          <ul className="mt-1 space-y-1.5">{blueprint.transformation_risks.map((r, i) => (
+            <li key={i} className="flex items-start gap-2 text-sm text-slate-700"><span className="mt-0.5 shrink-0 text-red-400">⚠</span>{r}</li>
+          ))}</ul>
+        </ScreenSection>
+        <ScreenSection title="Recommended Actions™" number={9}>
+          <ul className="mt-1 space-y-1.5">{blueprint.recommended_actions.map((a, i) => (
+            <li key={i} className="flex items-start gap-2 text-sm text-slate-700"><span className="mt-0.5 shrink-0 text-orange-500">→</span>{a}</li>
+          ))}</ul>
+        </ScreenSection>
+        <ScreenSection title="Next Transformation Event™" number={10}><p className="text-sm leading-7 text-slate-700">{blueprint.next_transformation_event}</p></ScreenSection>
+        <ScreenSection title="Confidence Level™" number={11}>
+          <div className="flex items-center gap-3 flex-wrap">
+            <span className={`rounded-full px-3 py-1 text-sm font-bold ${
+              blueprint.confidence_level === 'High' ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+              : blueprint.confidence_level === 'Medium' ? 'bg-amber-100 text-amber-800 border border-amber-300'
+              : 'bg-red-100 text-red-800 border border-red-300'
+            }`}>{blueprint.confidence_level}</span>
+            <p className="text-sm text-slate-600">{blueprint.confidence_rationale}</p>
+          </div>
+        </ScreenSection>
+        <ScreenSection title="Key Assumptions™" number={12}>
+          <ul className="mt-1 space-y-1.5">{blueprint.key_assumptions.map((a, i) => (
+            <li key={i} className="flex items-start gap-2 text-sm text-slate-700"><span className="mt-0.5 shrink-0 text-slate-400">◈</span>{a}</li>
+          ))}</ul>
+        </ScreenSection>
+      </div>
+
+      {/* Action Buttons */}
+      <div className="flex flex-wrap gap-3 border-t border-slate-200 pt-6">
+        <button
+          onClick={handleSave}
+          className="btn btn-primary px-6 py-2.5"
+          style={saveState === 'saved' ? { backgroundColor: '#059669', color: 'white' } : undefined}
+        >
+          {saveState === 'saving' ? 'Saving...' : saveState === 'saved' ? '✓ Blueprint Saved' : saveState === 'error' ? 'Error — retry' : 'Save Blueprint™'}
+        </button>
+        <button
+          onClick={handleExportPDF}
+          disabled={exporting}
+          className="btn rounded-xl px-6 py-2.5 font-bold text-white disabled:opacity-60"
+          style={{ backgroundColor: '#0F172A' }}
+        >
+          {exporting ? (
+            <span className="flex items-center gap-2">
+              <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+              Generating PDF...
+            </span>
+          ) : 'Export as PDF™'}
+        </button>
+        <button onClick={onRequestOpen} className="btn btn-secondary px-6 py-2.5">
+          Request Full Transformation Blueprint™
+        </button>
+      </div>
+    </div>
   );
 }
 
-function Section({ title, number, children }: { title: string; number: number; children: React.ReactNode }) {
+// ── Screen Section (visible on page only) ────────────────────────────────────
+
+function ScreenSection({ title, number, children }: { title: string; number: number; children: React.ReactNode }) {
   return (
     <div className="card p-6">
       <div className="flex items-center gap-3 mb-3">
@@ -758,22 +492,14 @@ function BlueprintPageInner() {
       <form onSubmit={handleGenerate} className="mt-8 card p-6 space-y-4">
         <div>
           <label className="block text-xs font-semibold text-slate-500 mb-1">Entity Name *</label>
-          <input
-            type="text"
-            required
-            value={entityName}
-            onChange={(e) => setEntityName(e.target.value)}
+          <input type="text" required value={entityName} onChange={(e) => setEntityName(e.target.value)}
             className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-orange-400"
-            placeholder="e.g. Ferring Pharmaceuticals, State of California, Healthcare Industry"
-          />
+            placeholder="e.g. Ferring Pharmaceuticals, State of California, Healthcare Industry" />
         </div>
         <div>
           <label className="block text-xs font-semibold text-slate-500 mb-1">Entity Type</label>
-          <select
-            value={entityType}
-            onChange={(e) => setEntityType(e.target.value)}
-            className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-orange-400 bg-white"
-          >
+          <select value={entityType} onChange={(e) => setEntityType(e.target.value)}
+            className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-orange-400 bg-white">
             <option>Company</option>
             <option>Organization</option>
             <option>Government</option>
@@ -783,38 +509,24 @@ function BlueprintPageInner() {
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className="block text-xs font-semibold text-slate-500 mb-1">State / Region (optional)</label>
-            <input
-              type="text"
-              value={stateRegion}
-              onChange={(e) => setStateRegion(e.target.value)}
+            <input type="text" value={stateRegion} onChange={(e) => setStateRegion(e.target.value)}
               className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-orange-400"
-              placeholder="e.g. California, Northeast US"
-            />
+              placeholder="e.g. California, Northeast US" />
           </div>
           <div>
             <label className="block text-xs font-semibold text-slate-500 mb-1">Industry (optional)</label>
-            <input
-              type="text"
-              value={industry}
-              onChange={(e) => setIndustry(e.target.value)}
+            <input type="text" value={industry} onChange={(e) => setIndustry(e.target.value)}
               className="w-full rounded-lg border border-slate-200 px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-orange-400"
-              placeholder="e.g. Pharmaceuticals, SaaS"
-            />
+              placeholder="e.g. Pharmaceuticals, SaaS" />
           </div>
         </div>
-        <button
-          type="submit"
-          disabled={generating}
-          className="btn btn-primary w-full py-3 text-base disabled:opacity-60"
-        >
+        <button type="submit" disabled={generating} className="btn btn-primary w-full py-3 text-base disabled:opacity-60">
           {generating ? (
             <span className="flex items-center justify-center gap-2">
               <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
               Building your Transformation Blueprint™... this takes about 30 seconds.
             </span>
-          ) : (
-            'Generate Transformation Blueprint™'
-          )}
+          ) : 'Generate Transformation Blueprint™'}
         </button>
       </form>
 
