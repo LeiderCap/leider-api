@@ -13,18 +13,21 @@ export function BlueprintRequestForm({ companyId, companyName }: { companyId: st
     setError('');
 
     const form = new FormData(event.currentTarget);
+
+    // Map form fields to enterprise_inquiries columns:
+    // organization → company, message → notes
+    // request_type is set server-side to 'full_transformation_blueprint'
     const payload = {
-      company_id: companyId,
       name: String(form.get('name') ?? ''),
       email: String(form.get('email') ?? ''),
-      organization: String(form.get('organization') ?? ''),
-      message: String(form.get('message') ?? '')
+      company: String(form.get('organization') ?? companyName ?? ''),
+      notes: `[Lens Card: ${companyName} (${companyId})]\n\n${String(form.get('message') ?? '')}`,
     };
 
-    const response = await fetch('/api/blueprint', {
+    const response = await fetch('/api/blueprint-request', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     });
 
     if (!response.ok) {
@@ -39,7 +42,11 @@ export function BlueprintRequestForm({ companyId, companyName }: { companyId: st
   }
 
   if (!open) {
-    return <button className="btn btn-primary" onClick={() => setOpen(true)}>Request Transformation Capacity Assessment™</button>;
+    return (
+      <button className="btn btn-primary" onClick={() => setOpen(true)}>
+        Request Transformation Capacity Assessment™
+      </button>
+    );
   }
 
   return (
@@ -47,23 +54,53 @@ export function BlueprintRequestForm({ companyId, companyName }: { companyId: st
       <div className="flex items-start justify-between gap-4">
         <div>
           <h3 className="text-lg font-semibold">Request Transformation Capacity Assessment™</h3>
-          <p className="mt-1 text-sm text-slate-600">Ask The Lens™ team to scope a deeper assessment for {companyName}.</p>
+          <p className="mt-1 text-sm text-slate-600">
+            Ask The Lens™ team to scope a deeper assessment for {companyName}.
+          </p>
         </div>
-        <button className="text-sm text-slate-500" onClick={() => setOpen(false)}>Close</button>
+        <button className="text-sm text-slate-500" onClick={() => setOpen(false)}>
+          Close
+        </button>
       </div>
 
       <form onSubmit={onSubmit} className="mt-4 grid gap-3">
-        <input name="name" placeholder="Name" className="rounded-xl border border-slate-200 px-4 py-3" />
-        <input name="email" type="email" required placeholder="Email" className="rounded-xl border border-slate-200 px-4 py-3" />
-        <input name="organization" placeholder="Organization" className="rounded-xl border border-slate-200 px-4 py-3" />
-        <textarea name="message" placeholder="What should we help you understand?" className="min-h-24 rounded-xl border border-slate-200 px-4 py-3" />
-        <button className="btn btn-primary" type="submit" disabled={status === 'loading'}>
+        <input
+          name="name"
+          placeholder="Name"
+          className="rounded-xl border border-slate-200 px-4 py-3"
+        />
+        <input
+          name="email"
+          type="email"
+          required
+          placeholder="Email"
+          className="rounded-xl border border-slate-200 px-4 py-3"
+        />
+        <input
+          name="organization"
+          placeholder="Organization"
+          className="rounded-xl border border-slate-200 px-4 py-3"
+        />
+        <textarea
+          name="message"
+          placeholder="What should we help you understand?"
+          className="min-h-24 rounded-xl border border-slate-200 px-4 py-3"
+        />
+        <button
+          className="btn btn-primary"
+          type="submit"
+          disabled={status === 'loading'}
+        >
           {status === 'loading' ? 'Sending…' : 'Submit request'}
         </button>
       </form>
 
-      {status === 'success' && <p className="mt-3 text-sm font-medium text-green-700">Request received.</p>}
-      {status === 'error' && <p className="mt-3 text-sm font-medium text-red-700">{error}</p>}
+      {status === 'success' && (
+        <p className="mt-3 text-sm font-medium text-green-700">Request received. We will be in touch shortly.</p>
+      )}
+      {status === 'error' && (
+        <p className="mt-3 text-sm font-medium text-red-700">{error}</p>
+      )}
     </div>
   );
 }
