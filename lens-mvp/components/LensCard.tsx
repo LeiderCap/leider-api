@@ -517,7 +517,8 @@ export function LensCard({ item }: { item: LensSnapshot }) {
           });
 
           // Resolve industry-specific translation for the primary constraint if available
-          const primaryDomainKey = primaryLabel.toLowerCase().split(' ')[0] as string;
+          type CTKey = 'intelligence' | 'absorbability' | 'trust' | 'governance' | 'courage' | 'execution';
+          const primaryDomainKey = primaryLabel.toLowerCase().split(' ')[0] as CTKey;
           const primaryTranslation = item.constraint_translations?.[primaryDomainKey];
 
           return (
@@ -536,9 +537,9 @@ export function LensCard({ item }: { item: LensSnapshot }) {
                   {item.secondary_constraint && (
                     <p className="mt-1.5 text-[10px] text-amber-600">
                       Secondary Constraint™: {item.secondary_constraint}
-                      {item.constraint_translations?.[item.secondary_constraint.toLowerCase().split(' ')[0]] && (
+                      {item.constraint_translations?.[item.secondary_constraint.toLowerCase().split(' ')[0] as CTKey] && (
                         <span className="block mt-0.5 text-amber-700 leading-4">
-                          {item.constraint_translations[item.secondary_constraint.toLowerCase().split(' ')[0]]}
+                          {item.constraint_translations[item.secondary_constraint.toLowerCase().split(' ')[0] as CTKey]}
                         </span>
                       )}
                     </p>

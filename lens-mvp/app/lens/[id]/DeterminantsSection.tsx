@@ -117,12 +117,15 @@ interface DeterminantItem {
   numeric?: number;
 }
 
+type ConstraintTranslationKey = 'intelligence' | 'absorbability' | 'trust' | 'governance' | 'courage' | 'execution';
+type ConstraintTranslations = Partial<Record<ConstraintTranslationKey, string | null>> | null;
+
 interface DeterminantsSectionProps {
   determinants: DeterminantItem[];
-  primaryConstraint?: string;
-  secondaryConstraint?: string;
-  detectedIndustry?: string;
-  constraintTranslations?: Record<string, string>;
+  primaryConstraint?: string | null;
+  secondaryConstraint?: string | null;
+  detectedIndustry?: string | null;
+  constraintTranslations?: ConstraintTranslations;
 }
 
 export function DeterminantsSection({ determinants, primaryConstraint, secondaryConstraint, detectedIndustry, constraintTranslations }: DeterminantsSectionProps) {
@@ -200,7 +203,7 @@ export function DeterminantsSection({ determinants, primaryConstraint, secondary
 
         {/* Primary Constraint™ with industry translation */}
         {primaryConstraint && (() => {
-          const domainKey = primaryConstraint.toLowerCase().split(' ')[0];
+          const domainKey = primaryConstraint.toLowerCase().split(' ')[0] as ConstraintTranslationKey;
           const translation = constraintTranslations?.[domainKey];
           return (
             <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-4">
@@ -214,7 +217,7 @@ export function DeterminantsSection({ determinants, primaryConstraint, secondary
                 <p className="text-sm text-amber-800 leading-6">{translation}</p>
               ) : null}
               {secondaryConstraint && (() => {
-                const secKey = secondaryConstraint.toLowerCase().split(' ')[0];
+                const secKey = secondaryConstraint.toLowerCase().split(' ')[0] as ConstraintTranslationKey;
                 const secTranslation = constraintTranslations?.[secKey];
                 return (
                   <div className="mt-2 pt-2 border-t border-amber-200">

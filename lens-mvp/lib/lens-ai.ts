@@ -14,9 +14,9 @@ import { slugify } from './ids';
 
 const LensAiSchema = z.object({
   name: z.string().min(1),
-  ticker: z.string().optional().default(''),
-  industry: z.string().min(1).default('Unknown'),
-  description: z.string().min(1),
+  ticker: z.string().nullable().optional().default(''),
+  industry: z.string().nullable().optional().default('Unknown'),
+  description: z.string().nullable().optional(),
   
   tcs_score: z.enum(['Emerging', 'Developing', 'Advanced', 'Transforming', 'Leading']),
   
@@ -28,23 +28,23 @@ const LensAiSchema = z.object({
   execution_score: z.enum(['Emerging', 'Developing', 'Advanced', 'Transforming', 'Leading']),
   
   yield_score: z.enum(['Emerging', 'Developing', 'Advanced', 'Transforming', 'Leading']),
-  equity_reclamation: z.string().min(1),
+  equity_reclamation: z.string().nullable().optional(),
   transformation_capacity_gap: z.enum(['Minimal', 'Moderate', 'Significant', 'Critical']),
   
-  opportunity_value: z.string().min(1),
+  opportunity_value: z.string().nullable().optional(),
   confidence: z.enum(['Low', 'Moderate', 'High']),
-  top_unlock: z.string().min(1),
+  top_unlock: z.string().nullable().optional(),
   
-  what_lens_sees: z.string().min(1),
-  value_creation_model: z.string().min(1),
-  hidden_assets: z.string().min(1),
-  hidden_constraints: z.string().min(1),
-  transformation_opportunities: z.string().min(1),
-  analysis_summary: z.string().min(1),
+  what_lens_sees: z.string().nullable().optional(),
+  value_creation_model: z.string().nullable().optional(),
+  hidden_assets: z.string().nullable().optional(),
+  hidden_constraints: z.string().nullable().optional(),
+  transformation_opportunities: z.string().nullable().optional(),
+  analysis_summary: z.string().nullable().optional(),
 
   constraints: z.array(z.string()).min(1).max(5),
   opportunities: z.array(z.string()).min(1).max(5),
-  summary: z.string().min(1),
+  summary: z.string().nullable().optional(),
 
   // v1.1 numerical scoring
   tcs_numeric: z.number().min(0).max(100),
@@ -54,22 +54,30 @@ const LensAiSchema = z.object({
   trust_numeric: z.number().min(0).max(100),
   courage_numeric: z.number().min(0).max(100),
   intelligence_numeric: z.number().min(0).max(100),
-  primary_constraint: z.string().min(1),
-  secondary_constraint: z.string().min(1),
+  primary_constraint: z.string().nullable().optional(),
+  secondary_constraint: z.string().nullable().optional(),
   system_constraint: z.string().nullable().optional(),
   gptp_stage: z.enum(['Substitution', 'Reorganization', 'Transformation']),
   transformation_momentum: z.enum(['Accelerating', 'Stable', 'Decelerating', 'Unknown']).default('Unknown'),
   opportunity_visibility_gap: z.enum(['High', 'Moderate', 'Low']).default('Moderate'),
-  strategic_question: z.string().min(1),
-  transformational_question: z.string().min(1),
+  strategic_question: z.string().nullable().optional(),
+  transformational_question: z.string().nullable().optional(),
   trust_quadrant: z.string().nullable().optional(),
   trust_quadrant_explanation: z.string().nullable().optional(),
   trust_alignment_gap: z.string().nullable().optional(),
   trust_alignment_explanation: z.string().nullable().optional(),
 
   // v1.7 Industry Translation Layer™
-  detected_industry: z.string().optional(),
-  constraint_translations: z.record(z.string(), z.string()).optional()
+  detected_industry: z.string().nullable().optional(),
+  // constraint_translations: individual keys may be null or absent when score >= 70
+  constraint_translations: z.object({
+    intelligence:   z.string().nullable().optional(),
+    absorbability:  z.string().nullable().optional(),
+    trust:          z.string().nullable().optional(),
+    governance:     z.string().nullable().optional(),
+    courage:        z.string().nullable().optional(),
+    execution:      z.string().nullable().optional(),
+  }).nullable().optional(),
 });
 
 export const LENS_SYSTEM_PROMPT = `You are The Lens™, the measurement system for Transformation Capacity™.
@@ -828,8 +836,8 @@ export async function generateLensSnapshot(query: string): Promise<LensSnapshot>
     id,
     name: parsed.name,
     ticker: parsed.ticker || undefined,
-    industry: parsed.industry,
-    description: parsed.description,
+    industry: parsed.industry ?? 'Unknown',
+    description: parsed.description ?? '',
     logo_url: undefined,
     
     tcs_score: parsed.tcs_score,
@@ -841,24 +849,24 @@ export async function generateLensSnapshot(query: string): Promise<LensSnapshot>
     execution_score: parsed.execution_score,
     
     yield_score: parsed.yield_score,
-    equity_reclamation: parsed.equity_reclamation,
+    equity_reclamation: parsed.equity_reclamation ?? '',
     transformation_capacity_gap: parsed.transformation_capacity_gap,
     
-    opportunity_value: parsed.opportunity_value,
+    opportunity_value: parsed.opportunity_value ?? '',
     confidence: parsed.confidence,
-    top_unlock: parsed.top_unlock,
+    top_unlock: parsed.top_unlock ?? '',
     
     // v1.2 Lens Analysis™ narrative fields
-    what_lens_sees: parsed.what_lens_sees,
-    value_creation_model: parsed.value_creation_model,
-    hidden_assets: parsed.hidden_assets,
-    hidden_constraints: parsed.hidden_constraints,
-    transformation_opportunities: parsed.transformation_opportunities,
-    analysis_summary: parsed.analysis_summary,
+    what_lens_sees: parsed.what_lens_sees ?? '',
+    value_creation_model: parsed.value_creation_model ?? '',
+    hidden_assets: parsed.hidden_assets ?? '',
+    hidden_constraints: parsed.hidden_constraints ?? '',
+    transformation_opportunities: parsed.transformation_opportunities ?? '',
+    analysis_summary: parsed.analysis_summary ?? '',
 
     constraints: parsed.constraints,
     opportunities: parsed.opportunities,
-    summary: parsed.summary,
+    summary: parsed.summary ?? '',
 
     // v1.1 numerical scoring
     tcs_numeric: parsed.tcs_numeric,

@@ -63,22 +63,29 @@ export interface LensSnapshot {
   trust_numeric?: number;
   courage_numeric?: number;
   intelligence_numeric?: number;
-  primary_constraint?: string;
-  secondary_constraint?: string;
+  primary_constraint?: string | null;
+  secondary_constraint?: string | null;
   system_constraint?: string | null;
   gptp_stage?: 'Substitution' | 'Reorganization' | 'Transformation';
   transformation_momentum?: TransformationMomentum;
   opportunity_visibility_gap?: 'High' | 'Moderate' | 'Low';
-  strategic_question?: string;
-  transformational_question?: string;
+  strategic_question?: string | null;
+  transformational_question?: string | null;
   trust_quadrant?: string | null;
   trust_quadrant_explanation?: string | null;
   trust_alignment_gap?: string | null;
   trust_alignment_explanation?: string | null;
 
   // v1.7 Industry Translation Layer™
-  detected_industry?: string;
-  constraint_translations?: Record<string, string>;
+  detected_industry?: string | null;
+  constraint_translations?: {
+    intelligence?: string | null;
+    absorbability?: string | null;
+    trust?: string | null;
+    governance?: string | null;
+    courage?: string | null;
+    execution?: string | null;
+  } | null;
 
   updated_at: string;
 }
