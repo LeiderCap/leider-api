@@ -39,7 +39,7 @@ export default function SaveButton({
       : 'Save Rewrite™');
 
   async function handleSave() {
-    if (state !== 'idle') return;
+    if (state === 'saving') return;
     setState('saving');
     try {
       const session_id = getOrCreateSessionId();
@@ -59,10 +59,11 @@ export default function SaveButton({
   return (
     <button
       onClick={handleSave}
-      disabled={state === 'saving' || state === 'saved'}
-      className={`rounded-lg border px-4 py-2 text-xs font-semibold transition-colors disabled:cursor-not-allowed ${
+      className={`rounded-lg border px-4 py-2 text-xs font-semibold transition-colors cursor-pointer ${
         state === 'saved'
           ? 'border-emerald-600 bg-emerald-900 text-emerald-300'
+          : state === 'saving'
+          ? 'border-slate-500 bg-slate-700 text-slate-400'
           : state === 'error'
           ? 'border-red-600 bg-red-900 text-red-300'
           : 'border-slate-600 bg-slate-800 text-slate-300 hover:border-teal-500 hover:text-teal-300'
