@@ -515,16 +515,31 @@ export function LensCard({ item }: { item: LensSnapshot }) {
             return isConstraint && numericVal != null && numericVal < 55;
           });
 
+          // Resolve industry-specific translation for the primary constraint if available
+          const primaryDomainKey = primaryLabel.toLowerCase().split(' ')[0] as string;
+          const primaryTranslation = item.constraint_translations?.[primaryDomainKey];
+
           return (
             <>
               {item.primary_constraint && (
-                <div className="mt-3 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2">
-                  <p className="text-xs font-semibold text-amber-700">
-                    ⚠️ Primary Constraint™: {item.primary_constraint}
+                <div className="mt-3 rounded-lg border border-amber-200 bg-amber-50 px-3 py-3">
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-amber-600 mb-1">
+                    ⚠️ Primary Constraint™ — {item.primary_constraint}
+                    {item.detected_industry && (
+                      <span className="ml-2 font-normal normal-case text-amber-500">({item.detected_industry})</span>
+                    )}
                   </p>
+                  {primaryTranslation ? (
+                    <p className="text-xs text-amber-800 leading-5">{primaryTranslation}</p>
+                  ) : null}
                   {item.secondary_constraint && (
-                    <p className="mt-0.5 text-xs text-amber-600">
-                      Secondary: {item.secondary_constraint}
+                    <p className="mt-1.5 text-[10px] text-amber-600">
+                      Secondary Constraint™: {item.secondary_constraint}
+                      {item.constraint_translations?.[item.secondary_constraint.toLowerCase().split(' ')[0]] && (
+                        <span className="block mt-0.5 text-amber-700 leading-4">
+                          {item.constraint_translations[item.secondary_constraint.toLowerCase().split(' ')[0]]}
+                        </span>
+                      )}
                     </p>
                   )}
                 </div>

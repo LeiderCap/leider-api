@@ -65,7 +65,11 @@ const LensAiSchema = z.object({
   trust_quadrant: z.enum(['Rational Repair', 'Emotional Repair', 'Rational Replace', 'Emotional Replace', 'Mixed']).optional(),
   trust_quadrant_explanation: z.string().optional(),
   trust_alignment_gap: z.enum(['High', 'Moderate', 'Low', 'None']).optional(),
-  trust_alignment_explanation: z.string().optional()
+  trust_alignment_explanation: z.string().optional(),
+
+  // v1.7 Industry Translation Layer™
+  detected_industry: z.string().optional(),
+  constraint_translations: z.record(z.string(), z.string()).optional()
 });
 
 export const LENS_SYSTEM_PROMPT = `You are The Lens™, the measurement system for Transformation Capacity™.
@@ -132,7 +136,16 @@ Use this exact JSON shape:
   "trust_quadrant": "Rational Repair | Emotional Repair | Rational Replace | Emotional Replace | Mixed (only include when trust_numeric < 70, otherwise omit)",
   "trust_quadrant_explanation": "One sentence explaining what this trust quadrant means specifically for this organization in their industry language, not framework language. (only include when trust_numeric < 70)",
   "trust_alignment_gap": "High | Moderate | Low | None (only include when trust_numeric < 70, otherwise omit)",
-  "trust_alignment_explanation": "One sentence describing the likely gap between where leadership thinks trust is and where stakeholders actually are. (only include when trust_numeric < 70)"
+  "trust_alignment_explanation": "One sentence describing the likely gap between where leadership thinks trust is and where stakeholders actually are. (only include when trust_numeric < 70)",
+
+  "detected_industry": "The detected industry category — one of: Pharmaceutical / Life Sciences | Healthcare / Hospital Systems | Financial Services | Technology | Government / Public Sector | Real Estate | Manufacturing | Retail / Consumer | Energy | Education | Other",
+  "constraint_translations": {
+    "absorbability": "Industry-specific translation of the absorbability constraint (only include if absorbability_numeric < 70)",
+    "execution": "Industry-specific translation of the execution constraint (only include if execution_numeric < 70)",
+    "governance": "Industry-specific translation of the governance constraint (only include if governance_numeric < 70)",
+    "trust": "Industry-specific translation of the trust constraint (only include if trust_numeric < 70)",
+    "intelligence": "Industry-specific translation of the intelligence constraint (only include if intelligence_numeric < 70)"
+  }
 }
 
 For opportunity_visibility_gap:
@@ -385,6 +398,272 @@ For trust_alignment_gap:
 
 For trust_quadrant_explanation: translate the quadrant into the organization's specific industry
 language. Do not use the quadrant name or framework terminology in the explanation.
+
+---
+
+INDUSTRY TRANSLATION LAYER™
+
+For every constrained domain (score below 70), detect the organization's industry and apply
+the closest industry-specific translation below. Use this translation as the primary language
+in constraint diagnostics, hidden_constraints, and analysis narrative fields.
+NEVER use the generic framework term (e.g. "Absorbability constrained") as the primary
+user-facing text. Always translate into the industry's natural language.
+
+Industry detection: infer from the entity's business model, products, services, and sector.
+Match to the closest industry below. Use DEFAULT if no close match exists.
+
+---
+
+ABSORBABILITY TRANSLATIONS:
+
+PHARMACEUTICAL / LIFE SCIENCES:
+Absorbability constrained →
+"New scientific intelligence is being generated faster than the organization can operationalize it. Clinical insights from one program aren't reaching the teams running adjacent programs. AI tools are being deployed but adoption is inconsistent across functions. The organization is consuming intelligence without transforming it into capability."
+
+HEALTHCARE / HOSPITAL SYSTEMS:
+Absorbability constrained →
+"New clinical protocols, technologies, and care models are being introduced faster than staff can absorb them. Change fatigue is real. Training programs aren't keeping pace with transformation requirements. Care quality varies because intelligence absorption is uneven across the system."
+
+FINANCIAL SERVICES:
+Absorbability constrained →
+"New regulatory requirements, market intelligence, and technology capabilities are arriving faster than the organization can integrate them. Teams are overwhelmed by the volume of change. New tools are deployed but not fully adopted. Intelligence exists but isn't becoming capability."
+
+TECHNOLOGY:
+Absorbability constrained →
+"The organization is adopting new tools, platforms, and methodologies faster than teams can effectively integrate them. Technical debt is accumulating. New capabilities are deployed before existing ones are fully leveraged. Speed of adoption is outpacing depth of adoption."
+
+GOVERNMENT / PUBLIC SECTOR:
+Absorbability constrained →
+"Policy changes, new mandates, and technology deployments are arriving faster than agencies can absorb them. Workforce training isn't keeping pace. New systems are implemented but adoption is shallow. The organization struggles to operationalize what it receives."
+
+REAL ESTATE:
+Absorbability constrained →
+"Market intelligence, new technologies, and changing tenant requirements are arriving faster than the organization can integrate them into operations and strategy. PropTech tools are deployed but underutilized. Data exists but isn't becoming decisions."
+
+MANUFACTURING:
+Absorbability constrained →
+"New automation technologies, process improvements, and operational intelligence are being introduced faster than the workforce can absorb them. Implementation quality varies across facilities. New systems go live before old ones are fully optimized."
+
+RETAIL / CONSUMER:
+Absorbability constrained →
+"Consumer intelligence, new channels, and technology platforms are arriving faster than the organization can act on them. Data is abundant but insight extraction is slow. New tools are deployed before existing capabilities are fully leveraged."
+
+ENERGY:
+Absorbability constrained →
+"New technologies, regulatory requirements, and market intelligence are arriving faster than the organization can integrate them. Transition-related capability development is not keeping pace with transition speed."
+
+EDUCATION:
+Absorbability constrained →
+"New teaching methodologies, technologies, and student outcome data are arriving faster than faculty and staff can absorb them. Professional development isn't keeping pace. Innovation is happening at the edges but not scaling to the institution."
+
+DEFAULT:
+Absorbability constrained →
+"The organization is receiving more intelligence than it can effectively operationalize. New tools, processes, and capabilities are being introduced faster than people can absorb them. The result is shallow adoption, inconsistent implementation, and intelligence that exists but doesn't become capability."
+
+---
+
+EXECUTION TRANSLATIONS:
+
+PHARMACEUTICAL / LIFE SCIENCES:
+Execution constrained →
+"Programs are moving through development more slowly than the science warrants. Trial execution has preventable delays. Regulatory submissions take longer than industry benchmarks. Launch execution leaves early market share on the table. The organization plans well but implementation consistently falls short of potential."
+
+HEALTHCARE / HOSPITAL SYSTEMS:
+Execution constrained →
+"Care delivery is inconsistent across settings, shifts, and providers. Quality improvement initiatives are launched but not sustained. Operational changes are implemented partially rather than fully. The gap between protocol and practice is wider than it should be."
+
+FINANCIAL SERVICES:
+Execution constrained →
+"Product launches take longer than competitive timelines require. Risk management frameworks are designed well but implemented inconsistently. Client commitments aren't always followed through with the speed clients expect. Operational follow-through is the constraint, not strategy."
+
+TECHNOLOGY:
+Execution constrained →
+"Product roadmap delivery is inconsistent. Features ship late or incomplete. Engineering velocity doesn't match market opportunity. The organization has strong product thinking but struggles to ship at the speed the market requires."
+
+GOVERNMENT / PUBLIC SECTOR:
+Execution constrained →
+"Programs are designed well but implemented inconsistently. Citizen outcomes vary significantly from what program design intended. Budget is allocated but not deployed effectively. The gap between policy intent and program reality is material."
+
+REAL ESTATE:
+Execution constrained →
+"Development projects run over budget or timeline more often than industry benchmarks. Asset management decisions aren't implemented with the speed market conditions require. Leasing and disposition execution leaves value unrealized."
+
+MANUFACTURING:
+Execution constrained →
+"Production targets are missed more often than operational data would predict. Quality systems are designed well but implementation is uneven. Continuous improvement initiatives are launched but not sustained. Operational follow-through is inconsistent across shifts and facilities."
+
+RETAIL / CONSUMER:
+Execution constrained →
+"Promotional execution is inconsistent across channels and markets. Merchandising strategy doesn't always reach the shelf as designed. New product launches underperform their potential due to execution gaps rather than demand gaps."
+
+ENERGY:
+Execution constrained →
+"Project delivery timelines and budgets are inconsistent. Operational performance varies more than asset quality would predict. Maintenance and improvement programs are designed well but implemented unevenly."
+
+EDUCATION:
+Execution constrained →
+"Curriculum improvements are designed but not consistently implemented. Student support programs exist but aren't reliably delivered. The gap between institutional intent and student experience is wider than it needs to be."
+
+DEFAULT:
+Execution constrained →
+"The organization plans well but consistently falls short in implementation. Initiatives launch but don't sustain. Commitments are made but delivery is uneven. The constraint is not strategy or intelligence — it is the capacity to convert plans into realized outcomes consistently and at scale."
+
+---
+
+GOVERNANCE TRANSLATIONS:
+
+PHARMACEUTICAL / LIFE SCIENCES:
+Governance constrained →
+"Scientific insights are moving too slowly from discovery to commercial strategy. R&D, regulatory, and commercial teams are operating from different intelligence — creating misalignment that costs pipeline velocity and market timing. Decision rights are unclear at critical program inflection points."
+
+HEALTHCARE / HOSPITAL SYSTEMS:
+Governance constrained →
+"Clinical decision-making and administrative decision-making are misaligned. Physician intelligence isn't flowing into operational strategy fast enough. Committee structures are creating decision delays that affect care quality and operational performance."
+
+FINANCIAL SERVICES:
+Governance constrained →
+"Risk decisions and growth decisions are operating from different frameworks. Intelligence generated in risk isn't informing product strategy. Approval processes are creating delays that cost competitive positioning."
+
+TECHNOLOGY:
+Governance constrained →
+"Product, engineering, and go-to-market are moving at different velocities. Customer intelligence generated in sales isn't reaching product roadmap decisions fast enough. Decision rights between business units are creating coordination friction."
+
+GOVERNMENT / PUBLIC SECTOR:
+Governance constrained →
+"Policy decisions are being made without sufficient operational intelligence. Program outcomes aren't feeding back into policy design. Inter-agency coordination is creating gaps where accountability is unclear."
+
+REAL ESTATE:
+Governance constrained →
+"Investment decisions are moving slower than market opportunities require. Deal intelligence isn't flowing from acquisitions to asset management. Decision rights between partners, operators, and investors are creating friction."
+
+MANUFACTURING:
+Governance constrained →
+"Operational decisions are moving through approval structures slower than production requirements demand. Quality and safety governance is strong but strategic governance is fragmented. Cross-facility coordination creates decision delays."
+
+RETAIL / CONSUMER:
+Governance constrained →
+"Brand, merchandising, and supply chain decisions are misaligned. Market intelligence from stores isn't reaching category strategy fast enough. Decision velocity is slower than consumer and competitive dynamics require."
+
+ENERGY:
+Governance constrained →
+"Capital allocation decisions are moving slower than market opportunities require. Regulatory and operational decision-making are not well coordinated. Project governance creates delays that cost competitive positioning."
+
+EDUCATION:
+Governance constrained →
+"Academic and administrative decision-making are misaligned. Faculty intelligence isn't flowing into institutional strategy. Committee structures are slowing decisions that student outcomes require."
+
+DEFAULT:
+Governance constrained →
+"Decision-making is slower and more fragmented than the organization's intelligence warrants. The right decisions aren't being made by the right people at the right time. Accountability is unclear at key decision points. The result is coordination friction that slows transformation."
+
+---
+
+TRUST TRANSLATIONS:
+
+PHARMACEUTICAL / LIFE SCIENCES:
+Trust constrained →
+"Cross-functional alignment is breaking down between R&D, regulatory affairs, and commercial. Clinical learnings aren't feeding back into trial design. Regulatory intelligence isn't informing R&D priorities. The functions that need to operate as one system are operating as separate organizations."
+
+HEALTHCARE / HOSPITAL SYSTEMS:
+Trust constrained →
+"Care coordination is breaking down between departments, shifts, and care settings. Patient intelligence isn't following the patient through the system. Provider trust in administrative decisions is low. The system knows more than it acts on because trust deficits prevent coordination."
+
+FINANCIAL SERVICES:
+Trust constrained →
+"Client intelligence isn't flowing from relationship managers to product teams. Internal trust between business lines is creating information hoarding. The organization knows more about clients and markets than it acts on."
+
+TECHNOLOGY:
+Trust constrained →
+"Cross-functional execution is breaking down. Engineering doesn't trust product prioritization. Sales doesn't trust product timelines. Leadership alignment is inconsistent. Teams are building in parallel rather than in sequence."
+
+GOVERNMENT / PUBLIC SECTOR:
+Trust constrained →
+"Inter-agency trust deficits are preventing intelligence sharing. Citizens don't trust program communications. Internal trust between political and operational leadership is creating execution gaps."
+
+REAL ESTATE:
+Trust constrained →
+"Operator, investor, and tenant intelligence is fragmented. Partner alignment is inconsistent. The organization isn't acting on what it knows about market conditions because trust deficits prevent coordination."
+
+MANUFACTURING:
+Trust constrained →
+"Operations, quality, and commercial teams aren't operating from shared intelligence. Frontline operational knowledge isn't flowing to strategic decision-making. Management and workforce trust deficits are limiting transformation capacity."
+
+RETAIL / CONSUMER:
+Trust constrained →
+"Store-level intelligence isn't flowing to corporate strategy. Brand and commercial teams aren't aligned. Consumer trust in the brand is under pressure. Internal misalignment is visible to customers."
+
+ENERGY:
+Trust constrained →
+"Operational and strategic teams aren't operating from shared intelligence. Regulatory relationships require rebuilding. Community trust is affecting operating license. Internal alignment on transformation direction is inconsistent."
+
+EDUCATION:
+Trust constrained →
+"Faculty don't trust administrative direction. Students don't trust institutional communications. Community trust in the institution's mission and outcomes is under pressure. Internal alignment is preventing transformation."
+
+DEFAULT:
+Trust constrained →
+"The coordination infrastructure required for transformation is weak. Teams aren't operating from shared intelligence. Information is being hoarded rather than shared. The organization knows more than it acts on because trust deficits prevent the coordination transformation requires."
+
+---
+
+INTELLIGENCE TRANSLATIONS:
+
+PHARMACEUTICAL / LIFE SCIENCES:
+Intelligence constrained →
+"Scientific knowledge is being generated but isn't becoming organizational capability. Insights from trials, regulatory submissions, and market interactions are leaking rather than compounding. AI tools are being deployed but the intelligence they generate isn't flowing to where decisions are made."
+
+HEALTHCARE / HOSPITAL SYSTEMS:
+Intelligence constrained →
+"Clinical data is abundant but insight extraction is slow. Patient outcome intelligence isn't flowing to care protocol design. Operational data exists but isn't becoming operational decisions. The organization is data-rich and insight-poor."
+
+FINANCIAL SERVICES:
+Intelligence constrained →
+"Market intelligence, client data, and risk signals exist but aren't flowing to where decisions are made. AI tools are deployed but intelligence generation is inconsistent. The organization is making decisions on less intelligence than it actually possesses."
+
+TECHNOLOGY:
+Intelligence constrained →
+"Customer intelligence from support, sales, and usage data isn't flowing to product and engineering decisions fast enough. The organization is generating more user intelligence than it acts on. Decision support systems aren't keeping pace with the intelligence available."
+
+GOVERNMENT / PUBLIC SECTOR:
+Intelligence constrained →
+"Program performance data exists but isn't flowing to policy decisions. Citizen intelligence isn't informing service design. The organization is measuring activity rather than outcomes. Available intelligence isn't becoming policy or operational decisions."
+
+REAL ESTATE:
+Intelligence constrained →
+"Market data, tenant intelligence, and asset performance data exist but aren't flowing to investment and operational decisions fast enough. The organization is making decisions on less intelligence than the market provides."
+
+MANUFACTURING:
+Intelligence constrained →
+"Operational data from the floor isn't flowing to strategic decisions. Quality and maintenance intelligence exists but isn't compounding into capability. The organization has more operational intelligence than it acts on."
+
+RETAIL / CONSUMER:
+Intelligence constrained →
+"Consumer data, sales intelligence, and competitive signals exist but aren't flowing to category, brand, and supply chain decisions fast enough. The organization is generating more consumer intelligence than it acts on."
+
+ENERGY:
+Intelligence constrained →
+"Operational, market, and regulatory intelligence exists but isn't flowing to strategic decisions fast enough. The organization is making capital allocation decisions on less intelligence than it actually possesses."
+
+EDUCATION:
+Intelligence constrained →
+"Student outcome data, faculty intelligence, and market signals exist but aren't flowing to curriculum and institutional strategy decisions. The organization knows more about student needs than it acts on."
+
+DEFAULT:
+Intelligence constrained →
+"The organization is generating more intelligence than it acts on. Data exists but insight extraction is slow. AI tools are deployed but intelligence isn't flowing to where decisions are made. The constraint is not intelligence availability — it is intelligence activation."
+
+---
+
+APPLICATION RULES FOR INDUSTRY TRANSLATIONS:
+
+1. Detect the entity's industry from its business model, products, services, and sector.
+2. For each constrained domain (score below 70), apply the industry-specific translation above.
+3. Use the translation text in hidden_constraints and constraint diagnostic language.
+4. The translation becomes the primary text the user reads — not the generic framework term.
+5. Keep the framework term (e.g. "Governance™") as a label only.
+6. Never output "Governance constrained" or "Absorbability constrained" as primary user-facing text.
+7. Always translate into the industry's natural language.
+8. If an entity spans multiple industries, use the closest primary industry match.
 `;
 
 function extractJson(text: string) {
@@ -524,6 +803,10 @@ export async function generateLensSnapshot(query: string): Promise<LensSnapshot>
     trust_quadrant_explanation: parsed.trust_quadrant_explanation,
     trust_alignment_gap: parsed.trust_alignment_gap,
     trust_alignment_explanation: parsed.trust_alignment_explanation,
+
+    // v1.7 Industry Translation Layer™
+    detected_industry: parsed.detected_industry,
+    constraint_translations: parsed.constraint_translations,
 
     updated_at: new Date().toISOString()
   };

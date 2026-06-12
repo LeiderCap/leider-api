@@ -121,9 +121,11 @@ interface DeterminantsSectionProps {
   determinants: DeterminantItem[];
   primaryConstraint?: string;
   secondaryConstraint?: string;
+  detectedIndustry?: string;
+  constraintTranslations?: Record<string, string>;
 }
 
-export function DeterminantsSection({ determinants, primaryConstraint, secondaryConstraint }: DeterminantsSectionProps) {
+export function DeterminantsSection({ determinants, primaryConstraint, secondaryConstraint, detectedIndustry, constraintTranslations }: DeterminantsSectionProps) {
   const [activeInfo, setActiveInfo] = useState<string | null>(null);
 
   // Find the first severe constraint callout to show (numeric < 55 AND is primary/secondary constraint)
@@ -196,12 +198,45 @@ export function DeterminantsSection({ determinants, primaryConstraint, secondary
           })}
         </div>
 
+        {/* Primary Constraint™ with industry translation */}
+        {primaryConstraint && (() => {
+          const domainKey = primaryConstraint.toLowerCase().split(' ')[0];
+          const translation = constraintTranslations?.[domainKey];
+          return (
+            <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-4">
+              <p className="text-[11px] font-semibold uppercase tracking-wider text-amber-600 mb-1">
+                ⚠️ Primary Constraint™ — {primaryConstraint}
+                {detectedIndustry && (
+                  <span className="ml-2 font-normal normal-case text-amber-500">({detectedIndustry})</span>
+                )}
+              </p>
+              {translation ? (
+                <p className="text-sm text-amber-800 leading-6">{translation}</p>
+              ) : null}
+              {secondaryConstraint && (() => {
+                const secKey = secondaryConstraint.toLowerCase().split(' ')[0];
+                const secTranslation = constraintTranslations?.[secKey];
+                return (
+                  <div className="mt-2 pt-2 border-t border-amber-200">
+                    <p className="text-[11px] font-semibold uppercase tracking-wider text-amber-500 mb-0.5">
+                      Secondary Constraint™ — {secondaryConstraint}
+                    </p>
+                    {secTranslation && (
+                      <p className="text-xs text-amber-700 leading-5">{secTranslation}</p>
+                    )}
+                  </div>
+                );
+              })()}
+            </div>
+          );
+        })()}
+
         {/* Constraint Gap™ callout — shown when a domain is < 55 and is primary/secondary constraint */}
         {severeCallout && (() => {
           const callout = CONSTRAINT_CALLOUTS[severeCallout.label];
           if (!callout) return null;
           return (
-            <div className="mt-4 rounded-xl border border-amber-300 bg-amber-50 p-4">
+            <div className="mt-3 rounded-xl border border-amber-300 bg-amber-50 p-4">
               <p className="text-sm font-bold text-amber-800">{callout.title}</p>
               <p className="mt-1 text-sm text-amber-700 leading-6">{callout.body}</p>
               <Link

@@ -272,6 +272,8 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
           determinants={determinantData}
           primaryConstraint={item.primary_constraint}
           secondaryConstraint={item.secondary_constraint}
+          detectedIndustry={item.detected_industry}
+          constraintTranslations={item.constraint_translations}
         />
       </div>
 

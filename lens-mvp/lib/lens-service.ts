@@ -116,6 +116,10 @@ function mapDbToSnapshot(row: any): LensSnapshot {
     trust_alignment_gap: score?.trust_alignment_gap ?? undefined,
     trust_alignment_explanation: score?.trust_alignment_explanation ?? undefined,
 
+    // v1.7 Industry Translation Layer™
+    detected_industry: score?.detected_industry ?? undefined,
+    constraint_translations: score?.constraint_translations ?? undefined,
+
     updated_at: score?.updated_at ?? row.created_at
   };
 }
@@ -243,6 +247,10 @@ export async function saveLensSnapshot(snapshot: LensSnapshot) {
     trust_quadrant_explanation: snapshot.trust_quadrant_explanation ?? null,
     trust_alignment_gap: snapshot.trust_alignment_gap ?? null,
     trust_alignment_explanation: snapshot.trust_alignment_explanation ?? null,
+
+    // v1.7 Industry Translation Layer™
+    detected_industry: snapshot.detected_industry ?? null,
+    constraint_translations: snapshot.constraint_translations ?? null,
 
     updated_at: new Date().toISOString()
   });

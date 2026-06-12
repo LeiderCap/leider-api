@@ -214,3 +214,11 @@ CREATE TABLE IF NOT EXISTS waitlist (
 -- delete from lens_scores;
 -- delete from companies;
 -- ============================================
+
+-- v1.7 Migration — Industry Translation Layer™
+-- Run in Supabase SQL Editor:
+-- ============================================
+-- ALTER TABLE lens_scores
+--   ADD COLUMN IF NOT EXISTS detected_industry text,
+--   ADD COLUMN IF NOT EXISTS constraint_translations jsonb;
+-- ============================================
