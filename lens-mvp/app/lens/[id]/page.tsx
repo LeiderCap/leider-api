@@ -7,6 +7,7 @@ import { LensSnapshot, CapacityGap } from '@/lib/types';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import ShareButton from './ShareButton';
+import SaveButton from '@/components/SaveButton';
 import { ScorecardExplainer } from './ScorecardExplainer';
 import { DeterminantsSection } from './DeterminantsSection';
 import { TcsHero } from './TcsHero';
@@ -475,6 +476,11 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
           </div>
           <div className="flex flex-wrap gap-2">
             <BlueprintRequestForm companyId={item.id} companyName={item.name} />
+            <SaveButton
+              itemType="lens_card"
+              title={item.name}
+              content={item as unknown as Record<string, unknown>}
+            />
             <ShareButton id={item.id} />
           </div>
         </div>
