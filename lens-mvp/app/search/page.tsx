@@ -63,7 +63,7 @@ function LensAnalysisSection({ item, isLive }: { item: LensSnapshot; isLive: boo
       {/* OVG™ Callout */}
       {item.opportunity_visibility_gap && (
         <div className="flex items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
-          <p className="text-xs font-semibold text-slate-500">Opportunity Visibility Gap™:</p>
+          <p className="text-xs font-semibold text-slate-500" title="How many valuable opportunities this company may be missing or undervaluing.">Opportunity Visibility Gap™ ⓘ</p>
           <span className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${
             item.opportunity_visibility_gap === 'High'
               ? 'bg-red-50 text-red-700 border border-red-200'
@@ -176,7 +176,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
       <Link href="/" className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">← Back</Link>
 
       <div className="mt-6">
-        <Suspense fallback={null}><SearchBox initialValue={query} /></Suspense>
+        <Suspense fallback={null}><SearchBox initialValue={query} showHelper /></Suspense>
       </div>
 
       {!query && (

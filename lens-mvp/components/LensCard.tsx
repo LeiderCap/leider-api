@@ -21,6 +21,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { LensSnapshot, CapacityGap } from '@/lib/types';
+import { Tooltip } from '@/components/Tooltip';
 
 const ratingClass: Record<string, string> = {
   Leading:      'rating-leading',
@@ -114,17 +115,17 @@ const CONSTRAINT_CALLOUTS: Record<string, { title: string; body: string; anchor:
 
 const DETERMINANT_TOOLTIPS: Record<string, string> = {
   'Intelligence™':
-    'The quality and availability of intelligence inputs available to this organization. High intelligence access enables better decisions and faster adaptation.',
+    'How well this company gathers and uses information to make decisions. Strong intelligence means leaders have the right data at the right time.',
   'Absorbability™':
-    "The organization's capacity to absorb, process, and operationalize new intelligence. Low absorbability means intelligence exists but cannot be converted into action.",
+    'How quickly this company can take in new information and act on it. Low absorbability means good ideas exist but never get implemented.',
   'Trust™':
-    'The strength of trust infrastructure across leadership, teams, systems, and governance. Trust is a prerequisite for transformation — without it, change stalls.',
+    'The level of internal and external trust that enables transformation. Without trust, even well-funded change initiatives stall.',
   'Governance™':
-    'The quality of decision-making structures, velocity, and accountability. Poor governance creates friction that slows or blocks transformation.',
+    'How well this company’s leadership structures support change and decision-making. Poor governance creates friction that slows everything down.',
   'Courage™':
-    'The willingness to make difficult, necessary transformation decisions. Structural courage determines whether organizations act on what they know.',
+    'How willing this company is to make bold moves and challenge the status quo. Courage is what turns good analysis into real action.',
   'Execution™':
-    'The track record and capacity for sustained implementation. Organizations can plan transformation but fail to execute it.',
+    'How effectively this company follows through on its plans. Strong execution means ideas become results, not just presentations.',
 };
 
 const TCS_TIER_ROWS: { tier: string; abbr: string; dot: string; text: string }[] = [
@@ -351,7 +352,7 @@ export function LensCard({ item }: { item: LensSnapshot }) {
   }
 
   const PRIVATE_TOP_UNLOCK =
-    'To ensure accuracy, private companies require more information from the client. Request a Blueprint™ for your Unlock options.';
+    'This appears to be a private company. Request an Enterprise Analysis™ for full coverage.';
 
   const isUnlockable = (val: string) =>
     !val || val === 'N/A' || val === 'Private — additional details needed';
@@ -417,7 +418,9 @@ export function LensCard({ item }: { item: LensSnapshot }) {
           </div>
         </div>
 
-        <p className="mt-2 text-xs text-slate-400">Transformation Capacity Score™</p>
+        <Tooltip text="How well this company can turn new ideas and information into real results. Higher is better." position="bottom">
+          <p className="mt-2 text-xs text-slate-400">Transformation Capacity Score™</p>
+        </Tooltip>
         <Link href="/methodology" className="mt-0.5 text-xs text-slate-400 hover:text-slate-600 underline underline-offset-2">
           Rated by Lens Ratings Methodology™ v1.1 →
         </Link>
@@ -569,7 +572,9 @@ export function LensCard({ item }: { item: LensSnapshot }) {
 
         {/* Transformation Capacity Gap™ with ⓘ */}
         <div className="mt-3 flex items-center gap-2">
-          <p className="text-xs text-slate-400">Transformation Capacity Gap™:</p>
+          <Tooltip text="The distance between where this company is and where it could be. A larger gap means more unrealized potential.">
+            <p className="text-xs text-slate-400">Transformation Capacity Gap™:</p>
+          </Tooltip>
           <span className={`rounded-full border px-2 py-0.5 text-xs font-semibold ${gc}`}>
             {item.transformation_capacity_gap}
           </span>
@@ -587,11 +592,10 @@ export function LensCard({ item }: { item: LensSnapshot }) {
           <p className="text-xs font-semibold text-slate-400">Top Unlock™</p>
           {isStalePrivateFallback ? (
             <p className="mt-1 text-sm text-amber-700 font-medium leading-snug">
-              Analysis updating —{' '}
-              <Link href={`/lens/${item.id}`} className="underline">
-                view full card
-              </Link>{' '}
-              for latest data.
+              This appears to be a private company.{' '}
+              <Link href="/enterprises" className="underline hover:text-amber-900">
+                Request an Enterprise Analysis™ for full coverage.
+              </Link>
             </p>
           ) : (
             <p className="mt-1 text-sm font-semibold leading-snug">{topUnlockDisplay}</p>
@@ -606,7 +610,9 @@ export function LensCard({ item }: { item: LensSnapshot }) {
             </span>
           </div>
           <div className="mt-2 border-t border-slate-200 pt-2">
-            <p className="text-xs text-slate-400">Equity Reclamation™</p>
+            <Tooltip text="The potential value that could be recovered by addressing transformation gaps." position="top">
+              <p className="text-xs text-slate-400">Equity Reclamation™</p>
+            </Tooltip>
             {isUnlockable(item.equity_reclamation) ? (
               <p className="mt-0.5 text-xs font-semibold text-indigo-600">
                 Unlockable via Blueprint™

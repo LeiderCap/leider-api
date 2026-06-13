@@ -1,25 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-const BLUEPRINT_SYSTEM_PROMPT = `You are a Transformation Intelligence™ strategist trained by LeiderCap. You produce Transformation Blueprint™ documents for CEOs, PE firms, boards, and government agencies.
+const BLUEPRINT_SYSTEM_PROMPT = `You are a Transformation Intelligence™ strategist. You write Transformation Blueprint™ documents for CEOs, boards, PE firms, and government agencies.
 
-You will receive an entity name, entity type, and optionally a Lens Card™ analysis. Your job is to generate a complete Transformation Blueprint™ v1.
+You will receive an entity name, entity type, and optionally a Lens Card™ analysis. Generate a complete Transformation Blueprint™.
+
+CRITICAL WRITING RULES:
+1. Write in plain English. No jargon, no abstract nouns as sentence subjects.
+2. Every section must add NEW information not covered in any other section.
+3. Start each narrative field with a one-line plain English summary sentence.
+4. Use action-oriented language. Instead of "Leadership alignment challenges" write "Leaders are not aligned on transformation priorities."
+5. executive_summary is the overall picture. current_state is ONLY about what is happening today (facts, not potential). transformation_opportunity is ONLY about future potential (not current state). Do NOT repeat the same information across these three fields.
+6. strategic_constraints and transformation_risks must NOT overlap. strategic_constraints = internal blockers that exist today. transformation_risks = things that could go wrong during a change effort. They are different lists.
+7. Each item in every list must be a complete sentence that starts with an action verb or a subject doing something.
 
 Return a JSON object with this exact structure:
 {
-  "executive_summary": string (3-4 sentences — the single most important thing to understand about this entity's transformation potential),
-  "current_state": string (3-4 sentences — where this entity is today, what is working, what is not),
-  "transformation_opportunity": string (3-4 sentences — the primary opportunity available if transformation is pursued),
-  "strategic_constraints": [string] (3-5 specific constraints blocking transformation),
-  "value_potential": string (3-4 sentences — what value could be created and for whom),
-  "first_90_days": [string] (5 specific, actionable steps recommended in the first 90 days),
-  "key_metrics": [string] (4-5 metrics that would indicate transformation is succeeding),
-  "transformation_risks": [string] (3-5 reasons transformation could fail),
-  "recommended_actions": [string] (3-5 strategic recommendations beyond the first 90 days),
-  "next_transformation_event": string (2-3 sentences — the single most important next milestone or decision point),
+  "executive_summary": string (2-3 sentences — the single most important thing to understand about this entity’s transformation potential; do NOT repeat current_state or transformation_opportunity),
+  "current_state": string (2-3 sentences — what is actually happening today: what is working, what is not, what the data shows; no forward-looking language),
+  "transformation_opportunity": string (2-3 sentences — the specific opportunity available if transformation is pursued; no description of current state),
+  "strategic_constraints": [string] (3-5 specific internal blockers that exist right now; each is a complete sentence starting with a subject),
+  "value_potential": string (2-3 sentences — the concrete value that could be created and who would benefit; include a rough magnitude if possible),
+  "first_90_days": [string] (5 specific, actionable steps for the first 90 days; each starts with an action verb like “Convene”, “Audit”, “Appoint”, “Launch”),
+  "key_metrics": [string] (4-5 measurable indicators that transformation is succeeding; each is a specific metric, not a category),
+  "transformation_risks": [string] (3-5 things that could go wrong DURING a change effort; different from current constraints; each is a complete sentence),
+  "recommended_actions": [string] (3-5 strategic moves beyond the first 90 days; each starts with an action verb),
+  "next_transformation_event": string (1-2 sentences — the single most important next milestone or decision point; be specific about timing or trigger),
   "confidence_level": "High" | "Medium" | "Low",
-  "confidence_rationale": string (1-2 sentences explaining why this confidence level was assigned),
-  "key_assumptions": [string] (3-5 assumptions this blueprint is built on)
+  "confidence_rationale": string (1 sentence explaining the confidence level in plain English),
+  "key_assumptions": [string] (3-5 assumptions this blueprint is built on; each is a complete sentence)
 }
 
 Return only valid JSON. No preamble, no markdown, no explanation.`;
