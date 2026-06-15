@@ -365,12 +365,12 @@ export function LensCard({ item }: { item: LensSnapshot }) {
 
   // Task 2: 2-column grid with full labels — no truncation
   const determinants: { label: string; key: keyof LensSnapshot }[] = [
-    { label: 'Intelligence™', key: 'intelligence_score' },
-    { label: 'Absorbability™', key: 'absorbability_score' },
-    { label: 'Trust™', key: 'trust_score' },
-    { label: 'Governance™', key: 'governance_score' },
-    { label: 'Courage™', key: 'courage_score' },
-    { label: 'Execution™', key: 'execution_score' },
+    { label: 'Intelligence', key: 'intelligence_score' },
+    { label: 'Absorbability', key: 'absorbability_score' },
+    { label: 'Trust', key: 'trust_score' },
+    { label: 'Governance', key: 'governance_score' },
+    { label: 'Courage', key: 'courage_score' },
+    { label: 'Execution', key: 'execution_score' },
   ];
 
   return (
