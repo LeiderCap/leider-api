@@ -76,6 +76,9 @@ export interface LensSnapshot {
   trust_alignment_gap?: string | null;
   trust_alignment_explanation?: string | null;
 
+  // v1.8 Opportunity ID™
+  opportunity_id?: string | null;
+
   // v1.7 Industry Translation Layer™
   detected_industry?: string | null;
   constraint_translations?: {

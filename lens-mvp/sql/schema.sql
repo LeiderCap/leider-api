@@ -284,3 +284,7 @@ CREATE TABLE IF NOT EXISTS enterprise_inquiries (
 );
 
 ALTER TABLE enterprise_inquiries DISABLE ROW LEVEL SECURITY;
+
+-- ─── v2.1 Migration — Opportunity ID™ (OID™) ─────────────────────────────────
+-- Run in Supabase SQL Editor:
+ALTER TABLE lens_scores ADD COLUMN IF NOT EXISTS opportunity_id text;

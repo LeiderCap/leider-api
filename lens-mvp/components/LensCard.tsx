@@ -22,6 +22,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { LensSnapshot, CapacityGap } from '@/lib/types';
 import { Tooltip } from '@/components/Tooltip';
+import { OidBadge } from '@/components/OidBadge';
 
 const ratingClass: Record<string, string> = {
   Leading:      'rating-leading',
@@ -623,8 +624,15 @@ export function LensCard({ item }: { item: LensSnapshot }) {
           </div>
         </div>
 
+        {/* OID™ reference line */}
+        {item.opportunity_id && (
+          <div className="mt-4 pt-3 border-t border-slate-100">
+            <OidBadge oid={item.opportunity_id} />
+          </div>
+        )}
+
         {/* Actions */}
-        <div className="mt-5 flex gap-2 border-t border-slate-100 pt-4">
+        <div className="mt-3 flex gap-2 border-t border-slate-100 pt-4">
           <Link
             href={`/lens/${item.id}`}
             onClick={() => setNavigating(true)}

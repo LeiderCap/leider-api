@@ -67,6 +67,9 @@ const LensAiSchema = z.object({
   trust_alignment_gap: z.string().nullable().optional(),
   trust_alignment_explanation: z.string().nullable().optional(),
 
+  // v1.8 Opportunity ID™
+  opportunity_id: z.string().nullable().optional(),
+
   // v1.7 Industry Translation Layer™
   detected_industry: z.string().nullable().optional(),
   // constraint_translations: individual keys may be null or absent when score >= 70
@@ -157,10 +160,10 @@ IMPORTANT ARRAY LIMITS (strictly enforced):
     "execution": "Industry-specific translation of the execution constraint (only include if execution_numeric < 70)",
     "governance": "Industry-specific translation of the governance constraint (only include if governance_numeric < 70)",
     "trust": "Industry-specific translation of the trust constraint (only include if trust_numeric < 70)",
-    "intelligence": "Industry-specific translation of the intelligence constraint (only include if intelligence_numeric < 70)"
-  }
+        "intelligence": "Industry-specific translation of the intelligence constraint (only include if intelligence_numeric < 70)"
+  },
+  "opportunity_id": "OID-[YEAR]-[ENTITY]-[CATEGORY]-001 where YEAR=2026, ENTITY=3-6 letter uppercase code derived from the entity name (e.g. MSFT, FERRING, APPLE, ERIE, CA), CATEGORY=TCA|WFT|GOV|AI|TRU based on primary constraint (default TCA). Example: OID-2026-FERRING-TCA-001"
 }
-
 IMPORTANT: The following fields must be returned with EXACT values as listed below.
 Do not paraphrase, abbreviate, capitalize differently, or use any other value.
 
@@ -892,6 +895,9 @@ export async function generateLensSnapshot(query: string): Promise<LensSnapshot>
     // v1.7 Industry Translation Layer™
     detected_industry: parsed.detected_industry,
     constraint_translations: parsed.constraint_translations,
+
+    // v1.8 Opportunity ID™
+    opportunity_id: parsed.opportunity_id ?? null,
 
     updated_at: new Date().toISOString()
   };

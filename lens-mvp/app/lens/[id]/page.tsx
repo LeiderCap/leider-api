@@ -13,6 +13,7 @@ import { DeterminantsSection } from './DeterminantsSection';
 import { TcsHero } from './TcsHero';
 import { QspInfoButton } from '@/components/QspInfoButton';
 import TrustQuadrantDiagnostic from '@/components/TrustQuadrantDiagnostic';
+import { OidBadge } from '@/components/OidBadge';
 
 const ratingClass: Record<string, string> = {
   Leading:      'rating-leading',
@@ -136,6 +137,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
           <div>
             <h1 className="text-3xl font-bold text-slate-900">{item.name}</h1>
             <p className="mt-1 text-sm text-slate-500">Lens Analysis™ · Transformation Intelligence™</p>
+            {item.opportunity_id && <OidBadge oid={item.opportunity_id} />}
           </div>
 
           {item.what_lens_sees && (

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import type { LensSnapshot } from '@/lib/types';
 import { QspInfoButton } from '@/components/QspInfoButton';
 import TrustQuadrantDiagnostic from '@/components/TrustQuadrantDiagnostic';
+import { OidBadge } from '@/components/OidBadge';
 
 // ── Analysis Narrative Section ────────────────────────────────────────────────
 
@@ -50,8 +51,11 @@ function LensAnalysisSection({ item, isLive }: { item: LensSnapshot; isLive: boo
           </span>
         )}
       </div>
-      <p className="text-sm text-slate-500">Lens Analysis™ · Transformation Intelligence™</p>
-
+            <p className="text-sm text-slate-500">Lens Analysis™ · Transformation Intelligence™</p>
+      {/* OID™ reference line */}
+      {item.opportunity_id && (
+        <OidBadge oid={item.opportunity_id} />
+      )}
       {/* Section 2 — What Lens Sees™ (dark hero card) */}
       {item.what_lens_sees && (
         <div className="rounded-xl bg-slate-900 p-6 text-white">
