@@ -1,13 +1,15 @@
 import Stripe from 'stripe';
+import Link from 'next/link';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export default async function SuccessPage({
   searchParams,
 }: {
-  searchParams: { session_id?: string };
+  searchParams: Promise<{ session_id?: string }>;
 }) {
-  const sessionId = searchParams.session_id;
+  const params = await searchParams;
+  const sessionId = params.session_id;
 
   if (!sessionId) {
     return (
@@ -15,7 +17,7 @@ export default async function SuccessPage({
         <div className="text-center">
           <h1 className="text-2xl font-bold text-slate-900">Invalid Session</h1>
           <p className="text-slate-600 mt-2">No session found. Please try again.</p>
-          <a href="/search" className="btn btn-primary mt-4 inline-block">Return to Search</a>
+          <Link href="/search" className="inline-block mt-4 bg-orange-500 text-slate-900 font-bold px-6 py-3 rounded-xl">Return to Search</Link>
         </div>
       </div>
     );
@@ -26,8 +28,8 @@ export default async function SuccessPage({
 
   try {
     const session = await stripe.checkout.sessions.retrieve(sessionId);
-    // For subscriptions, status='complete' and payment_status='no_payment_required'
-    // For one-time payments, payment_status='paid'
+    // For subscriptions: status='complete', payment_status='no_payment_required'
+    // For one-time payments: payment_status='paid'
     isPaid = session.status === 'complete' || session.payment_status === 'paid';
     customerEmail = session.customer_details?.email ?? '';
   } catch (err) {
@@ -40,7 +42,7 @@ export default async function SuccessPage({
         <div className="text-center max-w-md">
           <h1 className="text-2xl font-bold text-slate-900">Payment Not Confirmed</h1>
           <p className="text-slate-600 mt-2">We could not verify your payment. If you completed checkout, please wait a moment and refresh.</p>
-          <a href="/search" className="btn btn-primary mt-4 inline-block">Return to Search</a>
+          <Link href="/search" className="inline-block mt-4 bg-orange-500 text-slate-900 font-bold px-6 py-3 rounded-xl">Return to Search</Link>
         </div>
       </div>
     );
@@ -76,12 +78,12 @@ export default async function SuccessPage({
             </div>
           ))}
         </div>
-        <a
+        <Link
           href="/search"
           className="block w-full bg-orange-500 hover:bg-orange-600 text-slate-900 font-bold py-4 rounded-xl transition-colors"
         >
           Start Exploring The Lens™
-        </a>
+        </Link>
       </div>
     </div>
   );
