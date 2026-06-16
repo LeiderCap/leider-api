@@ -14,6 +14,7 @@ import { TcsHero } from './TcsHero';
 import { QspInfoButton } from '@/components/QspInfoButton';
 import TrustQuadrantDiagnostic from '@/components/TrustQuadrantDiagnostic';
 import { OidBadge } from '@/components/OidBadge';
+import { FoundingMemberPaywall } from '@/components/FoundingMemberPaywall';
 
 const ratingClass: Record<string, string> = {
   Leading:      'rating-leading',
@@ -467,6 +468,11 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
           </Link>
         </div>
       </section>
+      {/* ── Founding Member Paywall ───────────────────────────────────────── */}
+      <div className="mt-6">
+        <FoundingMemberPaywall companyName={item.name} ticker={item.ticker} />
+      </div>
+
 
       {/* ── 10. Blueprint™ CTA ────────────────────────────────────────────── */}
       <section className="card mt-6 p-6 bg-slate-50">

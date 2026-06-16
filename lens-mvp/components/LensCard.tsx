@@ -23,6 +23,7 @@ import { useState } from 'react';
 import { LensSnapshot, CapacityGap } from '@/lib/types';
 import { Tooltip } from '@/components/Tooltip';
 import { OidBadge } from '@/components/OidBadge';
+import { FoundingMemberPaywall } from '@/components/FoundingMemberPaywall';
 
 const ratingClass: Record<string, string> = {
   Leading:      'rating-leading',
@@ -623,6 +624,9 @@ export function LensCard({ item }: { item: LensSnapshot }) {
             )}
           </div>
         </div>
+
+        {/* Founding Member Paywall */}
+        <FoundingMemberPaywall companyName={item.name} ticker={item.ticker} />
 
         {/* OID™ reference line */}
         {item.opportunity_id && (

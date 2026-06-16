@@ -288,3 +288,22 @@ ALTER TABLE enterprise_inquiries DISABLE ROW LEVEL SECURITY;
 -- ─── v2.1 Migration — Opportunity ID™ (OID™) ─────────────────────────────────
 -- Run in Supabase SQL Editor:
 ALTER TABLE lens_scores ADD COLUMN IF NOT EXISTS opportunity_id text;
+
+-- ─── v2.2 Migration — lens_reports (Stripe paywall) ─────────────────────────
+-- Run in Supabase SQL Editor:
+CREATE TABLE IF NOT EXISTS lens_reports (
+  id                uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
+  company_name      text,
+  ticker            text,
+  user_email        text,
+  free_report_json  jsonb,
+  paid_report_json  jsonb,
+  payment_status    text        DEFAULT 'free',
+  stripe_session_id text,
+  stripe_customer_id text,
+  session_id        text,
+  created_at        timestamptz DEFAULT now(),
+  updated_at        timestamptz DEFAULT now()
+);
+
+ALTER TABLE lens_reports DISABLE ROW LEVEL SECURITY;
