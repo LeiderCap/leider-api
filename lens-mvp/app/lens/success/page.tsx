@@ -1,116 +1,88 @@
-import Link from 'next/link';
 import Stripe from 'stripe';
 
-interface SuccessPageProps {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+export default async function SuccessPage({
+  searchParams,
+}: {
   searchParams: { session_id?: string };
-}
-
-async function getSession(sessionId: string) {
-  try {
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-    const session = await stripe.checkout.sessions.retrieve(sessionId);
-    return session;
-  } catch {
-    return null;
-  }
-}
-
-export default async function SuccessPage({ searchParams }: SuccessPageProps) {
+}) {
   const sessionId = searchParams.session_id;
-  const session = sessionId ? await getSession(sessionId) : null;
 
-  // For subscription mode, Stripe sets status='complete' and payment_status='no_payment_required'
-  // For one-time payments, payment_status='paid'. Accept both.
-  const isActive =
-    session?.status === 'complete' ||
-    session?.payment_status === 'paid';
+  if (!sessionId) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-slate-900">Invalid Session</h1>
+          <p className="text-slate-600 mt-2">No session found. Please try again.</p>
+          <a href="/search" className="btn btn-primary mt-4 inline-block">Return to Search</a>
+        </div>
+      </div>
+    );
+  }
 
-  const company = session?.metadata?.company ?? '';
+  let isPaid = false;
+  let customerEmail = '';
+
+  try {
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    // For subscriptions, status='complete' and payment_status='no_payment_required'
+    // For one-time payments, payment_status='paid'
+    isPaid = session.status === 'complete' || session.payment_status === 'paid';
+    customerEmail = session.customer_details?.email ?? '';
+  } catch (err) {
+    console.error('Stripe session lookup error:', err);
+  }
+
+  if (!isPaid) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center max-w-md">
+          <h1 className="text-2xl font-bold text-slate-900">Payment Not Confirmed</h1>
+          <p className="text-slate-600 mt-2">We could not verify your payment. If you completed checkout, please wait a moment and refresh.</p>
+          <a href="/search" className="btn btn-primary mt-4 inline-block">Return to Search</a>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <main className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
+    <div className="min-h-screen flex items-center justify-center px-6">
       <div className="max-w-lg w-full text-center">
-        {isActive ? (
-          <>
-            {/* Success state */}
-            <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-              <svg className="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-              </svg>
+        <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
+          <span className="text-3xl">✦</span>
+        </div>
+        <p className="text-orange-500 font-semibold uppercase tracking-wide text-sm mb-2">
+          Founding Transformation Member™
+        </p>
+        <h1 className="text-3xl font-bold text-slate-900 mb-4">
+          Welcome to The Lens™
+        </h1>
+        <p className="text-slate-600 mb-8">
+          {customerEmail ? `${customerEmail} — your` : 'Your'} membership is now active. You have full access to Transformation Intelligence™.
+        </p>
+        <div className="bg-slate-50 rounded-xl p-6 text-left mb-8 space-y-3">
+          <p className="font-semibold text-slate-900 mb-3">What&apos;s now unlocked:</p>
+          {[
+            'Full Lens Analysis™ for any public company',
+            'Transformation Blueprint™ generation and PDF export',
+            'Go Deep™ content transformation analysis',
+            'Save and revisit all analyses',
+            'Priority access to new features',
+          ].map((item) => (
+            <div key={item} className="flex items-start gap-3">
+              <span className="text-orange-500 mt-0.5">✓</span>
+              <span className="text-slate-700">{item}</span>
             </div>
-
-            <p className="text-[10px] font-bold uppercase tracking-widest text-orange-500 mb-2">
-              Founding Transformation Member™
-            </p>
-            <h1 className="text-3xl font-bold text-slate-900 mb-3">
-              Welcome, Founding Member™
-            </h1>
-            <p className="text-slate-600 mb-2">
-              Your access to The Lens™ is now active.
-            </p>
-            {company && (
-              <p className="text-sm text-slate-500 mb-6">
-                You now have full access to the {company} Lens Analysis™ and every analysis on The Lens™.
-              </p>
-            )}
-
-            <div className="rounded-xl border border-slate-200 bg-white p-5 text-left mb-6">
-              <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">
-                What&apos;s Unlocked
-              </p>
-              <ul className="space-y-2 text-sm text-slate-700">
-                {[
-                  'Full Lens Analysis™ for every company',
-                  'Expanded opportunity analysis',
-                  'Strategic constraints deep-dive',
-                  'Value drivers & risk factors',
-                  'First 90-day recommendations',
-                  'Downloadable Transformation Blueprint™',
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-2">
-                    <span className="text-green-500 font-bold">✓</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="flex flex-col gap-3">
-              <Link
-                href="/search"
-                className="btn btn-primary w-full py-3 text-base font-bold"
-              >
-                Return to The Lens™
-              </Link>
-              <Link
-                href="/blueprint"
-                className="btn btn-secondary w-full py-3 text-base"
-              >
-                Build a Transformation Blueprint™
-              </Link>
-            </div>
-          </>
-        ) : (
-          <>
-            {/* Pending / unverified state */}
-            <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-orange-100">
-              <svg className="h-8 w-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-
-            <h1 className="text-2xl font-bold text-slate-900 mb-3">
-              Payment Processing
-            </h1>
-            <p className="text-slate-600 mb-6">
-              Your payment is being processed. If you completed checkout, your access will be activated shortly.
-            </p>
-            <Link href="/search" className="btn btn-primary px-8 py-3">
-              Return to The Lens™
-            </Link>
-          </>
-        )}
+          ))}
+        </div>
+        <a
+          href="/search"
+          className="block w-full bg-orange-500 hover:bg-orange-600 text-slate-900 font-bold py-4 rounded-xl transition-colors"
+        >
+          Start Exploring The Lens™
+        </a>
       </div>
-    </main>
+    </div>
   );
 }
