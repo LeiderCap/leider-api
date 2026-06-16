@@ -469,6 +469,59 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
           </Link>
         </div>
       </section>
+      {/* ── Discovery Intelligence™ ───────────────────────────────────────────────── */}
+      {item.discovery_intelligence && (
+        <section className="card mt-6 p-6">
+          <div className="mb-5 flex items-center gap-3">
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-orange-500">Discovery Intelligence™</p>
+              <h2 className="mt-0.5 text-xl font-bold text-slate-900">What this company may not yet see</h2>
+            </div>
+          </div>
+
+          <div className="space-y-6">
+            {/* Emerging Signals™ */}
+            {item.discovery_intelligence.emerging_signals && (
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400 mb-1">Emerging Signals™</p>
+                <p className="text-sm leading-7 text-slate-700">{item.discovery_intelligence.emerging_signals}</p>
+              </div>
+            )}
+
+            {/* Yet Opportunities™ */}
+            {item.discovery_intelligence.yet_opportunities && (
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400 mb-1">Yet Opportunities™</p>
+                <p className="text-sm leading-7 text-slate-700">{item.discovery_intelligence.yet_opportunities}</p>
+              </div>
+            )}
+
+            {/* Discovery Gap™ */}
+            {item.discovery_intelligence.discovery_gap && (
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400 mb-1">Discovery Gap™</p>
+                <p className="text-sm leading-7 text-slate-700 italic">{item.discovery_intelligence.discovery_gap}</p>
+              </div>
+            )}
+
+            {/* Recommended Experiments™ */}
+            {item.discovery_intelligence.recommended_experiments && item.discovery_intelligence.recommended_experiments.length > 0 && (
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400 mb-2">Recommended Experiments™</p>
+                <ul className="space-y-2">
+                  {item.discovery_intelligence.recommended_experiments.map((exp, i) => (
+                    <li key={i} className="flex items-start gap-3 rounded-xl bg-orange-50 p-3">
+                      <span className="mt-0.5 shrink-0 text-xs font-bold text-orange-500">{i + 1}</span>
+                      <span className="text-sm text-slate-700">{exp}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
       {/* ── Founding Member Paywall ───────────────────────────────────────── */}
       <div className="mt-6">
         <FoundingMemberPaywall companyName={item.name} ticker={item.ticker} />

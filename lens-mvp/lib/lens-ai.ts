@@ -70,6 +70,14 @@ const LensAiSchema = z.object({
   // v1.8 Opportunity ID™
   opportunity_id: z.string().nullable().optional(),
 
+  // v1.9 Discovery Intelligence™
+  discovery_intelligence: z.object({
+    emerging_signals:          z.string().nullable().optional(),
+    yet_opportunities:         z.string().nullable().optional(),
+    discovery_gap:             z.string().nullable().optional(),
+    recommended_experiments:   z.array(z.string()).nullable().optional(),
+  }).nullable().optional(),
+
   // v1.7 Industry Translation Layer™
   detected_industry: z.string().nullable().optional(),
   // constraint_translations: individual keys may be null or absent when score >= 70
@@ -162,7 +170,13 @@ IMPORTANT ARRAY LIMITS (strictly enforced):
     "trust": "Industry-specific translation of the trust constraint (only include if trust_numeric < 70)",
         "intelligence": "Industry-specific translation of the intelligence constraint (only include if intelligence_numeric < 70)"
   },
-  "opportunity_id": "OID-[YEAR]-[ENTITY]-[CATEGORY]-001 where YEAR=2026, ENTITY=3-6 letter uppercase code derived from the entity name (e.g. MSFT, FERRING, APPLE, ERIE, CA), CATEGORY=TCA|WFT|GOV|AI|TRU based on primary constraint (default TCA). Example: OID-2026-FERRING-TCA-001"
+  "opportunity_id": "OID-[YEAR]-[ENTITY]-[CATEGORY]-001 where YEAR=2026, ENTITY=3-6 letter uppercase code derived from the entity name (e.g. MSFT, FERRING, APPLE, ERIE, CA), CATEGORY=TCA|WFT|GOV|AI|TRU based on primary constraint (default TCA). Example: OID-2026-FERRING-TCA-001",
+  "discovery_intelligence": {
+    "emerging_signals": "2-3 sentences: what patterns are appearing in this company's market, technology adoption, or organizational behavior that signal emerging change",
+    "yet_opportunities": "2-3 sentences: what opportunities may exist but are not currently being pursued by this company — adjacent markets, underutilized assets, or capabilities not yet deployed",
+    "discovery_gap": "1-2 sentences: what future value appears underexplored or invisible to current leadership based on the TCS™ profile",
+    "recommended_experiments": ["3 specific, low-cost, time-bounded experiments this company could run to test undiscovered opportunities — each as a complete action sentence"]
+  }
 }
 IMPORTANT: The following fields must be returned with EXACT values as listed below.
 Do not paraphrase, abbreviate, capitalize differently, or use any other value.
@@ -898,6 +912,9 @@ export async function generateLensSnapshot(query: string): Promise<LensSnapshot>
 
     // v1.8 Opportunity ID™
     opportunity_id: parsed.opportunity_id ?? null,
+
+    // v1.9 Discovery Intelligence™
+    discovery_intelligence: parsed.discovery_intelligence ?? null,
 
     updated_at: new Date().toISOString()
   };

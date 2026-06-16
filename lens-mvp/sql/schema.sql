@@ -307,3 +307,7 @@ CREATE TABLE IF NOT EXISTS lens_reports (
 );
 
 ALTER TABLE lens_reports DISABLE ROW LEVEL SECURITY;
+
+-- ─── v2.3 Migration — Discovery Intelligence™ ────────────────────────────────
+-- Run in Supabase SQL Editor:
+ALTER TABLE lens_scores ADD COLUMN IF NOT EXISTS discovery_intelligence jsonb;

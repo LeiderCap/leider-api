@@ -79,6 +79,14 @@ export interface LensSnapshot {
   // v1.8 Opportunity ID™
   opportunity_id?: string | null;
 
+  // v1.9 Discovery Intelligence™
+  discovery_intelligence?: {
+    emerging_signals?: string | null;
+    yet_opportunities?: string | null;
+    discovery_gap?: string | null;
+    recommended_experiments?: string[] | null;
+  } | null;
+
   // v1.7 Industry Translation Layer™
   detected_industry?: string | null;
   constraint_translations?: {
