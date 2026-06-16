@@ -15,6 +15,7 @@ import { QspInfoButton } from '@/components/QspInfoButton';
 import TrustQuadrantDiagnostic from '@/components/TrustQuadrantDiagnostic';
 import { OidBadge } from '@/components/OidBadge';
 import { FoundingMemberPaywall } from '@/components/FoundingMemberPaywall';
+import { BlueprintGate } from '@/components/BlueprintGate';
 
 const ratingClass: Record<string, string> = {
   Leading:      'rating-leading',
@@ -473,6 +474,9 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
         <FoundingMemberPaywall companyName={item.name} ticker={item.ticker} />
       </div>
 
+      {/* ── Build Transformation Blueprint™ (gated) ──────────────────────── */}
+      <BlueprintGate entityName={item.name} entityId={item.id} />
+
 
       {/* ── 10. Blueprint™ CTA ────────────────────────────────────────────── */}
       <section className="card mt-6 p-6 bg-slate-50">
@@ -492,18 +496,6 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
             <ShareButton id={item.id} />
           </div>
         </div>
-      </section>
-      {/* ── Build Transformation Blueprint™ ──────────────────────────────── */}
-      <section className="mt-6 rounded-2xl border-2 p-6 text-center" style={{ borderColor: '#F97316', background: '#FFF7ED' }}>
-        <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: '#EA6C0A' }}>Transformation Blueprint™</p>
-        <h2 className="mt-2 text-2xl font-bold text-slate-900">Build a Transformation Blueprint™ for {item.name}</h2>
-        <p className="mx-auto mt-2 max-w-xl text-sm text-slate-600">Generate a complete AI-powered strategic document — executive summary, 90-day plan, key metrics, risks, and recommended actions — ready for a CEO, board, or PE firm.</p>
-        <Link
-          href={`/blueprint?entity=${encodeURIComponent(item.name)}&source=${encodeURIComponent(item.id)}`}
-          className="btn btn-primary mt-5 px-8 py-3 text-base"
-        >
-          Build Transformation Blueprint™
-        </Link>
       </section>
     </main>
   );

@@ -1,5 +1,6 @@
 import Stripe from 'stripe';
 import Link from 'next/link';
+import { MembershipActivator } from '@/components/MembershipActivator';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -51,6 +52,7 @@ export default async function SuccessPage({
   return (
     <div className="min-h-screen flex items-center justify-center px-6">
       <div className="max-w-lg w-full text-center">
+        <MembershipActivator />
         <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
           <span className="text-3xl">✦</span>
         </div>
