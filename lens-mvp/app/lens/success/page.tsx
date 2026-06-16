@@ -18,13 +18,19 @@ async function getSession(sessionId: string) {
 export default async function SuccessPage({ searchParams }: SuccessPageProps) {
   const sessionId = searchParams.session_id;
   const session = sessionId ? await getSession(sessionId) : null;
-  const isPaid = session?.payment_status === 'paid';
+
+  // For subscription mode, Stripe sets status='complete' and payment_status='no_payment_required'
+  // For one-time payments, payment_status='paid'. Accept both.
+  const isActive =
+    session?.status === 'complete' ||
+    session?.payment_status === 'paid';
+
   const company = session?.metadata?.company ?? '';
 
   return (
     <main className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
       <div className="max-w-lg w-full text-center">
-        {isPaid ? (
+        {isActive ? (
           <>
             {/* Success state */}
             <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
@@ -40,17 +46,17 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
               Welcome, Founding Member™
             </h1>
             <p className="text-slate-600 mb-2">
-              Your Full Lens Analysis™ is now available.
+              Your access to The Lens™ is now active.
             </p>
             {company && (
               <p className="text-sm text-slate-500 mb-6">
-                You now have full access to the {company} Lens Analysis™.
+                You now have full access to the {company} Lens Analysis™ and every analysis on The Lens™.
               </p>
             )}
 
             <div className="rounded-xl border border-slate-200 bg-white p-5 text-left mb-6">
               <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">
-                Your Founding Member Benefits
+                What&apos;s Unlocked
               </p>
               <ul className="space-y-2 text-sm text-slate-700">
                 {[
@@ -71,16 +77,16 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
 
             <div className="flex flex-col gap-3">
               <Link
-                href="/blueprint"
+                href="/search"
                 className="btn btn-primary w-full py-3 text-base font-bold"
               >
-                Request Transformation Blueprint™
+                Return to The Lens™
               </Link>
               <Link
-                href="/search"
+                href="/blueprint"
                 className="btn btn-secondary w-full py-3 text-base"
               >
-                Return to Search
+                Build a Transformation Blueprint™
               </Link>
             </div>
           </>
@@ -100,7 +106,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
               Your payment is being processed. If you completed checkout, your access will be activated shortly.
             </p>
             <Link href="/search" className="btn btn-primary px-8 py-3">
-              Return to Search
+              Return to The Lens™
             </Link>
           </>
         )}
