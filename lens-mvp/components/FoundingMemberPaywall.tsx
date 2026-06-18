@@ -64,7 +64,15 @@ export function FoundingMemberPaywall({ companyName, ticker }: FoundingMemberPay
         throw new Error(json.error ?? 'Checkout failed');
       }
 
-      // 3. Redirect to Stripe Checkout
+      // 3. Save company info for post-payment redirect
+      try {
+        localStorage.setItem('pre_checkout_company', companyName);
+        localStorage.setItem('pre_checkout_ticker', ticker ?? '');
+      } catch {
+        // localStorage not available — non-fatal
+      }
+
+      // 4. Redirect to Stripe Checkout
       window.location.href = json.url;
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong');
