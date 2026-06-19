@@ -311,3 +311,11 @@ ALTER TABLE lens_reports DISABLE ROW LEVEL SECURITY;
 -- ─── v2.3 Migration — Discovery Intelligence™ ────────────────────────────────
 -- Run in Supabase SQL Editor:
 ALTER TABLE lens_scores ADD COLUMN IF NOT EXISTS discovery_intelligence jsonb;
+
+-- ─── v2.4 Migration — Sources / Citations ────────────────────────────────────
+-- Run in Supabase SQL Editor:
+ALTER TABLE lens_scores ADD COLUMN IF NOT EXISTS sources jsonb;
+
+-- ─── v2.5 Migration — lens_reports tier column ───────────────────────────────
+-- Run in Supabase SQL Editor:
+ALTER TABLE lens_reports ADD COLUMN IF NOT EXISTS tier text DEFAULT 'single';

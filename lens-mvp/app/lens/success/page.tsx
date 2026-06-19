@@ -26,13 +26,13 @@ export default async function SuccessPage({
 
   let isPaid = false;
   let customerEmail = '';
+  let tier: string = 'single';
 
   try {
     const session = await stripe.checkout.sessions.retrieve(sessionId);
-    // For subscriptions: status='complete', payment_status='no_payment_required'
-    // For one-time payments: payment_status='paid'
     isPaid = session.status === 'complete' || session.payment_status === 'paid';
     customerEmail = session.customer_details?.email ?? '';
+    tier = session.metadata?.tier ?? 'single';
   } catch (err) {
     console.error('Stripe session lookup error:', err);
   }
@@ -49,6 +49,16 @@ export default async function SuccessPage({
     );
   }
 
+  const tierLabel =
+    tier === 'enterprise' ? 'Lens Enterprise' :
+    tier === 'pro' ? 'Lens Pro' :
+    'Single Report';
+
+  const reportsLabel =
+    tier === 'enterprise' ? 'Unlimited reports' :
+    tier === 'pro' ? '50 reports' :
+    '1 report';
+
   return (
     <div className="min-h-screen flex items-center justify-center px-6">
       <div className="max-w-lg w-full text-center">
@@ -57,22 +67,22 @@ export default async function SuccessPage({
           <span className="text-3xl">✦</span>
         </div>
         <p className="text-orange-500 font-semibold uppercase tracking-wide text-sm mb-2">
-          Founding Transformation Member™
+          Transformation Intelligence Report™
         </p>
-        <h1 className="text-3xl font-bold text-slate-900 mb-4">
-          Welcome to The Lens™
+        <h1 className="text-3xl font-bold text-slate-900 mb-2">
+          Access Unlocked
         </h1>
+        <p className="text-slate-500 text-sm mb-4 font-medium">{tierLabel} — {reportsLabel}</p>
         <p className="text-slate-600 mb-8">
-          {customerEmail ? `${customerEmail} — your` : 'Your'} membership is now active. You have full access to Transformation Intelligence™.
+          {customerEmail ? `${customerEmail} — your` : 'Your'} report access is now active. Redirecting to your report…
         </p>
         <div className="bg-slate-50 rounded-xl p-6 text-left mb-8 space-y-3">
           <p className="font-semibold text-slate-900 mb-3">What&apos;s now unlocked:</p>
           {[
-            'Full Lens Analysis™ for any public company',
-            'Transformation Blueprint™ generation and PDF export',
-            'Go Deep™ content transformation analysis',
-            'Save and revisit all analyses',
-            'Priority access to new features',
+            'Transformation Intelligence Report™',
+            'Transformation Blueprint access',
+            'Discovery Intelligence section',
+            'PDF export',
           ].map((item) => (
             <div key={item} className="flex items-start gap-3">
               <span className="text-orange-500 mt-0.5">✓</span>
@@ -84,7 +94,7 @@ export default async function SuccessPage({
           href="/search"
           className="block w-full bg-orange-500 hover:bg-orange-600 text-slate-900 font-bold py-4 rounded-xl transition-colors"
         >
-          Start Exploring The Lens™
+          Start Exploring The Lens
         </Link>
       </div>
     </div>

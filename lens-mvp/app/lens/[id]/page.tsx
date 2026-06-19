@@ -14,7 +14,7 @@ import { TcsHero } from './TcsHero';
 import { QspInfoButton } from '@/components/QspInfoButton';
 import TrustQuadrantDiagnostic from '@/components/TrustQuadrantDiagnostic';
 import { OidBadge } from '@/components/OidBadge';
-import { FoundingMemberPaywall } from '@/components/FoundingMemberPaywall';
+import { TierPaywall } from '@/components/TierPaywall';
 import { BlueprintGate } from '@/components/BlueprintGate';
 
 const ratingClass: Record<string, string> = {
@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const item = await getLensByIdOrCache(id);
   if (!item) return { title: 'Not Found' };
   return {
-    title: `${item.name} — Lens Analysis™`,
+    title: `Transformation Intelligence Report™ — ${item.name}`,
     description: item.analysis_summary || item.summary,
     openGraph: {
       title: `${item.name} — Transformation Capacity Score™: ${item.tcs_score}`,
@@ -77,7 +77,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
         <div className="card mt-10 p-10 text-center">
           <h1 className="text-2xl font-bold">Lens Card Not Found</h1>
           <p className="mt-3 text-slate-600">We couldn&apos;t generate a Lens Card™ for <strong>{id}</strong>. Please try searching again.</p>
-          <Link href="/search" className="btn btn-primary mt-6 inline-flex">Run The Lens™</Link>
+          <Link href="/search" className="btn btn-primary mt-6 inline-flex">Run The Lens</Link>
         </div>
       </main>
     );
@@ -138,13 +138,14 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
           {/* Entity header */}
           <div>
             <h1 className="text-3xl font-bold text-slate-900">{item.name}</h1>
-            <p className="mt-1 text-sm text-slate-500">Lens Analysis™ · Transformation Intelligence™</p>
+            <p className="mt-1 text-sm font-semibold text-slate-500">Transformation Intelligence Report™</p>
+          <p className="text-xs text-slate-400">What is possible for this company.</p>
             {item.opportunity_id && <OidBadge oid={item.opportunity_id} />}
           </div>
 
           {item.what_lens_sees && (
             <div className="rounded-xl bg-slate-900 p-6 text-white">
-              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-teal-400">What Lens Sees™</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-teal-400">What The Lens Sees</p>
               <p className="mt-3 text-base leading-8 text-slate-100">{item.what_lens_sees}</p>
             </div>
           )}
@@ -152,7 +153,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
           {/* OVG™ Callout */}
           {item.opportunity_visibility_gap && (
             <div className="flex flex-wrap items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
-              <p className="text-xs font-semibold text-slate-500">Opportunity Visibility Gap™:</p>
+              <p className="text-xs font-semibold text-slate-500">Opportunity Visibility Gap:</p>
               <span className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${
                 item.opportunity_visibility_gap === 'High'
                   ? 'bg-red-50 text-red-700 border border-red-200'
@@ -183,19 +184,19 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
             )}
             {item.hidden_assets && (
               <div className="rounded-xl border border-teal-200 bg-teal-50 p-5">
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Hidden Assets™</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Hidden Assets</p>
                 <p className="mt-2 text-sm leading-7 text-slate-700">{item.hidden_assets}</p>
               </div>
             )}
             {item.hidden_constraints && (
               <div className="rounded-xl border border-slate-200 bg-white p-5">
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Hidden Constraints™</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Hidden Constraints</p>
                 <p className="mt-2 text-sm leading-7 text-slate-700">{item.hidden_constraints}</p>
               </div>
             )}
             {item.transformation_opportunities && (
               <div className="rounded-xl border border-teal-200 bg-teal-50 p-5">
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Transformation Opportunities™</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Transformation Opportunities</p>
                 <p className="mt-2 text-sm leading-7 text-slate-700">{item.transformation_opportunities}</p>
               </div>
             )}
@@ -204,11 +205,11 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
           {/* ── 5b. The Questions Worth Asking™ ──────────────────────────────── */}
           {(item.strategic_question || item.transformational_question) && (
             <div className="space-y-3">
-              <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-400">The Questions Worth Asking™</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-400">The Questions Worth Asking</p>
               {item.strategic_question && (
                 <div className="relative rounded-xl bg-slate-900 p-5 text-white">
                   <div className="flex items-start justify-between gap-2">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-blue-400">Class III — Strategic Question™</p>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-blue-400">Class III — Strategic Question</p>
                     <QspInfoButton />
                   </div>
                   <p className="mt-2 text-base leading-7 text-slate-100 font-medium">&ldquo;{item.strategic_question}&rdquo;</p>
@@ -218,7 +219,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
               {item.transformational_question && (
                 <div className="relative rounded-xl bg-slate-900 p-5 text-white">
                   <div className="flex items-start justify-between gap-2">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-400">Class IV — Transformational Question™</p>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-400">Class IV — Transformational Question</p>
                     <QspInfoButton />
                   </div>
                   <p className="mt-2 text-base leading-7 text-slate-100 font-medium">&ldquo;{item.transformational_question}&rdquo;</p>
@@ -244,7 +245,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
           {/* ── 6. Lens Verdict™ ──────────────────────────────────────────── */}
           {item.analysis_summary && (
             <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
-              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Lens Verdict™</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Lens Verdict</p>
               <p className="mt-2 text-sm italic leading-7 text-slate-700">{item.analysis_summary}</p>
             </div>
           )}
@@ -286,7 +287,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
       {item.tcs_numeric != null && (
         <section className="card mt-6 p-6">
           <h2 className="text-xl font-bold">TCS™ Scoring Breakdown</h2>
-          <p className="mt-1 text-sm text-slate-500">Weighted composite score — Lens Ratings Methodology™ v1.1</p>
+          <p className="mt-1 text-sm text-slate-500">Weighted composite score — Lens Ratings Methodology v1.1</p>
           <div className="mt-4 space-y-3">
             {[
               { label: 'Absorbability™',  weight: 20, val: item.absorbability_numeric },
@@ -324,7 +325,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
       <section className="card mt-6 p-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h2 className="text-xl font-bold">Transformation Capacity Gap™</h2>
+            <h2 className="text-xl font-bold">Transformation Capacity Gap</h2>
             <p className="mt-1 text-sm text-slate-500">The gap between intelligence access and transformation realization.</p>
           </div>
           <span className={`rounded-full border px-4 py-1.5 text-sm font-bold ${gc}`}>
@@ -337,14 +338,14 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
       {/* ── 9. Constraint Diagnostics™ ────────────────────────────────────── */}
       {(item.primary_constraint || item.system_constraint) && (
         <section className="card mt-6 p-6">
-          <h2 className="text-xl font-bold">Constraint Diagnostics™</h2>
+          <h2 className="text-xl font-bold">Constraint Diagnostics</h2>
           <p className="mt-1 text-sm text-slate-500">The domains most limiting this organization&apos;s transformation capacity.</p>
           <div className="mt-4 space-y-3">
             {item.primary_constraint && (
               <div className="flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4">
                 <span className="mt-0.5 shrink-0 text-base">⚠️</span>
                 <div>
-                  <p className="text-sm font-bold text-amber-800">Primary Constraint™</p>
+                  <p className="text-sm font-bold text-amber-800">Primary Constraint</p>
                   <p className="text-sm text-amber-700">{item.primary_constraint}</p>
                 </div>
               </div>
@@ -353,7 +354,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
               <div className="flex items-start gap-3 rounded-xl border border-orange-200 bg-orange-50 p-4">
                 <span className="mt-0.5 shrink-0 text-base">⚠️</span>
                 <div>
-                  <p className="text-sm font-bold text-orange-800">Secondary Constraint™</p>
+                  <p className="text-sm font-bold text-orange-800">Secondary Constraint</p>
                   <p className="text-sm text-orange-700">{item.secondary_constraint}</p>
                 </div>
               </div>
@@ -362,7 +363,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
               <div className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4">
                 <span className="mt-0.5 shrink-0 text-base">🔗</span>
                 <div>
-                  <p className="text-sm font-bold text-red-800">System Constraint™</p>
+                  <p className="text-sm font-bold text-red-800">System Constraint</p>
                   <p className="text-sm text-red-700">{item.system_constraint}</p>
                 </div>
               </div>
@@ -374,7 +375,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
       {/* v1.1 GPTP Stage */}
       {item.gptp_stage && gptp_stage_label[item.gptp_stage] && (
         <section className="card mt-6 p-6">
-          <h2 className="text-xl font-bold">Transformation Stage™</h2>
+          <h2 className="text-xl font-bold">Transformation Stage</h2>
           <p className="mt-1 text-sm text-slate-500">Where this organization sits in the General-Purpose Technology Transformation Principle™ (GPTP™).</p>
           <div className="mt-4">
             <span className={`inline-block rounded-full border px-4 py-1.5 text-sm font-bold ${gptp_stage_label[item.gptp_stage].color}`}>
@@ -405,7 +406,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
 
       {/* Top Unlock™ */}
       <section className="card mt-6 p-6">
-        <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Top Unlock™</p>
+        <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Top Unlock</p>
         {item.top_unlock ? (
           <p className="mt-3 text-slate-700 leading-7">{item.top_unlock}</p>
         ) : (
@@ -416,7 +417,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
       {/* Constraints + Opportunities */}
       <section className="mt-6 grid gap-5 sm:grid-cols-2">
         <div className="card p-6">
-          <h2 className="text-xl font-bold">Key Constraints™</h2>
+          <h2 className="text-xl font-bold">Key Constraints</h2>
           {constraints.length > 0 ? (
             <ul className="mt-4 space-y-2">
               {constraints.map((c, i) => (
@@ -431,7 +432,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
           )}
         </div>
         <div className="card p-6">
-          <h2 className="text-xl font-bold">Top Opportunities™</h2>
+          <h2 className="text-xl font-bold">Top Opportunities</h2>
           {opportunities.length > 0 ? (
             <ul className="mt-4 space-y-2">
               {opportunities.map((o, i) => (
@@ -450,7 +451,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
       {/* Lens Narrative */}
       {item.summary && (
         <section className="card mt-6 p-6">
-          <h2 className="text-xl font-bold">Lens Narrative™</h2>
+          <h2 className="text-xl font-bold">Lens Narrative</h2>
           <p className="mt-3 leading-8 text-slate-700">{item.summary}</p>
         </section>
       )}
@@ -462,10 +463,10 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
         </p>
         <div className="mt-3 flex flex-wrap items-center justify-center gap-3">
           <Link href="/methodology" className="btn btn-secondary text-sm">
-            Explore The Methodology™ →
+            Explore The Methodology →
           </Link>
           <Link href="/methodology" className="text-sm text-slate-400 hover:text-slate-600 hover:underline underline-offset-2 transition-colors">
-            Read The Ratings Methodology™ v1.1 →
+            Read The Ratings Methodology v1.1 →
           </Link>
         </div>
       </section>
@@ -474,7 +475,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
         <section className="card mt-6 p-6">
           <div className="mb-5 flex items-center gap-3">
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-orange-500">Discovery Intelligence™</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-orange-500">Discovery Intelligence</p>
               <h2 className="mt-0.5 text-xl font-bold text-slate-900">What this company may not yet see</h2>
             </div>
           </div>
@@ -483,7 +484,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
             {/* Emerging Signals™ */}
             {item.discovery_intelligence.emerging_signals && (
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400 mb-1">Emerging Signals™</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400 mb-1">Emerging Signals</p>
                 <p className="text-sm leading-7 text-slate-700">{item.discovery_intelligence.emerging_signals}</p>
               </div>
             )}
@@ -491,7 +492,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
             {/* Yet Opportunities™ */}
             {item.discovery_intelligence.yet_opportunities && (
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400 mb-1">Yet Opportunities™</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400 mb-1">Yet Opportunities</p>
                 <p className="text-sm leading-7 text-slate-700">{item.discovery_intelligence.yet_opportunities}</p>
               </div>
             )}
@@ -499,7 +500,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
             {/* Discovery Gap™ */}
             {item.discovery_intelligence.discovery_gap && (
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400 mb-1">Discovery Gap™</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400 mb-1">Discovery Gap</p>
                 <p className="text-sm leading-7 text-slate-700 italic">{item.discovery_intelligence.discovery_gap}</p>
               </div>
             )}
@@ -507,7 +508,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
             {/* Recommended Experiments™ */}
             {item.discovery_intelligence.recommended_experiments && item.discovery_intelligence.recommended_experiments.length > 0 && (
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400 mb-2">Recommended Experiments™</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400 mb-2">Recommended Experiments</p>
                 <ul className="space-y-2">
                   {item.discovery_intelligence.recommended_experiments.map((exp, i) => (
                     <li key={i} className="flex items-start gap-3 rounded-xl bg-orange-50 p-3">
@@ -522,9 +523,23 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
         </section>
       )}
 
-      {/* ── Founding Member Paywall ───────────────────────────────────────── */}
+      {/* ── Sources / Citations ─────────────────────────────────────────── */}
+      {item.sources && item.sources.length > 0 && (
+        <section className="card mt-6 p-6">
+          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Sources</p>
+          <ul className="mt-3 flex flex-wrap gap-2">
+            {item.sources.map((src, i) => (
+              <li key={i} className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs text-slate-600">
+                {src.name}{src.year ? `, ${src.year}` : ''}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {/* ── Paywall ──────────────────────────────────────────────────────── */}
       <div className="mt-6">
-        <FoundingMemberPaywall companyName={item.name} ticker={item.ticker} />
+        <TierPaywall companyName={item.name} ticker={item.ticker} />
       </div>
 
       {/* ── Build Transformation Blueprint™ (gated) ──────────────────────── */}
@@ -535,7 +550,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
       <section className="card mt-6 p-6 bg-slate-50">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Go Deeper</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Go Deep™</p>
             <h2 className="mt-1 text-xl font-bold">Unlock Potential: {item.opportunity_value}</h2>
             <p className="mt-1 text-sm text-slate-600">Request a full Transformation Capacity Assessment™ from The Lens™ team.</p>
           </div>

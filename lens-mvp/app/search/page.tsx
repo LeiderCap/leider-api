@@ -47,11 +47,11 @@ function LensAnalysisSection({ item, isLive }: { item: LensSnapshot; isLive: boo
         <h1 className="text-3xl font-bold text-slate-900">{item.name}</h1>
         {isLive && (
           <span className="rounded-full bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 text-xs font-semibold text-emerald-700">
-            Live Lens™
+            Live Lens
           </span>
         )}
       </div>
-            <p className="text-sm text-slate-500">Lens Analysis™ · Transformation Intelligence™</p>
+            <p className="text-sm text-slate-500">Lens Analysis · Transformation Intelligence</p>
       {/* OID™ reference line */}
       {item.opportunity_id && (
         <OidBadge oid={item.opportunity_id} />
@@ -59,7 +59,7 @@ function LensAnalysisSection({ item, isLive }: { item: LensSnapshot; isLive: boo
       {/* Section 2 — What Lens Sees™ (dark hero card) */}
       {item.what_lens_sees && (
         <div className="rounded-xl bg-slate-900 p-6 text-white">
-          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-teal-400">What Lens Sees™</p>
+          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-teal-400">What The Lens Sees</p>
           <p className="mt-3 text-base leading-8 text-slate-100">{item.what_lens_sees}</p>
         </div>
       )}
@@ -67,7 +67,7 @@ function LensAnalysisSection({ item, isLive }: { item: LensSnapshot; isLive: boo
       {/* OVG™ Callout */}
       {item.opportunity_visibility_gap && (
         <div className="flex items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
-          <p className="text-xs font-semibold text-slate-500" title="How many valuable opportunities this company may be missing or undervaluing.">Opportunity Visibility Gap™ ⓘ</p>
+          <p className="text-xs font-semibold text-slate-500" title="How many valuable opportunities this company may be missing or undervaluing.">Opportunity Visibility Gap ⓘ</p>
           <span className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${
             item.opportunity_visibility_gap === 'High'
               ? 'bg-red-50 text-red-700 border border-red-200'
@@ -90,19 +90,19 @@ function LensAnalysisSection({ item, isLive }: { item: LensSnapshot; isLive: boo
       {/* Section 3 — Four Analysis Narrative Cards */}
       <div className="grid gap-4 sm:grid-cols-2">
         <AnalysisNarrativeCard label="How Value Is Created" body={item.value_creation_model} />
-        <AnalysisNarrativeCard label="Hidden Assets™" body={item.hidden_assets} accent />
-        <AnalysisNarrativeCard label="Hidden Constraints™" body={item.hidden_constraints} />
-        <AnalysisNarrativeCard label="Transformation Opportunities™" body={item.transformation_opportunities} accent />
+        <AnalysisNarrativeCard label="Hidden Assets" body={item.hidden_assets} accent />
+        <AnalysisNarrativeCard label="Hidden Constraints" body={item.hidden_constraints} />
+        <AnalysisNarrativeCard label="Transformation Opportunities" body={item.transformation_opportunities} accent />
       </div>
 
       {/* Section 4 — The Questions Worth Asking™ */}
       {(item.strategic_question || item.transformational_question) && (
         <div className="space-y-3">
-          <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-400">The Questions Worth Asking™</p>
+          <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-slate-400">The Questions Worth Asking</p>
           {item.strategic_question && (
             <div className="relative rounded-xl bg-slate-900 p-5 text-white">
               <div className="flex items-start justify-between gap-2">
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-blue-400">Class III — Strategic Question™</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-blue-400">Class III — Strategic Question</p>
                 <QspInfoButton />
               </div>
               <p className="mt-2 text-base leading-7 text-slate-100 font-medium">&ldquo;{item.strategic_question}&rdquo;</p>
@@ -112,7 +112,7 @@ function LensAnalysisSection({ item, isLive }: { item: LensSnapshot; isLive: boo
           {item.transformational_question && (
             <div className="relative rounded-xl bg-slate-900 p-5 text-white">
               <div className="flex items-start justify-between gap-2">
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-400">Class IV — Transformational Question™</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-400">Class IV — Transformational Question</p>
                 <QspInfoButton />
               </div>
               <p className="mt-2 text-base leading-7 text-slate-100 font-medium">&ldquo;{item.transformational_question}&rdquo;</p>
@@ -136,7 +136,7 @@ function LensAnalysisSection({ item, isLive }: { item: LensSnapshot; isLive: boo
       {/* Section 6 — Lens Verdict™ */}
       {item.analysis_summary && (
         <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
-          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Lens Verdict™</p>
+          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Lens Verdict</p>
           <p className="mt-2 text-sm italic leading-7 text-slate-700">{item.analysis_summary}</p>
         </div>
       )}
@@ -185,8 +185,8 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
 
       {!query && (
         <div className="mt-8">
-          <h1 className="text-3xl font-bold">Explore The Lens™</h1>
-          <p className="mt-1 text-sm text-slate-500">Browse trending Lens Cards™ or search any company, industry, or idea.</p>
+          <h1 className="text-3xl font-bold">Explore The Lens</h1>
+          <p className="mt-1 text-sm text-slate-500">Browse trending Lens Cards or search any company, industry, or idea.</p>
         </div>
       )}
 
@@ -206,7 +206,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
           {/* Section 5 — Lens Card™ (earned, below analysis) */}
           <div className="mt-10">
             <div className="mb-3 flex items-center gap-3">
-              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Lens Card™ — Generated from Analysis</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Lens Card — Generated from Analysis</p>
               <div className="h-px flex-1 bg-slate-200" />
             </div>
             <LensCard item={singleItem} />
@@ -216,11 +216,11 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
           <div className="mt-8 rounded-xl border border-slate-200 bg-slate-50 p-6 text-center">
             <p className="text-sm font-semibold text-slate-700">Want to go deeper?</p>
             <p className="mt-1 text-sm text-slate-500">
-              A Transformation Capacity Assessment™ reveals the full picture — constraints, opportunities, and a blueprint for action.
+              A Transformation Capacity Assessment reveals the full picture — constraints, opportunities, and a blueprint for action.
             </p>
             <div className="mt-4">
               <Link href="/assessment#request" className="btn btn-primary">
-                Request Transformation Capacity Assessment™
+                Request Transformation Capacity Assessment
               </Link>
             </div>
           </div>

@@ -17,7 +17,7 @@ export default function CancelPage() {
           No problem.
         </h1>
         <p className="text-slate-600 mb-6">
-          Your free Lens Scorecard™ is still available. You can upgrade to a Founding Transformation Member™ anytime.
+          Your free Lens Scorecard is still available. You can unlock a Transformation Intelligence Report™ anytime.
         </p>
 
         <div className="flex flex-col gap-3">

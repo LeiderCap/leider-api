@@ -151,9 +151,9 @@ export function DeterminantsSection({ determinants, primaryConstraint, secondary
       )}
 
       <section className="card mt-8 p-6">
-        <h2 className="text-xl font-bold">TCS™ Determinants</h2>
+        <h2 className="text-xl font-bold">TCS Determinants</h2>
         <p className="mt-1 text-sm text-slate-500">
-          The six factors that determine Transformation Capacity™. Tap ⓘ for definitions.
+          The six factors that determine Transformation Capacity. Tap ⓘ for definitions.
         </p>
         <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
           {determinants.map(({ label, value, numeric }) => {
@@ -208,7 +208,7 @@ export function DeterminantsSection({ determinants, primaryConstraint, secondary
           return (
             <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-4">
               <p className="text-[11px] font-semibold uppercase tracking-wider text-amber-600 mb-1">
-                ⚠️ Primary Constraint™ — {primaryConstraint}
+                ⚠️ Primary Constraint — {primaryConstraint}
                 {detectedIndustry && (
                   <span className="ml-2 font-normal normal-case text-amber-500">({detectedIndustry})</span>
                 )}
@@ -222,7 +222,7 @@ export function DeterminantsSection({ determinants, primaryConstraint, secondary
                 return (
                   <div className="mt-2 pt-2 border-t border-amber-200">
                     <p className="text-[11px] font-semibold uppercase tracking-wider text-amber-500 mb-0.5">
-                      Secondary Constraint™ — {secondaryConstraint}
+                      Secondary Constraint — {secondaryConstraint}
                     </p>
                     {secTranslation && (
                       <p className="text-xs text-amber-700 leading-5">{secTranslation}</p>
@@ -246,7 +246,7 @@ export function DeterminantsSection({ determinants, primaryConstraint, secondary
                 href={`/methodology#${callout.anchor}`}
                 className="mt-2 block text-xs text-amber-600 hover:text-amber-800 hover:underline underline-offset-2 transition-colors"
               >
-                Learn about the {severeCallout.label.replace('™', '')}-to-Transform Principle™ →
+                Learn about the {severeCallout.label.replace('™', '')}-to-Transform Principle →
               </Link>
             </div>
           );

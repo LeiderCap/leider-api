@@ -123,6 +123,8 @@ function mapDbToSnapshot(row: any): LensSnapshot {
     opportunity_id: score?.opportunity_id ?? undefined,
     // v1.9 Discovery Intelligence™
     discovery_intelligence: score?.discovery_intelligence ?? undefined,
+    // v2.0 Sources / Citations
+    sources: score?.sources ?? undefined,
     updated_at: score?.updated_at ?? row.created_at
   };
 }
@@ -260,6 +262,9 @@ export async function saveLensSnapshot(snapshot: LensSnapshot) {
 
     // v1.9 Discovery Intelligence™
     discovery_intelligence: snapshot.discovery_intelligence ?? null,
+
+    // v2.0 Sources / Citations
+    sources: snapshot.sources ?? null,
 
     updated_at: new Date().toISOString()
   });

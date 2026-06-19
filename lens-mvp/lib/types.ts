@@ -79,6 +79,9 @@ export interface LensSnapshot {
   // v1.8 Opportunity ID™
   opportunity_id?: string | null;
 
+  // v2.0 Sources / Citations
+  sources?: { name: string; year?: string | null }[] | null;
+
   // v1.9 Discovery Intelligence™
   discovery_intelligence?: {
     emerging_signals?: string | null;

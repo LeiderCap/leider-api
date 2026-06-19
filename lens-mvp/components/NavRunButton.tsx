@@ -8,7 +8,7 @@ export default function NavRunButton() {
   if (pathname === '/search') return null;
   return (
     <Link href="/search" className="btn btn-primary">
-      Run The Lens™
+      Run The Lens
     </Link>
   );
 }

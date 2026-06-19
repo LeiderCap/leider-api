@@ -14,7 +14,7 @@ export function ScorecardExplainer() {
         aria-expanded={open}
       >
         <span className="text-sm font-semibold text-slate-700">
-          What is a Transformation Capacity Scorecard™?
+          What is a Transformation Capacity Scorecard?
         </span>
         <span className="ml-4 shrink-0 text-slate-400 text-lg leading-none select-none">
           {open ? '−' : '+'}
@@ -24,20 +24,20 @@ export function ScorecardExplainer() {
       {open && (
         <div className="border-t border-slate-200 px-5 py-4 text-sm text-slate-600 leading-7 space-y-3">
           <p>
-            A Transformation Capacity Scorecard™ measures how effectively an organization can
+            A Transformation Capacity Scorecard measures how effectively an organization can
             convert intelligence into realized outcomes.
           </p>
           <p>
-            The <strong>Transformation Capacity Score™ (TCS™)</strong> is composed of six
+            The <strong>Transformation Capacity Score (TCS)</strong> is composed of six
             determinants:
           </p>
           <ul className="space-y-1 pl-2">
-            <li><strong>Intelligence™</strong> — Quality of intelligence inputs</li>
-            <li><strong>Absorbability™</strong> — Ability to absorb and act on intelligence</li>
-            <li><strong>Trust™</strong> — Trust infrastructure across the organization</li>
-            <li><strong>Governance™</strong> — Decision quality and velocity</li>
-            <li><strong>Courage™</strong> — Willingness to make difficult decisions</li>
-            <li><strong>Execution™</strong> — Capacity for sustained implementation</li>
+            <li><strong>Intelligence</strong> — Quality of intelligence inputs</li>
+            <li><strong>Absorbability</strong> — Ability to absorb and act on intelligence</li>
+            <li><strong>Trust</strong> — Trust infrastructure across the organization</li>
+            <li><strong>Governance</strong> — Decision quality and velocity</li>
+            <li><strong>Courage</strong> — Willingness to make difficult decisions</li>
+            <li><strong>Execution</strong> — Capacity for sustained implementation</li>
           </ul>
           <p>
             Each determinant is rated on a five-tier scale:
@@ -46,7 +46,7 @@ export function ScorecardExplainer() {
             </span>
           </p>
           <p>
-            The <strong>Transformation Capacity Gap™</strong> measures the distance between where
+            The <strong>Transformation Capacity Gap</strong> measures the distance between where
             this organization is today and where it could be — the unrealized value waiting to be
             unlocked.
           </p>
@@ -61,7 +61,7 @@ export function ScorecardExplainer() {
           <p className="border-t border-slate-200 pt-3 text-xs text-slate-400">
             Scores calculated using{' '}
             <Link href="/methodology" className="underline underline-offset-2 hover:text-slate-600">
-              Lens Ratings Methodology™ v1.0
+              Lens Ratings Methodology v1.0
             </Link>
           </p>
         </div>

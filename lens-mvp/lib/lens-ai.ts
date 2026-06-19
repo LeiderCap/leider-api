@@ -70,6 +70,12 @@ const LensAiSchema = z.object({
   // v1.8 Opportunity ID™
   opportunity_id: z.string().nullable().optional(),
 
+  // v2.0 Sources / Citations
+  sources: z.array(z.object({
+    name: z.string(),
+    year: z.string().nullable().optional(),
+  })).nullable().optional(),
+
   // v1.9 Discovery Intelligence™
   discovery_intelligence: z.object({
     emerging_signals:          z.string().nullable().optional(),
@@ -176,7 +182,10 @@ IMPORTANT ARRAY LIMITS (strictly enforced):
     "yet_opportunities": "2-3 sentences: what opportunities may exist but are not currently being pursued by this company — adjacent markets, underutilized assets, or capabilities not yet deployed",
     "discovery_gap": "1-2 sentences: what future value appears underexplored or invisible to current leadership based on the TCS™ profile",
     "recommended_experiments": ["3 specific, low-cost, time-bounded experiments this company could run to test undiscovered opportunities — each as a complete action sentence"]
-  }
+  },
+  "sources": [
+    { "name": "Publication Name", "year": "2024" }
+  ]
 }
 IMPORTANT: The following fields must be returned with EXACT values as listed below.
 Do not paraphrase, abbreviate, capitalize differently, or use any other value.
@@ -709,6 +718,42 @@ APPLICATION RULES FOR INDUSTRY TRANSLATIONS:
 6. Never output "Governance constrained" or "Absorbability constrained" as primary user-facing text.
 7. Always translate into the industry's natural language.
 8. If an entity spans multiple industries, use the closest primary industry match.
+
+---
+
+CITATION INSTRUCTIONS:
+
+You have access to web search. Before generating your analysis, search for recent news,
+financial data, earnings reports, and analyst coverage for the company. Use this information
+to ground your analysis in current facts.
+
+For every specific claim you make in the analysis fields (what_lens_sees, value_creation_model,
+hidden_assets, hidden_constraints, transformation_opportunities, analysis_summary,
+discovery_intelligence.emerging_signals, discovery_intelligence.yet_opportunities), add an
+inline citation in this format: [Source: Publication Name, Year] immediately after the claim.
+
+Example:
+"The company reported revenue growth of 12% in fiscal 2024 [Source: Bloomberg, 2024] driven
+primarily by expansion in its cloud division [Source: Wall Street Journal, 2024]."
+
+Search for:
+- Recent earnings reports and financial performance
+- Major strategic announcements
+- Industry trends affecting this company
+- Analyst ratings and price targets
+- Any recent leadership changes or restructuring
+
+Only cite real sources you find through web search. Do not fabricate citations.
+
+After generating the analysis, populate the "sources" field with a deduplicated list of all
+sources cited. Each source should be an object with "name" (publication/source name) and
+"year" (year as string). Example:
+"sources": [
+  { "name": "Bloomberg", "year": "2024" },
+  { "name": "Wall Street Journal", "year": "2024" }
+]
+
+If no specific sources were found through search, return an empty array for sources: []
 `;
 
 function extractJson(text: string) {
@@ -915,6 +960,9 @@ export async function generateLensSnapshot(query: string): Promise<LensSnapshot>
 
     // v1.9 Discovery Intelligence™
     discovery_intelligence: parsed.discovery_intelligence ?? null,
+
+    // v2.0 Sources / Citations
+    sources: parsed.sources ?? null,
 
     updated_at: new Date().toISOString()
   };

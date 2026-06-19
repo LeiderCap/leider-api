@@ -51,13 +51,13 @@ export function SearchBox({
               Hang tight, digging deeper…
             </span>
           ) : (
-            'Run The Lens™'
+            'Run The Lens'
           )}
         </button>
       </form>
       {showHelper && (
         <p className="mt-2 text-center text-xs text-slate-500">
-          The Lens™ currently analyzes public companies.{' '}
+          The Lens currently analyzes public companies.{' '}
           <a
             href="/enterprises"
             className="underline underline-offset-2 hover:text-slate-700 transition-colors"

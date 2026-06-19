@@ -9,7 +9,7 @@ interface FoundingMemberPaywallProps {
 }
 
 const LOCKED_ITEMS = [
-  'Full Lens Analysis™',
+  'Transformation Intelligence Report™',
   'Expanded opportunity analysis',
   'Strategic constraints deep-dive',
   'Value drivers',

@@ -79,23 +79,23 @@ export default function HomePage() {
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-slate-900 px-6 py-20 text-center text-white">
         <div className="mx-auto max-w-5xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-teal-400">
-            Opportunity Visibility Infrastructure™
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-orange-400">
+            Transformation Intelligence Report™
           </p>
           <h1 className="mt-5 text-5xl font-bold leading-tight tracking-tight sm:text-7xl">
-            Turn the Dial.™
+            What is possible
             <br />
-            <span className="text-slate-400">Explore What&apos;s Possible.</span>
+            <span className="text-slate-400">for this company?</span>
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-teal-300 font-medium">
-            You see the world through your lens. The Lens™ helps you see what matters.
+            The Lens reveals what the market misses — hidden assets, hidden constraints, and the transformation capacity that determines what comes next.
           </p>
           <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-slate-300">
             In a world of abundant intelligence, the competitive advantage is no longer better answers.
             It is better questions.
           </p>
           <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-slate-400">
-            The Lens™ is a Question Discovery Engine™ — revealing the opportunities hidden inside
+            The Lens is a Transformation Intelligence engine — revealing the opportunities hidden inside
             the intelligence you already possess.
           </p>
 
@@ -106,7 +106,7 @@ export default function HomePage() {
 
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Link href="/search" className="btn btn-primary px-6 py-3 text-base">
-              See What You&apos;re Missing™
+              Run The Lens
             </Link>
             <a
               href="#how-it-works"

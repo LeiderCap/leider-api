@@ -354,7 +354,7 @@ export function LensCard({ item }: { item: LensSnapshot }) {
   }
 
   const PRIVATE_TOP_UNLOCK =
-    'This appears to be a private company. Request an Enterprise Analysis™ for full coverage.';
+    'This appears to be a private company. Request an Enterprise Analysis for full coverage.';
 
   const isUnlockable = (val: string) =>
     !val || val === 'N/A' || val === 'Private — additional details needed';
@@ -385,7 +385,7 @@ export function LensCard({ item }: { item: LensSnapshot }) {
         {/* Header */}
         <div className="flex items-start justify-between gap-4">
           <div>
-            <Link href="/lens-card" className="text-xs font-semibold uppercase tracking-widest text-slate-400 hover:text-teal-600 transition-colors">Lens Card™</Link>
+            <Link href="/lens-card" className="text-xs font-semibold uppercase tracking-widest text-slate-400 hover:text-teal-600 transition-colors">Lens Card</Link>
             <h3 className="mt-1 text-2xl font-bold">{item.name}</h3>
             {item.ticker ? (
               <p className="text-xs text-slate-500">{item.ticker} · {item.industry}</p>
@@ -397,11 +397,11 @@ export function LensCard({ item }: { item: LensSnapshot }) {
           {/* TCS™ badge + ⓘ + scale indicator */}
           <div className="flex flex-col items-end gap-1 shrink-0">
             <div className="flex items-center gap-1">
-              <p className="text-xs font-semibold text-slate-400">TCS™</p>
+              <p className="text-xs font-semibold text-slate-400">TCS</p>
               <button
-                onClick={() => setActiveModal({ type: 'tcs', key: 'TCS™' })}
+                onClick={() => setActiveModal({ type: 'tcs', key: 'TCS' })}
                 className="text-slate-400 hover:text-slate-600 active:text-slate-600 text-sm leading-none"
-                aria-label="What is TCS™?"
+                aria-label="What is TCS?"
               >
                 ⓘ
               </button>
@@ -421,10 +421,10 @@ export function LensCard({ item }: { item: LensSnapshot }) {
         </div>
 
         <Tooltip text="How well this company can turn new ideas and information into real results. Higher is better." position="bottom">
-          <p className="mt-2 text-xs text-slate-400">Transformation Capacity Score™</p>
+          <p className="mt-2 text-xs text-slate-400">Transformation Capacity Score</p>
         </Tooltip>
         <Link href="/methodology" className="mt-0.5 text-xs text-slate-400 hover:text-slate-600 underline underline-offset-2">
-          Rated by Lens Ratings Methodology™ v1.1 →
+          Rated by Lens Ratings Methodology v1.1 →
         </Link>
 
         {/* Transformation Momentum™ badge */}
@@ -433,7 +433,7 @@ export function LensCard({ item }: { item: LensSnapshot }) {
           const cfg = MOMENTUM_CONFIG[momentum] ?? MOMENTUM_CONFIG.Unknown;
           return (
             <div className="mt-3 flex items-center gap-2">
-              <p className="text-xs text-slate-400">Momentum™:</p>
+              <p className="text-xs text-slate-400">Momentum:</p>
               <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-semibold ${cfg.badgeClass}`}>
                 <span>{cfg.arrow}</span>
                 <span>{momentum}</span>
@@ -441,7 +441,7 @@ export function LensCard({ item }: { item: LensSnapshot }) {
               <button
                 onClick={() => setActiveModal({ type: 'momentum', key: 'momentum' })}
                 className="text-slate-400 hover:text-slate-600 active:text-slate-600 text-xs leading-none"
-                aria-label="What is Transformation Momentum™?"
+                aria-label="What is Transformation Momentum?"
               >
                 ⓘ
               </button>
@@ -531,7 +531,7 @@ export function LensCard({ item }: { item: LensSnapshot }) {
               {item.primary_constraint && (
                 <div className="mt-3 rounded-lg border border-amber-200 bg-amber-50 px-3 py-3">
                   <p className="text-[10px] font-semibold uppercase tracking-wider text-amber-600 mb-1">
-                    ⚠️ Primary Constraint™ — {item.primary_constraint}
+                    ⚠️ Primary Constraint — {item.primary_constraint}
                     {item.detected_industry && (
                       <span className="ml-2 font-normal normal-case text-amber-500">({item.detected_industry})</span>
                     )}
@@ -541,7 +541,7 @@ export function LensCard({ item }: { item: LensSnapshot }) {
                   ) : null}
                   {item.secondary_constraint && (
                     <p className="mt-1.5 text-[10px] text-amber-600">
-                      Secondary Constraint™: {item.secondary_constraint}
+                      Secondary Constraint: {item.secondary_constraint}
                       {item.constraint_translations?.[item.secondary_constraint.toLowerCase().split(' ')[0] as CTKey] && (
                         <span className="block mt-0.5 text-amber-700 leading-4">
                           {item.constraint_translations[item.secondary_constraint.toLowerCase().split(' ')[0] as CTKey]}
@@ -563,7 +563,7 @@ export function LensCard({ item }: { item: LensSnapshot }) {
                       href={`/methodology#${callout.anchor}`}
                       className="mt-1.5 block text-[10px] text-amber-600 hover:text-amber-800 hover:underline underline-offset-2 transition-colors"
                     >
-                      Learn about the {label.replace('™', '')}-to-Transform Principle™ →
+                      Learn about the {label.replace('™', '')}-to-Transform Principle →
                     </Link>
                   </div>
                 );
@@ -575,7 +575,7 @@ export function LensCard({ item }: { item: LensSnapshot }) {
         {/* Transformation Capacity Gap™ with ⓘ */}
         <div className="mt-3 flex items-center gap-2">
           <Tooltip text="The distance between where this company is and where it could be. A larger gap means more unrealized potential.">
-            <p className="text-xs text-slate-400">Transformation Capacity Gap™:</p>
+            <p className="text-xs text-slate-400">Transformation Capacity Gap:</p>
           </Tooltip>
           <span className={`rounded-full border px-2 py-0.5 text-xs font-semibold ${gc}`}>
             {item.transformation_capacity_gap}
@@ -583,7 +583,7 @@ export function LensCard({ item }: { item: LensSnapshot }) {
           <button
             onClick={() => setActiveModal({ type: 'tcg', key: 'tcg' })}
             className="text-slate-400 hover:text-slate-600 active:text-slate-600 text-xs leading-none"
-            aria-label="What is the Transformation Capacity Gap™?"
+            aria-label="What is the Transformation Capacity Gap?"
           >
             ⓘ
           </button>
@@ -591,12 +591,12 @@ export function LensCard({ item }: { item: LensSnapshot }) {
 
         {/* Top Unlock + Opportunity */}
         <div className="mt-4 rounded-xl bg-slate-50 p-4">
-          <p className="text-xs font-semibold text-slate-400">Top Unlock™</p>
+          <p className="text-xs font-semibold text-slate-400">Top Unlock</p>
           {isStalePrivateFallback ? (
             <p className="mt-1 text-sm text-amber-700 font-medium leading-snug">
               This appears to be a private company.{' '}
               <Link href="/enterprises" className="underline hover:text-amber-900">
-                Request an Enterprise Analysis™ for full coverage.
+                Request an Enterprise Analysis for full coverage.
               </Link>
             </p>
           ) : (
@@ -604,7 +604,7 @@ export function LensCard({ item }: { item: LensSnapshot }) {
           )}
           <div className="mt-3 flex items-center justify-between">
             <div>
-              <p className="text-xs text-slate-400">Estimated Opportunity™</p>
+              <p className="text-xs text-slate-400">Estimated Opportunity</p>
               <p className="mt-0.5 font-semibold">{item.opportunity_value}</p>
             </div>
             <span className="rounded-full border border-slate-200 bg-white px-2 py-0.5 text-xs text-slate-500">
@@ -613,11 +613,11 @@ export function LensCard({ item }: { item: LensSnapshot }) {
           </div>
           <div className="mt-2 border-t border-slate-200 pt-2">
             <Tooltip text="The potential value that could be recovered by addressing transformation gaps." position="top">
-              <p className="text-xs text-slate-400">Equity Reclamation™</p>
+              <p className="text-xs text-slate-400">Equity Reclamation</p>
             </Tooltip>
             {isUnlockable(item.equity_reclamation) ? (
               <p className="mt-0.5 text-xs font-semibold text-indigo-600">
-                Unlockable via Blueprint™
+                Unlockable via Blueprint
               </p>
             ) : (
               <p className="mt-0.5 text-xs font-semibold">{item.equity_reclamation}</p>
