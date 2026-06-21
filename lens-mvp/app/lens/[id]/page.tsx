@@ -554,9 +554,18 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
             <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Go Deep™</p>
             <h2 className="mt-1 text-xl font-bold">Unlock Potential: {item.opportunity_value}</h2>
             <p className="mt-1 text-sm text-slate-600">Request a full Transformation Capacity Assessment™ from The Lens™ team.</p>
+            <p className="mt-3 text-sm text-slate-500 leading-6 max-w-prose">
+              Want to model a specific scenario? Run a deterministic Cashless Buyback™ analysis below — share price, retirement %, and timeline are entirely up to you.
+            </p>
           </div>
           <div className="flex flex-wrap gap-2">
             <BlueprintRequestForm companyId={item.id} companyName={item.name} />
+            <Link
+              href={`/mechanisms/cashless-buyback?company=${encodeURIComponent(item.name)}`}
+              className="inline-flex items-center gap-1.5 rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50"
+            >
+              Realize Equity Reclamation
+            </Link>
             <SaveButton
               itemType="lens_card"
               title={item.name}

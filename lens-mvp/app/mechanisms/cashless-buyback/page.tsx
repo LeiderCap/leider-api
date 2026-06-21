@@ -1,6 +1,6 @@
 'use client';
-
-import { useState } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -218,7 +218,9 @@ function CloseTheGapModal({
 
 // ── Main Page ─────────────────────────────────────────────────────────────────
 
-export default function CashlessBuybackPage() {
+function CashlessBuybackInner() {
+  const searchParams = useSearchParams();
+
   const [form, setForm] = useState({
     company_name: '',
     current_price: '',
@@ -230,6 +232,15 @@ export default function CashlessBuybackPage() {
   const [result, setResult] = useState<Result | null>(null);
   const [saveState, setSaveState] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
   const [gapModalOpen, setGapModalOpen] = useState(false);
+
+  // Pre-fill company name from ?company= query param (e.g. from Lens detail page CTA).
+  // Only company_name is pre-filled — all financial inputs remain blank and user-driven.
+  useEffect(() => {
+    const company = searchParams.get('company');
+    if (company) {
+      setForm(f => ({ ...f, company_name: decodeURIComponent(company) }));
+    }
+  }, [searchParams]);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setForm(f => ({ ...f, [e.target.name]: e.target.value }));
@@ -562,5 +573,13 @@ export default function CashlessBuybackPage() {
         />
       )}
     </main>
+  );
+}
+
+export default function CashlessBuybackPage() {
+  return (
+    <Suspense fallback={null}>
+      <CashlessBuybackInner />
+    </Suspense>
   );
 }
