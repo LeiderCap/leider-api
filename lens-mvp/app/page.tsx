@@ -555,7 +555,15 @@ export default function HomePage() {
               { who: 'INDIVIDUALS', headline: 'My Lens™', subheadline: 'Human Transformation Intelligence', items: ['Personal Discovery™', 'Learn It™ (Phase 2)', 'Stack the Deck™ (Phase 2)', 'Personal Blueprint™ (Phase 2)'] },
             ].map(({ who, headline, subheadline, items }: { who: string; headline: string; subheadline?: string; items: string[] }) => (
               <div key={who} className="card p-5 flex flex-col">
-                <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">{who}</p>
+                <div className="flex items-center justify-between">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">{who}</p>
+                  {who === 'INDIVIDUALS' && (
+                    <div className="inline-flex items-center gap-1.5 rounded-full border border-teal-200 bg-teal-50 px-2.5 py-0.5">
+                      <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
+                      <span className="text-[10px] font-semibold text-teal-700">Coming in Phase 3</span>
+                    </div>
+                  )}
+                </div>
                 <h3 className="mt-2 font-semibold leading-snug">{headline}</h3>
                 {subheadline && <p className="mt-0.5 text-xs text-teal-600 font-medium">{subheadline}</p>}
                 <ul className="mt-4 space-y-2 flex-1">
@@ -579,7 +587,11 @@ export default function HomePage() {
                   </Link>
                 )}
                 {who === 'INDIVIDUALS' && (
-                  <Link href="/individuals" className="btn btn-primary w-full mt-4 text-center text-sm">
+                  <Link
+                    href="/individuals"
+                    className="w-full mt-4 block rounded-lg px-4 py-2 text-center text-sm font-semibold"
+                    style={{ backgroundColor: '#E2E8F0', color: '#64748B' }}
+                  >
                     Explore My Lens™ →
                   </Link>
                 )}
