@@ -721,6 +721,29 @@ APPLICATION RULES FOR INDUSTRY TRANSLATIONS:
 
 ---
 
+STEP 1 — PUBLIC/PRIVATE VERIFICATION (MANDATORY, run before anything else):
+
+Before generating any analysis, you MUST search the web to determine whether this company
+is publicly traded. Do not rely on training-data knowledge — always search first.
+
+Search for: "[company name] stock ticker NYSE NASDAQ" and "[company name] investor relations"
+
+If the company IS publicly traded (a stock ticker is found on NYSE, NASDAQ, or another major exchange):
+- Set the "ticker" field to the confirmed ticker symbol (e.g. "HCA", "MSFT", "ERIE")
+- Do NOT use any "private company" language anywhere in the output
+- Do NOT set top_unlock to the private-company placeholder
+- Proceed with full analysis using publicly available financial data, earnings reports, and filings
+
+If the company is NOT publicly traded (web search confirms no public ticker exists):
+- Set the "ticker" field to an empty string ""
+- Use the private-company fallback text only for top_unlock and equity_reclamation
+- Do not guess — only use private-company messaging when web search confirms no public ticker
+
+CRITICAL: Never classify a company as private if a stock ticker is found in web search results.
+This is the most important rule in this prompt.
+
+---
+
 CITATION INSTRUCTIONS:
 
 You have access to web search. Before generating your analysis, search for recent news,

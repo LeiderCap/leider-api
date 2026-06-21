@@ -51,10 +51,13 @@ export function searchSeed(query: string) {
 
 /** Returns true if a cached snapshot has stale private-company fallback data for a public company. */
 function isStalePrivateFallback(snapshot: LensSnapshot): boolean {
-  return (
-    !!snapshot.ticker &&
-    !!(snapshot.top_unlock?.toLowerCase().includes('private companies require'))
-  );
+  const topUnlockLower = snapshot.top_unlock?.toLowerCase() ?? '';
+  const privateLanguage =
+    topUnlockLower.includes('private companies require') ||
+    topUnlockLower.includes('appears to be a private company') ||
+    topUnlockLower.includes('request an enterprise analysis') ||
+    topUnlockLower.includes('private company');
+  return !!snapshot.ticker && privateLanguage;
 }
 
 function mapDbToSnapshot(row: any): LensSnapshot {

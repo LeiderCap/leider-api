@@ -138,12 +138,10 @@ export function TcsHero({ name, ticker, industry, description, tcsScore }: TcsHe
       <div className="mt-6 flex flex-wrap items-start justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Lens Snapshot™</p>
-          <h1 className="mt-2 text-4xl font-bold">{name}</h1>
-          {ticker ? (
-            <p className="mt-1 text-sm text-slate-500">{ticker} · {industry}</p>
-          ) : (
-            <p className="mt-1 text-sm text-slate-500">{industry}</p>
-          )}
+          <h1 className="mt-2 text-4xl font-bold">
+            {name}{ticker ? <span className="ml-2 text-2xl font-normal text-slate-400">({ticker})</span> : null}
+          </h1>
+          <p className="mt-1 text-sm text-slate-500">{industry}</p>
           {description && <p className="mt-3 text-slate-600">{description}</p>}
         </div>
 
