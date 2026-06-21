@@ -763,26 +763,40 @@ APPLICATION RULES FOR INDUSTRY TRANSLATIONS:
 
 ---
 
-STEP 1 — PUBLIC/PRIVATE VERIFICATION (MANDATORY, run before anything else):
+STEP 1 — PUBLIC/PRIVATE VERIFICATION (MANDATORY):
 
-Before generating any analysis, you MUST search the web to determine whether this company
-is publicly traded. Do not rely on training-data knowledge — always search first.
+Determine whether this company is publicly traded BEFORE generating any analysis.
 
-Search for: "[company name] stock ticker NYSE NASDAQ" and "[company name] investor relations"
+RULE 1 — TICKER IN QUERY: If the user's query contains a stock ticker symbol (1-5 uppercase
+letters, e.g. "CYBN", "HCA", "MSFT", or with exchange prefix like "NYSE:HCA"), treat this as
+DEFINITIVE PROOF the company is publicly traded. Set the ticker field to those letters.
+NEVER use private-company language for any query that contains a ticker symbol.
 
-If the company IS publicly traded (a stock ticker is found on NYSE, NASDAQ, or another major exchange):
-- Set the "ticker" field to the confirmed ticker symbol (e.g. "HCA", "MSFT", "ERIE")
+RULE 2 — WELL-KNOWN PUBLIC COMPANIES: For large, well-known companies (Fortune 500, major
+hospital systems, major banks, major tech companies), use your training knowledge to set the
+correct ticker. Do not default to private-company messaging for companies you know are public.
+
+RULE 3 — SMALL-CAP / UNKNOWN COMPANIES: For smaller or less-known companies where you are
+uncertain, default to treating them as public if ANY of these are true:
+- The query contains a ticker-pattern string (1-5 uppercase letters)
+- The company name matches a known public company in your training data
+- The query explicitly mentions NYSE, NASDAQ, or another exchange
+
+Only use private-company fallback messaging when you have genuine reason to believe the company
+is private AND the query contains no ticker-pattern input.
+
+CRITICAL: A query like "CYBN" or "HCA" or "MSFT" is a ticker symbol. NEVER classify a
+ticker-symbol query as a private company. This is the most important rule in this prompt.
+
+If the company IS publicly traded:
+- Set the "ticker" field to the confirmed ticker symbol (e.g. "HCA", "MSFT", "CYBN")
 - Do NOT use any "private company" language anywhere in the output
 - Do NOT set top_unlock to the private-company placeholder
-- Proceed with full analysis using publicly available financial data, earnings reports, and filings
+- Proceed with full analysis
 
-If the company is NOT publicly traded (web search confirms no public ticker exists):
+If the company is genuinely NOT publicly traded (no ticker, confirmed private):
 - Set the "ticker" field to an empty string ""
 - Use the private-company fallback text only for top_unlock and equity_reclamation
-- Do not guess — only use private-company messaging when web search confirms no public ticker
-
-CRITICAL: Never classify a company as private if a stock ticker is found in web search results.
-This is the most important rule in this prompt.
 
 ---
 
@@ -901,8 +915,47 @@ async function callOpenAI(query: string) {
   return data?.choices?.[0]?.message?.content ?? '';
 }
 
+/** Returns true if the query looks like a stock ticker (1-5 uppercase letters, optionally with exchange prefix like NYSE:CYBN) */
+function looksLikeTicker(q: string): boolean {
+  const clean = q.trim();
+  // Matches: CYBN, HCA, MSFT, NYSE:CYBN, NASDAQ:MSFT, AMEX:CYBN
+  return /^(?:(?:NYSE|NASDAQ|AMEX|NYSE\s*AMERICAN|TSX|LSE|ASX)\s*:?\s*)?([A-Z]{1,5})$/.test(clean);
+}
+
+/** Extract the raw ticker letters from a query like "NYSE:CYBN" or "CYBN" */
+function extractTickerFromQuery(q: string): string {
+  const m = q.trim().match(/([A-Z]{1,5})$/);
+  return m ? m[1] : q.trim().toUpperCase();
+}
+
+/** Returns true if the AI output contains private-company fallback language */
+function hasPrivateFallback(text: string): boolean {
+  const lower = text.toLowerCase();
+  return (
+    lower.includes('private companies require') ||
+    lower.includes('appears to be a private company') ||
+    lower.includes('request an enterprise analysis') ||
+    lower.includes('request a blueprint') ||
+    lower.includes('private company')
+  );
+}
+
 export async function generateLensSnapshot(query: string): Promise<LensSnapshot> {
-  const text = (await callAnthropic(query)) ?? (await callOpenAI(query));
+  // ── PRE-GENERATION TICKER DETECTION ──────────────────────────────────────
+  // If the user entered a ticker-pattern query (e.g. "CYBN", "NYSE:HCA"),
+  // inject that context directly into the user message so the AI cannot
+  // misclassify it as a private company. This runs before the AI call.
+  const queryTrim = query.trim();
+  const isTickerQuery = looksLikeTicker(queryTrim);
+  const confirmedTicker = isTickerQuery ? extractTickerFromQuery(queryTrim) : null;
+
+  let enrichedQuery = queryTrim;
+  if (confirmedTicker) {
+    enrichedQuery = `${queryTrim} (stock ticker: ${confirmedTicker}, publicly traded — do NOT classify as private)`;
+    console.log('[lens-ai] Ticker query detected:', queryTrim, '→ confirmed ticker:', confirmedTicker);
+  }
+
+  const text = (await callAnthropic(enrichedQuery)) ?? (await callOpenAI(enrichedQuery));
 
   if (!text) {
     throw new Error('No AI provider configured. Add ANTHROPIC_API_KEY or OPENAI_API_KEY to .env.local.');
@@ -964,6 +1017,37 @@ export async function generateLensSnapshot(query: string): Promise<LensSnapshot>
   if (Array.isArray(rawOutput.opportunities) && rawOutput.opportunities.length > 5) {
     rawOutput.opportunities = rawOutput.opportunities.slice(0, 5);
   }
+
+  // ── POST-GENERATION CLASSIFICATION OVERRIDE ─────────────────────────────────
+  // If we confirmed a ticker pre-generation but the AI still produced private-company
+  // fallback language (e.g. for obscure small-caps like CYBN), override it here.
+  const aiTicker = rawOutput.ticker || '';
+  const effectiveTicker = confirmedTicker || (aiTicker && !hasPrivateFallback(aiTicker) ? aiTicker : null);
+
+  if (confirmedTicker && hasPrivateFallback(rawOutput.top_unlock ?? '')) {
+    console.log('[lens-ai] POST-GENERATION OVERRIDE: AI returned private fallback for confirmed public ticker', confirmedTicker, '— overriding top_unlock');
+    rawOutput.ticker = confirmedTicker;
+    rawOutput.top_unlock = `Accelerate transformation by leveraging ${confirmedTicker}'s public market position — identify the highest-leverage capability gap between current TCS profile and sector leaders to unlock measurable equity value.`;
+    rawOutput.equity_reclamation = rawOutput.equity_reclamation && !hasPrivateFallback(rawOutput.equity_reclamation)
+      ? rawOutput.equity_reclamation
+      : '5%-15%';
+    rawOutput.opportunity_value = rawOutput.opportunity_value && !hasPrivateFallback(rawOutput.opportunity_value)
+      ? rawOutput.opportunity_value
+      : 'Undetermined pending full analysis';
+  }
+
+  // Log final classification result for Vercel logs
+  const finalTicker = rawOutput.ticker || '';
+  const finalTopUnlock = rawOutput.top_unlock || '';
+  const isPublic = !!finalTicker && !hasPrivateFallback(finalTopUnlock);
+  console.log('[lens-ai] Classification result:', {
+    query: queryTrim,
+    confirmedTicker,
+    aiTicker,
+    finalTicker,
+    isPublic,
+    topUnlockPreview: finalTopUnlock.slice(0, 80),
+  });
 
   const parsed = LensAiSchema.parse(rawOutput);
   // ID is always derived from the canonical company name returned by the AI.
