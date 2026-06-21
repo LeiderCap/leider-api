@@ -297,7 +297,7 @@ export default function CashlessBuybackPage() {
                   </svg>
                   Running Mechanism Analysis…
                 </span>
-              ) : 'Run Cashless Buyback Analysis™'}
+              ) : 'Run Cashless Buyback Analysis'}
             </button>
           </div>
         </form>
@@ -376,11 +376,11 @@ export default function CashlessBuybackPage() {
             <CitedText text={result.analysis.mechanism_summary} />
           </Section>
 
-          <Section n={2} title="Market Signal Effect™">
+          <Section n={2} title="Market Signal Effect">
             <CitedText text={result.analysis.market_signal_effect} />
           </Section>
 
-          <Section n={3} title="Rerating Thesis™">
+          <Section n={3} title="Rerating Thesis">
             <CitedText text={result.analysis.rerating_thesis} />
           </Section>
 
@@ -388,7 +388,7 @@ export default function CashlessBuybackPage() {
             <CitedText text={result.analysis.why_this_mechanism} />
           </Section>
 
-          <Section n={5} title="Required Performance™">
+          <Section n={5} title="Required Performance">
             <ul className="space-y-2">
               {result.analysis.required_performance.map((item, i) => (
                 <li key={i} className="flex gap-2.5">
@@ -410,7 +410,7 @@ export default function CashlessBuybackPage() {
             </ul>
           </Section>
 
-          <Section n={7} title="Confidence Level™">
+          <Section n={7} title="Confidence Level">
             <div className="flex flex-col gap-3">
               <ConfidenceBadge level={result.analysis.confidence_level} />
               <p><CitedText text={result.analysis.confidence_rationale} /></p>
@@ -431,7 +431,7 @@ export default function CashlessBuybackPage() {
               className="rounded-xl px-6 py-2.5 text-sm font-semibold text-white transition-colors disabled:opacity-60"
               style={{ backgroundColor: saveState === 'saved' ? '#10B981' : '#0F172A' }}
             >
-              {saveState === 'saving' ? 'Saving…' : saveState === 'saved' ? '✓ Saved' : saveState === 'error' ? 'Save Failed — Retry' : 'Save Analysis™'}
+              {saveState === 'saving' ? 'Saving…' : saveState === 'saved' ? '✓ Saved' : saveState === 'error' ? 'Save Failed — Retry' : 'Save Analysis'}
             </button>
           </div>
         </div>
