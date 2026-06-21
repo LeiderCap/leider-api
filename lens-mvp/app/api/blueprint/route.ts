@@ -92,14 +92,14 @@ export async function POST(request: Request) {
       }
 
       // Build insert payload — map form fields to enterprise_inquiries columns
-      // Organization → company, Role → role (new column), Message → notes
+      // organization = company name, message = request notes, status = 'new'
       const insertData: Record<string, unknown> = {
         name: payload.name || null,
         email: payload.email,
-        company: payload.organization || companyName || null,
-        role: payload.role || null,
-        request_type: payload.company_id,
-        notes: payload.message || null,
+        organization: payload.organization || companyName || null,
+        message: payload.message || null,
+        status: 'new',
+        company_id: payload.company_id || null,
       };
 
       console.log('[blueprint] Insert payload:', JSON.stringify(insertData));

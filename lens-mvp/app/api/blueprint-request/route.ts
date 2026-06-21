@@ -20,13 +20,13 @@ export async function POST(req: NextRequest) {
       .insert({
         name: name?.trim() || null,
         email: email.trim(),
-        company: company?.trim() || null,
-        request_type: 'full_transformation_blueprint',
-        notes: notes?.trim() || null,
+        organization: company?.trim() || null,
+        message: notes?.trim() || null,
+        status: 'new',
       });
 
     if (error) {
-      console.error('Insert error:', error);
+      console.error('enterprise_inquiries insert error:', error);
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
