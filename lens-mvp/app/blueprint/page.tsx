@@ -402,7 +402,13 @@ function BlueprintDisplay({
             </span>
           ) : 'Export as PDF™'}
         </button>
-        <button onClick={onRequestOpen} className="btn btn-secondary px-6 py-2.5">
+        <button
+          onClick={onRequestOpen}
+          className="px-6 py-2.5 rounded-xl font-semibold text-white text-sm transition-colors"
+          style={{ backgroundColor: '#10B981' }}
+          onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#059669')}
+          onMouseLeave={e => (e.currentTarget.style.backgroundColor = '#10B981')}
+        >
           Request Full Transformation Blueprint™
         </button>
       </div>
