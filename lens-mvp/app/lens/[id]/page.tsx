@@ -16,6 +16,7 @@ import TrustQuadrantDiagnostic from '@/components/TrustQuadrantDiagnostic';
 import { OidBadge } from '@/components/OidBadge';
 import { TierPaywall } from '@/components/TierPaywall';
 import { BlueprintGate } from '@/components/BlueprintGate';
+import { CitedText } from '@/components/CitedText';
 
 const ratingClass: Record<string, string> = {
   Leading:      'rating-leading',
@@ -146,7 +147,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
           {item.what_lens_sees && (
             <div className="rounded-xl bg-slate-900 p-6 text-white">
               <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-teal-400">What The Lens Sees</p>
-              <p className="mt-3 text-base leading-8 text-slate-100">{item.what_lens_sees}</p>
+              <p className="mt-3 text-base leading-8 text-slate-100"><CitedText text={item.what_lens_sees} /></p>
             </div>
           )}
 
@@ -179,25 +180,25 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
             {item.value_creation_model && (
               <div className="rounded-xl border border-slate-200 bg-white p-5">
                 <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">How Value Is Created</p>
-                <p className="mt-2 text-sm leading-7 text-slate-700">{item.value_creation_model}</p>
+                <p className="mt-2 text-sm leading-7 text-slate-700"><CitedText text={item.value_creation_model} /></p>
               </div>
             )}
             {item.hidden_assets && (
               <div className="rounded-xl border border-teal-200 bg-teal-50 p-5">
                 <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Hidden Assets</p>
-                <p className="mt-2 text-sm leading-7 text-slate-700">{item.hidden_assets}</p>
+                <p className="mt-2 text-sm leading-7 text-slate-700"><CitedText text={item.hidden_assets} /></p>
               </div>
             )}
             {item.hidden_constraints && (
               <div className="rounded-xl border border-slate-200 bg-white p-5">
                 <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Hidden Constraints</p>
-                <p className="mt-2 text-sm leading-7 text-slate-700">{item.hidden_constraints}</p>
+                <p className="mt-2 text-sm leading-7 text-slate-700"><CitedText text={item.hidden_constraints} /></p>
               </div>
             )}
             {item.transformation_opportunities && (
               <div className="rounded-xl border border-teal-200 bg-teal-50 p-5">
                 <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Transformation Opportunities</p>
-                <p className="mt-2 text-sm leading-7 text-slate-700">{item.transformation_opportunities}</p>
+                <p className="mt-2 text-sm leading-7 text-slate-700"><CitedText text={item.transformation_opportunities} /></p>
               </div>
             )}
           </div>
@@ -246,7 +247,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
           {item.analysis_summary && (
             <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
               <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Lens Verdict</p>
-              <p className="mt-2 text-sm italic leading-7 text-slate-700">{item.analysis_summary}</p>
+              <p className="mt-2 text-sm italic leading-7 text-slate-700"><CitedText text={item.analysis_summary} /></p>
             </div>
           )}
         </div>
@@ -485,7 +486,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
             {item.discovery_intelligence.emerging_signals && (
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400 mb-1">Emerging Signals</p>
-                <p className="text-sm leading-7 text-slate-700">{item.discovery_intelligence.emerging_signals}</p>
+                <p className="text-sm leading-7 text-slate-700"><CitedText text={item.discovery_intelligence.emerging_signals} /></p>
               </div>
             )}
 
@@ -493,7 +494,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
             {item.discovery_intelligence.yet_opportunities && (
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400 mb-1">Yet Opportunities</p>
-                <p className="text-sm leading-7 text-slate-700">{item.discovery_intelligence.yet_opportunities}</p>
+                <p className="text-sm leading-7 text-slate-700"><CitedText text={item.discovery_intelligence.yet_opportunities} /></p>
               </div>
             )}
 

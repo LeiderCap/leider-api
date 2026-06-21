@@ -732,9 +732,23 @@ hidden_assets, hidden_constraints, transformation_opportunities, analysis_summar
 discovery_intelligence.emerging_signals, discovery_intelligence.yet_opportunities), add an
 inline citation in this format: [Source: Publication Name, Year] immediately after the claim.
 
+For the 4-6 most significant claims in the report — those that most affect the conclusions about
+transformation potential (financial performance, strategic direction, transformation capacity) —
+add a confidence marker immediately after the citation, like this:
+
+[Source: Publication Name, Year] — High Confidence
+[Source: Publication Name, Year] — Moderate Confidence
+[Source: Publication Name, Year] — Low Confidence
+
+Confidence criteria:
+- High Confidence: directly stated in recent, reputable sources (earnings reports, official filings, major financial press)
+- Moderate Confidence: reasonably inferred from available evidence but not explicitly confirmed
+- Low Confidence: speculative or based on limited/older information
+
+Do NOT add a confidence marker to every sentence. Reserve it for the 4-6 most significant claims only.
+
 Example:
-"The company reported revenue growth of 12% in fiscal 2024 [Source: Bloomberg, 2024] driven
-primarily by expansion in its cloud division [Source: Wall Street Journal, 2024]."
+"The company reported revenue growth of 12% in fiscal 2024 [Source: Bloomberg, 2024] — High Confidence, driven primarily by expansion in its cloud division. Analysts suggest this growth may be difficult to sustain given increasing competitive pressure [Source: Wall Street Journal, 2024] — Moderate Confidence."
 
 Search for:
 - Recent earnings reports and financial performance

@@ -7,6 +7,7 @@ import type { LensSnapshot } from '@/lib/types';
 import { QspInfoButton } from '@/components/QspInfoButton';
 import TrustQuadrantDiagnostic from '@/components/TrustQuadrantDiagnostic';
 import { OidBadge } from '@/components/OidBadge';
+import { CitedText } from '@/components/CitedText';
 
 // ── Analysis Narrative Section ────────────────────────────────────────────────
 
@@ -23,7 +24,7 @@ function AnalysisNarrativeCard({
   return (
     <div className={`rounded-xl border p-5 ${accent ? 'border-teal-200 bg-teal-50' : 'border-slate-200 bg-white'}`}>
       <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">{label}</p>
-      <p className="mt-2 text-sm leading-7 text-slate-700">{body}</p>
+      <p className="mt-2 text-sm leading-7 text-slate-700"><CitedText text={body} /></p>
     </div>
   );
 }
@@ -60,7 +61,7 @@ function LensAnalysisSection({ item, isLive }: { item: LensSnapshot; isLive: boo
       {item.what_lens_sees && (
         <div className="rounded-xl bg-slate-900 p-6 text-white">
           <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-teal-400">What The Lens Sees</p>
-          <p className="mt-3 text-base leading-8 text-slate-100">{item.what_lens_sees}</p>
+          <p className="mt-3 text-base leading-8 text-slate-100"><CitedText text={item.what_lens_sees} /></p>
         </div>
       )}
 
@@ -137,7 +138,7 @@ function LensAnalysisSection({ item, isLive }: { item: LensSnapshot; isLive: boo
       {item.analysis_summary && (
         <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
           <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Lens Verdict</p>
-          <p className="mt-2 text-sm italic leading-7 text-slate-700">{item.analysis_summary}</p>
+          <p className="mt-2 text-sm italic leading-7 text-slate-700"><CitedText text={item.analysis_summary} /></p>
         </div>
       )}
     </div>
