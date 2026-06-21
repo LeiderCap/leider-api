@@ -9,20 +9,21 @@ interface BlueprintGateProps {
 }
 
 export function BlueprintGate({ entityName, entityId }: BlueprintGateProps) {
-  const [isMember, setIsMember] = useState<boolean | null>(null);
+  const [hasTier, setHasTier] = useState<boolean | null>(null);
 
   useEffect(() => {
     try {
-      setIsMember(localStorage.getItem('founding_member') === 'true');
+      const tier = localStorage.getItem('lens_access_tier');
+      setHasTier(!!tier && ['single', 'pro', 'enterprise'].includes(tier));
     } catch {
-      setIsMember(false);
+      setHasTier(false);
     }
   }, []);
 
   // Hydration guard — don't render until we've read localStorage
-  if (isMember === null) return null;
+  if (hasTier === null) return null;
 
-  if (!isMember) {
+  if (!hasTier) {
     return (
       <section className="mt-6 rounded-2xl overflow-hidden border border-slate-200">
         {/* Header */}
@@ -53,7 +54,7 @@ export function BlueprintGate({ entityName, entityId }: BlueprintGateProps) {
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
             <div className="text-2xl">🔒</div>
             <p className="text-sm font-semibold text-slate-700 text-center max-w-xs">
-              Unlock with a Founding Transformation Member™ subscription to access Blueprint™
+              Available with Single, Pro, or Enterprise access
             </p>
           </div>
         </div>
@@ -61,7 +62,7 @@ export function BlueprintGate({ entityName, entityId }: BlueprintGateProps) {
     );
   }
 
-  // Member — show active Blueprint section
+  // Paid tier — show active Blueprint section
   return (
     <section className="mt-6 rounded-2xl border-2 p-6 text-center"
       style={{ borderColor: '#F97316', background: '#FFF7ED' }}>

@@ -322,6 +322,14 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
         </section>
       )}
 
+      {/* ── Paywall — appears once, immediately after the free scorecard ─── */}
+      <div className="mt-6">
+        <TierPaywall companyName={item.name} ticker={item.ticker} />
+      </div>
+
+      {/* ── Build Transformation Blueprint™ (gated) ──────────────────────── */}
+      <BlueprintGate entityName={item.name} entityId={item.id} />
+
       {/* ── 8. Transformation Capacity Gap™ ───────────────────────────────── */}
       <section className="card mt-6 p-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
@@ -537,14 +545,6 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
           </ul>
         </section>
       )}
-
-      {/* ── Paywall ──────────────────────────────────────────────────────── */}
-      <div className="mt-6">
-        <TierPaywall companyName={item.name} ticker={item.ticker} />
-      </div>
-
-      {/* ── Build Transformation Blueprint™ (gated) ──────────────────────── */}
-      <BlueprintGate entityName={item.name} entityId={item.id} />
 
 
       {/* ── 10. Blueprint™ CTA ────────────────────────────────────────────── */}
