@@ -170,12 +170,14 @@ IMPORTANT ARRAY LIMITS (strictly enforced):
 
   "detected_industry": "The detected industry category — one of: Pharmaceutical / Life Sciences | Healthcare / Hospital Systems | Financial Services | Technology | Government / Public Sector | Real Estate | Manufacturing | Retail / Consumer | Energy | Education | Other",
   "constraint_translations": {
-    "absorbability": "Industry-specific translation of the absorbability constraint (only include if absorbability_numeric < 70)",
-    "execution": "Industry-specific translation of the execution constraint (only include if execution_numeric < 70)",
-    "governance": "Industry-specific translation of the governance constraint (only include if governance_numeric < 70)",
-    "trust": "Industry-specific translation of the trust constraint (only include if trust_numeric < 70)",
-        "intelligence": "Industry-specific translation of the intelligence constraint (only include if intelligence_numeric < 70)"
+    "absorbability": "",
+    "execution": "",
+    "governance": "",
+    "trust": "",
+    "intelligence": "",
+    "courage": ""
   },
+
   "opportunity_id": "OID-[YEAR]-[ENTITY]-[CATEGORY]-001 where YEAR=2026, ENTITY=3-6 letter uppercase code derived from the entity name (e.g. MSFT, FERRING, APPLE, ERIE, CA), CATEGORY=TCA|WFT|GOV|AI|TRU based on primary constraint (default TCA). Example: OID-2026-FERRING-TCA-001",
   "discovery_intelligence": {
     "emerging_signals": "2-3 sentences: what patterns are appearing in this company's market, technology adoption, or organizational behavior that signal emerging change",
@@ -187,6 +189,16 @@ IMPORTANT ARRAY LIMITS (strictly enforced):
     { "name": "Publication Name", "year": "2024" }
   ]
 }
+
+CONSTRAINT_TRANSLATIONS INSTRUCTION:
+For each of the six domains (absorbability, execution, governance, trust, intelligence, courage),
+check the corresponding numeric score. If the score is below 70, populate the constraint_translations
+field for that domain with the industry-specific translation text from the INDUSTRY TRANSLATION LAYER
+section of this prompt. If the score is 70 or above, set the field to an empty string "".
+IMPORTANT: Do NOT echo these instructions into the output. Do NOT write phrases like
+"only include if absorbability_numeric < 70" or "Industry-specific translation of the X constraint"
+in any output field. Generate the actual translated text or leave the field empty.
+
 IMPORTANT: The following fields must be returned with EXACT values as listed below.
 Do not paraphrase, abbreviate, capitalize differently, or use any other value.
 
@@ -928,6 +940,348 @@ function extractTickerFromQuery(q: string): string {
   return m ? m[1] : q.trim().toUpperCase();
 }
 
+/**
+ * Deterministic name-to-ticker lookup table for well-known public companies.
+ * Covers Fortune 500, common search targets, and companies previously misclassified.
+ * Keys are lowercase normalized company names (no punctuation, no "inc"/"corp" suffixes).
+ * This is the ONLY reliable fix for name-based searches — the AI cannot search the web.
+ */
+const NAME_TO_TICKER: Record<string, { ticker: string; exchange: string }> = {
+  // Technology
+  'microsoft': { ticker: 'MSFT', exchange: 'NASDAQ' },
+  'apple': { ticker: 'AAPL', exchange: 'NASDAQ' },
+  'google': { ticker: 'GOOGL', exchange: 'NASDAQ' },
+  'alphabet': { ticker: 'GOOGL', exchange: 'NASDAQ' },
+  'amazon': { ticker: 'AMZN', exchange: 'NASDAQ' },
+  'meta': { ticker: 'META', exchange: 'NASDAQ' },
+  'facebook': { ticker: 'META', exchange: 'NASDAQ' },
+  'nvidia': { ticker: 'NVDA', exchange: 'NASDAQ' },
+  'salesforce': { ticker: 'CRM', exchange: 'NYSE' },
+  'oracle': { ticker: 'ORCL', exchange: 'NYSE' },
+  'ibm': { ticker: 'IBM', exchange: 'NYSE' },
+  'intel': { ticker: 'INTC', exchange: 'NASDAQ' },
+  'amd': { ticker: 'AMD', exchange: 'NASDAQ' },
+  'advanced micro devices': { ticker: 'AMD', exchange: 'NASDAQ' },
+  'qualcomm': { ticker: 'QCOM', exchange: 'NASDAQ' },
+  'cisco': { ticker: 'CSCO', exchange: 'NASDAQ' },
+  'adobe': { ticker: 'ADBE', exchange: 'NASDAQ' },
+  'servicenow': { ticker: 'NOW', exchange: 'NYSE' },
+  'workday': { ticker: 'WDAY', exchange: 'NASDAQ' },
+  'snowflake': { ticker: 'SNOW', exchange: 'NYSE' },
+  'palantir': { ticker: 'PLTR', exchange: 'NYSE' },
+  'confluent': { ticker: 'CFLT', exchange: 'NASDAQ' },
+  'databricks': { ticker: 'DBX', exchange: 'NASDAQ' },
+  'splunk': { ticker: 'SPLK', exchange: 'NASDAQ' },
+  'twilio': { ticker: 'TWLO', exchange: 'NYSE' },
+  'datadog': { ticker: 'DDOG', exchange: 'NASDAQ' },
+  'cloudflare': { ticker: 'NET', exchange: 'NYSE' },
+  'crowdstrike': { ticker: 'CRWD', exchange: 'NASDAQ' },
+  'palo alto networks': { ticker: 'PANW', exchange: 'NASDAQ' },
+  'fortinet': { ticker: 'FTNT', exchange: 'NASDAQ' },
+  'veeva systems': { ticker: 'VEEV', exchange: 'NYSE' },
+  'veeva': { ticker: 'VEEV', exchange: 'NYSE' },
+  'sap': { ticker: 'SAP', exchange: 'NYSE' },
+  'zoom': { ticker: 'ZM', exchange: 'NASDAQ' },
+  'zoom video': { ticker: 'ZM', exchange: 'NASDAQ' },
+  'slack': { ticker: 'WORK', exchange: 'NYSE' },
+  'shopify': { ticker: 'SHOP', exchange: 'NYSE' },
+  'square': { ticker: 'SQ', exchange: 'NYSE' },
+  'block': { ticker: 'SQ', exchange: 'NYSE' },
+  'stripe': { ticker: '', exchange: '' }, // private
+  'uber': { ticker: 'UBER', exchange: 'NYSE' },
+  'lyft': { ticker: 'LYFT', exchange: 'NASDAQ' },
+  'airbnb': { ticker: 'ABNB', exchange: 'NASDAQ' },
+  'doordash': { ticker: 'DASH', exchange: 'NYSE' },
+  'instacart': { ticker: 'CART', exchange: 'NASDAQ' },
+  'maplebear': { ticker: 'CART', exchange: 'NASDAQ' },
+  'twitter': { ticker: 'X', exchange: 'PRIVATE' }, // now private
+  'x': { ticker: '', exchange: '' }, // private
+  'linkedin': { ticker: '', exchange: '' }, // owned by Microsoft, not separately listed
+  'netflix': { ticker: 'NFLX', exchange: 'NASDAQ' },
+  'spotify': { ticker: 'SPOT', exchange: 'NYSE' },
+  'pinterest': { ticker: 'PINS', exchange: 'NYSE' },
+  'snap': { ticker: 'SNAP', exchange: 'NYSE' },
+  'snapchat': { ticker: 'SNAP', exchange: 'NYSE' },
+  'reddit': { ticker: 'RDDT', exchange: 'NYSE' },
+  'roblox': { ticker: 'RBLX', exchange: 'NYSE' },
+  'unity': { ticker: 'U', exchange: 'NYSE' },
+  'unity software': { ticker: 'U', exchange: 'NYSE' },
+  'autodesk': { ticker: 'ADSK', exchange: 'NASDAQ' },
+  'intuit': { ticker: 'INTU', exchange: 'NASDAQ' },
+  'verisign': { ticker: 'VRSN', exchange: 'NASDAQ' },
+  'akamai': { ticker: 'AKAM', exchange: 'NASDAQ' },
+  'f5': { ticker: 'FFIV', exchange: 'NASDAQ' },
+  'juniper networks': { ticker: 'JNPR', exchange: 'NYSE' },
+  'hp': { ticker: 'HPQ', exchange: 'NYSE' },
+  'hewlett packard': { ticker: 'HPQ', exchange: 'NYSE' },
+  'hpe': { ticker: 'HPE', exchange: 'NYSE' },
+  'hewlett packard enterprise': { ticker: 'HPE', exchange: 'NYSE' },
+  'dell': { ticker: 'DELL', exchange: 'NYSE' },
+  'dell technologies': { ticker: 'DELL', exchange: 'NYSE' },
+  'vmware': { ticker: 'VMW', exchange: 'NYSE' },
+  'broadcom': { ticker: 'AVGO', exchange: 'NASDAQ' },
+  'micron': { ticker: 'MU', exchange: 'NASDAQ' },
+  'micron technology': { ticker: 'MU', exchange: 'NASDAQ' },
+  'western digital': { ticker: 'WDC', exchange: 'NASDAQ' },
+  'seagate': { ticker: 'STX', exchange: 'NASDAQ' },
+  'corning': { ticker: 'GLW', exchange: 'NYSE' },
+  'applied materials': { ticker: 'AMAT', exchange: 'NASDAQ' },
+  'lam research': { ticker: 'LRCX', exchange: 'NASDAQ' },
+  'kla': { ticker: 'KLAC', exchange: 'NASDAQ' },
+  'asml': { ticker: 'ASML', exchange: 'NASDAQ' },
+  'tsmc': { ticker: 'TSM', exchange: 'NYSE' },
+  'taiwan semiconductor': { ticker: 'TSM', exchange: 'NYSE' },
+  'samsung': { ticker: '005930', exchange: 'KRX' },
+  // Financial Services / Research
+  'gartner': { ticker: 'IT', exchange: 'NYSE' },
+  'factset': { ticker: 'FDS', exchange: 'NASDAQ' },
+  'factset research': { ticker: 'FDS', exchange: 'NASDAQ' },
+  'factset research systems': { ticker: 'FDS', exchange: 'NASDAQ' },
+  'morningstar': { ticker: 'MORN', exchange: 'NASDAQ' },
+  'bloomberg': { ticker: '', exchange: '' }, // private
+  'refinitiv': { ticker: '', exchange: '' }, // owned by LSEG
+  'msci': { ticker: 'MSCI', exchange: 'NYSE' },
+  'sp global': { ticker: 'SPGI', exchange: 'NYSE' },
+  's&p global': { ticker: 'SPGI', exchange: 'NYSE' },
+  'moody': { ticker: 'MCO', exchange: 'NYSE' },
+  "moody's": { ticker: 'MCO', exchange: 'NYSE' },
+  'fitch': { ticker: '', exchange: '' }, // private
+  'jpmorgan': { ticker: 'JPM', exchange: 'NYSE' },
+  'jp morgan': { ticker: 'JPM', exchange: 'NYSE' },
+  'goldman sachs': { ticker: 'GS', exchange: 'NYSE' },
+  'morgan stanley': { ticker: 'MS', exchange: 'NYSE' },
+  'bank of america': { ticker: 'BAC', exchange: 'NYSE' },
+  'wells fargo': { ticker: 'WFC', exchange: 'NYSE' },
+  'citigroup': { ticker: 'C', exchange: 'NYSE' },
+  'citi': { ticker: 'C', exchange: 'NYSE' },
+  'blackrock': { ticker: 'BLK', exchange: 'NYSE' },
+  'vanguard': { ticker: '', exchange: '' }, // private/mutual
+  'fidelity': { ticker: '', exchange: '' }, // private
+  'charles schwab': { ticker: 'SCHW', exchange: 'NYSE' },
+  'schwab': { ticker: 'SCHW', exchange: 'NYSE' },
+  'td ameritrade': { ticker: '', exchange: '' }, // acquired by Schwab
+  'ameriprise': { ticker: 'AMP', exchange: 'NYSE' },
+  'raymond james': { ticker: 'RJF', exchange: 'NYSE' },
+  'stifel': { ticker: 'SF', exchange: 'NYSE' },
+  'piper sandler': { ticker: 'PIPR', exchange: 'NYSE' },
+  'erie indemnity': { ticker: 'ERIE', exchange: 'NASDAQ' },
+  'erie': { ticker: 'ERIE', exchange: 'NASDAQ' },
+  'travelers': { ticker: 'TRV', exchange: 'NYSE' },
+  'allstate': { ticker: 'ALL', exchange: 'NYSE' },
+  'progressive': { ticker: 'PGR', exchange: 'NYSE' },
+  'berkshire hathaway': { ticker: 'BRK.B', exchange: 'NYSE' },
+  'berkshire': { ticker: 'BRK.B', exchange: 'NYSE' },
+  'visa': { ticker: 'V', exchange: 'NYSE' },
+  'mastercard': { ticker: 'MA', exchange: 'NYSE' },
+  'american express': { ticker: 'AXP', exchange: 'NYSE' },
+  'amex': { ticker: 'AXP', exchange: 'NYSE' },
+  'paypal': { ticker: 'PYPL', exchange: 'NASDAQ' },
+  'fiserv': { ticker: 'FI', exchange: 'NASDAQ' },
+  'fis': { ticker: 'FIS', exchange: 'NYSE' },
+  'jack henry': { ticker: 'JKHY', exchange: 'NASDAQ' },
+  'ss&c technologies': { ticker: 'SSNC', exchange: 'NASDAQ' },
+  'broadridge': { ticker: 'BR', exchange: 'NYSE' },
+  'intercontinental exchange': { ticker: 'ICE', exchange: 'NYSE' },
+  'nasdaq': { ticker: 'NDAQ', exchange: 'NASDAQ' },
+  'cboe': { ticker: 'CBOE', exchange: 'CBOE' },
+  'cme group': { ticker: 'CME', exchange: 'NASDAQ' },
+  // Healthcare
+  'hca healthcare': { ticker: 'HCA', exchange: 'NYSE' },
+  'hca': { ticker: 'HCA', exchange: 'NYSE' },
+  'unitedhealth': { ticker: 'UNH', exchange: 'NYSE' },
+  'unitedhealth group': { ticker: 'UNH', exchange: 'NYSE' },
+  'cvs health': { ticker: 'CVS', exchange: 'NYSE' },
+  'cvs': { ticker: 'CVS', exchange: 'NYSE' },
+  'cigna': { ticker: 'CI', exchange: 'NYSE' },
+  'humana': { ticker: 'HUM', exchange: 'NYSE' },
+  'elevance health': { ticker: 'ELV', exchange: 'NYSE' },
+  'anthem': { ticker: 'ELV', exchange: 'NYSE' },
+  'centene': { ticker: 'CNC', exchange: 'NYSE' },
+  'molina healthcare': { ticker: 'MOH', exchange: 'NYSE' },
+  'tenet healthcare': { ticker: 'THC', exchange: 'NYSE' },
+  'tenet': { ticker: 'THC', exchange: 'NYSE' },
+  'community health systems': { ticker: 'CYH', exchange: 'NYSE' },
+  'universal health services': { ticker: 'UHS', exchange: 'NYSE' },
+  'davita': { ticker: 'DVA', exchange: 'NYSE' },
+  'fresenius': { ticker: 'FMS', exchange: 'NYSE' },
+  'mckesson': { ticker: 'MCK', exchange: 'NYSE' },
+  'amerisourcebergen': { ticker: 'ABC', exchange: 'NYSE' },
+  'cardinal health': { ticker: 'CAH', exchange: 'NYSE' },
+  'johnson & johnson': { ticker: 'JNJ', exchange: 'NYSE' },
+  'johnson and johnson': { ticker: 'JNJ', exchange: 'NYSE' },
+  'pfizer': { ticker: 'PFE', exchange: 'NYSE' },
+  'merck': { ticker: 'MRK', exchange: 'NYSE' },
+  'abbvie': { ticker: 'ABBV', exchange: 'NYSE' },
+  'eli lilly': { ticker: 'LLY', exchange: 'NYSE' },
+  'lilly': { ticker: 'LLY', exchange: 'NYSE' },
+  'bristol myers squibb': { ticker: 'BMY', exchange: 'NYSE' },
+  'amgen': { ticker: 'AMGN', exchange: 'NASDAQ' },
+  'gilead': { ticker: 'GILD', exchange: 'NASDAQ' },
+  'biogen': { ticker: 'BIIB', exchange: 'NASDAQ' },
+  'regeneron': { ticker: 'REGN', exchange: 'NASDAQ' },
+  'vertex': { ticker: 'VRTX', exchange: 'NASDAQ' },
+  'vertex pharmaceuticals': { ticker: 'VRTX', exchange: 'NASDAQ' },
+  'moderna': { ticker: 'MRNA', exchange: 'NASDAQ' },
+  'biontech': { ticker: 'BNTX', exchange: 'NASDAQ' },
+  'astrazeneca': { ticker: 'AZN', exchange: 'NASDAQ' },
+  'novartis': { ticker: 'NVS', exchange: 'NYSE' },
+  'roche': { ticker: 'RHHBY', exchange: 'OTC' },
+  'sanofi': { ticker: 'SNY', exchange: 'NASDAQ' },
+  'bayer': { ticker: 'BAYRY', exchange: 'OTC' },
+  'cybin': { ticker: 'CYBN', exchange: 'NYSE AMERICAN' },
+  'cybin inc': { ticker: 'CYBN', exchange: 'NYSE AMERICAN' },
+  // Retail / Consumer
+  'walmart': { ticker: 'WMT', exchange: 'NYSE' },
+  'amazon': { ticker: 'AMZN', exchange: 'NASDAQ' },
+  'costco': { ticker: 'COST', exchange: 'NASDAQ' },
+  'target': { ticker: 'TGT', exchange: 'NYSE' },
+  'home depot': { ticker: 'HD', exchange: 'NYSE' },
+  'lowes': { ticker: 'LOW', exchange: 'NYSE' },
+  "lowe's": { ticker: 'LOW', exchange: 'NYSE' },
+  'dollar general': { ticker: 'DG', exchange: 'NYSE' },
+  'dollar tree': { ticker: 'DLTR', exchange: 'NASDAQ' },
+  'kroger': { ticker: 'KR', exchange: 'NYSE' },
+  'albertsons': { ticker: 'ACI', exchange: 'NYSE' },
+  'walgreens': { ticker: 'WBA', exchange: 'NASDAQ' },
+  'cvs': { ticker: 'CVS', exchange: 'NYSE' },
+  'starbucks': { ticker: 'SBUX', exchange: 'NASDAQ' },
+  'mcdonalds': { ticker: 'MCD', exchange: 'NYSE' },
+  "mcdonald's": { ticker: 'MCD', exchange: 'NYSE' },
+  'yum brands': { ticker: 'YUM', exchange: 'NYSE' },
+  'restaurant brands': { ticker: 'QSR', exchange: 'NYSE' },
+  'chipotle': { ticker: 'CMG', exchange: 'NYSE' },
+  'nike': { ticker: 'NKE', exchange: 'NYSE' },
+  'gap': { ticker: 'GPS', exchange: 'NYSE' },
+  'pvh': { ticker: 'PVH', exchange: 'NYSE' },
+  'ralph lauren': { ticker: 'RL', exchange: 'NYSE' },
+  'tapestry': { ticker: 'TPR', exchange: 'NYSE' },
+  'capri holdings': { ticker: 'CPRI', exchange: 'NYSE' },
+  'kb home': { ticker: 'KBH', exchange: 'NYSE' },
+  'kb homes': { ticker: 'KBH', exchange: 'NYSE' },
+  'lennar': { ticker: 'LEN', exchange: 'NYSE' },
+  'dr horton': { ticker: 'DHI', exchange: 'NYSE' },
+  'pultegroup': { ticker: 'PHM', exchange: 'NYSE' },
+  'toll brothers': { ticker: 'TOL', exchange: 'NYSE' },
+  // Energy
+  'exxon': { ticker: 'XOM', exchange: 'NYSE' },
+  'exxonmobil': { ticker: 'XOM', exchange: 'NYSE' },
+  'chevron': { ticker: 'CVX', exchange: 'NYSE' },
+  'shell': { ticker: 'SHEL', exchange: 'NYSE' },
+  'bp': { ticker: 'BP', exchange: 'NYSE' },
+  'conocophillips': { ticker: 'COP', exchange: 'NYSE' },
+  'pioneer natural resources': { ticker: 'PXD', exchange: 'NYSE' },
+  'schlumberger': { ticker: 'SLB', exchange: 'NYSE' },
+  'halliburton': { ticker: 'HAL', exchange: 'NYSE' },
+  'baker hughes': { ticker: 'BKR', exchange: 'NASDAQ' },
+  'nextera energy': { ticker: 'NEE', exchange: 'NYSE' },
+  'duke energy': { ticker: 'DUK', exchange: 'NYSE' },
+  'southern company': { ticker: 'SO', exchange: 'NYSE' },
+  'dominion energy': { ticker: 'D', exchange: 'NYSE' },
+  'american electric power': { ticker: 'AEP', exchange: 'NASDAQ' },
+  // Transportation / Airlines
+  'delta air lines': { ticker: 'DAL', exchange: 'NYSE' },
+  'delta': { ticker: 'DAL', exchange: 'NYSE' },
+  'united airlines': { ticker: 'UAL', exchange: 'NASDAQ' },
+  'american airlines': { ticker: 'AAL', exchange: 'NASDAQ' },
+  'southwest airlines': { ticker: 'LUV', exchange: 'NYSE' },
+  'southwest': { ticker: 'LUV', exchange: 'NYSE' },
+  'jetblue': { ticker: 'JBLU', exchange: 'NASDAQ' },
+  'alaska airlines': { ticker: 'ALK', exchange: 'NYSE' },
+  'union pacific': { ticker: 'UNP', exchange: 'NYSE' },
+  'csx': { ticker: 'CSX', exchange: 'NASDAQ' },
+  'norfolk southern': { ticker: 'NSC', exchange: 'NYSE' },
+  'bnsf': { ticker: '', exchange: '' }, // owned by Berkshire
+  'fedex': { ticker: 'FDX', exchange: 'NYSE' },
+  'ups': { ticker: 'UPS', exchange: 'NYSE' },
+  'united parcel service': { ticker: 'UPS', exchange: 'NYSE' },
+  // Telecom
+  'tmobile': { ticker: 'TMUS', exchange: 'NASDAQ' },
+  't-mobile': { ticker: 'TMUS', exchange: 'NASDAQ' },
+  'verizon': { ticker: 'VZ', exchange: 'NYSE' },
+  'att': { ticker: 'T', exchange: 'NYSE' },
+  'at&t': { ticker: 'T', exchange: 'NYSE' },
+  'comcast': { ticker: 'CMCSA', exchange: 'NASDAQ' },
+  'charter communications': { ticker: 'CHTR', exchange: 'NASDAQ' },
+  'dish network': { ticker: 'DISH', exchange: 'NASDAQ' },
+  // Industrial / Manufacturing
+  'general electric': { ticker: 'GE', exchange: 'NYSE' },
+  'ge': { ticker: 'GE', exchange: 'NYSE' },
+  'honeywell': { ticker: 'HON', exchange: 'NASDAQ' },
+  '3m': { ticker: 'MMM', exchange: 'NYSE' },
+  'caterpillar': { ticker: 'CAT', exchange: 'NYSE' },
+  'deere': { ticker: 'DE', exchange: 'NYSE' },
+  'john deere': { ticker: 'DE', exchange: 'NYSE' },
+  'emerson electric': { ticker: 'EMR', exchange: 'NYSE' },
+  'parker hannifin': { ticker: 'PH', exchange: 'NYSE' },
+  'illinois tool works': { ticker: 'ITW', exchange: 'NASDAQ' },
+  'dover': { ticker: 'DOV', exchange: 'NYSE' },
+  'xylem': { ticker: 'XYL', exchange: 'NYSE' },
+  'roper technologies': { ticker: 'ROP', exchange: 'NASDAQ' },
+  'danaher': { ticker: 'DHR', exchange: 'NYSE' },
+  'thermo fisher': { ticker: 'TMO', exchange: 'NYSE' },
+  'thermo fisher scientific': { ticker: 'TMO', exchange: 'NYSE' },
+  'agilent': { ticker: 'A', exchange: 'NYSE' },
+  'waters': { ticker: 'WAT', exchange: 'NYSE' },
+  'mettler toledo': { ticker: 'MTD', exchange: 'NYSE' },
+  'lockheed martin': { ticker: 'LMT', exchange: 'NYSE' },
+  'boeing': { ticker: 'BA', exchange: 'NYSE' },
+  'raytheon': { ticker: 'RTX', exchange: 'NYSE' },
+  'rtx': { ticker: 'RTX', exchange: 'NYSE' },
+  'northrop grumman': { ticker: 'NOC', exchange: 'NYSE' },
+  'general dynamics': { ticker: 'GD', exchange: 'NYSE' },
+  'l3harris': { ticker: 'LHX', exchange: 'NYSE' },
+  // Consumer Goods
+  'procter gamble': { ticker: 'PG', exchange: 'NYSE' },
+  'procter & gamble': { ticker: 'PG', exchange: 'NYSE' },
+  'colgate': { ticker: 'CL', exchange: 'NYSE' },
+  'colgate palmolive': { ticker: 'CL', exchange: 'NYSE' },
+  'unilever': { ticker: 'UL', exchange: 'NYSE' },
+  'kimberly clark': { ticker: 'KMB', exchange: 'NYSE' },
+  'church dwight': { ticker: 'CHD', exchange: 'NYSE' },
+  'henkel': { ticker: 'HENKY', exchange: 'OTC' },
+  'coca cola': { ticker: 'KO', exchange: 'NYSE' },
+  'pepsi': { ticker: 'PEP', exchange: 'NASDAQ' },
+  'pepsico': { ticker: 'PEP', exchange: 'NASDAQ' },
+  'nestle': { ticker: 'NSRGY', exchange: 'OTC' },
+  'mondelez': { ticker: 'MDLZ', exchange: 'NASDAQ' },
+  'kraft heinz': { ticker: 'KHC', exchange: 'NASDAQ' },
+  'general mills': { ticker: 'GIS', exchange: 'NYSE' },
+  'kellogg': { ticker: 'K', exchange: 'NYSE' },
+  'campbell soup': { ticker: 'CPB', exchange: 'NYSE' },
+  'hershey': { ticker: 'HSY', exchange: 'NASDAQ' },
+  'church & dwight': { ticker: 'CHD', exchange: 'NYSE' },
+};
+
+/**
+ * Normalize a company name for lookup: lowercase, strip common suffixes,
+ * remove punctuation except & and spaces.
+ */
+function normalizeCompanyName(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[,\.]/g, '')
+    .replace(/\b(inc|corp|corporation|company|co|ltd|llc|plc|group|holdings|technologies|technology|systems|solutions|services|international|global|enterprises|partners|associates|industries|industries)\b/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/**
+ * Look up a company name in the deterministic ticker table.
+ * Returns { ticker, exchange } if found, null otherwise.
+ */
+function lookupTickerByName(query: string): { ticker: string; exchange: string } | null {
+  const normalized = normalizeCompanyName(query);
+  // Direct match
+  if (NAME_TO_TICKER[normalized]) return NAME_TO_TICKER[normalized];
+  // Partial match: check if any key is contained in the query or vice versa
+  for (const [key, val] of Object.entries(NAME_TO_TICKER)) {
+    if (val.ticker && (normalized.includes(key) || key.includes(normalized))) {
+      return val;
+    }
+  }
+  return null;
+}
+
 /** Returns true if the AI output contains private-company fallback language */
 function hasPrivateFallback(text: string): boolean {
   const lower = text.toLowerCase();
@@ -947,12 +1301,31 @@ export async function generateLensSnapshot(query: string): Promise<LensSnapshot>
   // misclassify it as a private company. This runs before the AI call.
   const queryTrim = query.trim();
   const isTickerQuery = looksLikeTicker(queryTrim);
-  const confirmedTicker = isTickerQuery ? extractTickerFromQuery(queryTrim) : null;
+
+  // Layer 1: Ticker-pattern detection (e.g. "CYBN", "NYSE:HCA")
+  let confirmedTicker: string | null = isTickerQuery ? extractTickerFromQuery(queryTrim) : null;
+  let confirmedExchange: string | null = null;
+
+  // Layer 2: Name-based deterministic lookup (e.g. "gartner", "hca healthcare")
+  // This is the fix for companies like Gartner (NYSE: IT) that the AI misclassifies
+  // because it cannot search the web and doesn't reliably know unusual tickers.
+  if (!confirmedTicker) {
+    const nameMatch = lookupTickerByName(queryTrim);
+    if (nameMatch && nameMatch.ticker) {
+      confirmedTicker = nameMatch.ticker;
+      confirmedExchange = nameMatch.exchange;
+      console.log('[lens-ai] Name lookup match:', queryTrim, '→ ticker:', confirmedTicker, 'exchange:', confirmedExchange);
+    } else if (nameMatch && !nameMatch.ticker) {
+      // Explicitly known private company — skip enrichment
+      console.log('[lens-ai] Name lookup: confirmed private company:', queryTrim);
+    }
+  }
 
   let enrichedQuery = queryTrim;
   if (confirmedTicker) {
-    enrichedQuery = `${queryTrim} (stock ticker: ${confirmedTicker}, publicly traded — do NOT classify as private)`;
-    console.log('[lens-ai] Ticker query detected:', queryTrim, '→ confirmed ticker:', confirmedTicker);
+    const exchangeHint = confirmedExchange ? ` on ${confirmedExchange}` : '';
+    enrichedQuery = `${queryTrim} (stock ticker: ${confirmedTicker}${exchangeHint}, publicly traded — do NOT classify as private)`;
+    console.log('[lens-ai] Pre-generation enrichment:', queryTrim, '→', enrichedQuery.slice(0, 100));
   }
 
   const text = (await callAnthropic(enrichedQuery)) ?? (await callOpenAI(enrichedQuery));
