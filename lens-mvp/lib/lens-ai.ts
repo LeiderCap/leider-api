@@ -1132,7 +1132,6 @@ const NAME_TO_TICKER: Record<string, { ticker: string; exchange: string }> = {
   'cybin inc': { ticker: 'CYBN', exchange: 'NYSE AMERICAN' },
   // Retail / Consumer
   'walmart': { ticker: 'WMT', exchange: 'NYSE' },
-  'amazon': { ticker: 'AMZN', exchange: 'NASDAQ' },
   'costco': { ticker: 'COST', exchange: 'NASDAQ' },
   'target': { ticker: 'TGT', exchange: 'NYSE' },
   'home depot': { ticker: 'HD', exchange: 'NYSE' },
@@ -1143,7 +1142,6 @@ const NAME_TO_TICKER: Record<string, { ticker: string; exchange: string }> = {
   'kroger': { ticker: 'KR', exchange: 'NYSE' },
   'albertsons': { ticker: 'ACI', exchange: 'NYSE' },
   'walgreens': { ticker: 'WBA', exchange: 'NASDAQ' },
-  'cvs': { ticker: 'CVS', exchange: 'NYSE' },
   'starbucks': { ticker: 'SBUX', exchange: 'NASDAQ' },
   'mcdonalds': { ticker: 'MCD', exchange: 'NYSE' },
   "mcdonald's": { ticker: 'MCD', exchange: 'NYSE' },

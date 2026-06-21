@@ -2,8 +2,6 @@ import Stripe from 'stripe';
 import Link from 'next/link';
 import { MembershipActivator } from '@/components/MembershipActivator';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
 export default async function SuccessPage({
   searchParams,
 }: {
@@ -24,6 +22,7 @@ export default async function SuccessPage({
     );
   }
 
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? 'placeholder');
   let isPaid = false;
   let customerEmail = '';
   let tier: string = 'single';

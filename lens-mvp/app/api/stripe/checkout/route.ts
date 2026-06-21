@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
 type Tier = 'single' | 'pro' | 'enterprise';
 
 function getPriceId(tier: Tier): string {
@@ -19,6 +17,7 @@ function getPriceId(tier: Tier): string {
 }
 
 export async function POST(req: NextRequest) {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? 'placeholder');
   try {
     const { company, ticker, reportId, tier = 'pro' } = await req.json() as {
       company?: string;
