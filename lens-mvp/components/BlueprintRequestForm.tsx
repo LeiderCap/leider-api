@@ -96,7 +96,7 @@ export function BlueprintRequestForm({ companyId, companyName }: { companyId: st
       </form>
 
       {status === 'success' && (
-        <p className="mt-3 text-sm font-medium text-green-700">Request received. We will be in touch shortly.</p>
+        <p className="mt-3 text-sm font-medium text-green-700">Request received, thank you! The Leider Capital team will be in touch within 24 hours.</p>
       )}
       {status === 'error' && (
         <p className="mt-3 text-sm font-medium text-red-700">{error}</p>

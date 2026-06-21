@@ -92,7 +92,7 @@ function RequestModal({ entityName, onClose }: { entityName: string; onClose: ()
         </div>
         {status === 'success' ? (
           <div className="mt-6 rounded-xl bg-emerald-50 border border-emerald-200 p-5 text-center">
-            <p className="font-semibold text-emerald-800">Thank you. The LeiderCap team will be in touch within 24 hours.</p>
+            <p className="font-semibold text-emerald-800">Request received, thank you! The Leider Capital team will be in touch within 24 hours.</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">

@@ -157,9 +157,9 @@ function GovernmentInquiryForm() {
   if (status === 'success') {
     return (
       <div className="rounded-2xl border border-green-200 bg-green-50 p-8 text-center">
-        <p className="text-lg font-semibold text-green-800">Inquiry received.</p>
+        <p className="text-lg font-semibold text-green-800">Request received, thank you!</p>
         <p className="mt-2 text-sm text-green-700">
-          We will be in touch shortly to discuss your institution&apos;s Transformation Capacity™.
+          The Leider Capital team will be in touch within 24 hours to discuss your institution&apos;s Transformation Capacity™.
         </p>
       </div>
     );

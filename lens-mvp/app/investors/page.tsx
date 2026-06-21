@@ -199,7 +199,7 @@ export default function InvestorsPage() {
                 <div className="text-3xl mb-3">✓</div>
                 <h3 className="text-lg font-semibold text-teal-800">Request Received</h3>
                 <p className="mt-2 text-sm text-teal-700">
-                  Thank you. We will be in touch shortly.
+                  Request received, thank you! The Leider Capital team will be in touch within 24 hours.
                 </p>
                 <Link href="/search" className="btn btn-primary mt-6 inline-block">
                   Run Lens Analysis™ While You Wait

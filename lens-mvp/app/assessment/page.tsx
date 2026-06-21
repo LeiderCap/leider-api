@@ -303,8 +303,8 @@ export default function AssessmentPage() {
             <p className="font-semibold text-white">Request Full Assessment™</p>
             {status === 'success' ? (
               <div className="mt-6 rounded-lg bg-teal-500/20 border border-teal-500/30 p-6 text-center">
-                <p className="font-semibold text-teal-300">Request received.</p>
-                <p className="mt-1 text-sm text-teal-400">We will be in touch within 24 hours to schedule your Transformation Capacity Assessment™.</p>
+                <p className="font-semibold text-teal-300">Request received, thank you!</p>
+                <p className="mt-1 text-sm text-teal-400">The Leider Capital team will be in touch within 24 hours to schedule your Transformation Capacity Assessment™.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="mt-6 space-y-4">
