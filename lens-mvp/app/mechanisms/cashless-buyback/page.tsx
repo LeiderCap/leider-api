@@ -24,7 +24,7 @@ interface Analysis {
   risks: string[];
   confidence_level: 'High' | 'Medium' | 'Low';
   confidence_rationale: string;
-  shares_outstanding_assumption: string | null;
+  shares_outstanding_assumption: string;
 }
 
 interface Result {
@@ -133,7 +133,6 @@ export default function CashlessBuybackPage() {
     current_price: '',
     target_price: '',
     percent_to_retire: '',
-    shares_outstanding: '',
   });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [error, setError] = useState('');
@@ -158,7 +157,6 @@ export default function CashlessBuybackPage() {
           current_price: parseFloat(form.current_price),
           target_price: parseFloat(form.target_price),
           percent_to_retire: parseFloat(form.percent_to_retire),
-          shares_outstanding: form.shares_outstanding ? parseFloat(form.shares_outstanding) : undefined,
         }),
       });
       const data = await res.json();
@@ -283,27 +281,6 @@ export default function CashlessBuybackPage() {
             />
           </div>
 
-          {/* Shares Outstanding — optional */}
-          <div>
-            <label className="block text-xs font-semibold text-slate-500 mb-1.5">
-              Shares Outstanding{' '}
-              <span className="font-normal text-slate-400">(optional)</span>
-            </label>
-            <input
-              name="shares_outstanding"
-              type="number"
-              step="1"
-              min="1"
-              value={form.shares_outstanding}
-              onChange={handleChange}
-              placeholder="e.g. 2100000000"
-              className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-orange-400"
-            />
-            <p className="mt-1 text-xs text-slate-400">
-              If known, improves calculation accuracy. If left blank, we&apos;ll estimate via research.
-            </p>
-          </div>
-
           {/* Submit — full width */}
           <div className="sm:col-span-2">
             <button
@@ -347,11 +324,9 @@ export default function CashlessBuybackPage() {
           {/* Calculated Figures */}
           <div className="rounded-2xl border border-slate-200 bg-white p-6">
             <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-5">Calculated Figures</h3>
-            {result.calcs.shares_estimated && (
-              <div className="mb-4 rounded-lg bg-amber-50 border border-amber-200 px-4 py-2.5 text-xs text-amber-800 font-medium">
-                ⚠ Shares outstanding estimated — see assumption below
-              </div>
-            )}
+            <div className="mb-4 rounded-lg bg-blue-50 border border-blue-200 px-4 py-2.5 text-xs text-blue-800 font-medium">
+              ℹ Shares outstanding auto-researched — see assumption note below
+            </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {[
                 {
@@ -442,13 +417,11 @@ export default function CashlessBuybackPage() {
             </div>
           </Section>
 
-          {result.analysis.shares_outstanding_assumption && (
-            <Section n={8} title="Shares Outstanding Assumption">
-              <div className="rounded-lg bg-amber-50 border border-amber-200 p-4 text-amber-800">
-                <CitedText text={result.analysis.shares_outstanding_assumption} />
-              </div>
-            </Section>
-          )}
+          <Section n={8} title="Shares Outstanding — Research Basis">
+            <div className="rounded-lg bg-blue-50 border border-blue-200 p-4 text-blue-800">
+              <CitedText text={result.analysis.shares_outstanding_assumption} />
+            </div>
+          </Section>
 
           {/* Save Button */}
           <div className="flex justify-end pt-2">

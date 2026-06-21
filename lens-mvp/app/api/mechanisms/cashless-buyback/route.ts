@@ -4,13 +4,19 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const CASHLESS_BUYBACK_SYSTEM_PROMPT = `You are a Mechanism Intelligence™ analyst specializing in capital structure mechanisms, specifically the Cashless Buyback™.
 
-You will receive: company name, current stock price, target stock price, percent of shares to retire, shares outstanding (or a note that it needs to be estimated), and calculated transaction figures.
+You will receive: company name, current stock price, target stock price, and percent of shares to retire.
 
-Search the web for current information about this company's financial position, share count, recent buyback activity, short interest, and analyst sentiment before generating your analysis.
+CRITICAL — SHARES OUTSTANDING RESEARCH:
+Before generating any analysis, you MUST research and determine the most recent shares outstanding figure for this company. Search for the most recent 10-Q, 10-K, earnings release, or financial data provider that reports diluted shares outstanding. Always use the most recent figure available.
+
+You MUST populate the "shares_outstanding_researched" field with:
+1. The numeric figure (as a plain number, e.g. 2100000000 for 2.1 billion)
+2. The source and year in the "shares_outstanding_assumption" field
 
 Return a JSON object with this exact structure:
 
 {
+  "shares_outstanding_researched": number (the researched shares outstanding figure as a plain integer — REQUIRED, never null),
   "mechanism_summary": string (2-3 sentences explaining what a cashless buyback is and how it applies to this specific scenario),
   "market_signal_effect": string (3-4 sentences explaining what happens when a company publicly discloses intent to execute this buyback — including effects on short interest, expected volume and momentum from short sellers facing pressure once shares are publicly "on notice" to be called, and how this signal contributes to a market rerating by signaling management confidence and reducing float, separate from the eventual mechanical effect of the share retirement itself),
   "rerating_thesis": string (2-3 sentences — the specific argument for why this mechanism, once publicly disclosed, should cause the market to reprice the stock closer to target price, independent of whether the full retirement has completed),
@@ -19,7 +25,7 @@ Return a JSON object with this exact structure:
   "risks": [string] (3-4 specific risks to this approach),
   "confidence_level": "High" | "Medium" | "Low",
   "confidence_rationale": string (1-2 sentences),
-  "shares_outstanding_assumption": string or null (only populate if shares outstanding was estimated rather than provided — explain the basis for the estimate)
+  "shares_outstanding_assumption": string (ALWAYS populate — explain the shares outstanding figure found, including the source, year, and whether it is diluted or basic. Example: "Shares outstanding estimated at 1.4 billion based on most recent 10-Q filing [Source: SEC, 2025].")
 }
 
 Cite sources where relevant using [Source: Publication, Year] format for any factual claims about the company's financial position, share count, or short interest.
@@ -76,7 +82,6 @@ export async function POST(req: NextRequest) {
       current_price,
       target_price,
       percent_to_retire,
-      shares_outstanding,
     } = body;
 
     // Validate required fields
@@ -90,52 +95,11 @@ export async function POST(req: NextRequest) {
     if (isNaN(tp) || tp <= 0) return NextResponse.json({ error: 'target_price must be a positive number' }, { status: 400 });
     if (isNaN(pct) || pct <= 0 || pct >= 100) return NextResponse.json({ error: 'percent_to_retire must be between 0 and 100' }, { status: 400 });
 
-    // Shares outstanding — optional
-    const sharesProvided = shares_outstanding !== undefined && shares_outstanding !== null && shares_outstanding !== '';
-    const so = sharesProvided ? parseFloat(shares_outstanding) : null;
-    const sharesNote = sharesProvided
-      ? `Shares outstanding: ${so?.toLocaleString()} (provided by user)`
-      : 'Shares outstanding: NOT PROVIDED — please estimate via web research and flag as an assumption in shares_outstanding_assumption.';
-
-    // ── Deterministic calculations ────────────────────────────────────────────
-    let calcs: {
-      shares_to_retire: number | null;
-      transaction_value_at_current: number | null;
-      implied_value_at_target: number | null;
-      price_gap_percent: number;
-      eps_accretion_estimate: number;
-      shares_outstanding_used: number | null;
-      shares_estimated: boolean;
-    };
-
+    // ── Deterministic calculations (partial — share-count calcs done after AI) ──
     const priceGapPercent = ((tp - cp) / cp) * 100;
     const epsAccretionEstimate = (pct / (100 - pct)) * 100;
 
-    if (so !== null && !isNaN(so) && so > 0) {
-      const sharesToRetire = so * (pct / 100);
-      calcs = {
-        shares_to_retire: sharesToRetire,
-        transaction_value_at_current: sharesToRetire * cp,
-        implied_value_at_target: sharesToRetire * tp,
-        price_gap_percent: priceGapPercent,
-        eps_accretion_estimate: epsAccretionEstimate,
-        shares_outstanding_used: so,
-        shares_estimated: false,
-      };
-    } else {
-      // Shares not provided — calculations that depend on share count are deferred to AI
-      calcs = {
-        shares_to_retire: null,
-        transaction_value_at_current: null,
-        implied_value_at_target: null,
-        price_gap_percent: priceGapPercent,
-        eps_accretion_estimate: epsAccretionEstimate,
-        shares_outstanding_used: null,
-        shares_estimated: true,
-      };
-    }
-
-    // ── Build user message for AI ─────────────────────────────────────────────
+    // ── Build user message for AI (no shares outstanding — AI researches it) ──
     const userMessage = `
 Analyze the following Cashless Buyback™ scenario:
 
@@ -143,14 +107,12 @@ Company: ${company_name.trim()}
 Current Stock Price: $${cp.toFixed(2)}
 Target Stock Price: $${tp.toFixed(2)}
 Percent of Shares to Retire: ${pct}%
-${sharesNote}
 
 Calculated figures (use these in your analysis):
 - Price Gap: ${priceGapPercent.toFixed(1)}%
 - Estimated EPS Accretion (simplified): ${epsAccretionEstimate.toFixed(1)}% (label as estimate)
-${calcs.shares_to_retire !== null ? `- Shares to Retire: ${calcs.shares_to_retire.toLocaleString()}` : '- Shares to Retire: To be estimated'}
-${calcs.transaction_value_at_current !== null ? `- Transaction Value at Current Price: $${(calcs.transaction_value_at_current / 1_000_000).toFixed(1)}M` : '- Transaction Value: To be estimated after share count research'}
-${calcs.implied_value_at_target !== null ? `- Implied Value at Target Price: $${(calcs.implied_value_at_target / 1_000_000).toFixed(1)}M` : '- Implied Value at Target: To be estimated after share count research'}
+
+IMPORTANT: You must research and provide shares_outstanding_researched as a plain integer. All share-count-dependent figures (shares to retire, transaction value, implied value) will be calculated from your researched figure.
 
 Generate the full Mechanism Intelligence™ analysis per the system prompt. Pay particular attention to the Market Signal Effect™ section — specifically the causal chain: public disclosure → short seller pressure → momentum → market rerating, independent of the mechanical share retirement.
 `.trim();
@@ -159,23 +121,43 @@ Generate the full Mechanism Intelligence™ analysis per the system prompt. Pay 
     const raw = await callAI(userMessage);
     const parsed = JSON.parse(extractJson(raw));
 
-    // If AI estimated shares outstanding, extract that for calcs
-    let finalCalcs = { ...calcs };
-    if (calcs.shares_estimated && parsed.shares_outstanding_assumption) {
-      // Try to extract a number from the assumption text for display
-      const match = parsed.shares_outstanding_assumption.match(/[\d,]+(?:\.\d+)?(?:\s*(?:million|billion|M|B))?/i);
-      if (match) {
-        console.log(`[cashless-buyback] AI estimated shares: ${match[0]}`);
-      }
-    }
+    // ── Complete calculations using AI-researched shares outstanding ──────────
+    const so = typeof parsed.shares_outstanding_researched === 'number' && parsed.shares_outstanding_researched > 0
+      ? parsed.shares_outstanding_researched
+      : null;
 
+    const sharesToRetire = so !== null ? so * (pct / 100) : null;
+    const transactionValueAtCurrent = sharesToRetire !== null ? sharesToRetire * cp : null;
+    const impliedValueAtTarget = sharesToRetire !== null ? sharesToRetire * tp : null;
+
+    const calcs = {
+      shares_to_retire: sharesToRetire,
+      transaction_value_at_current: transactionValueAtCurrent,
+      implied_value_at_target: impliedValueAtTarget,
+      price_gap_percent: priceGapPercent,
+      eps_accretion_estimate: epsAccretionEstimate,
+      shares_outstanding_used: so,
+      shares_estimated: true, // always researched, never user-provided
+    };
+
+    console.log(`[cashless-buyback] Researched shares outstanding: ${so?.toLocaleString() ?? 'not found'}`);
     console.log(`[cashless-buyback] Analysis complete. Confidence: ${parsed.confidence_level}`);
 
     return NextResponse.json({
       ok: true,
       company_name: company_name.trim(),
-      calcs: finalCalcs,
-      analysis: parsed,
+      calcs,
+      analysis: {
+        mechanism_summary: parsed.mechanism_summary ?? '',
+        market_signal_effect: parsed.market_signal_effect ?? '',
+        rerating_thesis: parsed.rerating_thesis ?? '',
+        why_this_mechanism: parsed.why_this_mechanism ?? '',
+        required_performance: parsed.required_performance ?? [],
+        risks: parsed.risks ?? [],
+        confidence_level: parsed.confidence_level ?? 'Medium',
+        confidence_rationale: parsed.confidence_rationale ?? '',
+        shares_outstanding_assumption: parsed.shares_outstanding_assumption ?? `Shares outstanding researched via web for ${company_name.trim()}.`,
+      },
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
