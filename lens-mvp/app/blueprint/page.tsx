@@ -536,6 +536,26 @@ function BlueprintPageInner() {
         </button>
       </form>
 
+      {/* Mechanism #001 Entry Point */}
+      <div className="mt-8 rounded-2xl border border-emerald-200 bg-emerald-50 p-6">
+        <div className="flex items-start justify-between gap-4 flex-wrap">
+          <div className="flex-1 min-w-0">
+            <p className="text-xs font-bold uppercase tracking-widest text-emerald-600 mb-1">Mechanism Intelligence™ — #001</p>
+            <h3 className="text-lg font-bold text-slate-900">Cashless Buyback™</h3>
+            <p className="mt-1 text-sm text-slate-600 leading-6">
+              Model the signal effect, rerating thesis, and execution requirements of a cashless share retirement for any publicly traded company. Includes deterministic calculations and AI-generated analysis.
+            </p>
+          </div>
+          <Link
+            href="/mechanisms/cashless-buyback"
+            className="flex-shrink-0 rounded-xl px-5 py-2.5 text-sm font-bold text-white transition-colors"
+            style={{ backgroundColor: '#10B981' }}
+          >
+            Run Analysis →
+          </Link>
+        </div>
+      </div>
+
       {error && (
         <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-4">
           <p className="text-sm text-red-700">{error}</p>

@@ -319,3 +319,17 @@ ALTER TABLE lens_scores ADD COLUMN IF NOT EXISTS sources jsonb;
 -- ─── v2.5 Migration — lens_reports tier column ───────────────────────────────
 -- Run in Supabase SQL Editor:
 ALTER TABLE lens_reports ADD COLUMN IF NOT EXISTS tier text DEFAULT 'single';
+
+-- ─── v2.6 Migration — Expand saved_items item_type constraint ────────────────
+-- Run in Supabase SQL Editor:
+-- Drops the old CHECK constraint and replaces it with one that includes
+-- blueprint and mechanism_cashless_buyback item types.
+ALTER TABLE saved_items DROP CONSTRAINT IF EXISTS saved_items_item_type_check;
+ALTER TABLE saved_items ADD CONSTRAINT saved_items_item_type_check
+  CHECK (item_type IN (
+    'lens_card',
+    'go_deep_analysis',
+    'go_deep_rewrite',
+    'blueprint',
+    'mechanism_cashless_buyback'
+  ));

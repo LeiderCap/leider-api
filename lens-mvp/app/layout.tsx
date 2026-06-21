@@ -74,6 +74,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <li><Link href="/individuals" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">For Individuals</Link></li>
                 </ul>
               </div>
+              {/* Mechanisms */}
+              <div className="sm:col-span-4">
+                <div className="mt-6 border-t border-slate-100 pt-6">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Mechanisms</p>
+                  <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
+                    <li>
+                      <Link href="/mechanisms/cashless-buyback" className="text-sm text-slate-600 hover:text-orange-500 transition-colors">
+                        Cashless Buyback™ <span className="text-xs text-slate-400">(#001)</span>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
               {/* Roadmap */}
               <div>
                 <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Roadmap</p>

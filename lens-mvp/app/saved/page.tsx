@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 interface SavedItem {
   id: string;
-  item_type: 'lens_card' | 'go_deep_analysis' | 'go_deep_rewrite' | 'blueprint';
+  item_type: 'lens_card' | 'go_deep_analysis' | 'go_deep_rewrite' | 'blueprint' | 'mechanism_cashless_buyback';
   title: string | null;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content: Record<string, any> | null;
@@ -77,6 +77,15 @@ const SECTION_CONFIG: Record<
     bg: 'bg-orange-950',
     emptyHref: '/blueprint',
     emptyLabel: 'Build a Blueprint™',
+  },
+  mechanism_cashless_buyback: {
+    label: 'Cashless Buyback™ Analyses',
+    eyebrow: 'MECHANISM #001 — CASHLESS BUYBACK™',
+    color: 'text-emerald-400',
+    border: 'border-emerald-800',
+    bg: 'bg-emerald-950',
+    emptyHref: '/mechanisms/cashless-buyback',
+    emptyLabel: 'Run Cashless Buyback™',
   },
 };
 
@@ -269,6 +278,61 @@ function ExpandedContent({ item }: { item: SavedItem }) {
     );
   }
 
+  if (item.item_type === 'mechanism_cashless_buyback') {
+    const calcs = c.calcs ?? {};
+    const analysis = c.analysis ?? {};
+    return (
+      <div className="space-y-4 text-sm text-slate-300">
+        {/* Calculated Figures */}
+        <div className="grid gap-3 sm:grid-cols-3">
+          {[
+            { label: 'Price Gap', value: calcs.price_gap_percent != null ? `${Number(calcs.price_gap_percent).toFixed(1)}%` : '—' },
+            { label: 'EPS Accretion Est.', value: calcs.eps_accretion_estimate != null ? `${Number(calcs.eps_accretion_estimate).toFixed(1)}%` : '—' },
+            { label: 'Confidence', value: analysis.confidence_level ?? '—' },
+          ].map(({ label, value }) => (
+            <div key={label} className="rounded-lg bg-emerald-900/40 border border-emerald-800 p-3">
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-emerald-400 mb-0.5">{label}</p>
+              <p className="text-base font-bold text-white">{value}</p>
+            </div>
+          ))}
+        </div>
+        {/* Summary */}
+        {analysis.mechanism_summary && (
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-emerald-400 mb-1">Mechanism Summary</p>
+            <p className="leading-6 text-slate-300 text-xs">{analysis.mechanism_summary}</p>
+          </div>
+        )}
+        {/* Rerating Thesis */}
+        {analysis.rerating_thesis && (
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-emerald-400 mb-1">Rerating Thesis™</p>
+            <p className="leading-6 text-slate-300 text-xs">{analysis.rerating_thesis}</p>
+          </div>
+        )}
+        {/* Risks */}
+        {Array.isArray(analysis.risks) && analysis.risks.length > 0 && (
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-emerald-400 mb-2">Risks</p>
+            <ul className="space-y-1">
+              {analysis.risks.map((r: string, i: number) => (
+                <li key={i} className="flex items-start gap-2 text-xs text-slate-400">
+                  <span className="text-red-400 shrink-0 mt-0.5">⚠</span>{r}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        <Link
+          href="/mechanisms/cashless-buyback"
+          className="inline-block mt-1 text-xs font-semibold text-emerald-400 hover:text-emerald-300 underline underline-offset-2"
+        >
+          Run New Analysis™ →
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <pre className="text-xs text-slate-400 whitespace-pre-wrap overflow-auto">
       {JSON.stringify(c, null, 2)}
@@ -404,6 +468,7 @@ export default function SavedPage() {
   const analyses    = items.filter((i) => i.item_type === 'go_deep_analysis');
   const rewrites    = items.filter((i) => i.item_type === 'go_deep_rewrite');
   const blueprints  = items.filter((i) => i.item_type === 'blueprint');
+  const mechanisms  = items.filter((i) => i.item_type === 'mechanism_cashless_buyback');
   const totalCount  = items.length;
 
   return (
@@ -417,7 +482,7 @@ export default function SavedPage() {
           </p>
           <h1 className="text-3xl font-bold">Saved</h1>
           <p className="mt-2 text-sm text-slate-400">
-            Your saved Lens Cards™, Go Deep™ Analyses, Rewrites, and Transformation Blueprints™ — stored by session.
+            Your saved Lens Cards™, Go Deep™ Analyses, Rewrites, Transformation Blueprints™, and Mechanism Analyses™ — stored by session.
           </p>
         </div>
       </section>
@@ -445,10 +510,11 @@ export default function SavedPage() {
             </div>
           ) : (
             <div className="space-y-10">
-              <SavedSection type="lens_card"        items={lensCards}  onDelete={handleDelete} />
-              <SavedSection type="blueprint"        items={blueprints} onDelete={handleDelete} />
-              <SavedSection type="go_deep_analysis" items={analyses}   onDelete={handleDelete} />
-              <SavedSection type="go_deep_rewrite"  items={rewrites}   onDelete={handleDelete} />
+              <SavedSection type="lens_card"                    items={lensCards}  onDelete={handleDelete} />
+              <SavedSection type="blueprint"                    items={blueprints} onDelete={handleDelete} />
+              <SavedSection type="mechanism_cashless_buyback"   items={mechanisms} onDelete={handleDelete} />
+              <SavedSection type="go_deep_analysis"             items={analyses}   onDelete={handleDelete} />
+              <SavedSection type="go_deep_rewrite"              items={rewrites}   onDelete={handleDelete} />
             </div>
           )}
         </div>
