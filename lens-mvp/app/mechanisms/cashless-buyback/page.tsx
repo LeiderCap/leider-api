@@ -125,6 +125,97 @@ function Section({ n, title, children }: { n: number; title: string; children: R
   );
 }
 
+// ── Close the Gap Modal ─────────────────────────────────────────────────────────
+
+function CloseTheGapModal({
+  companyName,
+  priceGapPercent,
+  currentPrice,
+  targetPrice,
+  impliedValue,
+  onClose,
+}: {
+  companyName: string;
+  priceGapPercent: number;
+  currentPrice: string;
+  targetPrice: string;
+  impliedValue: string;
+  onClose: () => void;
+}) {
+  const defaultNotes = `Close the ${priceGapPercent.toFixed(1)}% valuation gap for ${companyName} — Cashless Buyback™ mechanism. Current price: $${currentPrice}, Target price: $${targetPrice}, Implied value opportunity: ${impliedValue}.`;
+  const [form, setForm] = useState({ name: '', email: '', company: companyName, notes: defaultNotes });
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setStatus('submitting');
+    try {
+      const res = await fetch('/api/blueprint-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error ?? 'Submit failed');
+      }
+      setStatus('success');
+    } catch {
+      setStatus('error');
+    }
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+      <div className="w-full max-w-lg rounded-2xl bg-white p-8 shadow-2xl">
+        <div className="flex items-start justify-between">
+          <div>
+            <h2 className="text-xl font-bold text-slate-900">Request Gap Closure Plan™</h2>
+            <p className="mt-1 text-sm text-slate-500">
+              Get a complete execution plan to close the value gap for {companyName}, delivered by the Leider Capital team.
+            </p>
+          </div>
+          <button onClick={onClose} className="ml-4 text-slate-400 hover:text-slate-600 text-xl leading-none" aria-label="Close">×</button>
+        </div>
+        {status === 'success' ? (
+          <div className="mt-6 rounded-xl bg-emerald-50 border border-emerald-200 p-5 text-center">
+            <p className="font-semibold text-emerald-800">Request received, thank you! The Leider Capital team will be in touch within 24 hours.</p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+            <div>
+              <label className="block text-xs font-semibold text-slate-500 mb-1">Name</label>
+              <input type="text" value={form.name} onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-emerald-400" placeholder="Your name" />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-slate-500 mb-1">Email *</label>
+              <input type="email" required value={form.email} onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-emerald-400" placeholder="you@company.com" />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-slate-500 mb-1">Company</label>
+              <input type="text" value={form.company} onChange={(e) => setForm((f) => ({ ...f, company: e.target.value }))}
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-emerald-400" placeholder="Company name" />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-slate-500 mb-1">What are you trying to transform?</label>
+              <textarea rows={3} value={form.notes} onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))}
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-emerald-400 resize-none" />
+            </div>
+            {status === 'error' && <p className="text-xs text-red-600">Something went wrong. Please try again.</p>}
+            <button type="submit" disabled={status === 'submitting'}
+              className="w-full rounded-xl py-3 text-sm font-bold text-white transition-colors disabled:opacity-60"
+              style={{ backgroundColor: status === 'submitting' ? '#059669' : '#10B981' }}>
+              {status === 'submitting' ? 'Submitting…' : 'Submit Request'}
+            </button>
+          </form>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ── Main Page ─────────────────────────────────────────────────────────────────
 
 export default function CashlessBuybackPage() {
@@ -138,6 +229,7 @@ export default function CashlessBuybackPage() {
   const [error, setError] = useState('');
   const [result, setResult] = useState<Result | null>(null);
   const [saveState, setSaveState] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+  const [gapModalOpen, setGapModalOpen] = useState(false);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setForm(f => ({ ...f, [e.target.name]: e.target.value }));
@@ -371,6 +463,28 @@ export default function CashlessBuybackPage() {
             </div>
           </div>
 
+          {/* ── Close the Gap CTA ── */}
+          <div className="rounded-2xl border-2 p-6" style={{ borderColor: '#10B981', background: 'linear-gradient(135deg, #F0FDF4 0%, #ECFDF5 100%)' }}>
+            <p className="text-xs font-bold uppercase tracking-widest" style={{ color: '#F97316' }}>CLOSE THE GAP™</p>
+            <h3 className="mt-2 text-2xl font-bold text-slate-900">
+              There&apos;s a{' '}
+              <span style={{ color: '#F97316' }}>{result.calcs.price_gap_percent.toFixed(1)}%</span>{' '}
+              gap between current value and implied value.
+            </h3>
+            <p className="mt-2 text-sm text-slate-600 leading-6">
+              We help companies execute the mechanisms that close this gap — from disclosure strategy to execution sequencing.
+            </p>
+            <button
+              onClick={() => setGapModalOpen(true)}
+              className="mt-5 rounded-xl px-6 py-3 text-sm font-bold text-white transition-colors"
+              style={{ backgroundColor: '#10B981' }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#059669')}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#10B981')}
+            >
+              Request Gap Closure Plan™ →
+            </button>
+          </div>
+
           {/* AI Analysis Sections */}
           <Section n={1} title="Mechanism Summary">
             <CitedText text={result.analysis.mechanism_summary} />
@@ -435,6 +549,17 @@ export default function CashlessBuybackPage() {
             </button>
           </div>
         </div>
+      )}
+      {/* Close the Gap Modal */}
+      {gapModalOpen && result && (
+        <CloseTheGapModal
+          companyName={result.company_name}
+          priceGapPercent={result.calcs.price_gap_percent}
+          currentPrice={form.current_price}
+          targetPrice={form.target_price}
+          impliedValue={fmtM(result.calcs.implied_value_at_target)}
+          onClose={() => setGapModalOpen(false)}
+        />
       )}
     </main>
   );
