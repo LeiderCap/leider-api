@@ -291,12 +291,12 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
           <p className="mt-1 text-sm text-slate-500">Weighted composite score — Lens Ratings Methodology v1.1</p>
           <div className="mt-4 space-y-3">
             {[
-              { label: 'Absorbability™',  weight: 20, val: item.absorbability_numeric },
-              { label: 'Governance™',     weight: 20, val: item.governance_numeric },
-              { label: 'Execution™',      weight: 20, val: item.execution_numeric },
-              { label: 'Trust™',          weight: 15, val: item.trust_numeric },
-              { label: 'Courage™',        weight: 15, val: item.courage_numeric },
-              { label: 'Intelligence™',   weight: 10, val: item.intelligence_numeric },
+              { label: 'Absorbability',  weight: 20, val: item.absorbability_numeric },
+              { label: 'Governance',     weight: 20, val: item.governance_numeric },
+              { label: 'Execution',      weight: 20, val: item.execution_numeric },
+              { label: 'Trust',          weight: 15, val: item.trust_numeric },
+              { label: 'Courage',        weight: 15, val: item.courage_numeric },
+              { label: 'Intelligence',   weight: 10, val: item.intelligence_numeric },
             ].map(({ label, weight, val }) => (
               <div key={label} className="flex items-center gap-3">
                 <div className="w-32 shrink-0">
