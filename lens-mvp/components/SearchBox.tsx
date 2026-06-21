@@ -6,9 +6,11 @@ import { useEffect, useState } from 'react';
 export function SearchBox({
   initialValue = '',
   showHelper = false,
+  autoFocus = false,
 }: {
   initialValue?: string;
   showHelper?: boolean;
+  autoFocus?: boolean;
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -39,7 +41,7 @@ export function SearchBox({
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Enter a public company name or ticker symbol"
           className="min-w-0 flex-1 rounded-xl px-4 py-3 text-sm outline-none placeholder:text-slate-400"
-          autoFocus={false}
+          autoFocus={autoFocus}
         />
         <button className="btn btn-primary shrink-0" type="submit" disabled={loading}>
           {loading ? (

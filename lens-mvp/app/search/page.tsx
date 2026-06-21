@@ -181,7 +181,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
       <Link href="/" className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">← Back</Link>
 
       <div className="mt-6">
-        <Suspense fallback={null}><SearchBox initialValue={query} showHelper /></Suspense>
+        <Suspense fallback={null}><SearchBox initialValue={query} showHelper autoFocus={!query} /></Suspense>
       </div>
 
       {!query && (
