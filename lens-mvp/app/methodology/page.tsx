@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Lens Ratings Methodology™ v1.1 — Transformation Intelligence Standards Board',
   description:
-    'The official measurement standard for Transformation Capacity™ — the ability to convert intelligence into realized outcomes.',
+    'The official measurement standard for Transformation Capacity — the ability to convert intelligence into realized outcomes.',
 };
 
 const DOMAINS = [
@@ -112,25 +112,25 @@ const SCORING_WEIGHTS = [
 const TIERS = [
   {
     tier: 'Leading™',
-    subtitle: 'Exceptional Transformation Capacity™',
+    subtitle: 'Exceptional Transformation Capacity',
     traits: ['Rapid adaptation', 'Strong governance', 'High trust', 'Strong execution', 'Continuous learning'],
     color: 'rating-leading',
   },
   {
     tier: 'Transforming™',
-    subtitle: 'Above-average Transformation Capacity™',
+    subtitle: 'Above-average Transformation Capacity',
     traits: ['Proactive change', 'Strong implementation', 'Moderate friction'],
     color: 'rating-transforming',
   },
   {
     tier: 'Advanced™',
-    subtitle: 'Moderate Transformation Capacity™',
+    subtitle: 'Moderate Transformation Capacity',
     traits: ['Successful transformations occur', 'Uneven execution', 'Some bottlenecks'],
     color: 'rating-advanced',
   },
   {
     tier: 'Developing™',
-    subtitle: 'Limited Transformation Capacity™',
+    subtitle: 'Limited Transformation Capacity',
     traits: ['Frequent delays', 'Fragmented execution', 'Adoption challenges'],
     color: 'rating-developing',
   },
@@ -184,7 +184,7 @@ export default function MethodologyPage() {
           Lens Ratings Methodology™ v1.1
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-600">
-          The official measurement standard for Transformation Capacity™ — the ability to convert
+          The official measurement standard for Transformation Capacity — the ability to convert
           intelligence into realized outcomes.
         </p>
         <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5">
@@ -208,36 +208,36 @@ export default function MethodologyPage() {
           <div className="mt-14 flex flex-col items-center gap-0">
             {[
               {
-                abbr: 'IAP™',
-                title: 'Intelligence Abundance Principle™',
+                abbr: 'IAP',
+                title: 'Intelligence Abundance Principle',
                 body: 'AI makes intelligence abundant. The historical advantage of knowing more dissolves.',
                 color: 'border-slate-600 bg-slate-800',
                 labelColor: 'text-slate-400',
               },
               {
-                abbr: 'QSP™',
-                title: 'Question Scarcity Principle™',
+                abbr: 'QSP',
+                title: 'Question Scarcity Principle',
                 body: 'As answers are commoditized, questions become the scarce resource. Organizations that discover superior questions outperform those that merely generate superior answers.',
                 color: 'border-teal-700 bg-teal-900/40',
                 labelColor: 'text-teal-400',
               },
               {
-                abbr: 'ODC™',
-                title: 'Opportunity Discovery Corollary™',
-                body: 'Opportunity discovery becomes a primary source of economic value. The Lens™ is a Question Discovery Engine™.',
+                abbr: 'ODC',
+                title: 'Opportunity Discovery Corollary',
+                body: 'Opportunity discovery becomes a primary source of economic value. The Lens™ is a Question Discovery Engine.',
                 color: 'border-slate-600 bg-slate-800',
                 labelColor: 'text-slate-400',
               },
               {
-                abbr: 'TCP™',
-                title: 'Transformation Capacity Principle™',
-                body: 'Discovering the opportunity is only the beginning. Transformation Capacity™ determines who can act on what they discover.',
+                abbr: 'TCP',
+                title: 'Transformation Capacity Principle',
+                body: 'Discovering the opportunity is only the beginning. Transformation Capacity determines who can act on what they discover.',
                 color: 'border-slate-600 bg-slate-800',
                 labelColor: 'text-slate-400',
               },
               {
-                abbr: 'TE™',
-                title: 'Transformation Efficiency™',
+                abbr: 'TE',
+                title: 'Transformation Efficiency',
                 body: 'The organizations that win combine superior question discovery with superior transformation capacity.',
                 color: 'border-emerald-700 bg-emerald-900/30',
                 labelColor: 'text-emerald-400',
@@ -415,7 +415,7 @@ export default function MethodologyPage() {
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-lg text-slate-600 leading-8">
             Organizations outperform because they possess greater{' '}
-            <strong>Transformation Capacity™</strong>. As intelligence becomes abundant, sustainable
+            <strong>Transformation Capacity</strong>. As intelligence becomes abundant, sustainable
             advantage accrues to organizations capable of converting intelligence into transformation
             and transformation into value.
           </p>
@@ -498,7 +498,7 @@ export default function MethodologyPage() {
           <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Rating Scale</p>
           <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">Five-Tier Rating Scale</h2>
           <p className="mt-2 text-slate-500">
-            Each tier represents a distinct level of Transformation Capacity™.
+            Each tier represents a distinct level of Transformation Capacity.
           </p>
 
           <div className="mt-8 space-y-3">
