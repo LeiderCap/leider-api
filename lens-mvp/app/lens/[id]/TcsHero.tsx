@@ -137,7 +137,7 @@ export function TcsHero({ name, ticker, industry, description, tcsScore }: TcsHe
 
       <div className="mt-6 flex flex-wrap items-start justify-between gap-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Lens Snapshot™</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Lens Snapshot</p>
           <h1 className="mt-2 text-4xl font-bold">
             {name}{ticker ? <span className="ml-2 text-2xl font-normal text-slate-400">({ticker})</span> : null}
           </h1>

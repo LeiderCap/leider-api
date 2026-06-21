@@ -21,7 +21,7 @@ const SOLUTIONS = [
   {
     number: '03',
     name: 'Guided Transformation™',
-    what: "Hands-on support implementing your Blueprint™ — with Transformation Intelligence™ embedded in your leadership process.",
+    what: "Hands-on support implementing your Blueprint™ — with Transformation Intelligence embedded in your leadership process.",
     why: "Planning transformation is different from executing it. Guided Transformation™ provides the expertise, frameworks, and accountability structures that make transformation stick.",
     deliverables: ['Implementation Support', 'Progress Tracking', 'Adaptive Roadmap Management'],
   },
@@ -35,7 +35,7 @@ const SOLUTIONS = [
   {
     number: '05',
     name: 'Transformation Partner™',
-    what: "A long-term strategic relationship where Transformation Intelligence™ becomes embedded in your organization's operating system.",
+    what: "A long-term strategic relationship where Transformation Intelligence becomes embedded in your organization's operating system.",
     why: "The organizations that will dominate the Intelligence Era are those that build transformation capacity as a core competency — not as a project.",
     deliverables: ['Embedded TI™ Practice', 'Leadership Alignment', 'Transformation OS™ Implementation'],
   },

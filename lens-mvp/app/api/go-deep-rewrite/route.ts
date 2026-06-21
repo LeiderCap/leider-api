@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const GO_DEEP_REWRITE_SYSTEM_PROMPT = `You are a Transformation Intelligence™ content architect.
+const GO_DEEP_REWRITE_SYSTEM_PROMPT = `You are a Transformation Intelligence content architect.
 
 You will receive:
 1. The original content

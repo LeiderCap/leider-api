@@ -419,7 +419,7 @@ export default function GoDeepPage() {
             {/* CTA — The Lens™ Connection */}
             <section className="rounded-2xl border border-slate-800 bg-slate-900 p-6 text-center">
               <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">
-                Transformation Intelligence™
+                Transformation Intelligence
               </p>
               <h3 className="text-lg font-bold mb-2">Measure organizational capacity alongside content depth.</h3>
               <p className="text-sm text-slate-400 mb-2 max-w-md mx-auto leading-6">

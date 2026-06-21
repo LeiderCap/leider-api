@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Lens Ratings Methodology™ v1.1 — Transformation Intelligence™ Standards Board',
+  title: 'Lens Ratings Methodology™ v1.1 — Transformation Intelligence Standards Board',
   description:
     'The official measurement standard for Transformation Capacity™ — the ability to convert intelligence into realized outcomes.',
 };
@@ -25,7 +25,7 @@ const DOMAINS = [
   },
   {
     id: 'absorbability',
-    name: 'Transformation Absorbability™',
+    name: 'Transformation Absorbability',
     weight: 20,
     question: 'Can the organization absorb intelligence?',
     measures: [
@@ -55,7 +55,7 @@ const DOMAINS = [
   },
   {
     id: 'governance',
-    name: 'Transformation Governance™',
+    name: 'Transformation Governance',
     weight: 20,
     question: 'Can the organization authorize transformation?',
     measures: [
@@ -70,7 +70,7 @@ const DOMAINS = [
   },
   {
     id: 'courage',
-    name: 'Structural Courage™',
+    name: 'Structural Courage',
     weight: 15,
     question: 'Can the organization act upon intelligence?',
     measures: [
@@ -101,12 +101,12 @@ const DOMAINS = [
 ];
 
 const SCORING_WEIGHTS = [
-  { label: 'Absorbability™', weight: 20, bar: 'bg-blue-500' },
-  { label: 'Governance™', weight: 20, bar: 'bg-indigo-500' },
-  { label: 'Execution™', weight: 20, bar: 'bg-emerald-500' },
-  { label: 'Trust™', weight: 15, bar: 'bg-teal-500' },
-  { label: 'Courage™', weight: 15, bar: 'bg-amber-500' },
-  { label: 'Intelligence™', weight: 10, bar: 'bg-slate-400' },
+  { label: 'Absorbability', weight: 20, bar: 'bg-blue-500' },
+  { label: 'Governance', weight: 20, bar: 'bg-indigo-500' },
+  { label: 'Execution', weight: 20, bar: 'bg-emerald-500' },
+  { label: 'Trust', weight: 15, bar: 'bg-teal-500' },
+  { label: 'Courage', weight: 15, bar: 'bg-amber-500' },
+  { label: 'Intelligence', weight: 10, bar: 'bg-slate-400' },
 ];
 
 const TIERS = [
@@ -178,7 +178,7 @@ export default function MethodologyPage() {
       {/* Hero */}
       <section className="border-b border-slate-100 bg-white px-6 py-16 text-center">
         <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
-          Transformation Intelligence™ Standards Board
+          Transformation Intelligence Standards Board
         </p>
         <h1 className="mt-4 text-4xl font-bold text-slate-900 sm:text-5xl">
           Lens Ratings Methodology™ v1.1
@@ -358,7 +358,7 @@ export default function MethodologyPage() {
             {/* Enterprise Track */}
             <div className="rounded-xl border border-slate-200 bg-white p-6">
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Enterprise Track</p>
-              <p className="mt-1 text-base font-bold text-slate-900">Transformation Intelligence™</p>
+              <p className="mt-1 text-base font-bold text-slate-900">Transformation Intelligence</p>
               <div className="mt-5 flex flex-col gap-2">
                 {[
                   'Lens Analysis™',
@@ -378,7 +378,7 @@ export default function MethodologyPage() {
             {/* Consumer Track */}
             <div className="rounded-xl border border-teal-200 bg-teal-50 p-6">
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-teal-600">Consumer Track</p>
-              <p className="mt-1 text-base font-bold text-slate-900">Human Transformation Intelligence™ (HTI™)</p>
+              <p className="mt-1 text-base font-bold text-slate-900">Human Transformation Intelligence (HTI™)</p>
               <div className="mt-5 flex flex-col gap-2">
                 {[
                   'My Lens™',
@@ -454,7 +454,7 @@ export default function MethodologyPage() {
             <p className="mt-1 text-sm text-amber-700 leading-6">
               Organizations that deploy intelligence without transformation capacity experience
               DWT™ — the condition of possessing intelligence without the capacity to realize its
-              value. This is why Intelligence™ is weighted at only 10%: having intelligence is no
+              value. This is why Intelligence is weighted at only 10%: having intelligence is no
               longer the constraint.
             </p>
           </div>
@@ -600,7 +600,7 @@ export default function MethodologyPage() {
             transformation and transformation into value."
           </blockquote>
           <p className="mt-6 text-sm text-slate-400">
-            Transformation Intelligence™ Standards Board · Lens Ratings Methodology™ v1.1
+            Transformation Intelligence Standards Board · Lens Ratings Methodology™ v1.1
           </p>
           <p className="mt-8 text-sm leading-7 text-slate-400 max-w-2xl mx-auto">
             The Lens™ is the discovery layer of the Transformation Grid™ — an enterprise architecture

@@ -50,7 +50,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <div>
                 <p className="font-bold text-slate-900">The Lens™</p>
                 <p className="mt-2 text-sm leading-6 text-slate-500">You see the world through your lens. The Lens™ helps you see what matters.</p>
-                <p className="mt-3 text-xs text-slate-400">Transformation Intelligence™ · Equity Reclamation™ · AIROI™</p>
+                <p className="mt-3 text-xs text-slate-400">Transformation Intelligence · Equity Reclamation™ · AIROI™</p>
               </div>
               {/* Learn */}
               <div>
@@ -61,7 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                    <li><Link href="/assessment" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">Assessment Methodology</Link></li>
                    <li><Link href="/individuals" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">My Lens™ — Consumer</Link></li>
                    <li><Link href="/go-deep" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">Go Deep™ — Content Analysis</Link></li>
-                   <li><Link href="/individuals" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">Human Transformation Intelligence™</Link></li>
+                   <li><Link href="/individuals" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">Human Transformation Intelligence</Link></li>
                  </ul>
                </div>
                {/* Solutions */}

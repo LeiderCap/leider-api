@@ -12,42 +12,42 @@ const CHAIN_STEPS: ChainStep[] = [
   {
     label: 'Intelligence',
     modal: {
-      title: 'Intelligence™',
+      title: 'Intelligence',
       body: 'The availability and quality of information, data, AI outputs, and analytical capability. Intelligence is the raw input to transformation — but possessing intelligence does not guarantee transformation. As AI makes intelligence abundant, this step is no longer the bottleneck.',
     },
   },
   {
     label: 'Absorbability',
     modal: {
-      title: 'Absorbability™',
+      title: 'Absorbability',
       body: "The organization's capacity to absorb and operationalize new intelligence. This is where most organizations break down. They have intelligence but lack the workforce readiness and change tolerance to act on it. Low absorbability is the most common cause of Deployment Without Transformation™ (DWT™).",
     },
   },
   {
     label: 'Trust',
     modal: {
-      title: 'Trust™',
+      title: 'Trust',
       body: 'The strength of trust infrastructure across leadership, teams, and stakeholders. Transformation requires coordination — and coordination requires trust. Trust deficits are often invisible until transformation stalls.',
     },
   },
   {
     label: 'Governance',
     modal: {
-      title: 'Governance™',
+      title: 'Governance',
       body: 'The quality and velocity of decision-making structures. Poor governance creates friction that slows transformation. Many organizations have excellent intelligence and poor governance — and wonder why nothing changes.',
     },
   },
   {
     label: 'Courage',
     modal: {
-      title: 'Structural Courage™',
+      title: 'Structural Courage',
       body: 'The willingness to make difficult transformation decisions — redesigning workflows, reducing hierarchy, changing incentives. Courage is the bridge between knowing and doing. Without it, intelligence produces reports instead of transformation.',
     },
   },
   {
     label: 'Execution',
     modal: {
-      title: 'Execution™',
+      title: 'Execution',
       body: 'The capacity to implement change and sustain it over time. Many organizations plan transformation well but fail to complete it. Execution measures implementation effectiveness and the ability to convert plans into realized outcomes. High execution separates organizations that transform from those that intend to.',
     },
   },
@@ -69,7 +69,7 @@ const CHAIN_STEPS: ChainStep[] = [
     label: 'Flourishing',
     modal: {
       title: 'Flourishing™',
-      body: "The ultimate purpose of Transformation Intelligence™. Flourishing represents full realization of an organization's potential — sustained competitive advantage, mission impact, workforce development, and contribution to the broader economy and society.",
+      body: "The ultimate purpose of Transformation Intelligence. Flourishing represents full realization of an organization's potential — sustained competitive advantage, mission impact, workforce development, and contribution to the broader economy and society.",
     },
   },
 ];

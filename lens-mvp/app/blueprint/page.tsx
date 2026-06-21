@@ -193,7 +193,7 @@ function BlueprintDisplay({
         </p>
         <h1 className="mt-1 text-3xl font-bold text-white">{entityName}</h1>
         <p className="mt-1 text-sm" style={{ color: '#94A3B8' }}>
-          Generated {generatedDate} · Powered by Transformation Intelligence™ · The Lens™
+          Generated {generatedDate} · Powered by Transformation Intelligence · The Lens™
         </p>
       </div>
 
@@ -219,7 +219,7 @@ function BlueprintDisplay({
             {entityName}
           </div>
           <div style={{ fontSize: '10px', color: '#94A3B8' }}>
-          Generated {generatedDate} &nbsp;·&nbsp; Powered by Transformation Intelligence™ &nbsp;·&nbsp; The Lens™
+          Generated {generatedDate} &nbsp;·&nbsp; Powered by Transformation Intelligence &nbsp;·&nbsp; The Lens™
         </div>
         </div>
 
@@ -325,7 +325,7 @@ function BlueprintDisplay({
           fontSize: '9px',
           color: '#94A3B8',
         }}>
-          Transformation Intelligence™ · LeiderCap · lensanalysis.com
+          Transformation Intelligence · LeiderCap · lensanalysis.com
         </div>
       </div>
 

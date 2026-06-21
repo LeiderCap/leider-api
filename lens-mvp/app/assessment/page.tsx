@@ -100,7 +100,7 @@ const PHASES = [
 
 const DOMAINS = [
   {
-    name: 'Absorbability™',
+    name: 'Absorbability',
     weight: '20%',
     question: 'Can you absorb change?',
     color: 'bg-blue-50 border-blue-200',
@@ -108,7 +108,7 @@ const DOMAINS = [
     areas: ['Workforce readiness', 'Adoption velocity', 'Change fatigue', 'Implementation capacity'],
   },
   {
-    name: 'Governance™',
+    name: 'Governance',
     weight: '20%',
     question: 'Can you authorize change?',
     color: 'bg-indigo-50 border-indigo-200',
@@ -116,7 +116,7 @@ const DOMAINS = [
     areas: ['Decision rights', 'Accountability', 'Escalation structures', 'Governance responsiveness'],
   },
   {
-    name: 'Execution™',
+    name: 'Execution',
     weight: '20%',
     question: 'Can you implement change?',
     color: 'bg-emerald-50 border-emerald-200',
@@ -124,7 +124,7 @@ const DOMAINS = [
     areas: ['Delivery capability', 'Operational execution', 'Realization discipline', 'Performance management'],
   },
   {
-    name: 'Trust™',
+    name: 'Trust',
     weight: '15%',
     question: 'Can you coordinate around change?',
     color: 'bg-teal-50 border-teal-200',
@@ -132,7 +132,7 @@ const DOMAINS = [
     areas: ['Transparency', 'Stakeholder alignment', 'Leadership credibility', 'Accountability'],
   },
   {
-    name: 'Courage™',
+    name: 'Courage',
     weight: '15%',
     question: 'Can you act on what you know?',
     color: 'bg-amber-50 border-amber-200',
@@ -140,7 +140,7 @@ const DOMAINS = [
     areas: ['Willingness to redesign', 'Hierarchy reduction', 'Incentive flexibility', 'Decision velocity'],
   },
   {
-    name: 'Intelligence™',
+    name: 'Intelligence',
     weight: '10%',
     question: 'Can you generate intelligence?',
     color: 'bg-slate-50 border-slate-200',

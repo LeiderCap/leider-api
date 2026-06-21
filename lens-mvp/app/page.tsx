@@ -3,7 +3,7 @@
 // Phase I:  Lens Discovery™ — What is possible?
 // Phase II: Compare™ — What is better?
 // Phase III: Stack the Deck™ — How do I improve odds?
-// Phase IV: Transformation Intelligence™ — What next?
+// Phase IV: Transformation Intelligence — What next?
 // Phase V:  Decision Visibility Infrastructure™ — Why?
 // Phase VI: Transformation Memory™ — What did we learn?
 import Link from 'next/link';
@@ -271,7 +271,7 @@ export default function HomePage() {
               },
               {
                 step: 'Understand™',
-                product: 'Transformation Intelligence™',
+                product: 'Transformation Intelligence',
                 body: 'Explains the implications, constraints, and transformation pathways available.',
                 available: true,
               },
@@ -382,7 +382,7 @@ export default function HomePage() {
               },
               {
                 step: 'Navigate the Journey™',
-                product: 'Transformation Intelligence™',
+                product: 'Transformation Intelligence',
                 description: 'Execute with confidence.',
                 available: false,
               },
@@ -568,7 +568,7 @@ export default function HomePage() {
               { who: 'Enterprises', headline: 'Increase Transformation Yield™', items: ['Understanding™', 'Blueprint™', 'Guided Transformation™', 'Transformation Partner™'] },
               { who: 'Investors', headline: 'Find Value Hidden in Plain Sight', items: ['Equity Reclamation™', 'Trust Infrastructure Analysis™', 'Public Company Scorecards™', 'Transformation Risk™'] },
               { who: 'Governments', headline: 'Increase Institutional Capacity', items: ['Workforce Transformation™', 'Civic Transformation™', 'Trust Infrastructure™', 'Policy Analysis™'] },
-              { who: 'INDIVIDUALS', headline: 'My Lens™', subheadline: 'Human Transformation Intelligence™', items: ['Personal Discovery™', 'Learn It™ (Phase 2)', 'Stack the Deck™ (Phase 2)', 'Personal Blueprint™ (Phase 2)'] },
+              { who: 'INDIVIDUALS', headline: 'My Lens™', subheadline: 'Human Transformation Intelligence', items: ['Personal Discovery™', 'Learn It™ (Phase 2)', 'Stack the Deck™ (Phase 2)', 'Personal Blueprint™ (Phase 2)'] },
             ].map(({ who, headline, subheadline, items }: { who: string; headline: string; subheadline?: string; items: string[] }) => (
               <div key={who} className="card p-5 flex flex-col">
                 <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">{who}</p>

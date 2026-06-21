@@ -25,37 +25,37 @@ const tierPercent: Record<string, number> = {
 
 // Methodology anchor slugs for each determinant
 const DETERMINANT_ANCHORS: Record<string, string> = {
-  'Intelligence™':  'intelligence',
-  'Absorbability™': 'absorbability',
-  'Trust™':         'trust',
-  'Governance™':    'governance',
-  'Courage™':       'courage',
-  'Execution™':     'execution',
+  'Intelligence':  'intelligence',
+  'Absorbability': 'absorbability',
+  'Trust':         'trust',
+  'Governance':    'governance',
+  'Courage':       'courage',
+  'Execution':     'execution',
 };
 
 // Constraint gap callout definitions
 const CONSTRAINT_CALLOUTS: Record<string, { title: string; body: string; anchor: string }> = {
-  'Courage™': {
+  'Courage': {
     title: 'Courage Gap™ Detected',
     body: 'This organization shows strong capacity in other domains but a significant Courage constraint. This pattern often indicates high unlock potential.',
     anchor: 'courage',
   },
-  'Trust™': {
+  'Trust': {
     title: 'Trust Deficit™ Detected',
     body: 'A significant Trust constraint is limiting transformation velocity. Trust is a prerequisite for change — without it, even well-resourced initiatives stall.',
     anchor: 'trust',
   },
-  'Governance™': {
+  'Governance': {
     title: 'Governance Friction™ Detected',
     body: 'Governance is the primary drag on this organization\'s transformation capacity. Decision rights, accountability, and escalation structures need attention.',
     anchor: 'governance',
   },
-  'Absorbability™': {
+  'Absorbability': {
     title: 'Absorbability Gap™ Detected',
     body: 'This organization has access to intelligence but lacks the capacity to absorb and operationalize it. Intelligence is being wasted.',
     anchor: 'absorbability',
   },
-  'Execution™': {
+  'Execution': {
     title: 'Execution Gap™ Detected',
     body: 'Strong plans exist but execution capacity is the binding constraint. Delivery capability and realization discipline need to be built.',
     anchor: 'execution',
@@ -63,17 +63,17 @@ const CONSTRAINT_CALLOUTS: Record<string, { title: string; body: string; anchor:
 };
 
 const DETERMINANT_TOOLTIPS: Record<string, string> = {
-  'Intelligence™':
+  'Intelligence':
     'The quality and availability of intelligence inputs available to this organization. High intelligence access enables better decisions and faster adaptation.',
-  'Absorbability™':
+  'Absorbability':
     "The organization's capacity to absorb, process, and operationalize new intelligence. Low absorbability means intelligence exists but cannot be converted into action.",
-  'Trust™':
+  'Trust':
     'The strength of trust infrastructure across leadership, teams, systems, and governance. Trust is a prerequisite for transformation — without it, change stalls.',
-  'Governance™':
+  'Governance':
     'The quality of decision-making structures, velocity, and accountability. Poor governance creates friction that slows or blocks transformation.',
-  'Courage™':
+  'Courage':
     'The willingness to make difficult, necessary transformation decisions. Structural courage determines whether organizations act on what they know.',
-  'Execution™':
+  'Execution':
     'The track record and capacity for sustained implementation. Organizations can plan transformation but fail to execute it.',
 };
 

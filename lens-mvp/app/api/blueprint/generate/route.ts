@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-const BLUEPRINT_SYSTEM_PROMPT = `You are a Transformation Intelligence™ strategist. You write Transformation Blueprint™ documents for CEOs, boards, PE firms, and government agencies.
+const BLUEPRINT_SYSTEM_PROMPT = `You are a Transformation Intelligence strategist. You write Transformation Blueprint™ documents for CEOs, boards, PE firms, and government agencies.
 
 You will receive an entity name, entity type, and optionally a Lens Card™ analysis. Generate a complete Transformation Blueprint™.
 

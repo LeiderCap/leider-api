@@ -92,7 +92,7 @@ export default function LensCardPage() {
       <section className="relative overflow-hidden bg-slate-900 px-6 py-20 text-center text-white">
         <div className="mx-auto max-w-4xl">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-teal-400">
-            Transformation Intelligence™
+            Transformation Intelligence
           </p>
           <h1 className="mt-5 text-5xl font-bold leading-tight tracking-tight sm:text-6xl">
             What is a Lens Card™?

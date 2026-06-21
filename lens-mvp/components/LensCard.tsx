@@ -77,37 +77,37 @@ interface ModalState {
 
 // Methodology anchor slugs for each determinant
 const DETERMINANT_ANCHORS: Record<string, string> = {
-  'Intelligence™':  'intelligence',
-  'Absorbability™': 'absorbability',
-  'Trust™':         'trust',
-  'Governance™':    'governance',
-  'Courage™':       'courage',
-  'Execution™':     'execution',
+  'Intelligence':  'intelligence',
+  'Absorbability': 'absorbability',
+  'Trust':         'trust',
+  'Governance':    'governance',
+  'Courage':       'courage',
+  'Execution':     'execution',
 };
 
 // Constraint gap callout definitions
 const CONSTRAINT_CALLOUTS: Record<string, { title: string; body: string; anchor: string }> = {
-  'Courage™': {
+  'Courage': {
     title: 'Courage Gap™ Detected',
     body: 'This organization shows strong capacity in other domains but a significant Courage constraint. This pattern often indicates high unlock potential.',
     anchor: 'courage',
   },
-  'Trust™': {
+  'Trust': {
     title: 'Trust Deficit™ Detected',
     body: 'A significant Trust constraint is limiting transformation velocity. Trust is a prerequisite for change — without it, even well-resourced initiatives stall.',
     anchor: 'trust',
   },
-  'Governance™': {
+  'Governance': {
     title: 'Governance Friction™ Detected',
     body: 'Governance is the primary drag on this organization’s transformation capacity. Decision rights, accountability, and escalation structures need attention.',
     anchor: 'governance',
   },
-  'Absorbability™': {
+  'Absorbability': {
     title: 'Absorbability Gap™ Detected',
     body: 'This organization has access to intelligence but lacks the capacity to absorb and operationalize it. Intelligence is being wasted.',
     anchor: 'absorbability',
   },
-  'Execution™': {
+  'Execution': {
     title: 'Execution Gap™ Detected',
     body: 'Strong plans exist but execution capacity is the binding constraint. Delivery capability and realization discipline need to be built.',
     anchor: 'execution',
@@ -115,17 +115,17 @@ const CONSTRAINT_CALLOUTS: Record<string, { title: string; body: string; anchor:
 };
 
 const DETERMINANT_TOOLTIPS: Record<string, string> = {
-  'Intelligence™':
+  'Intelligence':
     'How well this company gathers and uses information to make decisions. Strong intelligence means leaders have the right data at the right time.',
-  'Absorbability™':
+  'Absorbability':
     'How quickly this company can take in new information and act on it. Low absorbability means good ideas exist but never get implemented.',
-  'Trust™':
+  'Trust':
     'The level of internal and external trust that enables transformation. Without trust, even well-funded change initiatives stall.',
-  'Governance™':
+  'Governance':
     'How well this company’s leadership structures support change and decision-making. Poor governance creates friction that slows everything down.',
-  'Courage™':
+  'Courage':
     'How willing this company is to make bold moves and challenge the status quo. Courage is what turns good analysis into real action.',
-  'Execution™':
+  'Execution':
     'How effectively this company follows through on its plans. Strong execution means ideas become results, not just presentations.',
 };
 
@@ -502,11 +502,11 @@ export function LensCard({ item }: { item: LensSnapshot }) {
           // Determine if a severe constraint callout should be shown.
           // Conditions: numeric score < 55 AND the domain is primary or secondary constraint.
           const constraintDomainMap: Record<string, { numericKey: keyof LensSnapshot; label: string }> = {
-            'Courage':       { numericKey: 'courage_numeric',       label: 'Courage™' },
-            'Trust':         { numericKey: 'trust_numeric',         label: 'Trust™' },
-            'Governance':    { numericKey: 'governance_numeric',    label: 'Governance™' },
-            'Absorbability': { numericKey: 'absorbability_numeric', label: 'Absorbability™' },
-            'Execution':     { numericKey: 'execution_numeric',     label: 'Execution™' },
+            'Courage':       { numericKey: 'courage_numeric',       label: 'Courage' },
+            'Trust':         { numericKey: 'trust_numeric',         label: 'Trust' },
+            'Governance':    { numericKey: 'governance_numeric',    label: 'Governance' },
+            'Absorbability': { numericKey: 'absorbability_numeric', label: 'Absorbability' },
+            'Execution':     { numericKey: 'execution_numeric',     label: 'Execution' },
           };
 
           const primaryLabel = item.primary_constraint ?? '';

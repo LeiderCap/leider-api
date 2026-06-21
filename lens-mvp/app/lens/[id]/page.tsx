@@ -95,12 +95,12 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
   const PRIVATE_TOP_UNLOCK = 'To ensure accuracy, private companies require more information from the client. Request a Transformation Capacity Assessment™ for your Unlock options.';
 
   const determinants: { label: string; key: keyof LensSnapshot }[] = [
-    { label: 'Intelligence™',   key: 'intelligence_score' },
-    { label: 'Absorbability™',  key: 'absorbability_score' },
-    { label: 'Trust™',          key: 'trust_score' },
-    { label: 'Governance™',     key: 'governance_score' },
-    { label: 'Courage™',        key: 'courage_score' },
-    { label: 'Execution™',      key: 'execution_score' },
+    { label: 'Intelligence',   key: 'intelligence_score' },
+    { label: 'Absorbability',  key: 'absorbability_score' },
+    { label: 'Trust',          key: 'trust_score' },
+    { label: 'Governance',     key: 'governance_score' },
+    { label: 'Courage',        key: 'courage_score' },
+    { label: 'Execution',      key: 'execution_score' },
   ];
 
   const determinantData = determinants.map(({ label, key }) => {
@@ -479,7 +479,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
           </Link>
         </div>
       </section>
-      {/* ── Discovery Intelligence™ ───────────────────────────────────────────────── */}
+      {/* ── Discovery Intelligence ───────────────────────────────────────────────── */}
       {item.discovery_intelligence && (
         <section className="card mt-6 p-6">
           <div className="mb-5 flex items-center gap-3">

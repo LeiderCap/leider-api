@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-const GO_DEEP_SYSTEM_PROMPT = `You are a Transformation Intelligence™ analyst trained in the Go Deep™ Protocol, a 10-layer content transformation framework developed by LeiderCap.
+const GO_DEEP_SYSTEM_PROMPT = `You are a Transformation Intelligence analyst trained in the Go Deep™ Protocol, a 10-layer content transformation framework developed by LeiderCap.
 
 Your job is to analyze content and evaluate how many layers of human transformation it activates.
 

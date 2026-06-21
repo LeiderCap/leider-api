@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'My Lens™ — Human Transformation Intelligence™ | The Lens™',
+  title: 'My Lens™ — Human Transformation Intelligence | The Lens™',
   description:
     'My Lens™ is your personal transformation intelligence. Discover what is possible, what is constraining you, and what actions increase your transformation probability.',
 };
@@ -57,9 +57,9 @@ const CONSUMER_PRODUCTS = [
 const HTC_DETERMINANTS = [
   { name: 'Learning Capacity™', desc: 'How quickly you absorb new ideas', color: 'border-teal-200 bg-teal-50', label: 'text-teal-700' },
   { name: 'Adaptability™', desc: 'How effectively you navigate change', color: 'border-blue-200 bg-blue-50', label: 'text-blue-700' },
-  { name: 'Trust™', desc: 'The strength of your relationship network', color: 'border-violet-200 bg-violet-50', label: 'text-violet-700' },
-  { name: 'Courage™', desc: 'Your willingness to act on what you know', color: 'border-amber-200 bg-amber-50', label: 'text-amber-700' },
-  { name: 'Execution™', desc: 'Your ability to complete what you start', color: 'border-emerald-200 bg-emerald-50', label: 'text-emerald-700' },
+  { name: 'Trust', desc: 'The strength of your relationship network', color: 'border-violet-200 bg-violet-50', label: 'text-violet-700' },
+  { name: 'Courage', desc: 'Your willingness to act on what you know', color: 'border-amber-200 bg-amber-50', label: 'text-amber-700' },
+  { name: 'Execution', desc: 'Your ability to complete what you start', color: 'border-emerald-200 bg-emerald-50', label: 'text-emerald-700' },
   { name: 'Resilience™', desc: 'Your capacity to recover and continue', color: 'border-rose-200 bg-rose-50', label: 'text-rose-700' },
 ];
 
@@ -71,7 +71,7 @@ export default function IndividualsPage() {
       <section className="bg-slate-900 px-6 py-20 text-center">
         <div className="mx-auto max-w-3xl">
           <p className="text-xs font-bold uppercase tracking-[0.25em] text-teal-400">
-            Human Transformation Intelligence™
+            Human Transformation Intelligence
           </p>
           <h1 className="mt-4 text-5xl font-bold text-white sm:text-6xl" style={{ fontFamily: 'Georgia, serif' }}>
             My Lens™
