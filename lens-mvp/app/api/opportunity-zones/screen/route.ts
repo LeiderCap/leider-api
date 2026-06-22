@@ -5,6 +5,8 @@
  * Opportunity Zones™ using the deterministic engine, and caches results
  * in Supabase for 24 hours.
  *
+ * All FMP calls use the /stable/ endpoint format (not legacy /api/v3/).
+ *
  * Query params:
  *   batch (optional): number of companies to process (default 50, max 100)
  *   ticker (optional): single ticker to refresh/classify
@@ -14,7 +16,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSupabaseClient } from '@/lib/supabase';
 import { classify, CompanyData } from '@/lib/opportunity-zones/classify';
 
-const FMP_BASE = 'https://financialmodelingprep.com/api';
+const FMP_STABLE = 'https://financialmodelingprep.com/stable';
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000;
 
 function fmpKey(): string {
@@ -27,7 +29,7 @@ function fmpKey(): string {
 
 async function fmpGet(path: string): Promise<unknown> {
   const key = fmpKey();
-  const url = `${FMP_BASE}${path}${path.includes('?') ? '&' : '?'}apikey=${key}`;
+  const url = `${FMP_STABLE}${path}${path.includes('?') ? '&' : '?'}apikey=${key}`;
   const res = await fetch(url, { next: { revalidate: 0 } });
   if (!res.ok) throw new Error(`FMP ${path} → ${res.status}`);
   return res.json();
@@ -65,8 +67,6 @@ interface FmpSharesFloat {
 }
 
 // ── Sector median returns (static approximations for V1) ──────────────────────
-// These are rough 3Y sector median returns used for relative scoring.
-// In V2, these should be computed dynamically from FMP sector data.
 const SECTOR_MEDIAN_3Y: Record<string, number> = {
   Technology: 35,
   Healthcare: 10,
@@ -87,7 +87,7 @@ function getSectorMedian(sector: string | null): number {
   return SECTOR_MEDIAN_3Y[sector] ?? SECTOR_MEDIAN_3Y.default;
 }
 
-// ── Derive share count trend from shares float data ───────────────────────────
+// ── Derive share count trend ──────────────────────────────────────────────────
 function deriveShareCountTrend(floatData: FmpSharesFloat[]): 'growing' | 'flat' | 'declining' {
   if (!floatData || floatData.length < 2) return 'flat';
   const sorted = [...floatData].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -100,7 +100,7 @@ function deriveShareCountTrend(floatData: FmpSharesFloat[]): 'growing' | 'flat' 
   return 'flat';
 }
 
-// ── Derive operating margin trend from income statements ──────────────────────
+// ── Derive operating margin trend ─────────────────────────────────────────────
 function deriveOperatingMarginTrend(
   statements: FmpIncomeStatement[]
 ): 'improving' | 'flat' | 'declining' {
@@ -120,27 +120,22 @@ function deriveRevenueGrowthVsSector(statements: FmpIncomeStatement[]): 'above' 
   const sorted = [...statements].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   if (sorted.length < 2 || !sorted[1].revenue || sorted[1].revenue === 0) return 'below';
   const growthPct = ((sorted[0].revenue - sorted[1].revenue) / sorted[1].revenue) * 100;
-  // Approximate: above 5% YoY revenue growth = 'above', else 'below'
   return growthPct > 5 ? 'above' : 'below';
 }
 
-// ── Estimate franchise age from company name / sector (V1 approximation) ──────
+// ── Estimate franchise age ────────────────────────────────────────────────────
 function estimateFranchiseAge(companyName: string): number {
-  // Very rough heuristic: most large-cap US companies are 20+ years old.
-  // In V2, use FMP company profile 'ipoDate' field.
   const name = companyName.toLowerCase();
   if (name.includes('ai') || name.includes('cloud') || name.includes('cyber')) return 10;
-  return 25; // default for established companies
+  return 25;
 }
 
-// ── Estimate peak market cap (use current as proxy for V1) ───────────────────
+// ── Estimate peak market cap ──────────────────────────────────────────────────
 function estimatePeakMarketCap(currentMarketCap: number): number {
-  // In V1, use current market cap as a conservative proxy.
-  // In V2, pull historical market cap from FMP.
   return currentMarketCap;
 }
 
-// ── Estimate valuation discount vs sector (V1: use P/E proxy) ────────────────
+// ── Estimate valuation discount vs sector ────────────────────────────────────
 function estimateValuationDiscount(metrics: FmpKeyMetrics | null, sector: string | null): number {
   if (!metrics) return 0;
   const sectorPE: Record<string, number> = {
@@ -157,6 +152,11 @@ function estimateValuationDiscount(metrics: FmpKeyMetrics | null, sector: string
 }
 
 // ── Fetch and classify a single ticker ────────────────────────────────────────
+// All endpoints use /stable/ format:
+//   /stable/stock-price-change?symbol={ticker}
+//   /stable/key-metrics?symbol={ticker}&period=annual&limit=1
+//   /stable/income-statement?symbol={ticker}&period=annual&limit=3
+//   /stable/shares-float?symbol={ticker}
 async function fetchAndClassifyTicker(
   ticker: string,
   companyName: string,
@@ -164,10 +164,10 @@ async function fetchAndClassifyTicker(
   sector: string
 ): Promise<CompanyData & { opportunity_score: number; zones_assigned: string[]; tier_assigned: number }> {
   const [priceChangeRaw, keyMetricsRaw, incomeRaw, sharesRaw] = await Promise.allSettled([
-    fmpGet(`/v3/stock-price-change/${ticker}`),
-    fmpGet(`/v3/key-metrics/${ticker}?period=annual&limit=1`),
-    fmpGet(`/v3/income-statement/${ticker}?period=annual&limit=3`),
-    fmpGet(`/v3/shares_float/${ticker}`),
+    fmpGet(`/stock-price-change?symbol=${ticker}`),
+    fmpGet(`/key-metrics?symbol=${ticker}&period=annual&limit=1`),
+    fmpGet(`/income-statement?symbol=${ticker}&period=annual&limit=3`),
+    fmpGet(`/shares-float?symbol=${ticker}`),
   ]);
 
   const priceChanges = priceChangeRaw.status === 'fulfilled'
@@ -190,7 +190,7 @@ async function fetchAndClassifyTicker(
   const price1y = priceChanges?.['1Y'] ?? null;
   const sectorMedian = getSectorMedian(sector);
   const fcfYield = keyMetrics?.freeCashFlowYield != null
-    ? keyMetrics.freeCashFlowYield * 100 // convert decimal to percent
+    ? keyMetrics.freeCashFlowYield * 100
     : null;
   const shareCountTrend = deriveShareCountTrend(sharesFloat);
   const opMarginTrend = deriveOperatingMarginTrend(incomeStatements);
@@ -210,8 +210,8 @@ async function fetchAndClassifyTicker(
     fcf_yield: fcfYield,
     share_count_trend: shareCountTrend,
     valuation_discount_vs_sector: valDiscount,
-    segment_count: 1, // V1: default 1; V2 pull from FMP segments
-    ceo_tenure_months: null, // V1: null; V2 pull from FMP executives
+    segment_count: 1,
+    ceo_tenure_months: null,
     activist_present: false,
     operating_margin_trend: opMarginTrend,
     revenue_growth_vs_sector: revGrowthVsSector,
@@ -256,8 +256,9 @@ export async function GET(req: NextRequest) {
       }
 
       // Fetch screener data for this ticker
+      // /stable/company-screener (replaces /api/v3/stock-screener)
       const screenerData = await fmpGet(
-        `/v3/stock-screener?marketCapMoreThan=100000000&isActivelyTrading=true&country=US`
+        `/company-screener?marketCapMoreThan=100000000&isActivelyTrading=true&country=US`
       ) as FmpScreenerItem[];
 
       const match = screenerData.find(s => s.symbol === singleTicker);
@@ -317,8 +318,9 @@ export async function GET(req: NextRequest) {
     }
 
     // Fetch screener universe
+    // /stable/company-screener (replaces /api/v3/stock-screener)
     const screenerData = await fmpGet(
-      `/v3/stock-screener?marketCapMoreThan=500000000&isActivelyTrading=true&country=US&limit=500`
+      `/company-screener?marketCapMoreThan=500000000&isActivelyTrading=true&country=US&limit=500`
     ) as FmpScreenerItem[];
 
     const cachedTickers = new Set((allCached ?? []).map(r => r.ticker));
@@ -333,7 +335,7 @@ export async function GET(req: NextRequest) {
     );
 
     const newRows = results
-      .filter((r): r is PromiseFulfilledResult<ReturnType<typeof fetchAndClassifyTicker> extends Promise<infer T> ? T : never> => r.status === 'fulfilled')
+      .filter((r): r is PromiseFulfilledResult<Awaited<ReturnType<typeof fetchAndClassifyTicker>>> => r.status === 'fulfilled')
       .map(r => ({
         ticker: r.value.ticker,
         company_name: r.value.company_name,
