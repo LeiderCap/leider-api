@@ -128,7 +128,7 @@ export default function HomePage() {
               {
                 eyebrow: 'UNLOCK IT.',
                 headline: 'From Analysis to Realized Value',
-                body: 'From Cashless Buyback™ modeling to Transformation Blueprint™ — build the path from diagnosis to realized equity value.',
+                body: 'From Cashless Buyback™ modeling to Transformation Blueprint — build the path from diagnosis to realized equity value.',
               },
             ].map(({ eyebrow, headline, body }) => (
               <div key={eyebrow} className="border-t-2 border-orange-400 pt-6">
@@ -305,7 +305,7 @@ export default function HomePage() {
               },
               {
                 step: 'Design™',
-                product: 'Transformation Blueprint™',
+                product: 'Transformation Blueprint',
                 body: 'Creates executable pathways from opportunity to realized outcome.',
                 available: false,
               },
@@ -398,7 +398,7 @@ export default function HomePage() {
               },
               {
                 step: 'Map the Path™',
-                product: 'Transformation Blueprint™',
+                product: 'Transformation Blueprint',
                 description: 'Build the roadmap.',
                 available: false,
               },
@@ -571,10 +571,10 @@ export default function HomePage() {
           </div>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { who: 'Enterprises', headline: 'Increase Transformation Yield™', items: ['Understanding™', 'Blueprint™', 'Guided Transformation™', 'Transformation Partner™'] },
-              { who: 'Investors', headline: 'Find Value Hidden in Plain Sight', items: ['Equity Reclamation™', 'Trust Infrastructure Analysis™', 'Public Company Scorecards™', 'Transformation Risk™'] },
-              { who: 'Governments', headline: 'Increase Institutional Capacity', items: ['Workforce Transformation™', 'Civic Transformation™', 'Trust Infrastructure™', 'Policy Analysis™'] },
-              { who: 'INDIVIDUALS', headline: 'My Lens™', subheadline: 'Human Transformation Intelligence', items: ['Personal Discovery™', 'Learn It™ (Phase 2)', 'Stack the Deck™ (Phase 2)', 'Personal Blueprint™ (Phase 2)'] },
+              { who: 'Enterprises', headline: 'Increase Transformation Yield', items: ['Understanding', 'Blueprint', 'Guided Transformation', 'Transformation Partner'] },
+              { who: 'Investors', headline: 'Find Value Hidden in Plain Sight', items: ['Equity Reclamation™', 'Trust Infrastructure Analysis', 'Public Company Scorecards', 'Transformation Risk'] },
+              { who: 'Governments', headline: 'Increase Institutional Capacity', items: ['Workforce Transformation', 'Civic Transformation', 'Trust Infrastructure', 'Policy Analysis'] },
+              { who: 'INDIVIDUALS', headline: 'My Lens', subheadline: 'Human Transformation Intelligence', items: ['Personal Discovery', 'Learn It™ (Phase 2)', 'Stack the Deck™ (Phase 2)', 'Personal Blueprint (Phase 2)'] },
             ].map(({ who, headline, subheadline, items }: { who: string; headline: string; subheadline?: string; items: string[] }) => (
               <div key={who} className="card p-5 flex flex-col">
                 <div className="flex items-center justify-between">
@@ -614,7 +614,7 @@ export default function HomePage() {
                     className="w-full mt-4 block rounded-lg px-4 py-2 text-center text-sm font-semibold"
                     style={{ backgroundColor: '#E2E8F0', color: '#64748B' }}
                   >
-                    Explore My Lens™ →
+                    Explore My Lens →
                   </Link>
                 )}
               </div>
@@ -697,7 +697,7 @@ export default function HomePage() {
           </h2>
           <p className="mt-6 text-lg text-slate-300 leading-8">
             Every organization operates within a frontier of unrealized possibilities. Most never see it.
-            The Lens™ reveals it in seconds. A Blueprint™ maps the path to reach it.
+            The Lens™ reveals it in seconds. A Blueprint maps the path to reach it.
           </p>
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link href="/search" className="btn btn-primary px-8 py-3 text-base">
