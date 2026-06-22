@@ -17,6 +17,7 @@ import { OidBadge } from '@/components/OidBadge';
 import { TierPaywall } from '@/components/TierPaywall';
 import { BlueprintGate } from '@/components/BlueprintGate';
 import { CitedText } from '@/components/CitedText';
+import { OpportunityZonesSection } from '@/components/OpportunityZonesSection';
 
 const ratingClass: Record<string, string> = {
   Leading:      'rating-leading',
@@ -575,6 +576,9 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
           </div>
         </div>
       </section>
+
+      {/* ── 11. Opportunity Zones™ ───────────────────────────────────────── */}
+      <OpportunityZonesSection />
     </main>
   );
 }

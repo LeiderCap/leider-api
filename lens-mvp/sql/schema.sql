@@ -360,3 +360,51 @@ CREATE POLICY "public_update_cached_stock_prices"
   ON cached_stock_prices FOR UPDATE
   USING (true)
   WITH CHECK (true);
+
+-- ─── v2.8 Migration — Opportunity Zone Cache ─────────────────────────────────
+-- Run in Supabase SQL Editor:
+CREATE TABLE IF NOT EXISTS opportunity_zone_cache (
+  ticker                        text PRIMARY KEY,
+  company_name                  text,
+  market_cap                    numeric,
+  price_change_3y               numeric,
+  price_change_1y               numeric,
+  sector                        text,
+  sector_median_return_3y       numeric,
+  fcf_yield                     numeric,
+  share_count_trend             text,
+  valuation_discount_vs_sector  numeric,
+  segment_count                 integer,
+  ceo_tenure_months             integer,
+  activist_present              boolean DEFAULT false,
+  operating_margin_trend        text,
+  revenue_growth_vs_sector      text,
+  peak_market_cap_10y           numeric,
+  franchise_age_years           integer,
+  opportunity_score             numeric,
+  zones_assigned                text[],
+  tier_assigned                 integer,
+  cached_at                     timestamptz DEFAULT now(),
+  narrative_why                 text,
+  narrative_mechanisms          text[],
+  narrative_tier_label          text
+);
+
+-- Enable RLS immediately
+ALTER TABLE opportunity_zone_cache ENABLE ROW LEVEL SECURITY;
+
+-- Public SELECT — needed by frontend and API routes using anon key
+CREATE POLICY "public_select_opportunity_zone_cache"
+  ON opportunity_zone_cache FOR SELECT
+  USING (true);
+
+-- Service role INSERT — used by screen/narrate API routes
+CREATE POLICY "public_insert_opportunity_zone_cache"
+  ON opportunity_zone_cache FOR INSERT
+  WITH CHECK (true);
+
+-- Service role UPDATE — used for cache refresh
+CREATE POLICY "public_update_opportunity_zone_cache"
+  ON opportunity_zone_cache FOR UPDATE
+  USING (true)
+  WITH CHECK (true);
