@@ -47,10 +47,12 @@ export interface ClassificationResult {
 // ── Zone Qualification Rules ───────────────────────────────────────────────────
 
 function qualifiesFallenGiants(d: CompanyData): boolean {
+  // V1: use peak_market_cap_10y if available; fall back to market_cap as proxy
+  const peakCap = d.peak_market_cap_10y ?? d.market_cap ?? 0;
   return (
-    (d.peak_market_cap_10y ?? 0) > 5_000_000_000 &&
+    peakCap > 5_000_000_000 &&
     (d.price_change_3y ?? 0) < -40 &&
-    (d.franchise_age_years ?? 0) > 15 &&
+    (d.franchise_age_years ?? 20) > 15 && // default 20yr if null
     (d.price_change_1y ?? 0) < 10 // no major recovery signal
   );
 }
@@ -80,8 +82,11 @@ function qualifiesGovernance(d: CompanyData): boolean {
 }
 
 function qualifiesPortfolioSimplification(d: CompanyData): boolean {
+  // segment_count defaults to null in V1 (FMP doesn't provide it directly).
+  // When null, skip the segment criterion and rely solely on valuation discount.
+  const segOk = d.segment_count === null || (d.segment_count ?? 1) >= 3;
   return (
-    (d.segment_count ?? 0) >= 3 &&
+    segOk &&
     (d.valuation_discount_vs_sector ?? 0) > 15
   );
 }

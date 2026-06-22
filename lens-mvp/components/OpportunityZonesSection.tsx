@@ -5,13 +5,14 @@ import Link from 'next/link';
 import { ALL_ZONES, ZONE_META, ZoneName } from '@/lib/opportunity-zones/classify';
 
 // ── Indicative aggregate unlock ranges per zone (order-of-magnitude estimates) ─
+// Per-company value gap estimates (indicative ranges, not aggregate totals)
 const ZONE_UNLOCK_RANGES: Record<ZoneName, string> = {
-  'Fallen Giants™':            '$300B–$600B',
-  'Capital Allocation™':       '$150B–$300B',
-  'AI Transformation™':        '$200B–$500B',
-  'Governance™':               '$80B–$200B',
-  'Portfolio Simplification™': '$100B–$250B',
-  'No Catalyst Identified™':   '$50B–$150B',
+  'Fallen Giants™':            '$10B–$50B',
+  'Capital Allocation™':       '$5B–$20B',
+  'AI Transformation™':        '$2B–$10B',
+  'Governance™':               '$500M–$2B',
+  'Portfolio Simplification™': '$1B–$5B',
+  'No Catalyst Identified™':   '$100M–$500M',
 };
 
 interface ZoneStats {
@@ -111,7 +112,7 @@ export function OpportunityZonesSection() {
                     <span className="text-right">
                       <strong className="text-slate-900">{ZONE_UNLOCK_RANGES[zone]}</strong>
                       <br />
-                      <span className="text-[10px] text-slate-400">Available To Unlock™ (indicative)</span>
+                      <span className="text-[10px] text-slate-400">Est. per-company value gap (indicative)</span>
                     </span>
                   </div>
                   <Link
