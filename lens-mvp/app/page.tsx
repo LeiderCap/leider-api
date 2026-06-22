@@ -118,7 +118,7 @@ export default function HomePage() {
               {
                 eyebrow: 'FIND IT.',
                 headline: 'Six Opportunity Zones™',
-                body: 'The Lens™ surfaces where value may be trapped — from Fallen Giants™ to Capital Allocation inefficiencies — across any publicly traded company.',
+                body: 'The Lens™ surfaces where value may be trapped — from Fallen Giants to Capital Allocation inefficiencies — across any publicly traded company.',
               },
               {
                 eyebrow: 'UNDERSTAND IT.',
