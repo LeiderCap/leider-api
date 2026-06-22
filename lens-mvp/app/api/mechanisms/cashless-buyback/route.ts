@@ -4,7 +4,18 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const CASHLESS_BUYBACK_SYSTEM_PROMPT = `You are a Mechanism Intelligence™ analyst specializing in capital structure mechanisms, specifically the Cashless Buyback™.
 
-You will receive: company name, current stock price, target stock price, and percent of shares to retire.
+You will receive: company name, current stock price, target stock price, percent of shares to retire, and a time horizon (3, 4, or 5 years).
+
+CRITICAL — TIME HORIZON FRAMING:
+The time horizon directly affects execution pace, risk profile, and the rerating thesis. You MUST reflect this in every section:
+
+- 3 Years (Aggressive): Compressed execution timeline. Requires faster capital deployment, higher execution intensity, and carries a meaningfully higher execution risk premium. The rerating thesis is more front-loaded — the market signal must work quickly. Highlight the urgency and the risk that execution may fall short of the announced pace. Required performance criteria are more demanding.
+
+- 4 Years (Moderate): Balanced execution pace. Reasonable capital deployment cadence. Execution risk is moderate. The rerating thesis plays out over a medium-term horizon with room for course correction. This is the baseline scenario.
+
+- 5 Years (Safest): Conservative execution timeline. Lower execution risk premium — the company has more time to adjust pace based on market conditions. The rerating thesis is more gradual; the market signal is less urgent but more credible as a long-term commitment. Required performance criteria are more forgiving, but the mechanism takes longer to fully close the gap.
+
+Do NOT use generic language — the time horizon must visibly change the rerating timeline, execution risk language, required performance criteria, and confidence rationale in your output.
 
 CRITICAL — SHARES OUTSTANDING RESEARCH:
 Before generating any analysis, you MUST research and determine the most recent shares outstanding figure for this company. Search for the most recent 10-Q, 10-K, earnings release, or financial data provider that reports diluted shares outstanding. Always use the most recent figure available.
@@ -82,6 +93,7 @@ export async function POST(req: NextRequest) {
       current_price,
       target_price,
       percent_to_retire,
+      time_horizon_years,
     } = body;
 
     // Validate required fields
@@ -94,6 +106,8 @@ export async function POST(req: NextRequest) {
     if (isNaN(cp) || cp <= 0) return NextResponse.json({ error: 'current_price must be a positive number' }, { status: 400 });
     if (isNaN(tp) || tp <= 0) return NextResponse.json({ error: 'target_price must be a positive number' }, { status: 400 });
     if (isNaN(pct) || pct <= 0 || pct >= 100) return NextResponse.json({ error: 'percent_to_retire must be between 0 and 100' }, { status: 400 });
+    const horizon = (time_horizon_years === 3 || time_horizon_years === 4 || time_horizon_years === 5) ? time_horizon_years : 4;
+    const horizonLabel = horizon === 3 ? 'Aggressive' : horizon === 4 ? 'Moderate' : 'Safest';
 
     // ── Deterministic calculations (partial — share-count calcs done after AI) ──
     const priceGapPercent = ((tp - cp) / cp) * 100;
@@ -107,6 +121,7 @@ Company: ${company_name.trim()}
 Current Stock Price: $${cp.toFixed(2)}
 Target Stock Price: $${tp.toFixed(2)}
 Percent of Shares to Retire: ${pct}%
+Time Horizon: ${horizon} Years (${horizonLabel})
 
 Calculated figures (use these in your analysis):
 - Price Gap: ${priceGapPercent.toFixed(1)}%
@@ -114,10 +129,12 @@ Calculated figures (use these in your analysis):
 
 IMPORTANT: You must research and provide shares_outstanding_researched as a plain integer. All share-count-dependent figures (shares to retire, transaction value, implied value) will be calculated from your researched figure.
 
-Generate the full Mechanism Intelligence™ analysis per the system prompt. Pay particular attention to the Market Signal Effect™ section — specifically the causal chain: public disclosure → short seller pressure → momentum → market rerating, independent of the mechanical share retirement.
+Generate the full Mechanism Intelligence™ analysis per the system prompt. The time horizon is ${horizon} years (${horizonLabel}) — this MUST be reflected in the rerating timeline, execution risk language, required performance criteria, and confidence rationale. Do not use generic language — make the ${horizonLabel.toLowerCase()} execution pace explicit throughout.
+
+Pay particular attention to the Market Signal Effect™ section — specifically the causal chain: public disclosure → short seller pressure → momentum → market rerating, independent of the mechanical share retirement.
 `.trim();
 
-    console.log(`[cashless-buyback] Generating analysis for: ${company_name}`);
+    console.log(`[cashless-buyback] Generating analysis for: ${company_name} | horizon: ${horizon}yr (${horizonLabel})`);
     const raw = await callAI(userMessage);
     const parsed = JSON.parse(extractJson(raw));
 
@@ -146,6 +163,8 @@ Generate the full Mechanism Intelligence™ analysis per the system prompt. Pay 
     return NextResponse.json({
       ok: true,
       company_name: company_name.trim(),
+      time_horizon_years: horizon,
+      time_horizon_label: horizonLabel,
       calcs,
       analysis: {
         mechanism_summary: parsed.mechanism_summary ?? '',

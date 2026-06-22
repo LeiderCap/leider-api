@@ -232,6 +232,7 @@ function CashlessBuybackInner() {
   const [result, setResult] = useState<Result | null>(null);
   const [saveState, setSaveState] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
   const [gapModalOpen, setGapModalOpen] = useState(false);
+  const [timeHorizonYears, setTimeHorizonYears] = useState<3 | 4 | 5>(4);
 
   // Pre-fill company name from ?company= query param (e.g. from Lens detail page CTA).
   // Only company_name is pre-filled — all financial inputs remain blank and user-driven.
@@ -260,6 +261,7 @@ function CashlessBuybackInner() {
           current_price: parseFloat(form.current_price),
           target_price: parseFloat(form.target_price),
           percent_to_retire: parseFloat(form.percent_to_retire),
+          time_horizon_years: timeHorizonYears,
         }),
       });
       const data = await res.json();
@@ -382,6 +384,35 @@ function CashlessBuybackInner() {
               placeholder="e.g. 10"
               className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-orange-400"
             />
+          </div>
+
+          {/* Time Horizon — full width */}
+          <div className="sm:col-span-2">
+            <label className="block text-xs font-semibold text-slate-500 mb-2">Time Horizon *</label>
+            <div className="grid grid-cols-3 gap-2" role="group" aria-label="Time Horizon">
+              {([3, 4, 5] as const).map((yr) => {
+                const labels: Record<number, string> = { 3: 'Aggressive', 4: 'Moderate', 5: 'Safest' };
+                const selected = timeHorizonYears === yr;
+                return (
+                  <button
+                    key={yr}
+                    type="button"
+                    onClick={() => setTimeHorizonYears(yr)}
+                    className="rounded-xl border-2 px-4 py-3 text-center transition-all"
+                    style={{
+                      borderColor: selected ? '#F97316' : '#E2E8F0',
+                      backgroundColor: selected ? '#FFF7ED' : '#FFFFFF',
+                      color: selected ? '#EA580C' : '#64748B',
+                    }}
+                  >
+                    <span className="block text-sm font-bold">{yr} Years</span>
+                    <span className="block text-xs mt-0.5" style={{ color: selected ? '#EA580C' : '#94A3B8' }}>
+                      {labels[yr]}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           {/* Submit — full width */}
