@@ -561,7 +561,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
           <div className="flex flex-wrap gap-2">
             <BlueprintRequestForm companyId={item.id} companyName={item.name} />
             <Link
-              href={`/mechanisms/cashless-buyback?company=${encodeURIComponent(item.name)}`}
+              href={`/mechanisms/cashless-buyback?company=${encodeURIComponent(item.name)}${item.ticker ? `&ticker=${encodeURIComponent(item.ticker)}` : ''}`}
               className="inline-flex items-center gap-1.5 rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50"
             >
               Realize Equity Reclamation

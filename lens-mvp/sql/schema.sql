@@ -333,3 +333,30 @@ ALTER TABLE saved_items ADD CONSTRAINT saved_items_item_type_check
     'blueprint',
     'mechanism_cashless_buyback'
   ));
+
+-- ─── v2.7 Migration — Cached Stock Prices ────────────────────────────────────
+-- Run in Supabase SQL Editor:
+CREATE TABLE IF NOT EXISTS cached_stock_prices (
+  ticker      text PRIMARY KEY,
+  price       numeric NOT NULL,
+  fetched_at  timestamptz NOT NULL DEFAULT now()
+);
+
+-- Enable RLS
+ALTER TABLE cached_stock_prices ENABLE ROW LEVEL SECURITY;
+
+-- Allow public read (SELECT) — needed by the API route running with anon key
+CREATE POLICY "public_select_cached_stock_prices"
+  ON cached_stock_prices FOR SELECT
+  USING (true);
+
+-- Allow public insert — needed for first-time cache population
+CREATE POLICY "public_insert_cached_stock_prices"
+  ON cached_stock_prices FOR INSERT
+  WITH CHECK (true);
+
+-- Allow public update — needed for cache refresh after 24 hours
+CREATE POLICY "public_update_cached_stock_prices"
+  ON cached_stock_prices FOR UPDATE
+  USING (true)
+  WITH CHECK (true);

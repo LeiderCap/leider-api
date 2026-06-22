@@ -233,13 +233,28 @@ function CashlessBuybackInner() {
   const [saveState, setSaveState] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
   const [gapModalOpen, setGapModalOpen] = useState(false);
   const [timeHorizonYears, setTimeHorizonYears] = useState<3 | 4 | 5>(4);
+  const [priceFetching, setPriceFetching] = useState(false);
 
-  // Pre-fill company name from ?company= query param (e.g. from Lens detail page CTA).
-  // Only company_name is pre-filled — all financial inputs remain blank and user-driven.
+  // Pre-fill company name from ?company= query param.
+  // If ?ticker= is also present, auto-fetch the current stock price from the cache.
   useEffect(() => {
     const company = searchParams.get('company');
+    const ticker = searchParams.get('ticker');
     if (company) {
       setForm(f => ({ ...f, company_name: decodeURIComponent(company) }));
+    }
+    if (ticker) {
+      const t = decodeURIComponent(ticker).trim().toUpperCase();
+      setPriceFetching(true);
+      fetch(`/api/stock-price?ticker=${encodeURIComponent(t)}`)
+        .then(r => r.json())
+        .then(data => {
+          if (data?.price != null) {
+            setForm(f => ({ ...f, current_price: String(data.price) }));
+          }
+        })
+        .catch(() => { /* silent fallback — field stays blank */ })
+        .finally(() => setPriceFetching(false));
     }
   }, [searchParams]);
 
@@ -339,7 +354,12 @@ function CashlessBuybackInner() {
 
           {/* Current Price */}
           <div>
-            <label className="block text-xs font-semibold text-slate-500 mb-1.5">Current Stock Price ($) *</label>
+            <label className="block text-xs font-semibold text-slate-500 mb-1.5">
+              Current Stock Price ($) *
+              {priceFetching && (
+                <span className="ml-2 text-[10px] font-normal text-orange-500 animate-pulse">Fetching live price…</span>
+              )}
+            </label>
             <input
               name="current_price"
               type="number"
@@ -348,8 +368,9 @@ function CashlessBuybackInner() {
               value={form.current_price}
               onChange={handleChange}
               required
-              placeholder="e.g. 24.50"
-              className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-orange-400"
+              placeholder={priceFetching ? 'Fetching…' : 'e.g. 24.50'}
+              disabled={priceFetching}
+              className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-orange-400 disabled:opacity-60"
             />
           </div>
 
