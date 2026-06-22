@@ -28,6 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/#for-whom" className="nav-link">Who It's For</Link>
               <Link href="/methodology" className="nav-link">Methodology</Link>
               <Link href="/go-deep" className="nav-link">Go Deep™</Link>
+              <Link href="/opportunities" className="nav-link">Opportunities</Link>
               <Link href="/blueprint" className="nav-link">Blueprint™</Link>
                <Link href="/#stack-the-deck" className="nav-link flex items-center gap-1">
                 Stack the Deck™
