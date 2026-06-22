@@ -76,8 +76,20 @@ function qualifiesAITransformation(d: CompanyData): boolean {
 
 function qualifiesGovernance(d: CompanyData): boolean {
   if (d.activist_present) return true;
-  if (d.ceo_tenure_months !== null && d.ceo_tenure_months < 18) return true;
-  // ceo_tenure_months null → exclude Governance zone (per spec)
+  // ceo_tenure_months is populated when FMP titleSince field is non-null.
+  // FMP often returns titleSince=null, so this signal is sparse in V1.
+  // When available, trigger on CEO tenure < 24 months.
+  if (d.ceo_tenure_months !== null && d.ceo_tenure_months < 24) return true;
+  // V1 proxy signal: large-cap company with severe 3Y decline but 1Y recovery
+  // suggests a leadership change catalyst is already underway.
+  // Criteria: mktcap > $5B, 3Y < -40%, 1Y > +10% (recovery started), franchise > 15yr.
+  const peakCap = d.peak_market_cap_10y ?? d.market_cap ?? 0;
+  if (
+    peakCap > 5_000_000_000 &&
+    (d.price_change_3y ?? 0) < -40 &&
+    (d.price_change_1y ?? 0) > 10 &&
+    (d.franchise_age_years ?? 0) > 15
+  ) return true;
   return false;
 }
 
@@ -182,11 +194,13 @@ export function classify(d: CompanyData): ClassificationResult {
   // Calculate score before checking No Catalyst (score is an input to that rule)
   const scoreBeforeNoCatalyst = calcOpportunityScore(d, zones);
 
-  // No Catalyst Identified™ — qualifies only if no other zones AND score > 70
+  // No Catalyst Identified™ — qualifies only if no other zones AND score > 40
+  // Note: max achievable score with zero zones is ~65 (MA component = 0),
+  // so threshold of 70 was mathematically unreachable. Lowered to 40.
   if (
     zones.length === 0 &&
     (d.price_change_3y ?? 0) < -30 &&
-    scoreBeforeNoCatalyst > 70
+    scoreBeforeNoCatalyst > 40
   ) {
     zones.push('No Catalyst Identified™');
   }
