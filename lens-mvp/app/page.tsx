@@ -77,50 +77,72 @@ export default function HomePage() {
   return (
     <main>
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-slate-900 px-6 py-20 text-center text-white">
-        <div className="mx-auto max-w-5xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-orange-400">
-            Transformation Intelligence Report™
-          </p>
-          <h1 className="mt-5 text-5xl font-bold leading-tight tracking-tight sm:text-7xl">
-            What is possible
-            <br />
-            <span className="text-slate-400">for this company?</span>
+      <section className="relative overflow-hidden bg-slate-900 px-6 py-24 text-center text-white">
+        <div className="mx-auto max-w-4xl">
+          <h1 className="text-4xl font-bold leading-tight tracking-tight text-white sm:text-6xl">
+            Where is value trapped in your organization?
           </h1>
-          <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-teal-300 font-medium">
-            The Lens reveals what the market misses — hidden assets, hidden constraints, and the transformation capacity that determines what comes next.
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-300">
+            The Lens™ identifies where value is trapped, why it&apos;s trapped, and what mechanism would most efficiently unlock it — for any publicly traded company.
           </p>
-          <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-slate-300">
-            In a world of abundant intelligence, the competitive advantage is no longer better answers.
-            It is better questions.
-          </p>
-          <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-slate-400">
-            The Lens is a Transformation Intelligence engine — revealing the opportunities hidden inside
-            the intelligence you already possess.
-          </p>
-
-          {/* Interactive Dial */}
-          <div className="mx-auto mt-10 max-w-sm">
-            <TransformationDial />
-          </div>
-
-          <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-            <Link href="/search" className="btn btn-primary px-6 py-3 text-base">
-              Run The Lens
-            </Link>
+          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <a
-              href="#how-it-works"
-              className="btn btn-ghost px-6 py-3 text-base text-slate-300 hover:text-white hover:bg-white/10"
+              href="#search"
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById('search');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+                const input = el?.querySelector('input');
+                if (input) setTimeout(() => input.focus(), 400);
+              }}
+              className="btn btn-primary px-8 py-3 text-base"
             >
-              Explore The Framework
+              Analyze a Company →
             </a>
+            <Link
+              href="/opportunities"
+              className="text-base font-medium text-slate-300 underline-offset-4 hover:text-white hover:underline transition-colors"
+            >
+              Explore Opportunity Zones™ →
+            </Link>
           </div>
         </div>
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(20,184,166,0.06),transparent_70%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(249,115,22,0.05),transparent_70%)]" />
+      </section>
+
+      {/* ── Three Outcome Blocks ─────────────────────────────── */}
+      <section className="border-b border-slate-100 bg-white px-6 py-16">
+        <div className="mx-auto max-w-5xl">
+          <div className="grid gap-8 sm:grid-cols-3">
+            {[
+              {
+                eyebrow: 'FIND IT.',
+                headline: 'Six Opportunity Zones™',
+                body: 'The Lens™ surfaces where value may be trapped — from Fallen Giants™ to Capital Allocation inefficiencies — across any publicly traded company.',
+              },
+              {
+                eyebrow: 'UNDERSTAND IT.',
+                headline: 'Opportunity Score™ + Diagnosis',
+                body: 'Every company receives an Opportunity Score™, an Equity Reclamation™ Tier, and a ranked set of mechanisms most likely to unlock value.',
+              },
+              {
+                eyebrow: 'UNLOCK IT.',
+                headline: 'From Analysis to Realized Value',
+                body: 'From Cashless Buyback™ modeling to Transformation Blueprint™ — build the path from diagnosis to realized equity value.',
+              },
+            ].map(({ eyebrow, headline, body }) => (
+              <div key={eyebrow} className="border-t-2 border-orange-400 pt-6">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-orange-500">{eyebrow}</p>
+                <h3 className="mt-3 text-xl font-bold text-slate-900">{headline}</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-500">{body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* ── Search bar ───────────────────────────────────────── */}
-      <section className="border-b border-slate-200 bg-white px-6 py-10">
+      <section id="search" className="border-b border-slate-200 bg-white px-6 py-10">
         <div className="mx-auto max-w-4xl text-center">
           <p className="text-sm font-medium text-slate-500">
             Turn the dial on any company, industry, government, or idea
