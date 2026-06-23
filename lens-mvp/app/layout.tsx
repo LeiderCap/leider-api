@@ -23,19 +23,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <span className="text-lg font-bold tracking-tight">The Lens™</span>
             </Link>
             <nav className="hidden items-center gap-6 md:flex">
+              <Link href="/#for-whom" className="nav-link">Who It&apos;s For</Link>
               <Link href="/opportunities" className="nav-link">Opportunities</Link>
-              <Link href="/go-deep" className="nav-link">Go Deep™</Link>
-              <Link href="/blueprint" className="nav-link">Blueprint™</Link>
               <Link href="/methodology" className="nav-link">Methodology</Link>
               <Link href="/#transformation-chain" className="nav-link">Framework</Link>
-              <Link href="/#for-whom" className="nav-link">Who It&apos;s For</Link>
-              <Link href="/search" className="nav-link">Search</Link>
+              <Link href="/blueprint" className="nav-link">Blueprint™</Link>
               <Link href="/saved" className="nav-link">Saved</Link>
-              <Link href="/watchlists" className="nav-link">Watchlists</Link>
-              <Link href="/stack-the-deck" className="nav-link flex items-center gap-1">
-                Stack the Deck™
-                <span className="rounded-full border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[9px] font-medium text-slate-500">Waitlist</span>
-              </Link>
             </nav>
             <div className="flex items-center gap-2">
               <NavRunButton />

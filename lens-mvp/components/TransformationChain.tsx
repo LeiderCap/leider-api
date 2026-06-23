@@ -143,7 +143,7 @@ export function TransformationChain() {
       {/* CTA below chain on mobile */}
       <div className="mt-8 lg:hidden text-center">
         <Link href="/search" className="btn btn-primary px-6 py-3">
-          Turn the Dial™ →
+          Run The Lens →
         </Link>
       </div>
     </>

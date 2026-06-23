@@ -145,7 +145,7 @@ export default function HomePage() {
       <section id="search" className="border-b border-slate-200 bg-white px-6 py-10">
         <div className="mx-auto max-w-4xl text-center">
           <p className="text-sm font-medium text-slate-500">
-            Turn the dial on any company, industry, government, or idea
+            Run the lens on any company, industry, government, or idea
           </p>
           <Suspense fallback={null}><SearchBox /></Suspense>
           <div className="mt-4 flex flex-wrap justify-center gap-2">
@@ -373,7 +373,7 @@ export default function HomePage() {
           <div className="mx-auto mt-14 max-w-2xl">
             {[
               {
-                step: 'Turn the Dial',
+                step: 'Run The Lens',
                 product: 'Lens Analysis',
                 description: 'See the opportunity.',
                 available: true,
@@ -497,7 +497,7 @@ export default function HomePage() {
                 The Lens™ finds the break.
               </p>
               <div className="mt-8">
-                <Link href="/search" className="btn btn-primary px-6 py-3">Turn the Dial →</Link>
+                <Link href="/search" className="btn btn-primary px-6 py-3">Run The Lens →</Link>
               </div>
             </div>
             <TransformationChain />
@@ -701,7 +701,7 @@ export default function HomePage() {
           </p>
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link href="/search" className="btn btn-primary px-8 py-3 text-base">
-              Turn the Dial
+              Run The Lens
             </Link>
             <Link href="/assessment#request" className="btn btn-ghost px-8 py-3 text-base text-slate-300 hover:text-white hover:bg-white/10">
               Request Transformation Capacity Assessment

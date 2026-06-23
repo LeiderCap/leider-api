@@ -238,7 +238,7 @@ export default function LensCardPage() {
           </p>
           <div className="mt-8">
             <Link href="/search" className="btn btn-primary px-8 py-3 text-base">
-              Turn the Dial™
+              Run The Lens
             </Link>
           </div>
         </div>
