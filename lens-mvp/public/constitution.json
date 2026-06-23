@@ -10,6 +10,9 @@
     "totalPrinciples": 52,
     "categories": 9
   },
+  "copyright": "© 2026 Leider Capital. All Rights Reserved.",
+  "license": "All principles, frameworks, named methodologies, and Transformation Intelligence™ identifiers are proprietary to Leider Capital and Stephen F. Leider. Attribution required for any reference, citation, or reproduction.",
+  "attribution": "Leider, Stephen F. Constitution of Transformation Intelligence™. Leider Capital, 2026. https://lensanalysis.com/constitution",
   "principles": [
     {
       "id": "TI-001",

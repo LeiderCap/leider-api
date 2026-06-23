@@ -102,6 +102,9 @@ export default function ConstitutionPage() {
           {constitutionMeta.publisher} &nbsp;|&nbsp; Version {constitutionMeta.version}{' '}
           &nbsp;|&nbsp; Published June 23, 2026
         </p>
+        <p className="mt-2 text-xs text-slate-400">
+          © 2026 Leider Capital. All Rights Reserved. All principles and named methodologies are proprietary to Leider Capital.
+        </p>
       </section>
 
       {/* Stats bar */}
@@ -121,27 +124,7 @@ export default function ConstitutionPage() {
               <strong className="text-yellow-700">{totalPrinciples - ratifiedCount}</strong> Draft
             </span>
           </div>
-          <div className="flex items-center gap-4 text-sm text-slate-500">
-            <span className="font-medium text-slate-700">Machine-readable:</span>
-            <a
-              href="/constitution.json"
-              className="font-mono hover:underline"
-              style={{ color: '#E05A00' }}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              /constitution.json
-            </a>
-            <a
-              href="/llms.txt"
-              className="font-mono hover:underline"
-              style={{ color: '#E05A00' }}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              /llms.txt
-            </a>
-          </div>
+
         </div>
       </section>
 
@@ -212,15 +195,7 @@ export default function ConstitutionPage() {
       {/* Footer note */}
       <section className="border-t border-slate-200 bg-slate-50 px-6 py-8 text-center text-sm text-slate-400">
         <p>
-          © {new Date().getFullYear()} Leider Capital. All principles are versioned and
-          citable.{' '}
-          <a
-            href="/constitution.json"
-            className="hover:underline"
-            style={{ color: '#E05A00' }}
-          >
-            Download JSON
-          </a>
+          © {new Date().getFullYear()} Leider Capital. All principles are versioned and citable.
         </p>
       </section>
     </main>
