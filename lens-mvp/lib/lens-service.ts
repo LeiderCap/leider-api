@@ -128,6 +128,9 @@ function mapDbToSnapshot(row: any): LensSnapshot {
     discovery_intelligence: score?.discovery_intelligence ?? undefined,
     // v2.0 Sources / Citations
     sources: score?.sources ?? undefined,
+    // v2.1 FMP-anchored Unlock Potential™
+    unlock_primary_driver: score?.unlock_primary_driver ?? null,
+    unlock_disclaimer: score?.unlock_disclaimer ?? null,
     updated_at: score?.updated_at ?? row.created_at
   };
 }
@@ -268,6 +271,10 @@ export async function saveLensSnapshot(snapshot: LensSnapshot) {
 
     // v2.0 Sources / Citations
     sources: snapshot.sources ?? null,
+
+    // v2.1 FMP-anchored Unlock Potential™
+    unlock_primary_driver: snapshot.unlock_primary_driver ?? null,
+    unlock_disclaimer: snapshot.unlock_disclaimer ?? null,
 
     updated_at: new Date().toISOString()
   });

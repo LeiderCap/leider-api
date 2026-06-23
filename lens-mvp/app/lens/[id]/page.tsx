@@ -409,8 +409,16 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
           ) : (
             <Metric label="Equity Reclamation™" value={item.equity_reclamation} />
           )}
-          <Metric label="Opportunity Value"      value={item.opportunity_value} />
-          <Metric label="Confidence"             value={item.confidence} />
+          {/* v2.1 FMP-anchored Unlock Potential™ */}
+          <div className="rounded-xl border border-slate-200 p-4">
+            <p className="text-xs font-medium text-slate-400">Unlock Potential™</p>
+            <p className="mt-2 text-lg font-semibold">{item.opportunity_value || '—'}</p>
+            <span className={`mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-semibold ${
+              item.confidence === 'High' ? 'bg-green-100 text-green-700' :
+              item.confidence === 'Moderate' ? 'bg-amber-100 text-amber-700' :
+              'bg-slate-100 text-slate-500'
+            }`}>{item.confidence} Confidence</span>
+          </div>
         </div>
       </section>
 
@@ -553,11 +561,26 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Go Deep™</p>
-            <h2 className="mt-1 text-xl font-bold">Unlock Potential: {item.opportunity_value}</h2>
-            <p className="mt-1 text-sm text-slate-600">Request a full Transformation Capacity Assessment™ from The Lens™ team.</p>
+            <div className="mt-1 flex flex-wrap items-baseline gap-3">
+              <h2 className="text-xl font-bold">Unlock Potential: {item.opportunity_value || '—'}</h2>
+              <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${
+                item.confidence === 'High' ? 'bg-green-100 text-green-700' :
+                item.confidence === 'Moderate' ? 'bg-amber-100 text-amber-700' :
+                'bg-slate-100 text-slate-500'
+              }`}>{item.confidence} Confidence</span>
+            </div>
+            {item.unlock_primary_driver && (
+              <p className="mt-1 text-sm text-slate-500 italic">{item.unlock_primary_driver}</p>
+            )}
+            <p className="mt-2 text-sm text-slate-600">Request a full Transformation Capacity Assessment™ from The Lens™ team.</p>
             <p className="mt-3 text-sm text-slate-500 leading-6 max-w-prose">
               Want to model a specific scenario? Run a deterministic Cashless Buyback™ analysis below — share price, retirement %, and timeline are entirely up to you.
             </p>
+            {(item.unlock_disclaimer || item.opportunity_value) && (
+              <p className="mt-2 text-xs text-slate-400">
+                {item.unlock_disclaimer ?? 'Lens-estimated value gap. Not a projection or investment recommendation.'}
+              </p>
+            )}
           </div>
           <div className="flex flex-wrap gap-2">
             <BlueprintRequestForm companyId={item.id} companyName={item.name} />

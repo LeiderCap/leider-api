@@ -76,6 +76,10 @@ export interface LensSnapshot {
   trust_alignment_gap?: string | null;
   trust_alignment_explanation?: string | null;
 
+  // v2.1 FMP-anchored Unlock Potential™
+  unlock_primary_driver?: string | null;
+  unlock_disclaimer?: string | null;
+
   // v1.8 Opportunity ID™
   opportunity_id?: string | null;
 

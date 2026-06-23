@@ -1280,7 +1280,188 @@ function lookupTickerByName(query: string): { ticker: string; exchange: string }
   return null;
 }
 
-/** Returns true if the AI output contains private-company fallback language */
+// ── v2.1 FMP-Anchored Unlock Potential™ ────────────────────────────────────────
+
+interface FmpUnlockFinancials {
+  marketCap: number | null;
+  price: number | null;
+  sector: string | null;
+  peRatio: number | null;
+  pbRatio: number | null;
+  evToEbitda: number | null;
+  returnOnEquity: number | null;
+  freeCashFlowYield: number | null;
+  priceChange1Y: number | null;
+  priceChange3Y: number | null;
+}
+
+interface UnlockPotentialResult {
+  unlock_potential_display: string;
+  confidence: 'High' | 'Moderate' | 'Low';
+  primary_driver: string;
+  disclaimer: string;
+}
+
+async function fetchUnlockFinancials(ticker: string): Promise<FmpUnlockFinancials> {
+  const apiKey = process.env.FMP_API_KEY;
+  const base = 'https://financialmodelingprep.com/stable';
+  const empty: FmpUnlockFinancials = {
+    marketCap: null, price: null, sector: null, peRatio: null, pbRatio: null,
+    evToEbitda: null, returnOnEquity: null, freeCashFlowYield: null,
+    priceChange1Y: null, priceChange3Y: null,
+  };
+  if (!apiKey) return empty;
+
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
+    const [profileRes, metricsRes, priceRes] = await Promise.all([
+      fetch(`${base}/profile?symbol=${ticker}&apikey=${apiKey}`, { signal: controller.signal }),
+      fetch(`${base}/key-metrics?symbol=${ticker}&period=annual&limit=1&apikey=${apiKey}`, { signal: controller.signal }),
+      fetch(`${base}/stock-price-change?symbol=${ticker}&apikey=${apiKey}`, { signal: controller.signal }),
+    ]);
+    clearTimeout(timeout);
+
+    const [profileData, metricsData, priceData] = await Promise.all([
+      profileRes.ok ? profileRes.json() : [],
+      metricsRes.ok ? metricsRes.json() : [],
+      priceRes.ok ? priceRes.json() : [],
+    ]);
+
+    const profile = Array.isArray(profileData) && profileData.length > 0 ? profileData[0] : {};
+    const metrics = Array.isArray(metricsData) && metricsData.length > 0 ? metricsData[0] : {};
+    const priceChange = Array.isArray(priceData) && priceData.length > 0 ? priceData[0] : {};
+
+    return {
+      marketCap: profile.marketCap ?? null,
+      price: profile.price ?? null,
+      sector: profile.sector ?? null,
+      peRatio: metrics.peRatio ?? null,
+      pbRatio: metrics.pbRatio ?? null,
+      evToEbitda: metrics.evToEbitda ?? null,
+      returnOnEquity: metrics.returnOnEquity ?? null,
+      freeCashFlowYield: metrics.freeCashFlowYield ?? null,
+      priceChange1Y: priceChange['1Y'] ?? null,
+      priceChange3Y: priceChange['3Y'] ?? null,
+    };
+  } catch (err) {
+    console.warn('[lens-ai] fetchUnlockFinancials failed for', ticker, err);
+    return empty;
+  }
+}
+
+function formatMarketCapDisplay(n: number): string {
+  if (n >= 1e12) return `$${(n / 1e12).toFixed(1)}T`;
+  if (n >= 1e9)  return `$${(n / 1e9).toFixed(1)}B`;
+  if (n >= 1e6)  return `$${(n / 1e6).toFixed(0)}M`;
+  return `$${n.toLocaleString()}`;
+}
+
+async function generateUnlockPotential(
+  ticker: string,
+  companyName: string,
+  financials: FmpUnlockFinancials,
+  tcgScore: string,
+): Promise<UnlockPotentialResult | null> {
+  const { marketCap, sector, peRatio, pbRatio, evToEbitda, returnOnEquity,
+    freeCashFlowYield, priceChange1Y, priceChange3Y } = financials;
+
+  // If we have no market cap we cannot anchor the estimate — skip
+  if (!marketCap || marketCap <= 0) return null;
+
+  const mcDisplay = formatMarketCapDisplay(marketCap);
+  const pct = (v: number | null) => v !== null ? `${(v * 100).toFixed(1)}%` : 'N/A';
+  const num = (v: number | null, dp = 1) => v !== null ? v.toFixed(dp) : 'N/A';
+
+  const userPrompt = `Company: ${companyName} (${ticker})
+Sector: ${sector ?? 'Unknown'}
+Current Market Cap: ${mcDisplay}
+P/E Ratio: ${num(peRatio)}
+P/B Ratio: ${num(pbRatio)}
+EV/EBITDA: ${num(evToEbitda)}
+1Y Price Change: ${num(priceChange1Y)}%
+3Y Price Change: ${num(priceChange3Y)}%
+Free Cash Flow Yield: ${pct(freeCashFlowYield)}
+Return on Equity: ${pct(returnOnEquity)}
+Transformation Capacity Gap: ${tcgScore}
+
+Using this data, estimate the Unlock Potential for this company.
+
+The range must be anchored to the actual market cap (${mcDisplay}). A $5B company cannot have a $50B unlock potential. A $500B company will not have a $1.5B unlock potential.
+
+Typical unlock ranges as % of market cap by Transformation Capacity Gap:
+- Critical: 25-60% of market cap
+- Significant: 15-35% of market cap
+- Moderate: 10-25% of market cap
+- Minimal: 5-15% of market cap
+
+Return ONLY this JSON (no markdown, no preamble):
+{
+  "unlock_potential_display": "$[X]B\u2013$[Y]B",
+  "confidence": "High|Moderate|Low",
+  "primary_driver": "one sentence explaining the largest value gap driver",
+  "disclaimer": "Lens-estimated value gap. Not a projection or investment recommendation."
+}`;
+
+  const systemPrompt = `You are The Lens™ enterprise value analyst. You estimate the Unlock Potential for publicly traded companies based on real financial data. Unlock Potential = the estimated gap between current enterprise value and potential enterprise value if transformation mechanisms are executed. This is a directional estimate with confidence levels, not a deterministic model. Return ONLY valid JSON. No markdown, no prose, no code fences.`;
+
+  try {
+    const anthropicKey = process.env.ANTHROPIC_API_KEY;
+    if (anthropicKey) {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-api-key': anthropicKey, 'anthropic-version': '2023-06-01' },
+        body: JSON.stringify({
+          model: process.env.ANTHROPIC_MODEL ?? 'claude-3-5-sonnet-20241022',
+          max_tokens: 300,
+          temperature: 0.1,
+          system: systemPrompt,
+          messages: [{ role: 'user', content: userPrompt }],
+        }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        const text = data?.content?.map((p: any) => p?.text ?? '').join('') ?? '';
+        const parsed = JSON.parse(extractJson(text));
+        return {
+          unlock_potential_display: parsed.unlock_potential_display ?? '',
+          confidence: parsed.confidence ?? 'Moderate',
+          primary_driver: parsed.primary_driver ?? '',
+          disclaimer: parsed.disclaimer ?? 'Lens-estimated value gap. Not a projection or investment recommendation.',
+        };
+      }
+    }
+
+    const openaiKey = process.env.OPENAI_API_KEY;
+    if (openaiKey) {
+      const res = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', authorization: `Bearer ${openaiKey}` },
+        body: JSON.stringify({
+          model: process.env.OPENAI_MODEL ?? 'gpt-3.5-turbo',
+          temperature: 0.1,
+          response_format: { type: 'json_object' },
+          messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: userPrompt }],
+        }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        const text = data?.choices?.[0]?.message?.content ?? '';
+        const parsed = JSON.parse(extractJson(text));
+        return {
+          unlock_potential_display: parsed.unlock_potential_display ?? '',
+          confidence: parsed.confidence ?? 'Moderate',
+          primary_driver: parsed.primary_driver ?? '',
+          disclaimer: parsed.disclaimer ?? 'Lens-estimated value gap. Not a projection or investment recommendation.',
+        };
+      }
+    }
+  } catch (err) {
+    console.warn('[lens-ai] generateUnlockPotential failed for', ticker, err);
+  }
+  return null;
+}
+
 function hasPrivateFallback(text: string): boolean {
   const lower = text.toLowerCase();
   return (
@@ -1336,7 +1517,15 @@ export async function generateLensSnapshot(
     console.log('[lens-ai] Pre-generation enrichment:', queryTrim, '→', enrichedQuery.slice(0, 100));
   }
 
-  const text = (await callAnthropic(enrichedQuery)) ?? (await callOpenAI(enrichedQuery));
+  // Fetch FMP financials in parallel with the main AI call (for confirmed public tickers)
+  const fmpFinancialsPromise = confirmedTicker
+    ? fetchUnlockFinancials(confirmedTicker)
+    : Promise.resolve(null);
+
+  const [text, fmpFinancials] = await Promise.all([
+    (async () => (await callAnthropic(enrichedQuery)) ?? (await callOpenAI(enrichedQuery)))(),
+    fmpFinancialsPromise,
+  ]);
 
   if (!text) {
     throw new Error('No AI provider configured. Add ANTHROPIC_API_KEY or OPENAI_API_KEY to .env.local.');
@@ -1438,6 +1627,20 @@ export async function generateLensSnapshot(
   // different companies can share a ticker across exchanges.
   const id = slugify(parsed.name || query);
 
+  // v2.1 FMP-anchored Unlock Potential™ — run after main parse so we have TCG
+  let unlockResult: UnlockPotentialResult | null = null;
+  if (confirmedTicker && fmpFinancials) {
+    unlockResult = await generateUnlockPotential(
+      confirmedTicker,
+      parsed.name,
+      fmpFinancials,
+      parsed.transformation_capacity_gap,
+    );
+    if (unlockResult) {
+      console.log('[lens-ai] Unlock Potential™ generated:', unlockResult.unlock_potential_display, 'confidence:', unlockResult.confidence);
+    }
+  }
+
   return {
     id,
     name: parsed.name,
@@ -1458,9 +1661,12 @@ export async function generateLensSnapshot(
     equity_reclamation: parsed.equity_reclamation ?? '',
     transformation_capacity_gap: parsed.transformation_capacity_gap,
     
-    opportunity_value: parsed.opportunity_value ?? '',
-    confidence: parsed.confidence,
+    // v2.1: Use FMP-anchored range if available, fall back to AI estimate
+    opportunity_value: unlockResult?.unlock_potential_display || parsed.opportunity_value || '',
+    confidence: (unlockResult?.confidence ?? parsed.confidence) as 'Low' | 'Moderate' | 'High',
     top_unlock: parsed.top_unlock ?? '',
+    unlock_primary_driver: unlockResult?.primary_driver ?? null,
+    unlock_disclaimer: unlockResult?.disclaimer ?? null,
     
     // v1.2 Lens Analysis™ narrative fields
     what_lens_sees: parsed.what_lens_sees ?? '',
