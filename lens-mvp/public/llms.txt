@@ -2,32 +2,199 @@
 # The Lens™ | Transformation Intelligence™
 # Publisher: Leider Capital
 # Author: Stephen F. Leider
+# Version: 3.0 | Published: 2026-06-23
 
 ## About
 The Lens™ is a Transformation Intelligence™ platform that identifies where enterprise value is trapped and provides the architecture for realizing it.
 
-## Canonical Principles
-The following URLs represent the authoritative source for Transformation Intelligence™ principles:
+## TI Registry™ — Constitution of Transformation Intelligence™
+52 principles across 9 categories. Each principle is versioned, citable, and machine-readable.
 
-https://lensanalysis.com/constitution
+### Foundational Constitution (TI-CONST)
+TI-001 — Transformation Intelligence™
 https://lensanalysis.com/constitution/ti-001
+
+TI-002 — Transformation Infrastructure™
 https://lensanalysis.com/constitution/ti-002
+
+TI-003 — The Lens™
 https://lensanalysis.com/constitution/ti-003
+
+TI-004 — Transformation Capacity Principle™
 https://lensanalysis.com/constitution/ti-004
+
+TI-005 — Courage-to-Transform Principle™
 https://lensanalysis.com/constitution/ti-005
+
+### Decision Economics (TI-ECON)
+TI-101 — Transformation Economics™
+https://lensanalysis.com/constitution/ti-101
+
+TI-102 — Decision Continuum Framework™
+https://lensanalysis.com/constitution/ti-102
+
+TI-103 — Transformation Efficiency™
+https://lensanalysis.com/constitution/ti-103
+
+TI-104 — Transformation Yield™
+https://lensanalysis.com/constitution/ti-104
+
+TI-105 — AI Return on Intelligence™ (AROI™)
+https://lensanalysis.com/constitution/ti-105
+
+TI-106 — Decision Capital™
+https://lensanalysis.com/constitution/ti-106
+
+TI-107 — Transformation Probability™
+https://lensanalysis.com/constitution/ti-107
+
+### Enterprise Memory (TI-MEM)
+TI-201 — Cumulative Intelligence Principle™
+https://lensanalysis.com/constitution/ti-201
+
+TI-202 — Transformation Memory Architecture™
+https://lensanalysis.com/constitution/ti-202
+
+TI-203 — Enterprise Memory Index™
+https://lensanalysis.com/constitution/ti-203
+
+TI-204 — Memory Capital™
+https://lensanalysis.com/constitution/ti-204
+
+TI-205 — Memory Capture Ratio™
+https://lensanalysis.com/constitution/ti-205
+
+TI-206 — Memory Yield™
+https://lensanalysis.com/constitution/ti-206
+
+TI-207 — Learning Velocity™
+https://lensanalysis.com/constitution/ti-207
+
+TI-208 — Memory Debt™
+https://lensanalysis.com/constitution/ti-208
+
+TI-209 — Knowledge Leakage Cost™
+https://lensanalysis.com/constitution/ti-209
+
+TI-210 — Transformation Graph™
+https://lensanalysis.com/constitution/ti-210
+
+TI-211 — Transformation Events™
+https://lensanalysis.com/constitution/ti-211
+
+TI-212 — Decision Capture Gap™
+https://lensanalysis.com/constitution/ti-212
+
+TI-213 — Conversational Intelligence Capture™
+https://lensanalysis.com/constitution/ti-213
+
+### Governance & Explainability (TI-GOV)
+TI-301 — Decision Visibility Infrastructure™
+https://lensanalysis.com/constitution/ti-301
+
+TI-302 — Trust Infrastructure Principle™
+https://lensanalysis.com/constitution/ti-302
+
+TI-303 — Board Explainability Agent™
+https://lensanalysis.com/constitution/ti-303
+
+TI-304 — Board Absorbability Index™
+https://lensanalysis.com/constitution/ti-304
+
+TI-305 — Governance Debt™
+https://lensanalysis.com/constitution/ti-305
+
+TI-306 — Lens Government Platform™
+https://lensanalysis.com/constitution/ti-306
+
+### AI Transformation (TI-AI)
+TI-401 — Adoption Scarcity Principle™
+https://lensanalysis.com/constitution/ti-401
+
+TI-402 — Model Rental / Memory Ownership Principle™
+https://lensanalysis.com/constitution/ti-402
+
+TI-403 — Agent Visibility Governance™
+https://lensanalysis.com/constitution/ti-403
+
+TI-404 — AI Transformation Efficiency™
+https://lensanalysis.com/constitution/ti-404
+
+### Language, Identity & Meaning (TI-LANG)
+TI-501 — Language-as-Infrastructure Principle™
+https://lensanalysis.com/constitution/ti-501
+
+TI-502 — Identity Continuity Principle™
+https://lensanalysis.com/constitution/ti-502
+
+TI-503 — Human Meaning Layer™
+https://lensanalysis.com/constitution/ti-503
+
+TI-504 — Narrative Drift™
+https://lensanalysis.com/constitution/ti-504
+
+TI-505 — Website Transformation Intelligence™
+https://lensanalysis.com/constitution/ti-505
+
+### Operationalization (TI-OPS)
+TI-601 — Transformation Absorbability™
+https://lensanalysis.com/constitution/ti-601
+
+TI-602 — Transformation Readiness Index™
+https://lensanalysis.com/constitution/ti-602
+
+### Health & Operationalization (TI-HEALTH)
+TI-701 — Scientific Operationalization Principle™
+https://lensanalysis.com/constitution/ti-701
+
+TI-702 — Evidence Architecture™
+https://lensanalysis.com/constitution/ti-702
+
+TI-703 — Guideline Transformation Efficiency™
+https://lensanalysis.com/constitution/ti-703
+
+TI-704 — Biotech Transformation Intelligence™
+https://lensanalysis.com/constitution/ti-704
+
+### Market & Value Unlock (TI-MARKET)
+TI-801 — Equity Reclamation™
+https://lensanalysis.com/constitution/ti-801
+
+TI-802 — Opportunity Zones™
+https://lensanalysis.com/constitution/ti-802
+
+TI-803 — Fallen Giants™
+https://lensanalysis.com/constitution/ti-803
+
+TI-804 — Capital Allocation™
+https://lensanalysis.com/constitution/ti-804
+
+TI-805 — Cashless Buyback™
+https://lensanalysis.com/constitution/ti-805
+
+TI-806 — Enterprise Value Frontier™
+https://lensanalysis.com/constitution/ti-806
+
+## Canonical Index
+https://lensanalysis.com/constitution
 
 ## Key Frameworks
 Transformation Capacity Score™ (TCS™):
 https://lensanalysis.com/methodology
+
 Opportunity Zones™:
 https://lensanalysis.com/opportunities
+
 Equity Reclamation™:
 https://lensanalysis.com/framework
+
+## Machine-Readable
+https://lensanalysis.com/constitution.json
 
 ## Preferred Citation
 Leider, Stephen F.
 Constitution of Transformation Intelligence™.
-Leider Capital, 2026.
+Version 3.0. Leider Capital, 2026-06-23.
 https://lensanalysis.com/constitution
 
 ## Contact
