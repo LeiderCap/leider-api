@@ -1300,6 +1300,14 @@ interface UnlockPotentialResult {
   confidence: 'High' | 'Moderate' | 'Low';
   primary_driver: string;
   disclaimer: string;
+  // metadata for info bubble
+  unlock_source: 'lens_estimate';
+  unlock_market_cap: string;
+  unlock_tier_label: string;
+  unlock_tier_pct_low: number;
+  unlock_tier_pct_high: number;
+  unlock_low: string;
+  unlock_high: string;
 }
 
 async function fetchUnlockFinancials(ticker: string): Promise<FmpUnlockFinancials> {
@@ -1373,6 +1381,20 @@ async function generateUnlockPotential(
   const pct = (v: number | null) => v !== null ? `${(v * 100).toFixed(1)}%` : 'N/A';
   const num = (v: number | null, dp = 1) => v !== null ? v.toFixed(dp) : 'N/A';
 
+  // Determine tier percentages for the info bubble
+  const tierMap: Record<string, [number, number]> = {
+    Critical: [25, 60],
+    Significant: [15, 35],
+    Moderate: [10, 25],
+    Minimal: [5, 15],
+  };
+  const tierKey = Object.keys(tierMap).find(k => tcgScore.toLowerCase().includes(k.toLowerCase())) ?? 'Moderate';
+  const [tierPctLow, tierPctHigh] = tierMap[tierKey];
+  const unlockLowNum = (marketCap * tierPctLow) / 100;
+  const unlockHighNum = (marketCap * tierPctHigh) / 100;
+  const unlockLow = formatMarketCapDisplay(unlockLowNum);
+  const unlockHigh = formatMarketCapDisplay(unlockHighNum);
+
   const userPrompt = `Company: ${companyName} (${ticker})
 Sector: ${sector ?? 'Unknown'}
 Current Market Cap: ${mcDisplay}
@@ -1431,6 +1453,13 @@ Return ONLY this JSON (no markdown, no preamble):
           confidence: parsed.confidence ?? 'Moderate',
           primary_driver: parsed.primary_driver ?? '',
           disclaimer: parsed.disclaimer ?? 'Lens-estimated value gap. Not a projection or investment recommendation.',
+          unlock_source: 'lens_estimate' as const,
+          unlock_market_cap: mcDisplay,
+          unlock_tier_label: tierKey,
+          unlock_tier_pct_low: tierPctLow,
+          unlock_tier_pct_high: tierPctHigh,
+          unlock_low: unlockLow,
+          unlock_high: unlockHigh,
         };
       }
     }
@@ -1458,6 +1487,13 @@ Return ONLY this JSON (no markdown, no preamble):
           confidence: parsed.confidence ?? 'Moderate',
           primary_driver: parsed.primary_driver ?? '',
           disclaimer: parsed.disclaimer ?? 'Lens-estimated value gap. Not a projection or investment recommendation.',
+          unlock_source: 'lens_estimate' as const,
+          unlock_market_cap: mcDisplay,
+          unlock_tier_label: tierKey,
+          unlock_tier_pct_low: tierPctLow,
+          unlock_tier_pct_high: tierPctHigh,
+          unlock_low: unlockLow,
+          unlock_high: unlockHigh,
         };
       }
     }
@@ -1672,6 +1708,13 @@ export async function generateLensSnapshot(
     top_unlock: parsed.top_unlock ?? '',
     unlock_primary_driver: unlockResult?.primary_driver ?? null,
     unlock_disclaimer: unlockResult?.disclaimer ?? null,
+    unlock_source: unlockResult?.unlock_source ?? null,
+    unlock_market_cap: unlockResult?.unlock_market_cap ?? null,
+    unlock_tier_label: unlockResult?.unlock_tier_label ?? null,
+    unlock_tier_pct_low: unlockResult?.unlock_tier_pct_low ?? null,
+    unlock_tier_pct_high: unlockResult?.unlock_tier_pct_high ?? null,
+    unlock_low: unlockResult?.unlock_low ?? null,
+    unlock_high: unlockResult?.unlock_high ?? null,
     
     // v1.2 Lens Analysis™ narrative fields
     what_lens_sees: parsed.what_lens_sees ?? '',

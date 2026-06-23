@@ -79,6 +79,13 @@ export interface LensSnapshot {
   // v2.1 FMP-anchored Unlock Potential™
   unlock_primary_driver?: string | null;
   unlock_disclaimer?: string | null;
+  unlock_source?: 'cashless_buyback' | 'lens_estimate' | null;
+  unlock_market_cap?: string | null;       // e.g. "$150.2B"
+  unlock_tier_label?: string | null;       // e.g. "Moderate"
+  unlock_tier_pct_low?: number | null;     // e.g. 10
+  unlock_tier_pct_high?: number | null;    // e.g. 25
+  unlock_low?: string | null;              // e.g. "$15.0B"
+  unlock_high?: string | null;             // e.g. "$37.5B"
 
   // v1.8 Opportunity ID™
   opportunity_id?: string | null;

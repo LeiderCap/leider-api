@@ -18,6 +18,7 @@ import { TierPaywall } from '@/components/TierPaywall';
 import { BlueprintGate } from '@/components/BlueprintGate';
 import { CitedText } from '@/components/CitedText';
 import { OpportunityZonesSection } from '@/components/OpportunityZonesSection';
+import { UnlockPotentialInfoBubble } from '@/components/UnlockPotentialInfoBubble';
 
 const ratingClass: Record<string, string> = {
   Leading:      'rating-leading',
@@ -410,9 +411,11 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
             <Metric label="Equity Reclamation™" value={item.equity_reclamation} />
           )}
           {/* v2.1 FMP-anchored Unlock Potential™ */}
-          <div className="rounded-xl border border-slate-200 p-4">
+          <div className="relative rounded-xl border border-slate-200 p-4">
             <p className="text-xs font-medium text-slate-400">Unlock Potential™</p>
-            <p className="mt-2 text-lg font-semibold">{item.opportunity_value || '—'}</p>
+            <div className="mt-2 flex items-center gap-1.5">
+              <UnlockPotentialInfoBubble item={item} showRange />
+            </div>
             <span className={`mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-semibold ${
               item.confidence === 'High' ? 'bg-green-100 text-green-700' :
               item.confidence === 'Moderate' ? 'bg-amber-100 text-amber-700' :
@@ -561,8 +564,9 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Go Deep™</p>
-            <div className="mt-1 flex flex-wrap items-baseline gap-3">
-              <h2 className="text-xl font-bold">Unlock Potential: {item.opportunity_value || '—'}</h2>
+            <div className="mt-1 flex flex-wrap items-center gap-2 relative">
+              <h2 className="text-xl font-bold">Unlock Potential:</h2>
+              <UnlockPotentialInfoBubble item={item} showRange />
               <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${
                 item.confidence === 'High' ? 'bg-green-100 text-green-700' :
                 item.confidence === 'Moderate' ? 'bg-amber-100 text-amber-700' :

@@ -131,6 +131,13 @@ function mapDbToSnapshot(row: any): LensSnapshot {
     // v2.1 FMP-anchored Unlock Potential™
     unlock_primary_driver: score?.unlock_primary_driver ?? null,
     unlock_disclaimer: score?.unlock_disclaimer ?? null,
+    unlock_source: score?.unlock_source ?? null,
+    unlock_market_cap: score?.unlock_market_cap ?? null,
+    unlock_tier_label: score?.unlock_tier_label ?? null,
+    unlock_tier_pct_low: score?.unlock_tier_pct_low ?? null,
+    unlock_tier_pct_high: score?.unlock_tier_pct_high ?? null,
+    unlock_low: score?.unlock_low ?? null,
+    unlock_high: score?.unlock_high ?? null,
     updated_at: score?.updated_at ?? row.created_at
   };
 }
@@ -275,6 +282,13 @@ export async function saveLensSnapshot(snapshot: LensSnapshot) {
     // v2.1 FMP-anchored Unlock Potential™
     unlock_primary_driver: snapshot.unlock_primary_driver ?? null,
     unlock_disclaimer: snapshot.unlock_disclaimer ?? null,
+    unlock_source: snapshot.unlock_source ?? null,
+    unlock_market_cap: snapshot.unlock_market_cap ?? null,
+    unlock_tier_label: snapshot.unlock_tier_label ?? null,
+    unlock_tier_pct_low: snapshot.unlock_tier_pct_low ?? null,
+    unlock_tier_pct_high: snapshot.unlock_tier_pct_high ?? null,
+    unlock_low: snapshot.unlock_low ?? null,
+    unlock_high: snapshot.unlock_high ?? null,
 
     updated_at: new Date().toISOString()
   });
