@@ -1423,8 +1423,11 @@ Return ONLY this JSON (no markdown, no preamble):
         const data = await res.json();
         const text = data?.content?.map((p: any) => p?.text ?? '').join('') ?? '';
         const parsed = JSON.parse(extractJson(text));
+        const rawDisplay = parsed.unlock_potential_display ?? '';
+        // Sanitize: strip duplicate leading $ (AI sometimes returns "$$X" when prompt already has $)
+        const display = rawDisplay.replace(/^\$\$/, '$');
         return {
-          unlock_potential_display: parsed.unlock_potential_display ?? '',
+          unlock_potential_display: display,
           confidence: parsed.confidence ?? 'Moderate',
           primary_driver: parsed.primary_driver ?? '',
           disclaimer: parsed.disclaimer ?? 'Lens-estimated value gap. Not a projection or investment recommendation.',
@@ -1448,8 +1451,10 @@ Return ONLY this JSON (no markdown, no preamble):
         const data = await res.json();
         const text = data?.choices?.[0]?.message?.content ?? '';
         const parsed = JSON.parse(extractJson(text));
+        const rawDisplay2 = parsed.unlock_potential_display ?? '';
+        const display2 = rawDisplay2.replace(/^\$\$/, '$');
         return {
-          unlock_potential_display: parsed.unlock_potential_display ?? '',
+          unlock_potential_display: display2,
           confidence: parsed.confidence ?? 'Moderate',
           primary_driver: parsed.primary_driver ?? '',
           disclaimer: parsed.disclaimer ?? 'Lens-estimated value gap. Not a projection or investment recommendation.',
