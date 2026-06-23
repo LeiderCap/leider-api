@@ -67,9 +67,11 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   };
 }
 
-export default async function LensDetailPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function LensDetailPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams?: Promise<{ refresh?: string }> }) {
   const { id } = await params;
-  const item = await getLensByIdOrCache(id);
+  const sp = searchParams ? await searchParams : {};
+  const forceRefresh = sp?.refresh === '1';
+  const item = await getLensByIdOrCache(id, forceRefresh);
 
   if (!item) {
     return (

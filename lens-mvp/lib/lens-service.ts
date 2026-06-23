@@ -306,12 +306,12 @@ export async function createLensSnapshot(query: string): Promise<LensSnapshot> {
   return generated;
 }
 
-export async function getLensByIdOrCache(id: string): Promise<LensSnapshot | null> {
+export async function getLensByIdOrCache(id: string, forceRefresh = false): Promise<LensSnapshot | null> {
   const seedHit = getSeedById(id);
   if (seedHit) return seedHit;
 
   const supabase = getSupabaseClient();
-  if (supabase) {
+  if (supabase && !forceRefresh) {
     const { data } = await supabase
       .from('companies')
       .select('*, lens_scores(*)')
