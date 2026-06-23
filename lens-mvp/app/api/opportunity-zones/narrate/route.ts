@@ -1,13 +1,15 @@
 /**
  * POST /api/opportunity-zones/narrate
  *
- * Generates AI narrative for a classified company.
+ * Generates AI narrative for a classified company through the
+ * Enterprise Defensibility Architecture™ (EDA™) lens.
+ *
  * AI does NOT assign Zones or Tiers — classification is already done.
  * This route only interprets and explains the classification.
  *
  * Body: { ticker, companyName, zonesAssigned, tierAssigned,
  *         opportunityScore, priceChange3y, sector, sectorMedian,
- *         fcfYield, segmentCount }
+ *         marketCap, fcfYield, segmentCount }
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -16,13 +18,27 @@ import { TIER_LABELS } from '@/lib/opportunity-zones/classify';
 
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000;
 
-const SYSTEM_PROMPT = `You are The Lens™ Opportunity Intelligence engine.
-You explain why companies appear in Opportunity Zones™.
+const SYSTEM_PROMPT = `You are The Lens™ Enterprise Defensibility Intelligence engine.
+
+Your role is to explain why a company appears in an Opportunity Zone™ through the lens of Enterprise Defensibility Architecture™ (EDA™).
+
+Core thesis: Markets frequently misprice scarcity. They overvalue features, current earnings, and abundant assets. They undervalue trust, distribution, relationships, workflow ownership, ecosystems, and brand.
+
+Opportunity emerges when Market Value and Defensibility Value diverge.
+
+Your explanations must:
+1. Identify which scarce assets this company possesses that the market may be underpricing
+2. Identify which abundant assets the market may be overpricing
+3. Explain the specific divergence between market value and defensibility value
+4. Be specific to the company's actual data — never generic
+5. Use plain language a CFO or board member would find credible
+
+You do not assign Zones — those are already determined by the classification system.
+You explain the defensibility context behind the classification.
+
 You do not make investment recommendations.
-You do not assign Zones — those are already assigned by the classification system.
-Your role is to interpret and explain the classification.
-Be specific to the data provided. Do not use generic language.
-Return only valid JSON. No preamble. No markdown.`;
+You do not predict stock prices.
+You identify where value may be trapped and why.`;
 
 function buildUserPrompt(input: {
   ticker: string;
@@ -33,30 +49,38 @@ function buildUserPrompt(input: {
   priceChange3y: number | null;
   sector: string | null;
   sectorMedian: number | null;
+  marketCap: number | null;
   fcfYield: number | null;
   segmentCount: number | null;
 }): string {
   const tierLabel = TIER_LABELS[input.tierAssigned as keyof typeof TIER_LABELS] ?? `Tier ${input.tierAssigned}`;
+  const marketCapStr = input.marketCap != null
+    ? `$${(input.marketCap / 1e9).toFixed(1)}B`
+    : 'N/A';
+
   return `Company: ${input.companyName} (${input.ticker})
 Zone(s): ${input.zonesAssigned.join(', ')}
 Tier: ${tierLabel}
 3Y Return: ${input.priceChange3y != null ? input.priceChange3y.toFixed(1) + '%' : 'N/A'}
-Sector Median 3Y: ${input.sectorMedian != null ? input.sectorMedian.toFixed(1) + '%' : 'N/A'}
+Sector Median 3Y Return: ${input.sectorMedian != null ? input.sectorMedian.toFixed(1) + '%' : 'N/A'}
 Opportunity Score: ${input.opportunityScore}
 Sector: ${input.sector ?? 'Unknown'}
-FCF Yield: ${input.fcfYield != null ? input.fcfYield.toFixed(1) + '%' : 'N/A'}
-Segment Count: ${input.segmentCount ?? 'Unknown'}
+Market Cap: ${marketCapStr}
 
-Generate:
-1. why_it_appears_here: 3-5 specific bullets explaining why this company qualifies for its assigned Zone(s). Be specific to the data. Do not use generic language.
-2. mechanism_recommendations: ranked list of 2-4 mechanisms most applicable given the Zone and Tier. Draw from: Cashless Buyback™, Portfolio Simplification™, Governance Redesign™, Leadership Transition™, AI Transformation™, Capital Architecture™, Discovery Intelligence™.
-3. tier_label: one-sentence description of the Equity Reclamation™ diagnosis for this company.
+Generate the following in valid JSON only.
+No preamble. No markdown. No explanation outside the JSON object.
 
-Return ONLY valid JSON in this exact format:
 {
-  "why_it_appears_here": ["bullet 1", "bullet 2", "bullet 3"],
-  "mechanism_recommendations": ["mechanism 1", "mechanism 2"],
-  "tier_label": "one sentence"
+  "why_it_appears_here": [
+    "3-5 specific bullets explaining this company through the EDA™ lens. Each bullet must reference either: a scarce asset being underpriced (trust, distribution, brand, relationships, workflow ownership, ecosystem, installed base), an abundant asset being overpriced (features, commodity capability, near-term earnings pressure), or the specific divergence between market value and defensibility value. Be specific to ${input.companyName}. Never use generic statements like 'the company is underperforming.' Example for Intel: 'Intel's x86 installed base represents decades of workflow ownership — a scarce asset the market is discounting due to near-term manufacturing execution concerns.'"
+  ],
+  "defensibility_assets": [
+    "2-3 specific scarce assets this company possesses that EDA™ considers durable. Examples: 'Brand trust built over 50+ years', 'Distribution relationships with 10,000+ enterprise customers', 'Workflow ownership in core manufacturing software'"
+  ],
+  "mechanism_recommendations": [
+    "Ranked list of 2-4 mechanisms most applicable given Zone and Tier. Draw from: Cashless Buyback™, Portfolio Simplification™, Governance Redesign™, Leadership Transition™, AI Transformation™, Capital Architecture™, Discovery Intelligence™. Each recommendation should reference how it addresses the specific defensibility gap identified above."
+  ],
+  "tier_label": "One sentence describing the Equity Reclamation™ diagnosis through the EDA™ lens. Example: 'Structural repair needed before defensible assets can be repriced by the market.'"
 }`;
 }
 
@@ -72,6 +96,7 @@ export async function POST(req: NextRequest) {
       priceChange3y,
       sector,
       sectorMedian,
+      marketCap,
       fcfYield,
       segmentCount,
     } = body;
@@ -92,6 +117,17 @@ export async function POST(req: NextRequest) {
     if (cached?.narrative_why && cached?.cached_at) {
       const age = Date.now() - new Date(cached.cached_at).getTime();
       if (age < CACHE_TTL_MS) {
+        // Parse defensibility_assets from stored narrative_why if present
+        // (legacy rows won't have it — they'll be re-narrated after cache invalidation)
+        let defensibilityAssets: string[] = [];
+        try {
+          const parsed = JSON.parse(cached.narrative_why);
+          if (Array.isArray(parsed.defensibility_assets)) {
+            defensibilityAssets = parsed.defensibility_assets;
+          }
+        } catch {
+          // narrative_why is plain text in legacy rows — treat as bullet list
+        }
         return NextResponse.json({
           ok: true,
           source: 'cache',
@@ -99,6 +135,7 @@ export async function POST(req: NextRequest) {
           narrative_why: cached.narrative_why,
           narrative_mechanisms: cached.narrative_mechanisms,
           narrative_tier_label: cached.narrative_tier_label,
+          defensibility_assets: defensibilityAssets,
         });
       }
     }
@@ -110,7 +147,8 @@ export async function POST(req: NextRequest) {
 
     const userPrompt = buildUserPrompt({
       ticker, companyName, zonesAssigned, tierAssigned, opportunityScore,
-      priceChange3y, sector, sectorMedian, fcfYield, segmentCount,
+      priceChange3y, sector, sectorMedian, marketCap: marketCap ?? null,
+      fcfYield, segmentCount,
     });
 
     const aiRes = await fetch(`${baseUrl}/chat/completions`, {
@@ -134,7 +172,12 @@ export async function POST(req: NextRequest) {
     const aiData = await aiRes.json();
     const raw = aiData?.choices?.[0]?.message?.content ?? '{}';
 
-    let parsed: { why_it_appears_here?: string[]; mechanism_recommendations?: string[]; tier_label?: string };
+    let parsed: {
+      why_it_appears_here?: string[];
+      defensibility_assets?: string[];
+      mechanism_recommendations?: string[];
+      tier_label?: string;
+    };
     try {
       parsed = JSON.parse(raw);
     } catch {
@@ -144,6 +187,9 @@ export async function POST(req: NextRequest) {
     const narrativeWhy = Array.isArray(parsed.why_it_appears_here)
       ? parsed.why_it_appears_here.join('\n')
       : '';
+    const defensibilityAssets = Array.isArray(parsed.defensibility_assets)
+      ? parsed.defensibility_assets
+      : [];
     const narrativeMechanisms = Array.isArray(parsed.mechanism_recommendations)
       ? parsed.mechanism_recommendations
       : [];
@@ -166,6 +212,7 @@ export async function POST(req: NextRequest) {
       narrative_why: narrativeWhy,
       narrative_mechanisms: narrativeMechanisms,
       narrative_tier_label: narrativeTierLabel,
+      defensibility_assets: defensibilityAssets,
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);

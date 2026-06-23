@@ -79,7 +79,7 @@ export default function HomePage() {
       <section className="relative overflow-hidden bg-slate-900 px-6 py-24 text-center text-white">
         <div className="mx-auto max-w-4xl">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
-            Transformation Intelligence™
+            Defensibility Arbitrage Intelligence™
           </p>
           <h1 className="mt-4 text-4xl font-bold leading-tight tracking-tight text-white sm:text-6xl">
             Unlock Hidden Enterprise Value
@@ -118,13 +118,13 @@ export default function HomePage() {
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Why This Exists</p>
           <div className="mt-8 space-y-6">
             <p className="text-2xl font-light leading-relaxed text-white sm:text-3xl">
-              Organizations don&apos;t fail because they lack intelligence.
+              As intelligence becomes abundant, markets increasingly misprice scarcity.
             </p>
             <p className="text-2xl font-light leading-relaxed text-slate-300 sm:text-3xl">
-              They fail because intelligence fails to become outcomes.
+              They overvalue features, earnings, and capability. They undervalue trust, distribution, relationships, and ecosystem position.
             </p>
             <p className="text-2xl font-light leading-relaxed text-slate-400 sm:text-3xl">
-              As intelligence becomes abundant, transformation capacity becomes scarce.
+              The organizations that win will not possess the most intelligence — they will own the scarcest forms of defensibility.
             </p>
           </div>
         </div>
