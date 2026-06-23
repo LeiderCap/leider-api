@@ -207,13 +207,14 @@ export function classify(d: CompanyData): ClassificationResult {
   // Calculate score before checking No Catalyst (score is an input to that rule)
   const scoreBeforeNoCatalyst = calcOpportunityScore(d, zones);
 
-  // No Catalyst Identified™ — qualifies only if no other zones AND score > 60
-  // Threshold: price_change_3y < -25 (per spec Step 7), score > 60 (per spec Step 7).
-  // Max achievable score with zero zones is ~65 (MA=0), so 60 is reachable for genuine underperformers.
+  // No Catalyst Identified™ — qualifies only if no other zones AND score > 55
+  // Threshold: price_change_3y < -25 (per spec Step 7), score > 55.
+  // Max achievable score with zero zones is ~65 (MA=0); lowered to 55 to capture
+  // genuine underperformers with low franchise durability (small-cap, short history).
   if (
     zones.length === 0 &&
     (d.price_change_3y ?? 0) < -25 &&
-    scoreBeforeNoCatalyst > 60
+    scoreBeforeNoCatalyst > 55
   ) {
     zones.push('No Catalyst Identified');
   }
