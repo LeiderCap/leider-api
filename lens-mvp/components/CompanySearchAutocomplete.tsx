@@ -16,6 +16,13 @@ interface Props {
   placeholder?: string;
 }
 
+const ROTATING_MESSAGES = [
+  'Reviewing performance signals...',
+  'Identifying transformation gaps...',
+  'Scoring opportunity potential...',
+  'Building your Lens analysis...',
+];
+
 export function CompanySearchAutocomplete({
   initialValue = '',
   autoFocus = false,
@@ -29,9 +36,31 @@ export function CompanySearchAutocomplete({
   const [activeIndex, setActiveIndex] = useState(-1);
   const [noResults, setNoResults] = useState(false);
 
+  // Navigating state — shown immediately after company selection
+  const [navigating, setNavigating] = useState(false);
+  const [navigatingName, setNavigatingName] = useState('');
+  const [msgIndex, setMsgIndex] = useState(0);
+  const [timedOut, setTimedOut] = useState(false);
+
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Rotate subtext every 4 seconds while navigating
+  useEffect(() => {
+    if (!navigating) return;
+    const interval = setInterval(() => {
+      setMsgIndex((i) => (i + 1) % ROTATING_MESSAGES.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [navigating]);
+
+  // 30-second timeout while navigating
+  useEffect(() => {
+    if (!navigating) return;
+    const timer = setTimeout(() => setTimedOut(true), 30_000);
+    return () => clearTimeout(timer);
+  }, [navigating]);
 
   // Fetch results from /api/company-search
   const fetchResults = useCallback(async (q: string) => {
@@ -85,6 +114,11 @@ export function CompanySearchAutocomplete({
     setValue(result.name);
     setOpen(false);
     setResults([]);
+    // Show loading state immediately before navigation
+    setNavigatingName(result.name);
+    setNavigating(true);
+    setMsgIndex(0);
+    setTimedOut(false);
     router.push(`/lens/${result.ticker.toLowerCase()}`);
   };
 
@@ -120,6 +154,92 @@ export function CompanySearchAutocomplete({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // ── Navigating / loading overlay ─────────────────────────────────────────
+  if (navigating) {
+    if (timedOut) {
+      return (
+        <div className="mx-auto mt-6 max-w-3xl rounded-2xl border border-slate-200 bg-white p-10 text-center shadow-sm">
+          <p className="text-lg font-semibold text-slate-800">
+            The analysis is taking longer than expected.
+          </p>
+          <button
+            onClick={() => {
+              setTimedOut(false);
+              setNavigating(false);
+            }}
+            className="mt-5 rounded-xl px-6 py-3 text-sm font-bold text-white transition-colors hover:opacity-90"
+            style={{ backgroundColor: '#E05A00' }}
+          >
+            Try again →
+          </button>
+        </div>
+      );
+    }
+
+    return (
+      <div className="mx-auto mt-6 max-w-3xl">
+        {/* Orange progress bar */}
+        <div className="h-0.5 w-full overflow-hidden rounded-full bg-slate-100">
+          <div
+            className="h-full rounded-full"
+            style={{
+              backgroundColor: '#E05A00',
+              animation: 'lensProgress 2.5s ease-in-out infinite',
+            }}
+          />
+        </div>
+
+        <div className="mt-10 text-center">
+          {/* Primary message */}
+          <h2 className="text-2xl font-bold text-slate-900">
+            Hang tight while we pull the analysis.
+          </h2>
+
+          {/* Secondary message */}
+          <p className="mt-3 text-base text-slate-500">
+            The Lens™ is analyzing{' '}
+            <span className="font-medium text-slate-700">
+              {navigatingName || 'your company'}
+            </span>{' '}
+            — this takes 10–20 seconds.
+          </p>
+
+          {/* Pulsing dots */}
+          <div className="mt-8 flex items-center justify-center gap-2">
+            {[0, 1, 2].map((i) => (
+              <span
+                key={i}
+                className="block h-2.5 w-2.5 rounded-full"
+                style={{
+                  backgroundColor: '#E05A00',
+                  animation: `lensDot 1.2s ease-in-out ${i * 0.2}s infinite`,
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Rotating subtext */}
+          <p key={msgIndex} className="mt-6 text-sm text-slate-400">
+            {ROTATING_MESSAGES[msgIndex]}
+          </p>
+        </div>
+
+        <style>{`
+          @keyframes lensProgress {
+            0%   { width: 0%;   margin-left: 0%; }
+            50%  { width: 70%;  margin-left: 15%; }
+            100% { width: 0%;   margin-left: 100%; }
+          }
+          @keyframes lensDot {
+            0%, 100% { opacity: 0.3; transform: scale(0.85); }
+            50%       { opacity: 1;   transform: scale(1.15); }
+          }
+        `}</style>
+      </div>
+    );
+  }
+
+  // ── Normal search UI ──────────────────────────────────────────────────────
   return (
     <div ref={containerRef} className="relative mx-auto mt-6 max-w-3xl">
       {/* Input */}
