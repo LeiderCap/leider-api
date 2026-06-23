@@ -1,11 +1,11 @@
 'use client';
-// STACK THE DECK™ PHASE ROADMAP
-// Phase I:  Lens Discovery™ — What is possible?
-// Phase II: Compare™ — What is better?
-// Phase III: Stack the Deck™ — How do I improve odds?
+// STACK THE DECK PHASE ROADMAP
+// Phase I:  Lens Discovery — What is possible?
+// Phase II: Compare — What is better?
+// Phase III: Stack the Deck — How do I improve odds?
 // Phase IV: Transformation Intelligence — What next?
-// Phase V:  Decision Visibility Infrastructure™ — Why?
-// Phase VI: Transformation Memory™ — What did we learn?
+// Phase V:  Decision Visibility Infrastructure — Why?
+// Phase VI: Transformation Memory — What did we learn?
 import Link from 'next/link';
 import { Suspense, useState } from 'react';
 import { SearchBox } from '@/components/SearchBox';
@@ -42,7 +42,7 @@ function StackWaitlistForm() {
   if (status === 'success') {
     return (
       <p className="mt-4 text-sm font-semibold text-teal-700">
-        ✓ You&apos;re on the list. We&apos;ll reach out when Stack the Deck™ launches.
+        ✓ You&apos;re on the list. We&apos;ll reach out when Stack the Deck launches.
       </p>
     );
   }
@@ -103,7 +103,7 @@ export default function HomePage() {
               href="/opportunities"
               className="text-base font-medium text-slate-300 underline-offset-4 hover:text-white hover:underline transition-colors"
             >
-              Explore Opportunity Zones™ →
+              Explore Opportunity Zones →
             </Link>
           </div>
         </div>
@@ -117,18 +117,18 @@ export default function HomePage() {
             {[
               {
                 eyebrow: 'FIND IT.',
-                headline: 'Six Opportunity Zones™',
+                headline: 'Six Opportunity Zones',
                 body: 'The Lens™ surfaces where value may be trapped — from Fallen Giants to Capital Allocation inefficiencies — across any publicly traded company.',
               },
               {
                 eyebrow: 'UNDERSTAND IT.',
-                headline: 'Opportunity Score™ + Diagnosis',
-                body: 'Every company receives an Opportunity Score™, an Equity Reclamation™ Tier, and a ranked set of mechanisms most likely to unlock value.',
+                headline: 'Opportunity Score + Diagnosis',
+                body: 'Every company receives an Opportunity Score, an Equity Reclamation Tier, and a ranked set of mechanisms most likely to unlock value.',
               },
               {
                 eyebrow: 'UNLOCK IT.',
                 headline: 'From Analysis to Realized Value',
-                body: 'From Cashless Buyback™ modeling to Transformation Blueprint — build the path from diagnosis to realized equity value.',
+                body: 'From Cashless Buyback modeling to Transformation Blueprint — build the path from diagnosis to realized equity value.',
               },
             ].map(({ eyebrow, headline, body }) => (
               <div key={eyebrow} className="border-t-2 border-orange-400 pt-6">
@@ -163,22 +163,22 @@ export default function HomePage() {
       </section>
 
 
-      {/* ── Opportunity Visibility Gap™ ─────────────────────── */}
+      {/* ── Opportunity Visibility Gap ─────────────────────── */}
       <section id="ovg" className="section bg-white border-b border-slate-100">
         <div className="section-inner">
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-xs font-semibold uppercase tracking-widest text-teal-600">
-              Opportunity Visibility Gap™
+              Opportunity Visibility Gap
             </p>
             <h2 className="mt-4 text-4xl font-bold leading-tight text-slate-900 sm:text-5xl">
-              Every organization has an<br />Opportunity Visibility Gap™.
+              Every organization has an<br />Opportunity Visibility Gap.
             </h2>
             <p className="mt-5 text-lg leading-8 text-slate-600">
               The difference between the opportunities available to your organization
               and the opportunities currently visible to it.
             </p>
             <p className="mt-3 text-base font-semibold text-slate-800">
-              A large OVG™ means substantial hidden value. The Lens™ is designed to close it.
+              A large OVG means substantial hidden value. The Lens™ is designed to close it.
             </p>
           </div>
 
@@ -197,7 +197,7 @@ export default function HomePage() {
               {
                 icon: '🎯',
                 heading: 'The Lens™ Closes The Gap',
-                body: 'The Lens™ is Opportunity Visibility Infrastructure™ for the Intelligence Age. It reveals what is possible before asking what should be done.',
+                body: 'The Lens™ is Opportunity Visibility Infrastructure for the Intelligence Age. It reveals what is possible before asking what should be done.',
               },
             ].map(({ icon, heading, body }) => (
               <div key={heading} className="card p-6 border-t-2 border-teal-400">
@@ -215,7 +215,7 @@ export default function HomePage() {
         <div className="section-inner">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
-              Opportunity Visibility™ By Audience
+              Opportunity Visibility By Audience
             </p>
             <h2 className="mt-4 text-4xl font-bold leading-tight">
               What becomes visible depends on where you look.
@@ -226,32 +226,32 @@ export default function HomePage() {
             {[
               {
                 audience: 'Media & Entertainment',
-                label: 'Narrative Opportunity Visibility™',
+                label: 'Narrative Opportunity Visibility',
                 body: 'What stories are being overlooked? What audiences remain underserved? What commercial opportunities remain hidden?',
               },
               {
                 audience: 'Healthcare',
-                label: 'Outcome Opportunity Visibility™',
+                label: 'Outcome Opportunity Visibility',
                 body: 'What interventions create the greatest improvement? Where do outcomes break down? Which transformation initiatives matter most?',
               },
               {
                 audience: 'Finance',
-                label: 'Enterprise Value Opportunity Visibility™',
+                label: 'Enterprise Value Opportunity Visibility',
                 body: 'Where is value trapped? Which strategic opportunities remain invisible? Which transformation paths create the highest returns?',
               },
               {
                 audience: 'Venture Capital',
-                label: 'Investment Opportunity Visibility™',
+                label: 'Investment Opportunity Visibility',
                 body: 'Which founders possess hidden potential? Which markets are being misunderstood? Which companies have the greatest transformation capacity?',
               },
               {
                 audience: 'Government',
-                label: 'Public Impact Opportunity Visibility™',
+                label: 'Public Impact Opportunity Visibility',
                 body: 'Which initiatives create the highest public benefit? Where can transformation create measurable citizen outcomes?',
               },
               {
                 audience: 'Individuals',
-                label: 'Personal Opportunity Visibility™',
+                label: 'Personal Opportunity Visibility',
                 body: 'What opportunities am I overlooking? What matters most right now? What path creates the greatest future value?',
               },
             ].map(({ audience, label, body }) => (
@@ -265,18 +265,18 @@ export default function HomePage() {
 
           <div className="mt-10 text-center">
             <Link href="/search" className="btn btn-primary px-8 py-3 text-base">
-              See What You&apos;re Missing™
+              See What You&apos;re Missing
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ── Opportunity Visibility Stack™ (How It Works) ─────────── */}
+      {/* ── Opportunity Visibility Stack (How It Works) ─────────── */}
       <section id="how-it-works" className="section bg-slate-50">
         <div className="section-inner">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
-              Opportunity Visibility Stack™
+              Opportunity Visibility Stack
             </p>
             <h2 className="mt-4 text-4xl font-bold leading-tight">
               From visibility to transformation.
@@ -286,31 +286,31 @@ export default function HomePage() {
           <div className="mx-auto mt-14 max-w-xl">
             {[
               {
-                step: 'See™',
+                step: 'See',
                 product: 'The Lens™',
                 body: 'Reveals hidden opportunities across any entity, industry, or idea on earth.',
                 available: true,
               },
               {
-                step: 'Understand™',
+                step: 'Understand',
                 product: 'Transformation Intelligence',
                 body: 'Explains the implications, constraints, and transformation pathways available.',
                 available: true,
               },
               {
-                step: 'Prioritize™',
-                product: 'Enterprise Value Frontier™',
+                step: 'Prioritize',
+                product: 'Enterprise Value Frontier',
                 body: 'Ranks opportunities by expected value, complexity, and organizational readiness.',
                 available: false,
               },
               {
-                step: 'Design™',
+                step: 'Design',
                 product: 'Transformation Blueprint',
                 body: 'Creates executable pathways from opportunity to realized outcome.',
                 available: false,
               },
               {
-                step: 'Transform™',
+                step: 'Transform',
                 product: 'Realized Outcomes',
                 body: 'Realized outcomes. Compounding advantage.',
                 available: false,
@@ -351,7 +351,7 @@ export default function HomePage() {
 
           <div className="mt-10 text-center">
             <Link href="/search" className="btn btn-primary px-8 py-3 text-base">
-              See What You&apos;re Missing™
+              See What You&apos;re Missing
             </Link>
           </div>
         </div>
@@ -373,37 +373,37 @@ export default function HomePage() {
           <div className="mx-auto mt-14 max-w-2xl">
             {[
               {
-                step: 'Turn the Dial™',
-                product: 'Lens Analysis™',
+                step: 'Turn the Dial',
+                product: 'Lens Analysis',
                 description: 'See the opportunity.',
                 available: true,
               },
               {
-                step: 'Determine What Matters™',
-                product: 'Strategic Alignment Check™',
+                step: 'Determine What Matters',
+                product: 'Strategic Alignment Check',
                 description: "Find what's worth pursuing.",
                 available: false,
               },
               {
-                step: 'Explore the Possibilities™',
-                product: 'Transformation Opportunity Assessment™',
+                step: 'Explore the Possibilities',
+                product: 'Transformation Opportunity Assessment',
                 description: 'Map the landscape.',
                 available: false,
               },
               {
-                step: 'Find the Frontier™',
-                product: 'Enterprise Value Frontier™',
+                step: 'Find the Frontier',
+                product: 'Enterprise Value Frontier',
                 description: 'Discover the opportunity worth pursuing.',
                 available: false,
               },
               {
-                step: 'Map the Path™',
+                step: 'Map the Path',
                 product: 'Transformation Blueprint',
                 description: 'Build the roadmap.',
                 available: false,
               },
               {
-                step: 'Navigate the Journey™',
+                step: 'Navigate the Journey',
                 product: 'Transformation Intelligence',
                 description: 'Execute with confidence.',
                 available: false,
@@ -497,7 +497,7 @@ export default function HomePage() {
                 The Lens™ finds the break.
               </p>
               <div className="mt-8">
-                <Link href="/search" className="btn btn-primary px-6 py-3">Turn the Dial™ →</Link>
+                <Link href="/search" className="btn btn-primary px-6 py-3">Turn the Dial →</Link>
               </div>
             </div>
             <TransformationChain />
@@ -519,22 +519,22 @@ export default function HomePage() {
             {[
               {
                 icon: '🔓',
-                label: 'Unlock Opportunities™',
+                label: 'Unlock Opportunities',
                 body: 'The highest-leverage opportunities hidden inside every organization, industry, and market.',
               },
               {
                 icon: '🚧',
-                label: 'Hidden Constraints™',
+                label: 'Hidden Constraints',
                 body: 'The invisible forces preventing intelligence from becoming outcomes.',
               },
               {
                 icon: '📈',
-                label: 'Trapped Value™',
-                body: 'The gap between what is possible and what is being realized — your Transformation Capacity Gap™.',
+                label: 'Trapped Value',
+                body: 'The gap between what is possible and what is being realized — your Transformation Capacity Gap.',
               },
               {
                 icon: '🧭',
-                label: 'What To Do Next™',
+                label: 'What To Do Next',
                 body: 'Concrete transformation pathways ranked by expected value and feasibility.',
               },
             ].map(({ icon, label, body }) => (
@@ -554,7 +554,7 @@ export default function HomePage() {
           <div className="mb-8 flex items-end justify-between">
             <div>
               <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Discovery</p>
-              <h2 className="mt-2 text-3xl font-bold">Trending Lens Cards™</h2>
+              <h2 className="mt-2 text-3xl font-bold">Trending Lens Cards</h2>
             </div>
             <Link href="/search" className="btn btn-secondary hidden sm:inline-flex">See all →</Link>
           </div>
@@ -572,9 +572,9 @@ export default function HomePage() {
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { who: 'Enterprises', headline: 'Increase Transformation Yield', items: ['Understanding', 'Blueprint', 'Guided Transformation', 'Transformation Partner'] },
-              { who: 'Investors', headline: 'Find Value Hidden in Plain Sight', items: ['Equity Reclamation™', 'Trust Infrastructure Analysis', 'Public Company Scorecards', 'Transformation Risk'] },
+              { who: 'Investors', headline: 'Find Value Hidden in Plain Sight', items: ['Equity Reclamation', 'Trust Infrastructure Analysis', 'Public Company Scorecards', 'Transformation Risk'] },
               { who: 'Governments', headline: 'Increase Institutional Capacity', items: ['Workforce Transformation', 'Civic Transformation', 'Trust Infrastructure', 'Policy Analysis'] },
-              { who: 'INDIVIDUALS', headline: 'My Lens', subheadline: 'Human Transformation Intelligence', items: ['Personal Discovery', 'Learn It™ (Phase 2)', 'Stack the Deck™ (Phase 2)', 'Personal Blueprint (Phase 2)'] },
+              { who: 'INDIVIDUALS', headline: 'My Lens', subheadline: 'Human Transformation Intelligence', items: ['Personal Discovery', 'Learn It (Phase 2)', 'Stack the Deck (Phase 2)', 'Personal Blueprint (Phase 2)'] },
             ].map(({ who, headline, subheadline, items }: { who: string; headline: string; subheadline?: string; items: string[] }) => (
               <div key={who} className="card p-5 flex flex-col">
                 <div className="flex items-center justify-between">
@@ -625,7 +625,7 @@ export default function HomePage() {
 
       {/* ── Enterprise CTA ───────────────────────────────────── */}
 
-      {/* ── Stack the Deck™ ─────────────────────────────────────── */}
+      {/* ── Stack the Deck ─────────────────────────────────────── */}
       <section id="stack-the-deck" className="section border-t border-slate-100 bg-white">
         <div className="mx-auto max-w-4xl">
           <div className="text-center">
@@ -633,14 +633,14 @@ export default function HomePage() {
               <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
               <span className="text-xs font-semibold text-teal-700">Coming in Phase 2</span>
             </div>
-            <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl">Stack the Deck™</h2>
+            <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl">Stack the Deck</h2>
             <p className="mx-auto mt-5 max-w-2xl text-lg text-slate-600 leading-8">
               Successful transformation rarely results from a single action. It emerges from the deliberate
               alignment of reinforcing conditions — the right trust, the right governance, the right courage,
               at the right moment.
             </p>
             <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-600 leading-8">
-              Stack the Deck™ helps you identify, compare, and assemble the combinations of transformation
+              Stack the Deck helps you identify, compare, and assemble the combinations of transformation
               factors that increase the probability of your desired outcomes.
             </p>
             <p className="mt-4 text-base font-semibold text-slate-800 italic">
@@ -652,19 +652,19 @@ export default function HomePage() {
           <div className="mt-10 grid gap-4 sm:grid-cols-2">
             {[
               {
-                title: 'Investor Stack™',
+                title: 'Investor Stack',
                 body: 'Build a portfolio of organizations selected for transformation capacity, momentum, and unlock potential.',
               },
               {
-                title: 'Enterprise Stack™',
+                title: 'Enterprise Stack',
                 body: 'Design your transformation initiative portfolio for maximum reinforcement and minimum constraint.',
               },
               {
-                title: 'Workforce Stack™',
+                title: 'Workforce Stack',
                 body: 'Combine skills, capabilities, and incentives to maximize transformation adaptability.',
               },
               {
-                title: 'Compare™',
+                title: 'Compare',
                 body: 'Compare transformation capacity across companies, industries, or time periods side by side.',
               },
             ].map(({ title, body }) => (
@@ -682,7 +682,7 @@ export default function HomePage() {
 
           {/* Waitlist capture form */}
           <div className="mt-10 rounded-2xl border border-teal-200 bg-teal-50 p-6 text-center">
-            <p className="text-sm font-semibold text-teal-800">Join the waitlist for Stack the Deck™</p>
+            <p className="text-sm font-semibold text-teal-800">Join the waitlist for Stack the Deck</p>
             <p className="mt-1 text-xs text-teal-600">Be the first to access Phase 2 features.</p>
             <StackWaitlistForm />
           </div>
@@ -701,10 +701,10 @@ export default function HomePage() {
           </p>
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link href="/search" className="btn btn-primary px-8 py-3 text-base">
-              Turn the Dial™
+              Turn the Dial
             </Link>
             <Link href="/assessment#request" className="btn btn-ghost px-8 py-3 text-base text-slate-300 hover:text-white hover:bg-white/10">
-              Request Transformation Capacity Assessment™
+              Request Transformation Capacity Assessment
             </Link>
           </div>
         </div>
