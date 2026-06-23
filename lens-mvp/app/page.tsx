@@ -10,7 +10,6 @@ import Link from 'next/link';
 import { Suspense, useState } from 'react';
 import { SearchBox } from '@/components/SearchBox';
 import { getSeedTrending } from '@/lib/lens-service';
-import { TransformationDial } from '@/components/TransformationDial';
 import { TransformationChain } from '@/components/TransformationChain';
 import { TrendingCards } from '@/components/TrendingCards';
 
@@ -79,11 +78,14 @@ export default function HomePage() {
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-slate-900 px-6 py-24 text-center text-white">
         <div className="mx-auto max-w-4xl">
-          <h1 className="text-4xl font-bold leading-tight tracking-tight text-white sm:text-6xl">
-            Where is value trapped in your organization?
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
+            Transformation Intelligence™
+          </p>
+          <h1 className="mt-4 text-4xl font-bold leading-tight tracking-tight text-white sm:text-6xl">
+            Unlock Hidden Enterprise Value
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-300">
-            The Lens™ identifies where value is trapped, why it&apos;s trapped, and what mechanism would most efficiently unlock it — for any publicly traded company.
+            Measure where value is trapped and discover how to close the gap between potential and realized performance — for any publicly traded company.
           </p>
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <a
@@ -97,47 +99,145 @@ export default function HomePage() {
               }}
               className="btn btn-primary px-8 py-3 text-base"
             >
-              Analyze a Company →
+              Run The Lens
             </a>
             <Link
               href="/opportunities"
               className="text-base font-medium text-slate-300 underline-offset-4 hover:text-white hover:underline transition-colors"
             >
-              Explore Opportunity Zones →
+              Explore Opportunity Zones™
             </Link>
           </div>
         </div>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(249,115,22,0.05),transparent_70%)]" />
       </section>
 
-      {/* ── Three Outcome Blocks ─────────────────────────────── */}
-      <section className="border-b border-slate-100 bg-white px-6 py-16">
+      {/* ── Why This Exists ──────────────────────────────────── */}
+      <section className="bg-slate-950 px-6 py-20 text-white">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Why This Exists</p>
+          <div className="mt-8 space-y-6">
+            <p className="text-2xl font-light leading-relaxed text-white sm:text-3xl">
+              Organizations don&apos;t fail because they lack intelligence.
+            </p>
+            <p className="text-2xl font-light leading-relaxed text-slate-300 sm:text-3xl">
+              They fail because intelligence fails to become outcomes.
+            </p>
+            <p className="text-2xl font-light leading-relaxed text-slate-400 sm:text-3xl">
+              As intelligence becomes abundant, transformation capacity becomes scarce.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── What Would You Like To Do? ───────────────────────── */}
+      <section className="border-b border-slate-100 bg-white px-6 py-20">
         <div className="mx-auto max-w-5xl">
-          <div className="grid gap-8 sm:grid-cols-3">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl">What would you like to do?</h2>
+            <p className="mt-3 text-lg text-slate-500">Every path leads to a different kind of value.</p>
+          </div>
+          <div className="mt-12 grid gap-6 sm:grid-cols-2">
             {[
               {
-                eyebrow: 'FIND IT.',
-                headline: 'Six Opportunity Zones',
-                body: 'The Lens™ surfaces where value may be trapped — from Fallen Giants to Capital Allocation inefficiencies — across any publicly traded company.',
+                icon: '🔍',
+                label: 'Understand My Company',
+                description: 'Run a Lens Analysis™ on any publicly traded company and surface where value may be trapped.',
+                cta: 'Run Lens Analysis →',
+                href: '/search',
               },
               {
-                eyebrow: 'UNDERSTAND IT.',
-                headline: 'Opportunity Score + Diagnosis',
-                body: 'Every company receives an Opportunity Score, an Equity Reclamation Tier, and a ranked set of mechanisms most likely to unlock value.',
+                icon: '💡',
+                label: 'Discover Hidden Value',
+                description: 'Explore Opportunity Zones™ to find companies where value may be trapped across six diagnostic categories.',
+                cta: 'Explore Opportunity Zones™ →',
+                href: '/opportunities',
               },
               {
-                eyebrow: 'UNLOCK IT.',
-                headline: 'From Analysis to Realized Value',
-                body: 'From Cashless Buyback modeling to Transformation Blueprint — build the path from diagnosis to realized equity value.',
+                icon: '📋',
+                label: 'Build My Blueprint',
+                description: 'Translate analysis into an executable Transformation Blueprint™ with mechanisms, priorities, and next steps.',
+                cta: 'Build Blueprint™ →',
+                href: '/blueprint',
               },
-            ].map(({ eyebrow, headline, body }) => (
-              <div key={eyebrow} className="border-t-2 border-orange-400 pt-6">
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-orange-500">{eyebrow}</p>
-                <h3 className="mt-3 text-xl font-bold text-slate-900">{headline}</h3>
-                <p className="mt-3 text-sm leading-7 text-slate-500">{body}</p>
+              {
+                icon: '🏛',
+                label: 'Align My Board',
+                description: 'Access premium Blueprint™ analysis structured for board-level decision making and capital allocation.',
+                cta: 'Access Board Analysis →',
+                href: '/blueprint',
+              },
+            ].map(({ icon, label, description, cta, href }) => (
+              <div key={label} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
+                <div className="text-3xl">{icon}</div>
+                <h3 className="mt-3 text-lg font-bold text-slate-900">{label}</h3>
+                <p className="mt-2 text-sm leading-7 text-slate-500">{description}</p>
+                <Link href={href} className="mt-4 inline-block text-sm font-semibold text-orange-500 hover:text-orange-600 transition-colors">
+                  {cta}
+                </Link>
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── How It Works ─────────────────────────────────────── */}
+      <section className="border-b border-slate-100 bg-slate-50 px-6 py-20">
+        <div className="mx-auto max-w-5xl">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl">How It Works</h2>
+          </div>
+          <div className="mt-12 flex flex-col gap-0 sm:flex-row sm:items-start sm:gap-0">
+            {[
+              { num: 1, step: 'Observe', desc: 'Surface what exists' },
+              { num: 2, step: 'Understand', desc: 'Diagnose why' },
+              { num: 3, step: 'Coordinate', desc: 'Align stakeholders' },
+              { num: 4, step: 'Implement', desc: 'Execute mechanisms' },
+              { num: 5, step: 'Measure', desc: 'Track outcomes' },
+              { num: 6, step: 'Learn', desc: 'Compound intelligence' },
+            ].map(({ num, step, desc }, i, arr) => (
+              <div key={step} className="flex flex-1 flex-col items-center sm:flex-row sm:items-start">
+                <div className="flex flex-col items-center">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500 text-sm font-bold text-white">
+                    {num}
+                  </div>
+                  <div className="mt-2 text-center">
+                    <p className="text-sm font-bold text-slate-900">{step}</p>
+                    <p className="mt-0.5 text-xs text-slate-500">{desc}</p>
+                  </div>
+                </div>
+                {i < arr.length - 1 && (
+                  <div className="mx-3 mt-5 hidden h-px flex-1 bg-slate-300 sm:block" />
+                )}
+                {i < arr.length - 1 && (
+                  <div className="my-3 h-6 w-px bg-slate-300 sm:hidden" />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Proof ────────────────────────────────────────────── */}
+      <section className="border-b border-slate-100 bg-white px-6 py-20">
+        <div className="mx-auto max-w-4xl text-center">
+          <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl">Transformation is measurable.</h2>
+          <p className="mt-3 text-lg text-slate-500">The Lens™ surfaces evidence, not opinion.</p>
+          <div className="mt-12 grid gap-8 sm:grid-cols-3">
+            {[
+              { stat: '500+', label: 'Companies Analyzed' },
+              { stat: '6', label: 'Opportunity Zones™' },
+              { stat: '237+', label: 'Opportunities Identified' },
+            ].map(({ stat, label }) => (
+              <div key={label} className="text-center">
+                <p className="text-5xl font-bold text-orange-500">{stat}</p>
+                <p className="mt-2 text-base font-medium text-slate-700">{label}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-10 text-sm text-slate-400">
+            Analysis powered by web intelligence, financial data, and Transformation Intelligence™ methodology.
+          </p>
         </div>
       </section>
 
