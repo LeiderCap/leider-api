@@ -309,9 +309,13 @@ export async function getLensByIdOrCache(id: string): Promise<LensSnapshot | nul
     }
   }
 
-  // Not found in DB — regenerate via AI using the id as the query
+  // Not found in DB — regenerate via AI using the id as the query.
+  // If the id looks like a ticker slug (1–5 lowercase letters, e.g. "hum", "nke"),
+  // uppercase it so Layer 1 ticker detection in generateLensSnapshot fires correctly.
+  const isTickerSlug = /^[a-z]{1,5}$/.test(id.trim());
+  const queryForAI = isTickerSlug ? id.trim().toUpperCase() : id;
   try {
-    const generated = await generateLensSnapshot(id);
+    const generated = await generateLensSnapshot(queryForAI);
     await saveLensSnapshot(generated);
     return generated;
   } catch (err) {

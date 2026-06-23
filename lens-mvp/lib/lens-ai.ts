@@ -1292,17 +1292,27 @@ function hasPrivateFallback(text: string): boolean {
   );
 }
 
-export async function generateLensSnapshot(query: string): Promise<LensSnapshot> {
+export async function generateLensSnapshot(
+  query: string,
+  hint?: { ticker?: string; exchange?: string }
+): Promise<LensSnapshot> {
   // ── PRE-GENERATION TICKER DETECTION ──────────────────────────────────────
-  // If the user entered a ticker-pattern query (e.g. "CYBN", "NYSE:HCA"),
-  // inject that context directly into the user message so the AI cannot
-  // misclassify it as a private company. This runs before the AI call.
+  // Layer 0: Explicit hint from autocomplete selection (most reliable)
+  // When a user selects from the FMP autocomplete, we pass the confirmed
+  // ticker and exchange directly — bypassing all AI inference.
   const queryTrim = query.trim();
   const isTickerQuery = looksLikeTicker(queryTrim);
 
+  let confirmedTicker: string | null = hint?.ticker ?? null;
+  let confirmedExchange: string | null = hint?.exchange ?? null;
+  if (confirmedTicker) {
+    console.log('[lens-ai] Layer 0 hint: ticker=', confirmedTicker, 'exchange=', confirmedExchange);
+  }
+
   // Layer 1: Ticker-pattern detection (e.g. "CYBN", "NYSE:HCA")
-  let confirmedTicker: string | null = isTickerQuery ? extractTickerFromQuery(queryTrim) : null;
-  let confirmedExchange: string | null = null;
+  if (!confirmedTicker) {
+    confirmedTicker = isTickerQuery ? extractTickerFromQuery(queryTrim) : null;
+  }
 
   // Layer 2: Name-based deterministic lookup (e.g. "gartner", "hca healthcare")
   // This is the fix for companies like Gartner (NYSE: IT) that the AI misclassifies
@@ -1404,7 +1414,7 @@ export async function generateLensSnapshot(query: string): Promise<LensSnapshot>
       : '5%-15%';
     rawOutput.opportunity_value = rawOutput.opportunity_value && !hasPrivateFallback(rawOutput.opportunity_value)
       ? rawOutput.opportunity_value
-      : 'Undetermined pending full analysis';
+      : 'Estimate requires full analysis — request a Blueprint™ for precise valuation.';
   }
 
   // Log final classification result for Vercel logs

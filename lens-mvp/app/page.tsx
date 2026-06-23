@@ -7,8 +7,8 @@
 // Phase V:  Decision Visibility Infrastructure — Why?
 // Phase VI: Transformation Memory — What did we learn?
 import Link from 'next/link';
-import { Suspense, useState } from 'react';
-import { SearchBox } from '@/components/SearchBox';
+import { useState } from 'react';
+import { CompanySearchAutocomplete } from '@/components/CompanySearchAutocomplete';
 import { getSeedTrending } from '@/lib/lens-service';
 import { TransformationChain } from '@/components/TransformationChain';
 import { TrendingCards } from '@/components/TrendingCards';
@@ -247,7 +247,7 @@ export default function HomePage() {
           <p className="text-sm font-medium text-slate-500">
             Run the lens on any company, industry, government, or idea
           </p>
-          <Suspense fallback={null}><SearchBox /></Suspense>
+          <CompanySearchAutocomplete />
           <div className="mt-4 flex flex-wrap justify-center gap-2">
             {['Erie Insurance', 'Microsoft', 'California', 'Healthcare', 'AI Adoption', 'Workforce Transformation'].map((ex) => (
               <Link

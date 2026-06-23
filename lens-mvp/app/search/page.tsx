@@ -1,6 +1,5 @@
-import { Suspense } from 'react';
 import { LensCard } from '@/components/LensCard';
-import { SearchBox } from '@/components/SearchBox';
+import { CompanySearchAutocomplete } from '@/components/CompanySearchAutocomplete';
 import { getSeedTrending } from '@/lib/lens-service';
 import Link from 'next/link';
 import type { LensSnapshot } from '@/lib/types';
@@ -181,7 +180,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
       <Link href="/" className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">← Back</Link>
 
       <div className="mt-6">
-        <Suspense fallback={null}><SearchBox initialValue={query} showHelper autoFocus={!query} /></Suspense>
+        <CompanySearchAutocomplete initialValue={query} autoFocus={!query} />
       </div>
 
       {!query && (
