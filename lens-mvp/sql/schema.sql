@@ -1,6 +1,15 @@
 -- ============================================
 -- TRANSFORMATION INTELLIGENCE™ DATA SCHEMA
 -- ============================================
+-- SECURITY REQUIREMENT:
+-- Every table MUST have RLS enabled immediately
+-- after creation. Pattern:
+--   ALTER TABLE public.[name] ENABLE ROW LEVEL SECURITY;
+-- Then add appropriate policies before any data
+-- is written. See sql/rls_fix_v1.sql for all
+-- current policies. Verify in Supabase Security
+-- Advisor after any new table is created.
+-- ============================================
 -- Phase 1 (MVP): companies, lens_scores,
 --   saved_cards, watchlists, searches,
 --   enterprise_inquiries
@@ -16,6 +25,11 @@
 -- ============================================
 
 -- Lens MVP schema v1.0
+/*
+ * SECURITY REQUIREMENT:
+ * Enable RLS immediately after creating this table.
+ * See sql/rls_fix_v1.sql for the policy definitions.
+ */
 create table if not exists users (
   id uuid primary key default gen_random_uuid(),
   email text unique not null,
@@ -24,6 +38,11 @@ create table if not exists users (
   created_at timestamptz default now()
 );
 
+/*
+ * SECURITY REQUIREMENT:
+ * Enable RLS immediately after creating this table.
+ * See sql/rls_fix_v1.sql for the policy definitions.
+ */
 create table if not exists companies (
   id text primary key,
   name text not null,
@@ -34,6 +53,11 @@ create table if not exists companies (
   created_at timestamptz default now()
 );
 
+/*
+ * SECURITY REQUIREMENT:
+ * Enable RLS immediately after creating this table.
+ * See sql/rls_fix_v1.sql for the policy definitions.
+ */
 create table if not exists lens_scores (
   company_id text primary key references companies(id) on delete cascade,
   tcs_score text not null,
@@ -55,6 +79,11 @@ create table if not exists lens_scores (
   updated_at timestamptz default now()
 );
 
+/*
+ * SECURITY REQUIREMENT:
+ * Enable RLS immediately after creating this table.
+ * See sql/rls_fix_v1.sql for the policy definitions.
+ */
 create table if not exists searches (
   id uuid primary key default gen_random_uuid(),
   user_id uuid references users(id),
@@ -62,6 +91,11 @@ create table if not exists searches (
   created_at timestamptz default now()
 );
 
+/*
+ * SECURITY REQUIREMENT:
+ * Enable RLS immediately after creating this table.
+ * See sql/rls_fix_v1.sql for the policy definitions.
+ */
 create table if not exists saved_cards (
   id uuid primary key default gen_random_uuid(),
   user_id uuid references users(id) on delete cascade,
@@ -70,6 +104,11 @@ create table if not exists saved_cards (
   unique(user_id, company_id)
 );
 
+/*
+ * SECURITY REQUIREMENT:
+ * Enable RLS immediately after creating this table.
+ * See sql/rls_fix_v1.sql for the policy definitions.
+ */
 create table if not exists watchlists (
   id uuid primary key default gen_random_uuid(),
   user_id uuid references users(id) on delete cascade,
@@ -77,6 +116,11 @@ create table if not exists watchlists (
   created_at timestamptz default now()
 );
 
+/*
+ * SECURITY REQUIREMENT:
+ * Enable RLS immediately after creating this table.
+ * See sql/rls_fix_v1.sql for the policy definitions.
+ */
 create table if not exists watchlist_companies (
   watchlist_id uuid references watchlists(id) on delete cascade,
   company_id text references companies(id) on delete cascade,
@@ -84,6 +128,11 @@ create table if not exists watchlist_companies (
   primary key (watchlist_id, company_id)
 );
 
+/*
+ * SECURITY REQUIREMENT:
+ * Enable RLS immediately after creating this table.
+ * See sql/rls_fix_v1.sql for the policy definitions.
+ */
 create table if not exists enterprise_inquiries (
   id uuid primary key default gen_random_uuid(),
   company_id text references companies(id),
@@ -469,4 +518,6 @@ CREATE TABLE IF NOT EXISTS report_cache (
 CREATE INDEX IF NOT EXISTS report_cache_lookup
   ON report_cache (ticker, report_type, stripe_session_id);
 
-ALTER TABLE report_cache DISABLE ROW LEVEL SECURITY;
+-- SECURITY: RLS is enabled via sql/rls_fix_v1.sql
+-- Run rls_fix_v1.sql after creating this table.
+-- ALTER TABLE report_cache DISABLE ROW LEVEL SECURITY; -- REMOVED: security violation
