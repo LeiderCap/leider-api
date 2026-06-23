@@ -4,15 +4,14 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ALL_ZONES, ZONE_META, ZoneName } from '@/lib/opportunity-zones/classify';
 
-// ── Indicative aggregate unlock ranges per zone (order-of-magnitude estimates) ─
-// Per-company value gap estimates (indicative ranges, not aggregate totals)
-const ZONE_UNLOCK_RANGES: Record<ZoneName, string> = {
-  'Fallen Giants':            '$10B–$50B',
-  'Capital Allocation':       '$5B–$20B',
-  'AI Transformation':        '$2B–$10B',
-  'Governance':               '$500M–$2B',
-  'Portfolio Simplification': '$1B–$5B',
-  'No Catalyst Identified':   '$100M–$500M',
+// ── Equity Reclamation™ Tier labels per zone ─────────────────────────────────
+const ZONE_TIER: Record<ZoneName, { label: string; subtext: string }> = {
+  'Fallen Giants':            { label: 'Tier I — Structural Repair',       subtext: 'Repair → Rerate → Reclaim' },
+  'Capital Allocation':       { label: 'Tier II — Performance Unlock',      subtext: 'Unlock trapped capital value' },
+  'AI Transformation':        { label: 'Tier IV — Transformation Reclamation', subtext: 'Increase Transformation Efficiency' },
+  'Governance':               { label: 'Tier I — Structural Repair',       subtext: 'Repair decision quality first' },
+  'Portfolio Simplification': { label: 'Tier II — Performance Unlock',      subtext: 'Unlock conglomerate discount' },
+  'No Catalyst Identified':   { label: 'Tier V — Catalyst Search',         subtext: 'Find the missing mechanism' },
 };
 
 interface ZoneStats {
@@ -93,6 +92,7 @@ export function OpportunityZonesSection() {
             {ALL_ZONES.map(zone => {
               const meta = ZONE_META[zone];
               const stats = zoneStats[zone];
+              const tier = ZONE_TIER[zone];
               return (
                 <div
                   key={zone}
@@ -110,9 +110,9 @@ export function OpportunityZonesSection() {
                       <strong className="text-slate-900">{stats.count}</strong> companies
                     </span>
                     <span className="text-right">
-                      <strong className="text-slate-900">{ZONE_UNLOCK_RANGES[zone]}</strong>
+                      <strong className="text-orange-600">{tier.label}</strong>
                       <br />
-                      <span className="text-[10px] text-slate-400">Est. per-company value gap (indicative)</span>
+                      <span className="text-[10px] text-slate-400">{tier.subtext}</span>
                     </span>
                   </div>
                   <Link
@@ -126,10 +126,6 @@ export function OpportunityZonesSection() {
             })}
           </div>
         )}
-
-        <p className="mt-4 text-[10px] text-slate-400">
-          * Available To Unlock™ figures are indicative aggregate estimates. Not investment advice.
-        </p>
       </div>
     </section>
   );

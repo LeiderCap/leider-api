@@ -57,9 +57,8 @@ interface FmpPriceChange {
   '3Y': number;
 }
 
-interface FmpRatios {
-  freeCashFlowPerShare: number;  // annual FCF per share
-}
+// FmpRatios removed — /stable/ratios is rate-limited on free plan.
+// FCF yield now sourced from freeCashFlowYield in /stable/key-metrics.
 
 interface FmpIncomeStatement {
   operatingIncome: number;
@@ -110,12 +109,6 @@ function getSectorMedian(sector: string | null): number {
 }
 
 // ── Field derivation helpers ───────────────────────────────────────────────────
-
-/** FCF yield = (freeCashFlowPerShare / currentPrice) * 100 */
-function calcFcfYield(ratios: FmpRatios | null, price: number): number | null {
-  if (!ratios || !ratios.freeCashFlowPerShare || !price || price === 0) return null;
-  return (ratios.freeCashFlowPerShare / price) * 100;
-}
 
 /** Share count trend from income statement weightedAverageShsOut across periods */
 function deriveShareCountTrend(statements: FmpIncomeStatement[]): 'growing' | 'flat' | 'declining' {
@@ -198,10 +191,9 @@ async function fetchAndClassifyTicker(
   price: number
 ): Promise<CompanyData & { opportunity_score: number; zones_assigned: string[]; tier_assigned: number }> {
 
-  const [priceChangeRaw, ratiosRaw, incomeRaw, profileRaw, executivesRaw, keyMetricsRaw] =
+  const [priceChangeRaw, incomeRaw, profileRaw, executivesRaw, keyMetricsRaw] =
     await Promise.allSettled([
       fmpGet(`/stock-price-change?symbol=${ticker}`),
-      fmpGet(`/ratios?symbol=${ticker}&limit=1`),
       fmpGet(`/income-statement?symbol=${ticker}&period=annual&limit=3`),
       fmpGet(`/profile?symbol=${ticker}`),
       fmpGet(`/key-executives?symbol=${ticker}`),
@@ -210,9 +202,6 @@ async function fetchAndClassifyTicker(
 
   const priceChanges = priceChangeRaw.status === 'fulfilled'
     ? (priceChangeRaw.value as FmpPriceChange[])?.[0] ?? null : null;
-
-  const ratios = ratiosRaw.status === 'fulfilled'
-    ? (ratiosRaw.value as FmpRatios[])?.[0] ?? null : null;
 
   const incomeStatements = incomeRaw.status === 'fulfilled'
     ? (incomeRaw.value as FmpIncomeStatement[]) ?? [] : [];
@@ -224,14 +213,16 @@ async function fetchAndClassifyTicker(
     ? (executivesRaw.value as FmpExecutive[]) ?? [] : [];
 
   const keyMetrics = keyMetricsRaw.status === 'fulfilled'
-    ? (keyMetricsRaw.value as { evToSales?: number }[])?.[0] ?? null : null;
+    ? (keyMetricsRaw.value as { evToSales?: number; freeCashFlowYield?: number }[])?.[0] ?? null : null;
 
   const price3y = priceChanges?.['3Y'] ?? null;
   const price1y = priceChanges?.['1Y'] ?? null;
   const sectorMedian = getSectorMedian(sector);
 
-  // FCF yield: (freeCashFlowPerShare / currentPrice) * 100
-  const fcfYield = calcFcfYield(ratios, price);
+  // FCF yield: use freeCashFlowYield directly from key-metrics (decimal → multiply by 100)
+  // /stable/ratios is rate-limited on free plan; key-metrics is accessible and returns this field.
+  const rawFcfYield = keyMetrics?.freeCashFlowYield ?? null;
+  const fcfYield = rawFcfYield !== null ? rawFcfYield * 100 : null;
 
   // Share count trend from income statement
   const shareCountTrend = deriveShareCountTrend(incomeStatements);
