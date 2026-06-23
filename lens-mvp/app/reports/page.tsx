@@ -1,0 +1,138 @@
+import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Report Library — The Lens™',
+  description: 'Specialized intelligence reports for boards, investors, and transformation leaders.',
+};
+
+const REPORTS = [
+  {
+    icon: '🛡',
+    name: 'Resilience Capacity Report™',
+    description:
+      'Measure an organization\'s ability to absorb shocks, recover rapidly, preserve trust, and convert adversity into learning. Scored 0–100 across five dimensions.',
+    price: '$95 one-time',
+    cta: 'Generate Report →',
+    href: '/reports/resilience-capacity',
+    color: 'emerald',
+  },
+  {
+    icon: '🤖',
+    name: 'AI Governance Report™',
+    description:
+      'Assess whether an organization can govern its AI — across agent visibility, absorbability, trust infrastructure, and decision continuity. Board-ready output.',
+    price: '$95 one-time',
+    cta: 'Generate Report →',
+    href: '/reports/ai-governance',
+    color: 'blue',
+  },
+];
+
+export default function ReportsPage() {
+  return (
+    <main className="min-h-screen bg-white">
+      {/* Hero */}
+      <section className="section pt-20 pb-16 border-b border-slate-100">
+        <div className="section-inner text-center">
+          <p
+            className="text-xs font-semibold uppercase tracking-widest"
+            style={{ color: '#E05A00' }}
+          >
+            REPORT LIBRARY
+          </p>
+          <h1 className="mt-4 text-4xl font-bold leading-tight">
+            Specialized Intelligence Reports
+          </h1>
+          <p className="mt-4 text-lg text-slate-500 max-w-2xl mx-auto leading-7">
+            Targeted analysis beyond the Lens™ — purpose-built for boards, investors, and
+            transformation leaders.
+          </p>
+        </div>
+      </section>
+
+      {/* Report Cards */}
+      <section className="section py-16">
+        <div className="section-inner">
+          <div className="mx-auto max-w-4xl grid gap-8 sm:grid-cols-2">
+            {REPORTS.map((report) => (
+              <div
+                key={report.name}
+                className="card flex flex-col p-8 hover:shadow-md transition-shadow"
+              >
+                <div className="text-4xl mb-4">{report.icon}</div>
+                <p
+                  className="text-xs font-semibold uppercase tracking-widest mb-2"
+                  style={{ color: '#E05A00' }}
+                >
+                  {report.price}
+                </p>
+                <h2 className="text-xl font-bold leading-snug mb-3">{report.name}</h2>
+                <p className="text-slate-500 text-sm leading-6 flex-1">{report.description}</p>
+
+                {/* What's included */}
+                <div className="mt-5 space-y-1.5">
+                  {report.name === 'Resilience Capacity Report™' ? (
+                    <>
+                      {[
+                        'Absorbability™ score',
+                        'Recoverability™ score',
+                        'Learning Velocity™ score',
+                        'Trust Stability™ score',
+                        'Decision Continuity™ score',
+                        'RC™ Composite Score (0–100)',
+                        'Resilience Debt™ assessment',
+                        'PDF export',
+                      ].map((item) => (
+                        <div key={item} className="flex items-center gap-2 text-sm text-slate-600">
+                          <span className="text-emerald-500">✓</span>
+                          {item}
+                        </div>
+                      ))}
+                    </>
+                  ) : (
+                    <>
+                      {[
+                        'AI Governance Score™ (0–100)',
+                        'Agent Visibility Governance™',
+                        'AI Absorbability™',
+                        'Trust Infrastructure™',
+                        'Decision Continuity™',
+                        'AI Incident Debt™ assessment',
+                        'Board-ready summary',
+                        'PDF export',
+                      ].map((item) => (
+                        <div key={item} className="flex items-center gap-2 text-sm text-slate-600">
+                          <span className="text-blue-500">✓</span>
+                          {item}
+                        </div>
+                      ))}
+                    </>
+                  )}
+                </div>
+
+                <Link
+                  href={report.href}
+                  className="btn btn-primary mt-6 text-center"
+                >
+                  {report.cta}
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Footer note */}
+      <section className="section pb-16">
+        <div className="section-inner text-center">
+          <p className="text-xs text-slate-400 max-w-xl mx-auto">
+            All reports are generated by The Lens™ intelligence engine using publicly available
+            signals. Reports reflect transformation potential indicators, not projected returns or
+            outcomes. Not investment advice.
+          </p>
+        </div>
+      </section>
+    </main>
+  );
+}

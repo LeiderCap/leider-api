@@ -25,6 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <nav className="hidden items-center gap-6 md:flex">
               <Link href="/#for-whom" className="nav-link">Who It&apos;s For</Link>
               <Link href="/opportunities" className="nav-link">Opportunities</Link>
+              <Link href="/reports" className="nav-link">Reports</Link>
               <Link href="/methodology" className="nav-link">Methodology</Link>
               <Link href="/#transformation-chain" className="nav-link">Framework</Link>
               <Link href="/blueprint" className="nav-link">Blueprint™</Link>

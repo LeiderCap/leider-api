@@ -606,7 +606,53 @@ export default async function LensDetailPage({ params, searchParams }: { params:
         </div>
       </section>
 
-      {/* ── 11. Lens Opportunities™ ───────────────────────────────────────── */}
+      {/* ── 11. Additional Reports ─────────────────────────────────────────── */}
+      <section className="card mt-6 p-6">
+        <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3">Additional Reports</p>
+        <h2 className="text-lg font-bold mb-4">Go deeper on {item.name}</h2>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {/* Resilience Capacity Report */}
+          <div className="rounded-xl border border-slate-200 bg-slate-50 p-5 flex flex-col">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-2xl">🛡</span>
+              <p className="font-semibold text-sm text-slate-800">Resilience Capacity Report™</p>
+            </div>
+            <p className="text-xs text-slate-500 leading-5 flex-1 mb-4">
+              Measure absorbability, recoverability, learning velocity, trust stability, and decision continuity. RC™ Composite Score 0–100.
+            </p>
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-bold text-slate-700">$95</span>
+              <Link
+                href={`/reports/resilience-capacity?ticker=${encodeURIComponent(item.ticker ?? '')}&company=${encodeURIComponent(item.name)}`}
+                className="inline-flex items-center gap-1 rounded-lg border border-emerald-300 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700 hover:bg-emerald-100 transition-colors"
+              >
+                Generate →
+              </Link>
+            </div>
+          </div>
+          {/* AI Governance Report */}
+          <div className="rounded-xl border border-slate-200 bg-slate-50 p-5 flex flex-col">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-2xl">🤖</span>
+              <p className="font-semibold text-sm text-slate-800">AI Governance Report™</p>
+            </div>
+            <p className="text-xs text-slate-500 leading-5 flex-1 mb-4">
+              Assess AI governance readiness across agent visibility, absorbability, trust infrastructure, and decision continuity. Board-ready output.
+            </p>
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-bold text-slate-700">$95</span>
+              <Link
+                href={`/reports/ai-governance?ticker=${encodeURIComponent(item.ticker ?? '')}&company=${encodeURIComponent(item.name)}`}
+                className="inline-flex items-center gap-1 rounded-lg border border-blue-300 bg-blue-50 px-3 py-1.5 text-xs font-semibold text-blue-700 hover:bg-blue-100 transition-colors"
+              >
+                Generate →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 12. Lens Opportunities™ ───────────────────────────────────────── */}
       <OpportunityZonesSection />
     </main>
   );

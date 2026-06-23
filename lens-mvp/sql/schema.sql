@@ -432,3 +432,41 @@ CREATE POLICY "Allow anon insert pe_stack_inquiries" ON pe_stack_inquiries
 -- Deny all reads from anon (admin only via service role)
 CREATE POLICY "Deny anon select pe_stack_inquiries" ON pe_stack_inquiries
   FOR SELECT TO anon USING (false);
+
+-- ─── v3.0 Migration — Investor Stack™ Inquiries ──────────────────────────────
+-- Run in Supabase SQL Editor:
+CREATE TABLE IF NOT EXISTS investor_stack_inquiries (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  name            text NOT NULL,
+  email           text NOT NULL,
+  company         text NOT NULL,
+  target_company  text,
+  layers_selected text[] DEFAULT '{}',
+  message         text,
+  submitted_at    timestamptz NOT NULL DEFAULT now()
+);
+
+ALTER TABLE investor_stack_inquiries ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Allow anon insert investor_stack_inquiries" ON investor_stack_inquiries
+  FOR INSERT TO anon WITH CHECK (true);
+
+CREATE POLICY "Deny anon select investor_stack_inquiries" ON investor_stack_inquiries
+  FOR SELECT TO anon USING (false);
+
+-- ─── v3.1 Migration — Report Cache (Resilience Capacity + AI Governance) ─────
+-- Run in Supabase SQL Editor:
+CREATE TABLE IF NOT EXISTS report_cache (
+  id                uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  ticker            text NOT NULL,
+  report_type       text NOT NULL,  -- 'resilience_capacity' | 'ai_governance'
+  stripe_session_id text NOT NULL,
+  company_name      text NOT NULL,
+  report_data       jsonb NOT NULL,
+  generated_at      timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS report_cache_lookup
+  ON report_cache (ticker, report_type, stripe_session_id);
+
+ALTER TABLE report_cache DISABLE ROW LEVEL SECURITY;
