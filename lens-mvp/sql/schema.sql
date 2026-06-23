@@ -408,3 +408,27 @@ CREATE POLICY "public_update_opportunity_zone_cache"
   ON opportunity_zone_cache FOR UPDATE
   USING (true)
   WITH CHECK (true);
+
+-- ─── v2.9 Migration — PE Stack™ Inquiries ────────────────────────────────────
+-- Run in Supabase SQL Editor:
+CREATE TABLE IF NOT EXISTS pe_stack_inquiries (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  name            text NOT NULL,
+  email           text NOT NULL,
+  company         text NOT NULL,
+  target_company  text,
+  layers_selected text[] DEFAULT '{}',
+  message         text,
+  submitted_at    timestamptz NOT NULL DEFAULT now()
+);
+
+-- Enable RLS immediately
+ALTER TABLE pe_stack_inquiries ENABLE ROW LEVEL SECURITY;
+
+-- Allow inserts from anon (form submissions)
+CREATE POLICY "Allow anon insert pe_stack_inquiries" ON pe_stack_inquiries
+  FOR INSERT TO anon WITH CHECK (true);
+
+-- Deny all reads from anon (admin only via service role)
+CREATE POLICY "Deny anon select pe_stack_inquiries" ON pe_stack_inquiries
+  FOR SELECT TO anon USING (false);
