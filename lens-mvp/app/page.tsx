@@ -105,7 +105,7 @@ export default function HomePage() {
               href="/opportunities"
               className="text-base font-medium text-slate-300 underline-offset-4 hover:text-white hover:underline transition-colors"
             >
-              Explore Opportunity Zones™
+              Explore Lens Opportunities™
             </Link>
           </div>
         </div>
@@ -149,8 +149,8 @@ export default function HomePage() {
               {
                 icon: '💡',
                 label: 'Discover Hidden Value',
-                description: 'Explore Opportunity Zones™ to find companies where value may be trapped across six diagnostic categories.',
-                cta: 'Explore Opportunity Zones™ →',
+                description: 'Explore Lens Opportunities™ to find companies where value may be trapped across six diagnostic categories.',
+                cta: 'Explore Lens Opportunities™ →',
                 href: '/opportunities',
               },
               {
@@ -226,7 +226,7 @@ export default function HomePage() {
           <div className="mt-12 grid gap-8 sm:grid-cols-3">
             {[
               { stat: '500+', label: 'Companies Analyzed' },
-              { stat: '6', label: 'Opportunity Zones™' },
+              { stat: '6', label: 'Lens Opportunities™' },
               { stat: '237+', label: 'Opportunities Identified' },
             ].map(({ stat, label }) => (
               <div key={label} className="text-center">

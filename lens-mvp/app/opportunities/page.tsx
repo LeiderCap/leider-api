@@ -2,7 +2,7 @@ import { OpportunityZonesSection } from '@/components/OpportunityZonesSection';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Opportunity Zones™ | The Lens™',
+  title: 'Lens Opportunities™ | The Lens™',
   description: 'Discover where value may be trapped across public markets. Six classification zones powered by The Lens™ deterministic classification engine.',
 };
 
@@ -15,7 +15,7 @@ export default function OpportunitiesPage() {
 
       <div className="mt-6">
         <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">The Lens™</p>
-        <h1 className="mt-1 text-3xl font-bold" style={{ color: '#E05A00' }}>Opportunity Zones™</h1>
+        <h1 className="mt-1 text-3xl font-bold" style={{ color: '#E05A00' }}>Lens Opportunities™</h1>
         <p className="mt-2 text-sm text-slate-500 max-w-xl">
           Discover where value may be trapped across public markets. Six classification zones powered by
           The Lens™ deterministic classification engine — rules classify, AI interprets.

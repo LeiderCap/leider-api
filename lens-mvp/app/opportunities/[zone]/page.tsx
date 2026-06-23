@@ -104,8 +104,8 @@ export default function OpportunityZonePage({ params }: { params: Promise<{ zone
       {/* ── Disclaimer — visible without scrolling ── */}
       <div className="mt-6 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3">
         <p className="text-xs text-amber-800 leading-5">
-          <strong>Opportunity Zones™ are organizational frameworks for discovery.</strong> They are not investment recommendations.
-          Opportunity Scores™ reflect transformation potential indicators, not projected returns. This is not financial advice.
+          <strong>Lens Opportunities™ are organizational frameworks for discovery.</strong> They are not investment recommendations.
+          Lens Opportunities™ reflect transformation potential indicators, not projected returns. This is not financial advice.
         </p>
       </div>
 

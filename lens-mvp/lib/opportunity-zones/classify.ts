@@ -1,5 +1,5 @@
 /**
- * Opportunity Zones™ — Deterministic Classification Engine
+ * Lens Opportunities™ — Deterministic Classification Engine
  *
  * CONSTITUTIONAL CONSTRAINT: AI does not assign Zones or Tiers.
  * Rules classify. AI interprets.

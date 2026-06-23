@@ -577,7 +577,7 @@ export default async function LensDetailPage({ params }: { params: Promise<{ id:
         </div>
       </section>
 
-      {/* ── 11. Opportunity Zones™ ───────────────────────────────────────── */}
+      {/* ── 11. Lens Opportunities™ ───────────────────────────────────────── */}
       <OpportunityZonesSection />
     </main>
   );

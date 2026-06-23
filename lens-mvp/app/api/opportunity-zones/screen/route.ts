@@ -2,7 +2,7 @@
  * GET /api/opportunity-zones/screen
  *
  * Pulls US public company data from FMP /stable/ endpoints,
- * classifies companies into Opportunity Zones™ using the deterministic
+ * classifies companies into Lens Opportunities™ using the deterministic
  * engine, and caches results in Supabase for 24 hours.
  *
  * Per-ticker FMP calls (all cached — never called twice within 24hrs):

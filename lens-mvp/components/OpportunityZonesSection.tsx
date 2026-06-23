@@ -34,7 +34,7 @@ export function OpportunityZonesSection() {
       .then(r => r.json())
       .then(data => {
         if (!data.ok) {
-          setError(data.error ?? 'Could not load Opportunity Zones™');
+          setError(data.error ?? 'Could not load Lens Opportunities™');
           return;
         }
         const companies: CachedCompany[] = data.companies ?? [];
@@ -49,7 +49,7 @@ export function OpportunityZonesSection() {
         }
         setZoneStats(stats as Record<ZoneName, ZoneStats>);
       })
-      .catch(() => setError('Could not load Opportunity Zones™'))
+      .catch(() => setError('Could not load Lens Opportunities™'))
       .finally(() => setLoading(false));
   }, []);
 
@@ -57,7 +57,7 @@ export function OpportunityZonesSection() {
     <section className="mt-10">
       {/* ── Header ── */}
       <div className="mb-3 flex items-center gap-3">
-        <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Opportunity Zones™</p>
+        <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Lens Opportunities™</p>
         <div className="h-px flex-1 bg-slate-200" />
       </div>
 
@@ -65,13 +65,13 @@ export function OpportunityZonesSection() {
         {/* Disclaimer — visible without scrolling */}
         <div className="mb-5 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3">
           <p className="text-xs text-amber-800 leading-5">
-            <strong>Opportunity Zones™ are organizational frameworks for discovery.</strong> They are not investment recommendations.
-            Opportunity Scores™ reflect transformation potential indicators, not projected returns. This is not financial advice.
+            <strong>Lens Opportunities™ are organizational frameworks for discovery.</strong> They are not investment recommendations.
+            Lens Opportunities™ reflect transformation potential indicators, not projected returns. This is not financial advice.
           </p>
         </div>
 
         <div className="mb-4">
-          <h2 className="text-xl font-bold text-slate-900" style={{ color: '#E05A00' }}>Opportunity Zones™</h2>
+          <h2 className="text-xl font-bold text-slate-900" style={{ color: '#E05A00' }}>Lens Opportunities™</h2>
           <p className="mt-1 text-sm text-slate-500">Discover where value may be trapped across public markets</p>
         </div>
 
