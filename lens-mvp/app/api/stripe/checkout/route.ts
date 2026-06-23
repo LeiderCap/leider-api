@@ -3,23 +3,30 @@ import Stripe from 'stripe';
 
 type Tier = 'single' | 'pro' | 'enterprise';
 
+// Live Stripe Price IDs — prefer env vars, fall back to hardcoded live IDs
+const PRICE_FALLBACKS: Record<Tier, string> = {
+  single:     'price_1TlNJJRDk2X11H6s6jzMTCfh',
+  pro:        'price_1TlNJJRDk2X11H6sAJWwy6hI',
+  enterprise: 'price_1TlNJIRDk2X11H6sZXP4XeMX',
+};
+
 function getPriceId(tier: Tier): string {
   switch (tier) {
     case 'single':
-      return process.env.STRIPE_PRICE_SINGLE ?? process.env.STRIPE_PRICE_ID ?? '';
+      return process.env.STRIPE_PRICE_SINGLE ?? PRICE_FALLBACKS.single;
     case 'pro':
-      return process.env.STRIPE_PRICE_PRO ?? process.env.STRIPE_PRICE_ID ?? '';
+      return process.env.STRIPE_PRICE_PRO ?? PRICE_FALLBACKS.pro;
     case 'enterprise':
-      return process.env.STRIPE_PRICE_ENTERPRISE ?? process.env.STRIPE_PRICE_ID ?? '';
+      return process.env.STRIPE_PRICE_ENTERPRISE ?? PRICE_FALLBACKS.enterprise;
     default:
-      return process.env.STRIPE_PRICE_ID ?? '';
+      return process.env.STRIPE_PRICE_SINGLE ?? PRICE_FALLBACKS.single;
   }
 }
 
 export async function POST(req: NextRequest) {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? 'placeholder');
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? '');
   try {
-    const { company, ticker, reportId, tier = 'pro' } = await req.json() as {
+    const { company, ticker, reportId, tier = 'single' } = await req.json() as {
       company?: string;
       ticker?: string;
       reportId?: string;
@@ -27,6 +34,16 @@ export async function POST(req: NextRequest) {
     };
 
     const priceId = getPriceId(tier);
+
+    // Diagnostic log — visible in Vercel function logs
+    console.log(`[stripe/checkout] tier=${tier} priceId=${priceId} source=${
+      (tier === 'single' && process.env.STRIPE_PRICE_SINGLE) ||
+      (tier === 'pro' && process.env.STRIPE_PRICE_PRO) ||
+      (tier === 'enterprise' && process.env.STRIPE_PRICE_ENTERPRISE)
+        ? 'env'
+        : 'fallback'
+    }`);
+
     if (!priceId) {
       return NextResponse.json(
         { error: `Stripe price ID not configured for tier: ${tier}` },
@@ -55,7 +72,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ url: session.url });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
-    console.error('Stripe checkout error:', message);
+    console.error('[stripe/checkout] error:', message);
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
