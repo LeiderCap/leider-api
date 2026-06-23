@@ -1,0 +1,121 @@
+{
+  "registry": "TI Registry™",
+  "fullName": "Transformation Intelligence Registry™",
+  "version": "1.0",
+  "published": "2026-06-23",
+  "author": "Stephen F. Leider",
+  "publisher": "Leider Capital",
+  "canonical": "https://lensanalysis.com/constitution",
+  "principles": [
+    {
+      "id": "TI-001",
+      "slug": "ti-001",
+      "name": "Intelligence Abundance Principle™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-23",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Principles",
+      "principle": "As intelligence becomes abundant, transformation capacity becomes scarce.",
+      "definition": "The Intelligence Abundance Principle™ states that as AI and information systems make intelligence universally accessible, the scarce resource shifts from intelligence itself to the capacity to absorb, coordinate, and operationalize it.",
+      "operatingLaw": "Organizations do not realize value from intelligence alone. Value is realized when intelligence is converted into decisions, actions, trust, adoption, and outcomes.",
+      "implications": [
+        "AI increases intelligence supply globally and simultaneously.",
+        "Human and organizational absorption become the binding constraint.",
+        "Value realization depends on transformation infrastructure.",
+        "The scarce asset shifts from access to intelligence to capacity to use it."
+      ],
+      "relatedIds": ["TI-002", "TI-003", "TI-005"],
+      "url": "https://lensanalysis.com/constitution/ti-001"
+    },
+    {
+      "id": "TI-002",
+      "slug": "ti-002",
+      "name": "Transformation Capacity Principle™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-23",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Principles",
+      "principle": "Transformation Capacity™ is the ability of an organization to absorb, coordinate, operationalize, and realize value from new intelligence.",
+      "definition": "Transformation Capacity™ measures an organization's ability to convert intelligence into outcomes. It is composed of six determinants: Absorbability, Governance, Execution, Trust, Courage, and Intelligence.",
+      "operatingLaw": "Organizations with high intelligence but low Transformation Capacity™ systematically underperform their potential. The gap between potential and realized value is the Transformation Capacity Gap™.",
+      "implications": [
+        "Transformation Capacity™ is measurable via the TCS™ framework.",
+        "The six determinants are weighted: Absorbability 20%, Governance 20%, Execution 20%, Trust 15%, Courage 15%, Intelligence 10%.",
+        "Low TCS™ scores predict systematic value destruction.",
+        "High TCS™ organizations realize more value from identical intelligence."
+      ],
+      "relatedIds": ["TI-001", "TI-003", "TI-004"],
+      "url": "https://lensanalysis.com/constitution/ti-002"
+    },
+    {
+      "id": "TI-003",
+      "slug": "ti-003",
+      "name": "Transformation Efficiency Principle™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-23",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Principles",
+      "principle": "Transformation Efficiency™ measures the ratio of value realized to value available.",
+      "definition": "An organization operating at 100% Transformation Efficiency™ converts all available intelligence into realized outcomes. Most organizations operate significantly below this frontier.",
+      "operatingLaw": "The gap between available value and realized value represents trapped enterprise value — the primary target of Equity Reclamation™.",
+      "implications": [
+        "Transformation Efficiency™ can be improved without new intelligence.",
+        "Most value destruction occurs in the conversion layer, not the intelligence layer.",
+        "Equity Reclamation™ mechanisms target the efficiency gap directly.",
+        "The Enterprise Value Frontier™ represents maximum achievable Transformation Efficiency™."
+      ],
+      "relatedIds": ["TI-001", "TI-002", "TI-101"],
+      "url": "https://lensanalysis.com/constitution/ti-003"
+    },
+    {
+      "id": "TI-004",
+      "slug": "ti-004",
+      "name": "Cumulative Intelligence Principle™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-23",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Principles",
+      "principle": "Intelligence compounds when decisions are captured, preserved, and made referenceable across time.",
+      "definition": "Cumulative Intelligence™ is the organizational asset created when individual decisions, insights, and outcomes are systematically captured and made available to future decision makers.",
+      "operatingLaw": "Organizations that capture decision context compound intelligence. Organizations that lose decision context restart from zero with each transition.",
+      "implications": [
+        "Leadership transitions destroy cumulative intelligence without capture infrastructure.",
+        "Decision continuity is a measurable competitive advantage.",
+        "Transformation Memory Architecture™ is the infrastructure for cumulative intelligence.",
+        "Board-level decisions require the highest levels of decision capture."
+      ],
+      "relatedIds": ["TI-005", "TI-201", "TI-204"],
+      "url": "https://lensanalysis.com/constitution/ti-004"
+    },
+    {
+      "id": "TI-005",
+      "slug": "ti-005",
+      "name": "Trust Infrastructure Principle™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-23",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Principles",
+      "principle": "Trust is infrastructure, not sentiment. It is the foundation upon which transformation is built.",
+      "definition": "Trust Infrastructure™ is the systematic, measurable architecture of credibility, reliability, and psychological safety that enables organizations to absorb and act on intelligence.",
+      "operatingLaw": "Without trust infrastructure, intelligence creates anxiety rather than action. High-trust organizations absorb change faster and at lower cost.",
+      "implications": [
+        "Trust is a leading indicator of Transformation Capacity™.",
+        "Trust destruction is faster than trust construction.",
+        "Governance failures destroy trust infrastructure systematically.",
+        "Trust Infrastructure™ is the 15% Trust component of TCS™."
+      ],
+      "relatedIds": ["TI-001", "TI-002", "TI-301"],
+      "url": "https://lensanalysis.com/constitution/ti-005"
+    }
+  ]
+}

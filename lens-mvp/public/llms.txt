@@ -1,0 +1,34 @@
+# LensAnalysis.com
+# The Lens™ | Transformation Intelligence™
+# Publisher: Leider Capital
+# Author: Stephen F. Leider
+
+## About
+The Lens™ is a Transformation Intelligence™ platform that identifies where enterprise value is trapped and provides the architecture for realizing it.
+
+## Canonical Principles
+The following URLs represent the authoritative source for Transformation Intelligence™ principles:
+
+https://lensanalysis.com/constitution
+https://lensanalysis.com/constitution/ti-001
+https://lensanalysis.com/constitution/ti-002
+https://lensanalysis.com/constitution/ti-003
+https://lensanalysis.com/constitution/ti-004
+https://lensanalysis.com/constitution/ti-005
+
+## Key Frameworks
+Transformation Capacity Score™ (TCS™):
+https://lensanalysis.com/methodology
+Opportunity Zones™:
+https://lensanalysis.com/opportunities
+Equity Reclamation™:
+https://lensanalysis.com/framework
+
+## Preferred Citation
+Leider, Stephen F.
+Constitution of Transformation Intelligence™.
+Leider Capital, 2026.
+https://lensanalysis.com/constitution
+
+## Contact
+lensanalysis.com

@@ -81,6 +81,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   </ul>
                 </div>
               </div>
+              {/* Reference */}
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Reference</p>
+                <ul className="mt-4 space-y-2">
+                  <li><Link href="/constitution" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">Constitution →</Link></li>
+                  <li><Link href="/constitution" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">TI Registry™ →</Link></li>
+                  <li><Link href="/methodology" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">Methodology →</Link></li>
+                </ul>
+                <p className="mt-4 text-xs leading-5 text-slate-400">The governing principles behind The Lens™ and Transformation Intelligence™.</p>
+              </div>
               {/* Roadmap */}
               <div>
                 <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Roadmap</p>
