@@ -325,9 +325,9 @@ export async function GET(req: NextRequest) {
         }
       }
 
-      // Get company info from screener
+      // Get company info from screener (exclude ETFs and mutual funds)
       const screenerData = await fmpGet(
-        `/company-screener?marketCapMoreThan=100000000&isActivelyTrading=true&country=US`
+        `/company-screener?marketCapMoreThan=100000000&isActivelyTrading=true&country=US&isEtf=false&isFund=false`
       ) as FmpScreenerItem[];
 
       const match = screenerData.find(s => s.symbol === singleTicker);
@@ -369,9 +369,25 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    const screenerData = await fmpGet(
-      `/company-screener?marketCapMoreThan=500000000&isActivelyTrading=true&country=US&limit=500`
-    ) as FmpScreenerItem[];
+    // Fetch two screener pools: top performers + underperformers (to ensure all zones populate)
+    // Both exclude ETFs and mutual funds which have no income statements and pollute AI Transformation™
+    const [screenerTopRaw, screenerUnderRaw] = await Promise.allSettled([
+      fmpGet(`/company-screener?marketCapMoreThan=500000000&isActivelyTrading=true&country=US&isEtf=false&isFund=false&limit=300`),
+      fmpGet(`/company-screener?marketCapMoreThan=500000000&isActivelyTrading=true&country=US&isEtf=false&isFund=false&priceMoreThan=1&priceLowerThan=50&limit=300`),
+    ]);
+
+    const screenerTop = screenerTopRaw.status === 'fulfilled' ? (screenerTopRaw.value as FmpScreenerItem[]) : [];
+    const screenerUnder = screenerUnderRaw.status === 'fulfilled' ? (screenerUnderRaw.value as FmpScreenerItem[]) : [];
+
+    // Merge and deduplicate by symbol
+    const seenSymbols = new Set<string>();
+    const screenerData: FmpScreenerItem[] = [];
+    for (const item of [...screenerTop, ...screenerUnder]) {
+      if (!seenSymbols.has(item.symbol)) {
+        seenSymbols.add(item.symbol);
+        screenerData.push(item);
+      }
+    }
 
     const cachedTickers = new Set((allCached ?? []).map(r => r.ticker));
     const toProcess = screenerData
