@@ -10,16 +10,32 @@ const PRICE_FALLBACKS: Record<Tier, string> = {
   enterprise: 'price_1TlNJIRDk2X11H6sZXP4XeMX',
 };
 
+/**
+ * Returns a valid Stripe Price ID for the given tier.
+ * Validates that the env var is a price_ ID (not a prod_ product ID).
+ * Falls back to hardcoded live price IDs if env var is missing or invalid.
+ */
 function getPriceId(tier: Tier): string {
+  const isValidPriceId = (id: string | undefined): id is string =>
+    typeof id === 'string' && id.startsWith('price_');
+
   switch (tier) {
-    case 'single':
-      return process.env.STRIPE_PRICE_SINGLE ?? PRICE_FALLBACKS.single;
-    case 'pro':
-      return process.env.STRIPE_PRICE_PRO ?? PRICE_FALLBACKS.pro;
-    case 'enterprise':
-      return process.env.STRIPE_PRICE_ENTERPRISE ?? PRICE_FALLBACKS.enterprise;
-    default:
-      return process.env.STRIPE_PRICE_SINGLE ?? PRICE_FALLBACKS.single;
+    case 'single': {
+      const envVal = process.env.STRIPE_PRICE_SINGLE;
+      return isValidPriceId(envVal) ? envVal : PRICE_FALLBACKS.single;
+    }
+    case 'pro': {
+      const envVal = process.env.STRIPE_PRICE_PRO;
+      return isValidPriceId(envVal) ? envVal : PRICE_FALLBACKS.pro;
+    }
+    case 'enterprise': {
+      const envVal = process.env.STRIPE_PRICE_ENTERPRISE;
+      return isValidPriceId(envVal) ? envVal : PRICE_FALLBACKS.enterprise;
+    }
+    default: {
+      const envVal = process.env.STRIPE_PRICE_SINGLE;
+      return isValidPriceId(envVal) ? envVal : PRICE_FALLBACKS.single;
+    }
   }
 }
 
