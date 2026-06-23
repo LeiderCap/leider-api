@@ -163,7 +163,7 @@ export function UnlockPotentialInfoBubble({ item, showRange = false }: Props) {
         onBlur={() => setOpen(false)}
       >
         {showRange && (
-          <span className="border-b border-dotted border-orange-400 text-orange-600 font-bold cursor-pointer hover:border-orange-600">
+          <span className="border-b border-dotted border-emerald-400 text-emerald-600 font-bold cursor-pointer hover:border-emerald-700">
             {item.opportunity_value || '—'}
           </span>
         )}

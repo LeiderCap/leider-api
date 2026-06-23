@@ -415,7 +415,7 @@ export default async function LensDetailPage({ params, searchParams }: { params:
           {/* v2.1 FMP-anchored Unlock Potential™ */}
           <div className="relative rounded-xl border border-slate-200 p-4">
             <p className="text-xs font-medium text-slate-400">Unlock Potential™</p>
-            <div className="mt-2 flex items-center gap-1.5">
+            <div className="mt-2 flex items-center gap-1.5 text-emerald-600">
               <UnlockPotentialInfoBubble item={item} showRange />
             </div>
             <span className={`mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-semibold ${
@@ -592,7 +592,7 @@ export default async function LensDetailPage({ params, searchParams }: { params:
             <BlueprintRequestForm companyId={item.id} companyName={item.name} />
             <Link
               href={`/mechanisms/cashless-buyback?company=${encodeURIComponent(item.name)}${item.ticker ? `&ticker=${encodeURIComponent(item.ticker)}` : ''}`}
-              className="inline-flex items-center gap-1.5 rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50"
+              className="inline-flex items-center gap-1.5 rounded-xl border border-emerald-300 bg-emerald-100 px-4 py-2 text-sm font-semibold text-emerald-700 transition-colors hover:border-emerald-400 hover:bg-emerald-200"
             >
               Realize Equity Reclamation
             </Link>
@@ -616,7 +616,7 @@ function Metric({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-xl border border-slate-200 p-4">
       <p className="text-xs font-medium text-slate-400">{label}</p>
-      <p className="mt-2 text-lg font-semibold">{value ?? '—'}</p>
+      <p className="mt-2 text-lg font-semibold text-emerald-600">{value ?? '—'}</p>
     </div>
   );
 }
