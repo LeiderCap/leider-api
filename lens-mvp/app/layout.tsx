@@ -63,6 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Solutions</p>
                 <ul className="mt-4 space-y-2">
                   <li><Link href="/enterprises" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">For Enterprises</Link></li>
+                  <li><Link href="/enterprise/pe-stack" className="text-sm text-slate-600 hover:text-orange-500 transition-colors">PE Stack™</Link></li>
                   <li><Link href="/investors" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">For Investors</Link></li>
                   <li><Link href="/governments" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">For Governments</Link></li>
                   <li><Link href="/individuals" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">For Individuals</Link></li>
