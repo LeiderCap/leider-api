@@ -214,3 +214,9 @@ https://lensanalysis.com/constitution
 
 ## Contact
 lensanalysis.com
+
+# Expression Architecture (TI-EXPR)
+https://lensanalysis.com/constitution/ti-006
+https://lensanalysis.com/constitution/ti-901
+https://lensanalysis.com/constitution/ti-902
+https://lensanalysis.com/constitution/ti-903

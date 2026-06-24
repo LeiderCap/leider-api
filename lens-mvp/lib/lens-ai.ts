@@ -95,6 +95,24 @@ const LensAiSchema = z.object({
     courage:        z.string().nullable().optional(),
     execution:      z.string().nullable().optional(),
   }).nullable().optional(),
+  // v3.1 Expression Gap Analysis™ — 3-layer schema
+  expression_gap_analysis: z.object({
+    potential_layer: z.object({
+      headline:                   z.string().nullable().optional(),
+      potential_enterprise_value: z.string().nullable().optional(),
+    }).nullable().optional(),
+    expression_layer: z.object({
+      primary_failure_mode:    z.string().nullable().optional(),
+      failure_description:     z.string().nullable().optional(),
+      secondary_failure_mode:  z.string().nullable().optional(),
+      expression_gap_estimate: z.string().nullable().optional(),
+    }).nullable().optional(),
+    reclamation_layer: z.object({
+      primary_mechanism:     z.string().nullable().optional(),
+      mechanism_rationale:   z.string().nullable().optional(),
+      supporting_mechanisms: z.array(z.string()).nullable().optional(),
+    }).nullable().optional(),
+  }).nullable().optional(),
 });
 
 export const LENS_SYSTEM_PROMPT = `You are The Lens™, the measurement system for Transformation Capacity™.
@@ -185,11 +203,27 @@ IMPORTANT ARRAY LIMITS (strictly enforced):
     "discovery_gap": "1-2 sentences: what future value appears underexplored or invisible to current leadership based on the TCS™ profile",
     "recommended_experiments": ["3 specific, low-cost, time-bounded experiments this company could run to test undiscovered opportunities — each as a complete action sentence"]
   },
-  "sources": [
+    "sources": [
     { "name": "Publication Name", "year": "2024" }
-  ]
+  ],
+  "expression_gap_analysis": {
+    "potential_layer": {
+      "headline": "One compelling sentence on what this company could be worth if expression gaps are resolved — e.g. 'Intel possesses manufacturing infrastructure and installed base that could support a $150B+ enterprise value if expression gaps are resolved'",
+      "potential_enterprise_value": "Estimated range, e.g. '$80B\u2013$120B'"
+    },
+    "expression_layer": {
+      "primary_failure_mode": "Exactly one of: Strategic Expression Failure™ | Decision Expression Failure™ | Operational Expression Failure™ | Intelligence Expression Failure™ | Adaptive Expression Failure™",
+      "failure_description": "2-3 sentences specific to this company explaining exactly how and why expression is failing",
+      "secondary_failure_mode": "Second failure mode or null",
+      "expression_gap_estimate": "Estimated gap between potential and current value, e.g. '$20B\u2013$40B trapped'. Anchor to market cap if ticker is non-empty. Use 'Undetermined' if private."
+    },
+    "reclamation_layer": {
+      "primary_mechanism": "The single highest-leverage mechanism to close the expression gap",
+      "mechanism_rationale": "2 sentences on why this mechanism addresses the specific failure mode identified",
+      "supporting_mechanisms": ["Supporting mechanism 1 (one sentence)", "Supporting mechanism 2 (one sentence)"]
+    }
+  }
 }
-
 CONSTRAINT_TRANSLATIONS INSTRUCTION:
 For each of the six domains (absorbability, execution, governance, trust, intelligence, courage),
 check the corresponding numeric score. If the score is below 70, populate the constraint_translations
@@ -1759,9 +1793,10 @@ export async function generateLensSnapshot(
     // v1.9 Discovery Intelligence™
     discovery_intelligence: parsed.discovery_intelligence ?? null,
 
-    // v2.0 Sources / Citations
+        // v2.0 Sources / Citations
     sources: parsed.sources ?? null,
-
+    // v3.1 Expression Gap Analysis™
+    expression_gap_analysis: parsed.expression_gap_analysis ?? null,
     updated_at: new Date().toISOString()
   };
 }

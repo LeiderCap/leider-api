@@ -138,6 +138,8 @@ function mapDbToSnapshot(row: any): LensSnapshot {
     unlock_tier_pct_high: score?.unlock_tier_pct_high ?? null,
     unlock_low: score?.unlock_low ?? null,
     unlock_high: score?.unlock_high ?? null,
+    // v3.1 Expression Gap Analysis™
+    expression_gap_analysis: score?.expression_gap_analysis ?? null,
     updated_at: score?.updated_at ?? row.created_at
   };
 }
@@ -289,6 +291,9 @@ export async function saveLensSnapshot(snapshot: LensSnapshot) {
     unlock_tier_pct_high: snapshot.unlock_tier_pct_high ?? null,
     unlock_low: snapshot.unlock_low ?? null,
     unlock_high: snapshot.unlock_high ?? null,
+
+    // v3.1 Expression Gap Analysis™
+    expression_gap_analysis: snapshot.expression_gap_analysis ?? null,
 
     updated_at: new Date().toISOString()
   });

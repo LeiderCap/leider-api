@@ -138,6 +138,30 @@ export const principles: Principle[] = [
     relatedIds: ['TI-502', 'TI-004', 'TI-303'],
   },
 
+  {
+    id: 'TI-006',
+    slug: 'ti-006',
+    name: 'Expression Architecture Principle™',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-23',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    principle: 'Potential does not become value automatically. Value emerges through expression. Expression requires architecture.',
+    definition: 'Expression Architecture™ is the collection of structures, processes, incentives, governance mechanisms, technologies, and feedback loops that determine how effectively a system converts latent potential into realized outcomes.',
+    operatingLaw: 'The quality of a system’s expression architecture determines the percentage of potential that becomes reality.',
+    implications: [
+      'Most systems are measured incorrectly — we measure potential (intelligence, assets, capital, talent) rather than expression capacity.',
+      'Outcomes vary dramatically among systems with similar potential because expression capacity differs.',
+      'The Realized Value Equation™ is: RV = P × EC × D × T (Potential × Expression Capacity × Decision Quality × Time).',
+      'Transformation Efficiency™ is largely determined by Expression Capacity™.',
+      'As intelligence becomes abundant, expression capacity becomes the scarce and therefore valuable resource.',
+    ],
+    relatedIds: ['TI-004', 'TI-103', 'TI-401', 'TI-901', 'TI-902', 'TI-903'],
+  },
+
   // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================
@@ -1232,11 +1256,85 @@ export const principles: Principle[] = [
       'Supports Blueprint™ creation and board decision-making.',
       'Improves portfolio prioritization.',
     ],
-    relatedIds: ['TI-103', 'TI-107', 'TI-801'],
+        relatedIds: ['TI-103', 'TI-107', 'TI-801'],
   },
 
-]
+  // ============================================
+  // EXPRESSION ARCHITECTURE (TI-901 to TI-903)
+  // ============================================
 
+  {
+    id: 'TI-901',
+    slug: 'ti-901',
+    name: 'Expression Capacity Index™ (ECI™)',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-23',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Expression Architecture',
+    categoryCode: 'TI-EXPR',
+    principle: 'Expression Capacity™ measures how effectively a system converts available potential into realized outcomes.',
+    definition: 'The Expression Capacity Index™ (ECI™) scores an organization 0–100 across five equal-weighted dimensions: Strategic Expression™ (20%), Decision Expression™ (20%), Operational Expression™ (20%), Intelligence Expression™ (20%), and Adaptive Expression™ (20%).',
+    operatingLaw: 'A system’s ECI™ determines what percentage of its potential becomes realized value.',
+    implications: [
+      'Strategic Expression™ measures whether the system can identify and align around what matters.',
+      'Decision Expression™ measures whether decisions move effectively into action.',
+      'Operational Expression™ measures whether plans reliably become execution.',
+      'Intelligence Expression™ measures whether intelligence becomes action.',
+      'Adaptive Expression™ measures whether the system can evolve and course-correct.',
+      'ECI™ Classifications: 90–100 Fully Expressed™, 80–89 High Expression™, 70–79 Moderately Expressed™, 60–69 Underexpressed™, 40–59 Significantly Underexpressed™, Below 40 Expression Failure™.',
+    ],
+    relatedIds: ['TI-006', 'TI-902', 'TI-903', 'TI-004'],
+  },
+
+  {
+    id: 'TI-902',
+    slug: 'ti-902',
+    name: 'Expression Gap Score™ (EGS™)',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-23',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Expression Architecture',
+    categoryCode: 'TI-EXPR',
+    principle: 'The gap between potential value and realized value is measurable and actionable.',
+    definition: 'Expression Gap Score™ (EGS™) measures how much potential remains trapped. Formula: EGS = Potential Value − Realized Value.',
+    operatingLaw: 'Every dollar of Expression Gap represents value that exists but has not been converted into outcomes.',
+    implications: [
+      'A company with $50B potential enterprise value and $30B current enterprise value has an EGS of $20B — a 40% expression gap.',
+      'EGS is the primary target of Equity Reclamation™.',
+      'Expression gaps are caused by failures in one or more of the five ECI™ dimensions.',
+      'Closing the expression gap requires architecture, not merely additional intelligence or capital.',
+    ],
+    relatedIds: ['TI-006', 'TI-901', 'TI-801', 'TI-103'],
+  },
+
+  {
+    id: 'TI-903',
+    slug: 'ti-903',
+    name: 'Expression Failure Modes™',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-23',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Expression Architecture',
+    categoryCode: 'TI-EXPR',
+    principle: 'Expression failures follow predictable patterns that can be diagnosed and corrected.',
+    definition: 'Expression Failure Modes™ are the five recurring patterns through which organizations fail to convert potential into realized value: Strategic, Decision, Operational, Intelligence, and Adaptive Expression Failure™.',
+    operatingLaw: 'Each failure mode has distinct symptoms, causes, and intervention mechanisms.',
+    implications: [
+      'Strategic Expression Failure™: conflicting priorities, resource dilution, directional confusion — common in conglomerates and portfolio-sprawl organizations.',
+      'Decision Expression Failure™: slow decisions, repeated decisions, accountability gaps — common in bureaucratic organizations and government agencies.',
+      'Operational Expression Failure™: poor execution, initiative fatigue, change resistance — common in legacy enterprises.',
+      'Intelligence Expression Failure™: AI pilots everywhere, AI outcomes nowhere — the defining failure mode of the current enterprise AI market.',
+      'Adaptive Expression Failure™: inability to learn, slow correction cycles — common in former market leaders.',
+    ],
+    relatedIds: ['TI-006', 'TI-901', 'TI-902', 'TI-005'],
+  },
+]
 export const constitutionMeta = {
   title: 'Constitution of Transformation Intelligence™',
   registry: 'TI Registry™',
@@ -1247,5 +1345,5 @@ export const constitutionMeta = {
   publisher: 'Leider Capital',
   canonical: 'https://lensanalysis.com/constitution',
   description: 'The foundational principles, operating laws, and definitions of Transformation Intelligence™ — the discipline of converting intelligence into realized outcomes.',
-  totalPrinciples: 46,
+  totalPrinciples: 56,
 }

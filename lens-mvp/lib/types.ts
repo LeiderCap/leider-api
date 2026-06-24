@@ -113,4 +113,23 @@ export interface LensSnapshot {
   } | null;
 
   updated_at: string;
+
+  // v3.1 Expression Gap Analysis™ — 3-layer schema
+  expression_gap_analysis?: {
+    potential_layer?: {
+      headline?: string | null;
+      potential_enterprise_value?: string | null;
+    } | null;
+    expression_layer?: {
+      primary_failure_mode?: string | null;
+      failure_description?: string | null;
+      secondary_failure_mode?: string | null;
+      expression_gap_estimate?: string | null;
+    } | null;
+    reclamation_layer?: {
+      primary_mechanism?: string | null;
+      mechanism_rationale?: string | null;
+      supporting_mechanisms?: string[] | null;
+    } | null;
+  } | null;
 }

@@ -561,6 +561,84 @@ export default async function LensDetailPage({ params, searchParams }: { params:
       )}
 
 
+      {/* ── 10a. Expression Gap Analysis™ ─────────────────────────────────── */}
+      {item.expression_gap_analysis && (
+        <section className="card mt-6 p-6">
+          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-orange-500">Expression Architecture™</p>
+          <h2 className="mt-1 text-lg font-bold mb-4">Expression Gap Analysis™</h2>
+          <div className="space-y-4">
+            {/* Block 1 — Potential Layer™ */}
+            {item.expression_gap_analysis.potential_layer && (
+              <div className="rounded-xl border-l-4 border-blue-400 bg-blue-50 p-5">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-blue-600 mb-0.5">Potential Layer™</p>
+                <p className="text-[10px] text-blue-400 mb-2">What could exist?</p>
+                {item.expression_gap_analysis.potential_layer.headline && (
+                  <p className="text-sm leading-7 text-slate-800">{item.expression_gap_analysis.potential_layer.headline}</p>
+                )}
+                {item.expression_gap_analysis.potential_layer.potential_enterprise_value && (
+                  <p className="mt-2 text-sm font-semibold text-blue-700">
+                    Estimated Potential EV: {item.expression_gap_analysis.potential_layer.potential_enterprise_value}
+                  </p>
+                )}
+              </div>
+            )}
+            {/* Block 2 — Expression Layer™ */}
+            {item.expression_gap_analysis.expression_layer && (
+              <div className="rounded-xl border-l-4 border-orange-400 bg-orange-50 p-5">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-orange-600 mb-0.5">Expression Layer™</p>
+                <p className="text-[10px] text-orange-400 mb-2">What prevents realization?</p>
+                {item.expression_gap_analysis.expression_layer.primary_failure_mode && (
+                  <span className="inline-block rounded-full bg-orange-100 border border-orange-300 px-3 py-1 text-xs font-bold text-orange-700 mb-2">
+                    {item.expression_gap_analysis.expression_layer.primary_failure_mode}
+                  </span>
+                )}
+                {item.expression_gap_analysis.expression_layer.failure_description && (
+                  <p className="text-sm leading-7 text-slate-700">{item.expression_gap_analysis.expression_layer.failure_description}</p>
+                )}
+                {item.expression_gap_analysis.expression_layer.secondary_failure_mode && (
+                  <span className="mt-2 inline-block rounded-full bg-amber-100 border border-amber-300 px-3 py-1 text-xs font-bold text-amber-700">
+                    {item.expression_gap_analysis.expression_layer.secondary_failure_mode}
+                  </span>
+                )}
+                {item.expression_gap_analysis.expression_layer.expression_gap_estimate && (
+                  <p className="mt-2 text-sm font-bold text-orange-700">
+                    Expression Gap Estimate: {item.expression_gap_analysis.expression_layer.expression_gap_estimate}
+                  </p>
+                )}
+              </div>
+            )}
+            {/* Block 3 — Reclamation Layer™ */}
+            {item.expression_gap_analysis.reclamation_layer && (
+              <div className="rounded-xl border-l-4 border-emerald-400 bg-emerald-50 p-5">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-600 mb-0.5">Reclamation Layer™</p>
+                <p className="text-[10px] text-emerald-400 mb-2">How is value unlocked?</p>
+                {item.expression_gap_analysis.reclamation_layer.primary_mechanism && (
+                  <p className="text-sm font-bold text-slate-800">{item.expression_gap_analysis.reclamation_layer.primary_mechanism}</p>
+                )}
+                {item.expression_gap_analysis.reclamation_layer.mechanism_rationale && (
+                  <p className="mt-2 text-sm italic text-slate-600">{item.expression_gap_analysis.reclamation_layer.mechanism_rationale}</p>
+                )}
+                {item.expression_gap_analysis.reclamation_layer.supporting_mechanisms && item.expression_gap_analysis.reclamation_layer.supporting_mechanisms.length > 0 && (
+                  <ul className="mt-3 space-y-1">
+                    {item.expression_gap_analysis.reclamation_layer.supporting_mechanisms.map((m: string, i: number) => (
+                      <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
+                        <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-400" />
+                        {m}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            )}
+          </div>
+          {/* Section footer */}
+          <p className="mt-4 text-xs text-slate-400">
+            Expression Gap Analysis™ is powered by The Lens™ and the{' '}
+            <Link href="/constitution/ti-006" className="underline hover:text-slate-600">Expression Architecture Principle™ (TI-006)</Link>.
+          </p>
+        </section>
+      )}
+
       {/* ── 10. Blueprint™ CTA ────────────────────────────────────────────── */}
       <section className="card mt-6 p-6 bg-slate-50">
         <div className="flex flex-wrap items-center justify-between gap-4">
