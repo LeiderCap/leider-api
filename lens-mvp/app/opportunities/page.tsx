@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export const metadata = {
   title: 'Lens Opportunities™ | The Lens™',
-  description: 'Discover where value may be trapped across public markets. Six classification zones powered by The Lens™ deterministic classification engine.',
+  description: 'Discover where value may be trapped across public markets. Seven classification zones powered by The Lens™ deterministic classification engine.',
 };
 
 export default function OpportunitiesPage() {
@@ -17,7 +17,7 @@ export default function OpportunitiesPage() {
         <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">The Lens™</p>
         <h1 className="mt-1 text-3xl font-bold" style={{ color: '#E05A00' }}>Lens Opportunities™</h1>
         <p className="mt-2 text-sm text-slate-500 max-w-xl">
-          Discover where value may be trapped across public markets. Six classification zones powered by
+          Discover where value may be trapped across public markets. Seven classification zones powered by
           The Lens™ deterministic classification engine — rules classify, AI interprets.
         </p>
       </div>

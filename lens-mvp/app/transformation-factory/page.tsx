@@ -30,6 +30,7 @@ const SUITE_CARDS = [
     badgeColor: 'bg-amber-100 text-amber-700 border border-amber-200',
     cta: null,
     href: null,
+    pilotPurgatoryLink: true,
   },
   {
     icon: '🗺',
@@ -287,6 +288,14 @@ export default function TransformationFactoryPage() {
                     className="inline-flex items-center gap-1 rounded-lg bg-orange-500 px-4 py-2 text-xs font-bold text-white hover:bg-orange-600 transition-colors w-fit"
                   >
                     {card.cta}
+                  </Link>
+                )}
+                {'pilotPurgatoryLink' in card && card.pilotPurgatoryLink && (
+                  <Link
+                    href="/opportunities/pilot-purgatory"
+                    className="mt-2 text-xs font-medium text-orange-600 hover:underline"
+                  >
+                    See companies in Pilot Purgatory™ →
                   </Link>
                 )}
               </div>

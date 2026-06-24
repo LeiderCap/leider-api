@@ -14,6 +14,7 @@ export type ZoneName =
   | 'AI Transformation'
   | 'Governance'
   | 'Portfolio Simplification'
+  | 'Pilot Purgatory'
   | 'No Catalyst Identified';
 
 export type TierNumber = 1 | 2 | 3 | 4 | 5 | 6;
@@ -106,6 +107,29 @@ function qualifiesGovernance(d: CompanyData): boolean {
   return false;
 }
 
+const PILOT_PURGATORY_SECTORS = new Set([
+  'Technology', 'Healthcare', 'Financial Services',
+  'Consumer Discretionary', 'Communication Services',
+]);
+
+function qualifiesPilotPurgatory(d: CompanyData): boolean {
+  // Pilot Purgatory™ — TI-605
+  // Qualifies when ALL of the following are true:
+  // 1. Revenue growing slower than sector median
+  // 2. Operating margin flat or declining
+  // 3. 3Y price change < -15 (market has discounted innovation gap)
+  // 4. Sector with high AI pilot activity
+  // 5. Does NOT already qualify for Fallen Giants (price_change_3y > -40 OR marketCap < 5B)
+  if (d.revenue_growth_vs_sector !== 'below') return false;
+  if (d.operating_margin_trend !== 'flat' && d.operating_margin_trend !== 'declining') return false;
+  if ((d.price_change_3y ?? 0) >= -15) return false;
+  if (!d.sector || !PILOT_PURGATORY_SECTORS.has(d.sector)) return false;
+  // Exclude Fallen Giants (structural impairment is distinct)
+  const isFallenGiant = qualifiesFallenGiants(d);
+  if (isFallenGiant) return false;
+  return true;
+}
+
 function qualifiesPortfolioSimplification(d: CompanyData): boolean {
   // segment_count defaults to null in V1 (FMP doesn't provide it directly).
   // When null, skip the segment criterion and rely solely on valuation discount.
@@ -184,6 +208,7 @@ function assignTier(zones: ZoneName[], d: CompanyData): TierNumber {
 
   // Tier IV — Transformation Reclamation
   if (zones.includes('AI Transformation')) return 4;
+  if (zones.includes('Pilot Purgatory')) return 4;
 
   // Tier V — Catalyst Search
   if (zones.includes('No Catalyst Identified')) return 5;
@@ -203,6 +228,7 @@ export function classify(d: CompanyData): ClassificationResult {
   if (qualifiesAITransformation(d)) zones.push('AI Transformation');
   if (qualifiesGovernance(d)) zones.push('Governance');
   if (qualifiesPortfolioSimplification(d)) zones.push('Portfolio Simplification');
+  if (qualifiesPilotPurgatory(d)) zones.push('Pilot Purgatory');
 
   // Calculate score before checking No Catalyst (score is an input to that rule)
   const scoreBeforeNoCatalyst = calcOpportunityScore(d, zones);
@@ -236,6 +262,7 @@ export const ZONE_META: Record<ZoneName, { slug: string; emoji: string; descript
   'AI Transformation':         { slug: 'ai-transformation',         emoji: '🤖',  description: 'Companies lagging sector peers in revenue growth with declining or flat operating margins.' },
   'Governance':                { slug: 'governance',                emoji: '🏛',  description: 'Companies with recent leadership transitions, short CEO tenure, or activist investor presence.' },
   'Portfolio Simplification':  { slug: 'portfolio-simplification',  emoji: '📦',  description: 'Multi-segment conglomerates trading at a discount to sector peers.' },
+  'Pilot Purgatory':           { slug: 'pilot-purgatory',           emoji: '🔄',  description: 'Companies with high AI spending and pilot activity but low deployment rates and realized value. Innovation trapped between experiment and outcome.' },
   'No Catalyst Identified':    { slug: 'no-catalyst-identified',    emoji: '🔍',  description: 'Underperforming companies with high transformation potential but no clear near-term catalyst.' },
 };
 
@@ -245,6 +272,7 @@ export const ALL_ZONES: ZoneName[] = [
   'AI Transformation',
   'Governance',
   'Portfolio Simplification',
+  'Pilot Purgatory',
   'No Catalyst Identified',
 ];
 

@@ -11,6 +11,7 @@ const ZONE_TIER: Record<ZoneName, { label: string; subtext: string }> = {
   'AI Transformation':        { label: 'Tier IV — Transformation Reclamation', subtext: 'Increase Transformation Efficiency' },
   'Governance':               { label: 'Tier I — Structural Repair',       subtext: 'Repair decision quality first' },
   'Portfolio Simplification': { label: 'Tier II — Performance Unlock',      subtext: 'Unlock conglomerate discount' },
+  'Pilot Purgatory':          { label: 'Tier IV — Transformation Reclamation', subtext: 'Convert pilots into outcomes' },
   'No Catalyst Identified':   { label: 'Tier V — Catalyst Search',         subtext: 'Find the missing mechanism' },
 };
 

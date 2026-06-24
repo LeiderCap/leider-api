@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Constitution of Transformation Intelligence™ | TI Registry™',
   description:
-    'The governing principles behind The Lens™ and Transformation Intelligence™. 52 principles across 9 categories — each versioned, citable, and machine-readable.',
+    'The governing principles behind The Lens™ and Transformation Intelligence™. 60 principles across 9 categories — each versioned, citable, and machine-readable.',
 };
 
 const statusColors: Record<string, string> = {

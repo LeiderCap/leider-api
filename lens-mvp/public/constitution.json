@@ -561,6 +561,45 @@
       "url": "https://lensanalysis.com/constitution/ti-602"
     },
     {
+      "id": "TI-604",
+      "slug": "ti-604",
+      "name": "Operationalization Capacity™ (OC™)",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-23",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Operationalization",
+      "categoryCode": "TI-OPS",
+      "url": "https://lensanalysis.com/constitution/ti-604"
+    },
+    {
+      "id": "TI-605",
+      "slug": "ti-605",
+      "name": "Pilot Purgatory™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-23",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Operationalization",
+      "categoryCode": "TI-OPS",
+      "url": "https://lensanalysis.com/constitution/ti-605"
+    },
+    {
+      "id": "TI-606",
+      "slug": "ti-606",
+      "name": "Deployment Compounding Principle™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-23",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Operationalization",
+      "categoryCode": "TI-OPS",
+      "url": "https://lensanalysis.com/constitution/ti-606"
+    },
+    {
       "id": "TI-701",
       "slug": "ti-701",
       "name": "Scientific Operationalization Principle™",
@@ -719,6 +758,19 @@
         "TI-902",
         "TI-903"
       ]
+    },
+    {
+      "id": "TI-007",
+      "slug": "ti-007",
+      "name": "Deployment Velocity Principle™ (DVP™)",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-23",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "url": "https://lensanalysis.com/constitution/ti-007"
     },
     {
       "id": "TI-901",

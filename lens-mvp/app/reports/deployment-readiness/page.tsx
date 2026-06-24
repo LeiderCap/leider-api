@@ -11,7 +11,9 @@ interface SearchResult {
 
 function DeploymentReadinessPageInner() {
   const searchParams = useSearchParams();
-  const [query, setQuery] = useState(searchParams.get('company') ?? '');
+  const fromPilotPurgatory = searchParams.get('from') === 'pilot-purgatory';
+  const companyNameParam = searchParams.get('company') ?? '';
+  const [query, setQuery] = useState(companyNameParam);
   const [results, setResults] = useState<SearchResult[]>([]);
   const [selected, setSelected] = useState<SearchResult | null>(
     searchParams.get('ticker') && searchParams.get('company')
@@ -76,6 +78,17 @@ function DeploymentReadinessPageInner() {
     <main className="min-h-screen bg-slate-50">
       <section className="py-16 px-6">
         <div className="max-w-lg mx-auto">
+          {/* Pilot Purgatory entry banner */}
+          {fromPilotPurgatory && (
+            <div className="mb-6 rounded-xl border-l-4 border-amber-500 bg-amber-50 px-5 py-4">
+              <p className="text-sm font-semibold text-amber-800 mb-1">
+                {companyNameParam ? `${companyNameParam} has been identified` : 'This company has been identified'} in The Lens™ Pilot Purgatory Zone
+              </p>
+              <p className="text-xs text-amber-700 leading-5">
+                Organizations with high innovation activity but low deployment effectiveness. This assessment will measure their Deployment Capacity Index™ (DCI™) and identify the primary bottleneck preventing value realization.
+              </p>
+            </div>
+          )}
           {/* Header */}
           <div className="mb-8">
             <p className="text-xs font-semibold uppercase tracking-widest text-orange-500 mb-2">

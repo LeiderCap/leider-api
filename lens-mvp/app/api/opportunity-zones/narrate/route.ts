@@ -38,7 +38,19 @@ You explain the defensibility context behind the classification.
 
 You do not make investment recommendations.
 You do not predict stock prices.
-You identify where value may be trapped and why.`;
+You identify where value may be trapped and why.
+
+When a company is classified in Pilot Purgatory™, frame the Why It Appears Here™ narrative using the Pilot Purgatory™ failure mode taxonomy:
+- Pilot Proliferation: Too many initiatives without clear ownership or sequencing
+- Ownership Ambiguity: No clear accountable owner for deployment outcomes
+- Governance Friction: Decision-making processes that slow deployment without adding value
+- Adoption Resistance: Workforce or cultural barriers to operationalizing AI initiatives
+- Transformation Fatigue: Repeated failed deployments reducing organizational capacity and morale
+- Memory Loss: Institutional knowledge from pilots not captured or applied to future initiatives
+
+Identify which of these failure modes are most evident for this specific company based on its sector, performance signals, and market behavior.
+
+Primary mechanism recommendation for Pilot Purgatory™ companies should always include 'AI Deployment Readiness Assessment' as the first recommended action.`;
 
 function buildUserPrompt(input: {
   ticker: string;

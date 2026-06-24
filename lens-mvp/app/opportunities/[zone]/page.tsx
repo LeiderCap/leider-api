@@ -114,14 +114,28 @@ export default function OpportunityZonePage({ params }: { params: Promise<{ zone
         <div className="flex items-center gap-3">
           <span className="text-3xl">{zoneMeta.emoji}</span>
           <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">LENS OPPORTUNITIES™</p>
             <h1 className="text-2xl font-bold" style={{ color: '#E05A00' }}>{zoneMeta.name}</h1>
             <p className="mt-0.5 text-sm text-slate-500">{zoneMeta.description}</p>
           </div>
         </div>
-        <p className="mt-3 text-sm text-slate-600">
-          Companies classified into this zone by The Lens™ deterministic classification engine.
-          Sorted by Opportunity Score™ descending.
-        </p>
+        {zoneSlug === 'pilot-purgatory' ? (
+          <div className="mt-3">
+            <p className="text-sm text-slate-600">
+              Companies with significant innovation activity but low deployment effectiveness.
+              Value trapped between experimentation and outcomes.
+            </p>
+            <p className="mt-2 text-xs text-slate-400">
+              Classified by The Lens™ deterministic engine — rules classify, AI interprets. Related principle:{' '}
+              <Link href="/constitution/ti-605" className="text-orange-600 hover:underline font-semibold">Pilot Purgatory™ (TI-605)</Link>
+            </p>
+          </div>
+        ) : (
+          <p className="mt-3 text-sm text-slate-600">
+            Companies classified into this zone by The Lens™ deterministic classification engine.
+            Sorted by Opportunity Score™ descending.
+          </p>
+        )}
       </div>
 
       {/* ── Company table ── */}
@@ -155,7 +169,13 @@ export default function OpportunityZonePage({ params }: { params: Promise<{ zone
                 <tr
                   key={c.ticker}
                   className={`border-b border-slate-100 hover:bg-orange-50 cursor-pointer transition-colors ${i % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'}`}
-                  onClick={() => window.location.href = `/lens/${encodeURIComponent(c.ticker)}`}
+                  onClick={() => {
+                    if (zoneSlug === 'pilot-purgatory') {
+                      window.location.href = `/reports/deployment-readiness?ticker=${encodeURIComponent(c.ticker)}&company=${encodeURIComponent(c.company_name ?? c.ticker)}&from=pilot-purgatory`;
+                    } else {
+                      window.location.href = `/lens/${encodeURIComponent(c.ticker)}`;
+                    }
+                  }}
                 >
                   <td className="px-4 py-3 font-medium text-slate-900">
                     {c.company_name ?? c.ticker}
