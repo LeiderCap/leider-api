@@ -26,6 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/#for-whom" className="nav-link">Who It&apos;s For</Link>
               <Link href="/opportunities" className="nav-link">Opportunities</Link>
               <Link href="/reports" className="nav-link">Reports</Link>
+              <Link href="/transformation-factory" className="nav-link">Factory™</Link>
               <Link href="/methodology" className="nav-link">Methodology</Link>
               <Link href="/#transformation-chain" className="nav-link">Framework</Link>
               <Link href="/blueprint" className="nav-link">Blueprint™</Link>
@@ -65,6 +66,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <ul className="mt-4 space-y-2">
                   <li><Link href="/enterprises" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">For Enterprises</Link></li>
                   <li><Link href="/enterprise/investor-stack" className="text-sm text-slate-600 hover:text-orange-500 transition-colors">Investor Stack™</Link></li>
+                  <li><Link href="/transformation-factory" className="text-sm text-slate-600 hover:text-orange-500 transition-colors">Transformation Factory™</Link></li>
                   <li><Link href="/investors" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">For Investors</Link></li>
                   <li><Link href="/governments" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">For Governments</Link></li>
                   <li><Link href="/individuals" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">For Individuals</Link></li>

@@ -8,6 +8,28 @@ export const metadata: Metadata = {
 
 const REPORTS = [
   {
+    icon: '📋',
+    name: 'AI Deployment Readiness Assessment™',
+    description:
+      'Measure your organization\'s Deployment Capacity Index™ (DCI™) — the ability to convert AI pilots into production outcomes across 6 critical dimensions. Identify your primary bottleneck and Pilot Debt™.',
+    price: '$95 one-time',
+    cta: 'Run Assessment →',
+    href: '/reports/deployment-readiness',
+    color: 'orange',
+    badge: 'NEW',
+    items: [
+      'DCI™ Score (0–100)',
+      'Maturity Classification',
+      '6 Dimension Scorecard',
+      'Primary Bottleneck Analysis',
+      'Pilot Debt™ Estimate',
+      '3–4 Prioritized Recommendations',
+      'Deployment Capacity Insight',
+      'PDF export',
+    ],
+    checkColor: 'text-orange-500',
+  },
+  {
     icon: '🛡',
     name: 'Resilience Capacity Report™',
     description:
@@ -16,6 +38,18 @@ const REPORTS = [
     cta: 'Generate Report →',
     href: '/reports/resilience-capacity',
     color: 'emerald',
+    badge: null,
+    items: [
+      'Absorbability™ score',
+      'Recoverability™ score',
+      'Learning Velocity™ score',
+      'Trust Stability™ score',
+      'Decision Continuity™ score',
+      'RC™ Composite Score (0–100)',
+      'Resilience Debt™ assessment',
+      'PDF export',
+    ],
+    checkColor: 'text-emerald-500',
   },
   {
     icon: '🤖',
@@ -26,6 +60,18 @@ const REPORTS = [
     cta: 'Generate Report →',
     href: '/reports/ai-governance',
     color: 'blue',
+    badge: null,
+    items: [
+      'AI Governance Score™ (0–100)',
+      'Agent Visibility Governance™',
+      'AI Absorbability™',
+      'Trust Infrastructure™',
+      'Decision Continuity™',
+      'AI Incident Debt™ assessment',
+      'Board-ready summary',
+      'PDF export',
+    ],
+    checkColor: 'text-blue-500',
   },
 ];
 
@@ -54,12 +100,17 @@ export default function ReportsPage() {
       {/* Report Cards */}
       <section className="section py-16">
         <div className="section-inner">
-          <div className="mx-auto max-w-4xl grid gap-8 sm:grid-cols-2">
+          <div className="mx-auto max-w-5xl grid gap-8 sm:grid-cols-3">
             {REPORTS.map((report) => (
               <div
                 key={report.name}
-                className="card flex flex-col p-8 hover:shadow-md transition-shadow"
+                className="card flex flex-col p-8 hover:shadow-md transition-shadow relative"
               >
+                {report.badge && (
+                  <span className="absolute top-4 right-4 text-xs font-bold bg-orange-100 text-orange-700 border border-orange-200 px-2 py-0.5 rounded-full">
+                    {report.badge}
+                  </span>
+                )}
                 <div className="text-4xl mb-4">{report.icon}</div>
                 <p
                   className="text-xs font-semibold uppercase tracking-widest mb-2"
@@ -72,43 +123,12 @@ export default function ReportsPage() {
 
                 {/* What's included */}
                 <div className="mt-5 space-y-1.5">
-                  {report.name === 'Resilience Capacity Report™' ? (
-                    <>
-                      {[
-                        'Absorbability™ score',
-                        'Recoverability™ score',
-                        'Learning Velocity™ score',
-                        'Trust Stability™ score',
-                        'Decision Continuity™ score',
-                        'RC™ Composite Score (0–100)',
-                        'Resilience Debt™ assessment',
-                        'PDF export',
-                      ].map((item) => (
-                        <div key={item} className="flex items-center gap-2 text-sm text-slate-600">
-                          <span className="text-emerald-500">✓</span>
-                          {item}
-                        </div>
-                      ))}
-                    </>
-                  ) : (
-                    <>
-                      {[
-                        'AI Governance Score™ (0–100)',
-                        'Agent Visibility Governance™',
-                        'AI Absorbability™',
-                        'Trust Infrastructure™',
-                        'Decision Continuity™',
-                        'AI Incident Debt™ assessment',
-                        'Board-ready summary',
-                        'PDF export',
-                      ].map((item) => (
-                        <div key={item} className="flex items-center gap-2 text-sm text-slate-600">
-                          <span className="text-blue-500">✓</span>
-                          {item}
-                        </div>
-                      ))}
-                    </>
-                  )}
+                  {report.items.map((item) => (
+                    <div key={item} className="flex items-center gap-2 text-sm text-slate-600">
+                      <span className={`${report.checkColor} font-bold`}>✓</span>
+                      {item}
+                    </div>
+                  ))}
                 </div>
 
                 <Link
@@ -123,8 +143,29 @@ export default function ReportsPage() {
         </div>
       </section>
 
+      {/* Transformation Factory CTA */}
+      <section className="section py-12 bg-slate-900">
+        <div className="section-inner text-center">
+          <p className="text-xs font-semibold uppercase tracking-widest text-orange-400 mb-3">
+            TRANSFORMATION FACTORY™
+          </p>
+          <h2 className="text-2xl font-bold text-white mb-3" style={{ fontFamily: 'Georgia, serif' }}>
+            Want the full suite?
+          </h2>
+          <p className="text-slate-400 text-sm mb-6 max-w-md mx-auto">
+            Pilot Debt Analyzer™, AI Deployment Blueprint™, Portfolio Optimizer™, and more — coming soon.
+          </p>
+          <Link
+            href="/transformation-factory"
+            className="inline-flex items-center gap-2 rounded-xl bg-orange-500 px-8 py-4 text-sm font-bold text-white hover:bg-orange-600 transition-colors"
+          >
+            Explore Transformation Factory™ →
+          </Link>
+        </div>
+      </section>
+
       {/* Footer note */}
-      <section className="section pb-16">
+      <section className="section py-12">
         <div className="section-inner text-center">
           <p className="text-xs text-slate-400 max-w-xl mx-auto">
             All reports are generated by The Lens™ intelligence engine using publicly available

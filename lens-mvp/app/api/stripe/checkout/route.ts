@@ -1,16 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
-type Tier = 'single' | 'pro' | 'enterprise' | 'resilience' | 'ai_governance';
+type Tier = 'single' | 'pro' | 'enterprise' | 'resilience' | 'ai_governance' | 'deployment_readiness';
 
 // Live Stripe Price IDs — prefer env vars, fall back to hardcoded live IDs
 // resilience and ai_governance use the same $95 single price
 const PRICE_FALLBACKS: Record<Tier, string> = {
-  single:       'price_1TlNJJRDk2X11H6s6jzMTCfh',
-  pro:          'price_1TlNJJRDk2X11H6sAJWwy6hI',
-  enterprise:   'price_1TlNJIRDk2X11H6sZXP4XeMX',
-  resilience:   'price_1TlNJJRDk2X11H6s6jzMTCfh', // $95 same as single
-  ai_governance:'price_1TlNJJRDk2X11H6s6jzMTCfh', // $95 same as single
+  single:              'price_1TlNJJRDk2X11H6s6jzMTCfh',
+  pro:                 'price_1TlNJJRDk2X11H6sAJWwy6hI',
+  enterprise:          'price_1TlNJIRDk2X11H6sZXP4XeMX',
+  resilience:          'price_1TlNJJRDk2X11H6s6jzMTCfh', // $95 same as single
+  ai_governance:       'price_1TlNJJRDk2X11H6s6jzMTCfh', // $95 same as single
+  deployment_readiness:'price_1TlNJJRDk2X11H6s6jzMTCfh', // $95 same as single
 };
 
 /**
@@ -25,7 +26,8 @@ function getPriceId(tier: Tier): string {
   switch (tier) {
     case 'single':
     case 'resilience':
-    case 'ai_governance': {
+    case 'ai_governance':
+    case 'deployment_readiness': {
       const envVal = process.env.STRIPE_PRICE_SINGLE;
       return isValidPriceId(envVal) ? envVal : PRICE_FALLBACKS.single;
     }
@@ -45,11 +47,12 @@ function getPriceId(tier: Tier): string {
 }
 
 const PRODUCT_LABELS: Record<Tier, string> = {
-  single:        'Transformation Intelligence Report™',
-  pro:           'Lens Pro — 50 Reports',
-  enterprise:    'Lens Enterprise — Unlimited',
-  resilience:    'Resilience Capacity Report™',
-  ai_governance: 'AI Governance Report™',
+  single:               'Transformation Intelligence Report™',
+  pro:                  'Lens Pro — 50 Reports',
+  enterprise:           'Lens Enterprise — Unlimited',
+  resilience:           'Resilience Capacity Report™',
+  ai_governance:        'AI Governance Report™',
+  deployment_readiness: 'AI Deployment Readiness Assessment™',
 };
 
 export async function POST(req: NextRequest) {
@@ -59,7 +62,7 @@ export async function POST(req: NextRequest) {
       company,
       ticker,
       reportId,
-      tier = 'single',
+      tier = 'single' as Tier,
       successUrl,
       cancelUrl,
     } = await req.json() as {

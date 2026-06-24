@@ -610,7 +610,26 @@ export default async function LensDetailPage({ params, searchParams }: { params:
       <section className="card mt-6 p-6">
         <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3">Additional Reports</p>
         <h2 className="text-lg font-bold mb-4">Go deeper on {item.name}</h2>
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-3">
+          {/* AI Deployment Readiness Assessment */}
+          <div className="rounded-xl border border-slate-200 bg-slate-50 p-5 flex flex-col">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-2xl">📋</span>
+              <p className="font-semibold text-sm text-slate-800">AI Deployment Readiness™</p>
+            </div>
+            <p className="text-xs text-slate-500 leading-5 flex-1 mb-4">
+              Deployment Capacity Index™ across 6 dimensions. Identify your primary bottleneck and Pilot Debt™ level.
+            </p>
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-bold text-slate-700">$95</span>
+              <Link
+                href={`/reports/deployment-readiness?ticker=${encodeURIComponent(item.ticker ?? '')}&company=${encodeURIComponent(item.name)}`}
+                className="inline-flex items-center gap-1 rounded-lg border border-orange-300 bg-orange-50 px-3 py-1.5 text-xs font-semibold text-orange-700 hover:bg-orange-100 transition-colors"
+              >
+                Assess →
+              </Link>
+            </div>
+          </div>
           {/* Resilience Capacity Report */}
           <div className="rounded-xl border border-slate-200 bg-slate-50 p-5 flex flex-col">
             <div className="flex items-center gap-2 mb-2">
