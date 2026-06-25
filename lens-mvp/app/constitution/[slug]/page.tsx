@@ -125,6 +125,12 @@ export default function PrinciplePage() {
                   Constitution of Transformation Intelligence™
                 </dd>
               </div>
+              {principle.oid && (
+                <div className="col-span-2 sm:col-span-3">
+                  <dt className="text-slate-500">OID</dt>
+                  <dd className="select-all font-mono text-xs text-slate-400">{principle.oid}</dd>
+                </div>
+              )}
             </dl>
           </div>
         </section>

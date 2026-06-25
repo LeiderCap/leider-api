@@ -639,6 +639,138 @@ export default async function LensDetailPage({ params, searchParams }: { params:
         </section>
       )}
 
+
+      {/* ── 10b. Intermediary Systems Analysis™ ─────────────────────────────── */}
+      {item.intermediary_systems_analysis && (
+        <section className="card mt-6 p-6">
+          <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-1" style={{ color: '#E05A00' }}>Intermediary Systems Analysis™</p>
+          <h2 className="mt-1 text-lg font-bold mb-4">Intermediary Systems Analysis™</h2>
+
+          {/* Transformation Conversion Stack */}
+          {item.intermediary_systems_analysis.transformation_conversion_stack && (
+            <div className="mb-6">
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400 mb-3">Transformation Conversion Stack™</p>
+              <div className="flex flex-col items-start gap-1">
+                {/* TCS */}
+                <div className="flex items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 w-full max-w-xs">
+                  <span className="text-lg font-bold" style={{ color: '#E05A00' }}>
+                    {item.intermediary_systems_analysis.transformation_conversion_stack.transformation_capacity ?? item.tcs_numeric ?? '—'}
+                  </span>
+                  <span className="text-sm font-medium text-slate-700">Transformation Capacity™</span>
+                </div>
+                <div className="ml-6 text-slate-300 text-lg font-bold">↓</div>
+                {/* ISE */}
+                <div className="flex items-center gap-3 rounded-lg border-2 border-dashed border-orange-300 bg-orange-50 px-4 py-2.5 w-full max-w-xs">
+                  <span className="text-lg font-bold" style={{ color: '#E05A00' }}>
+                    {item.intermediary_systems_analysis.transformation_conversion_stack.intermediary_system_efficiency ?? '—'}
+                  </span>
+                  <span className="text-sm font-medium text-slate-700">Intermediary System Efficiency™</span>
+                </div>
+                <div className="ml-6 text-slate-300 text-lg font-bold">↓</div>
+                {/* TE */}
+                <div className="flex items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 w-full max-w-xs">
+                  <span className="text-lg font-bold text-slate-400">≈</span>
+                  <span className="text-sm font-medium text-slate-700">Transformation Efficiency™</span>
+                </div>
+                <div className="ml-6 text-slate-300 text-lg font-bold">↓</div>
+                {/* EV */}
+                <div className="flex items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 w-full max-w-xs">
+                  <span className="text-lg font-bold text-slate-400">▲</span>
+                  <span className="text-sm font-medium text-slate-700">Enterprise Value</span>
+                </div>
+              </div>
+              {item.intermediary_systems_analysis.transformation_conversion_stack.narrative && (
+                <p className="mt-3 text-xs italic text-slate-500">{item.intermediary_systems_analysis.transformation_conversion_stack.narrative}</p>
+              )}
+            </div>
+          )}
+
+          <div className="flex flex-col gap-4">
+            {/* Block 1 — Primary Intermediary System */}
+            {item.intermediary_systems_analysis.primary_intermediary_system && (
+              <div className="rounded-xl border-l-4 border-blue-400 bg-blue-50 p-5">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-blue-600 mb-1">Primary Intermediary System</p>
+                {item.intermediary_systems_analysis.primary_intermediary_system.name && (
+                  <p className="text-sm font-bold text-slate-800 mb-2">{item.intermediary_systems_analysis.primary_intermediary_system.name}</p>
+                )}
+                {item.intermediary_systems_analysis.primary_intermediary_system.description && (
+                  <p className="text-sm leading-7 text-slate-700">{item.intermediary_systems_analysis.primary_intermediary_system.description}</p>
+                )}
+                {item.intermediary_systems_analysis.primary_intermediary_system.ise_score != null && (
+                  <div className="mt-3 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-bold"
+                    style={{
+                      backgroundColor:
+                        (item.intermediary_systems_analysis.primary_intermediary_system.ise_score ?? 0) >= 90 ? '#dcfce7' :
+                        (item.intermediary_systems_analysis.primary_intermediary_system.ise_score ?? 0) >= 75 ? '#ccfbf1' :
+                        (item.intermediary_systems_analysis.primary_intermediary_system.ise_score ?? 0) >= 60 ? '#fef9c3' :
+                        (item.intermediary_systems_analysis.primary_intermediary_system.ise_score ?? 0) >= 40 ? '#ffedd5' : '#fee2e2',
+                      color:
+                        (item.intermediary_systems_analysis.primary_intermediary_system.ise_score ?? 0) >= 90 ? '#166534' :
+                        (item.intermediary_systems_analysis.primary_intermediary_system.ise_score ?? 0) >= 75 ? '#0f766e' :
+                        (item.intermediary_systems_analysis.primary_intermediary_system.ise_score ?? 0) >= 60 ? '#854d0e' :
+                        (item.intermediary_systems_analysis.primary_intermediary_system.ise_score ?? 0) >= 40 ? '#9a3412' : '#991b1b',
+                    }}
+                  >
+                    ISE™ {item.intermediary_systems_analysis.primary_intermediary_system.ise_score}
+                    {item.intermediary_systems_analysis.primary_intermediary_system.ise_label && (
+                      <span className="font-normal">&nbsp;— {item.intermediary_systems_analysis.primary_intermediary_system.ise_label}</span>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Block 2 — Primary Friction Source */}
+            {item.intermediary_systems_analysis.primary_friction_source && (
+              <div className="rounded-xl border-l-4 border-amber-400 bg-amber-50 p-5">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-amber-600 mb-1">Primary Friction Source</p>
+                {item.intermediary_systems_analysis.primary_friction_source.category && (
+                  <span className="inline-block rounded-full px-3 py-0.5 text-xs font-bold mb-2" style={{ backgroundColor: '#fff7ed', color: '#9a3412', border: '1px solid #fed7aa' }}>
+                    {item.intermediary_systems_analysis.primary_friction_source.category}
+                  </span>
+                )}
+                {item.intermediary_systems_analysis.primary_friction_source.description && (
+                  <p className="text-sm leading-7 text-slate-700">{item.intermediary_systems_analysis.primary_friction_source.description}</p>
+                )}
+              </div>
+            )}
+
+            {/* Block 3 — Highest Leverage Improvement */}
+            {item.intermediary_systems_analysis.highest_leverage_improvement && (
+              <div className="rounded-xl border-l-4 border-emerald-400 bg-emerald-50 p-5">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-600 mb-1">Highest Leverage Improvement</p>
+                {item.intermediary_systems_analysis.highest_leverage_improvement.action && (
+                  <p className="text-sm font-bold text-slate-800 mb-2">{item.intermediary_systems_analysis.highest_leverage_improvement.action}</p>
+                )}
+                {item.intermediary_systems_analysis.highest_leverage_improvement.rationale && (
+                  <p className="text-sm italic text-slate-600">{item.intermediary_systems_analysis.highest_leverage_improvement.rationale}</p>
+                )}
+                {item.intermediary_systems_analysis.highest_leverage_improvement.estimated_ise_improvement && (
+                  <p className="mt-2 text-xs font-semibold text-emerald-700">
+                    Estimated ISE™ improvement: {item.intermediary_systems_analysis.highest_leverage_improvement.estimated_ise_improvement}
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Enterprise Value Implication */}
+          {item.intermediary_systems_analysis.enterprise_value_implication && (
+            <div className="mt-4 rounded-xl bg-slate-50 border border-slate-200 p-4">
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400 mb-1">Enterprise Value Implication</p>
+              <p className="text-sm leading-7 text-slate-700">{item.intermediary_systems_analysis.enterprise_value_implication}</p>
+            </div>
+          )}
+
+          {/* Section footer */}
+          <p className="mt-4 text-xs text-slate-400">
+            Intermediary Systems Analysis™ is powered by{' '}
+            <Link href="/constitution/ti-008" className="underline hover:text-slate-600">TI-008</Link>{' '}and{' '}
+            <Link href="/constitution/ti-009" className="underline hover:text-slate-600">TI-009</Link>{' '}of the Transformation Intelligence™ Constitution.
+          </p>
+        </section>
+      )}
+
       {/* ── 10. Blueprint™ CTA ────────────────────────────────────────────── */}
       <section className="card mt-6 p-6 bg-slate-50">
         <div className="flex flex-wrap items-center justify-between gap-4">

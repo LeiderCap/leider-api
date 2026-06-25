@@ -132,4 +132,27 @@ export interface LensSnapshot {
       supporting_mechanisms?: string[] | null;
     } | null;
   } | null;
+  intermediary_systems_analysis?: {
+    primary_intermediary_system?: {
+      name?: string | null;
+      description?: string | null;
+      ise_score?: number | null;
+      ise_label?: string | null;
+    } | null;
+    primary_friction_source?: {
+      category?: string | null;
+      description?: string | null;
+    } | null;
+    highest_leverage_improvement?: {
+      action?: string | null;
+      rationale?: string | null;
+      estimated_ise_improvement?: string | null;
+    } | null;
+    enterprise_value_implication?: string | null;
+    transformation_conversion_stack?: {
+      transformation_capacity?: number | null;
+      intermediary_system_efficiency?: number | null;
+      narrative?: string | null;
+    } | null;
+  } | null;
 }

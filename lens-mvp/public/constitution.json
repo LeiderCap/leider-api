@@ -8,7 +8,8 @@
     "publisher": "Leider Capital",
     "canonical": "https://lensanalysis.com/constitution",
     "totalPrinciples": 56,
-    "categories": 9
+    "categories": 9,
+    "total": 62
   },
   "copyright": "© 2026 Leider Capital. All Rights Reserved.",
   "license": "All principles, frameworks, named methodologies, and Transformation Intelligence™ identifiers are proprietary to Leider Capital and Stephen F. Leider. Attribution required for any reference, citation, or reproduction.",
@@ -771,6 +772,69 @@
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
       "url": "https://lensanalysis.com/constitution/ti-007"
+    },
+    {
+      "id": "TI-008",
+      "slug": "ti-008",
+      "name": "Intermediary Systems Principle™ (ISP™)",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-24",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "oid": "OID-2026-TI-ISP-001",
+      "principle": "Every intervention produces outcomes through one or more intermediary systems. The effectiveness of any intervention is therefore constrained by the condition, capacity, and efficiency of the intermediary systems through which it must operate.",
+      "definition": "An Intermediary System is any biological, organizational, technological, financial, institutional, environmental, or social system that mediates the relationship between an intervention and its resulting outcome. Interventions do not act directly upon outcomes — they alter intermediary systems whose state determines the probability, magnitude, and durability of the resulting transformation.",
+      "operatingLaw": "Outcome = Intervention × Intermediary System × Environmental Conditions. Organizations frequently optimize interventions while neglecting the intermediary systems responsible for converting those interventions into value. This inversion creates diminishing returns, execution failure, and unrealized potential.",
+      "implications": [
+        "Every outcome has an intermediary. Every intervention changes a system before it changes a result.",
+        "The quality of outcomes is constrained by the quality of intermediary systems. System quality compounds across every future intervention.",
+        "Transformation is recursive — every outcome modifies the intermediary system that influences subsequent interventions.",
+        "Organizations should optimize intermediary systems before scaling interventions. Capital should be allocated toward systemic capability rather than isolated initiatives.",
+        "Universal Architecture: Intervention → Intermediary System → Outcome → Learning → System Improvement → Higher Future Outcomes.",
+        "Every Lens Analysis™ shall identify the intermediary systems constraining value realization."
+      ],
+      "relatedIds": [
+        "TI-001",
+        "TI-004",
+        "TI-009",
+        "TI-103",
+        "TI-701",
+        "TI-801"
+      ]
+    },
+    {
+      "id": "TI-009",
+      "slug": "ti-009",
+      "name": "Intermediary System Efficiency™ (ISE™)",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-24",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "oid": "OID-2026-TI-ISE-001",
+      "principle": "Intermediary System Efficiency™ measures the effectiveness with which an intermediary system converts interventions into intended outcomes. It is the universal measure of conversion efficiency across biological, organizational, technological, financial, and institutional systems.",
+      "definition": "ISE™ quantifies the proportion of expected value successfully expressed by an intermediary system after an intervention has occurred. Primary Equation: ISE = Realized Outcome ÷ Expected Outcome Given Intervention. Operational Equation: Outcome = Intervention × ISE × Environmental Modifier.",
+      "operatingLaw": "Interventions create possibility. Intermediary systems determine probability. Efficiency determines realization. The Transformation Conversion Stack™: Transformation Capacity™ → Intermediary System Efficiency™ → Transformation Efficiency™ → Enterprise Value.",
+      "implications": [
+        "ISE™ Interpretation: 90-100 Exceptional systemic efficiency. 75-89 Healthy, minor friction. 60-74 Moderate inefficiency. 40-59 Significant systemic constraint. Below 40 Structural dysfunction requiring redesign.",
+        "Organizational sources of inefficiency: leadership misalignment, decision latency, governance debt, knowledge fragmentation, low trust, organizational memory loss, incentive misalignment.",
+        "Technology sources: poor integration, low adoption, data fragmentation, weak explainability, security constraints.",
+        "Transformation Capacity™ answers: Can the system absorb change? ISE™ answers: How efficiently does the system convert change into outcomes? Transformation Efficiency™ answers: How much potential value was ultimately realized?",
+        "Every Lens Analysis™ should identify primary intermediary systems, estimate ISE™ for each, identify friction sources, and project enterprise value unlocked through systemic optimization."
+      ],
+      "relatedIds": [
+        "TI-008",
+        "TI-004",
+        "TI-103",
+        "TI-006",
+        "TI-901",
+        "TI-007"
+      ]
     },
     {
       "id": "TI-901",

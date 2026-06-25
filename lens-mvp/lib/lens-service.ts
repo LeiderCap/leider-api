@@ -140,6 +140,8 @@ function mapDbToSnapshot(row: any): LensSnapshot {
     unlock_high: score?.unlock_high ?? null,
     // v3.1 Expression Gap Analysis™
     expression_gap_analysis: score?.expression_gap_analysis ?? null,
+    // v3.2 Intermediary Systems Analysis™
+    intermediary_systems_analysis: score?.intermediary_systems_analysis ?? null,
     updated_at: score?.updated_at ?? row.created_at
   };
 }
@@ -294,6 +296,8 @@ export async function saveLensSnapshot(snapshot: LensSnapshot) {
 
     // v3.1 Expression Gap Analysis™
     expression_gap_analysis: snapshot.expression_gap_analysis ?? null,
+    // v3.2 Intermediary Systems Analysis™
+    intermediary_systems_analysis: snapshot.intermediary_systems_analysis ?? null,
 
     updated_at: new Date().toISOString()
   });

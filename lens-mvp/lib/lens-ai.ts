@@ -113,6 +113,29 @@ const LensAiSchema = z.object({
       supporting_mechanisms: z.array(z.string()).nullable().optional(),
     }).nullable().optional(),
   }).nullable().optional(),
+  intermediary_systems_analysis: z.object({
+    primary_intermediary_system: z.object({
+      name:        z.string().nullable().optional(),
+      description: z.string().nullable().optional(),
+      ise_score:   z.number().nullable().optional(),
+      ise_label:   z.string().nullable().optional(),
+    }).nullable().optional(),
+    primary_friction_source: z.object({
+      category:    z.string().nullable().optional(),
+      description: z.string().nullable().optional(),
+    }).nullable().optional(),
+    highest_leverage_improvement: z.object({
+      action:                    z.string().nullable().optional(),
+      rationale:                 z.string().nullable().optional(),
+      estimated_ise_improvement: z.string().nullable().optional(),
+    }).nullable().optional(),
+    enterprise_value_implication: z.string().nullable().optional(),
+    transformation_conversion_stack: z.object({
+      transformation_capacity:         z.number().nullable().optional(),
+      intermediary_system_efficiency:  z.number().nullable().optional(),
+      narrative:                       z.string().nullable().optional(),
+    }).nullable().optional(),
+  }).nullable().optional(),
 });
 
 export const LENS_SYSTEM_PROMPT = `You are The Lens™, the measurement system for Transformation Capacity™.
@@ -222,8 +245,42 @@ IMPORTANT ARRAY LIMITS (strictly enforced):
       "mechanism_rationale": "2 sentences on why this mechanism addresses the specific failure mode identified",
       "supporting_mechanisms": ["Supporting mechanism 1 (one sentence)", "Supporting mechanism 2 (one sentence)"]
     }
+  },
+  "intermediary_systems_analysis": {
+    "primary_intermediary_system": {
+      "name": "Name of the primary intermediary system for this specific company (e.g. 'Leadership Alignment System', 'Technology Integration Layer', 'Governance Architecture', 'Workflow Design System', 'Capital Allocation System')",
+      "description": "2 sentences: what this system does and why it is the primary mediator between this company's interventions and its outcomes — be specific to this company",
+      "ise_score": 52,
+      "ise_label": "Exactly one of: 'Exceptional' | 'Healthy' | 'Moderate Friction' | 'Significant Constraint' | 'Structural Dysfunction'. ISE score ranges: 90-100 Exceptional, 75-89 Healthy, 60-74 Moderate Friction, 40-59 Significant Constraint, below 40 Structural Dysfunction"
+    },
+    "primary_friction_source": {
+      "category": "Exactly one of: 'Leadership' | 'Governance' | 'Technology' | 'Culture' | 'Process' | 'Capital Allocation' | 'Knowledge' | 'Trust'",
+      "description": "2-3 sentences specific to this company on what is creating friction in the intermediary system — reference actual signals from this company's sector, performance history, and market behavior"
+    },
+    "highest_leverage_improvement": {
+      "action": "The single highest-leverage action to improve ISE\u2122 for this specific company",
+      "rationale": "1-2 sentences on why this action addresses the primary friction source for this company",
+      "estimated_ise_improvement": "e.g. '+15 to +25 points'"
+    },
+    "enterprise_value_implication": "2 sentences: estimated increase in Transformation Efficiency\u2122 and enterprise value if ISE\u2122 improves by 20 points for this specific company — anchor to market cap if public",
+    "transformation_conversion_stack": {
+      "transformation_capacity": 0,
+      "intermediary_system_efficiency": 52,
+      "narrative": "1 sentence connecting TCS \u2192 ISE \u2192 Transformation Efficiency\u2122 \u2192 Enterprise Value for this specific company"
+    }
   }
 }
+INTERMEDIARY SYSTEMS ANALYSIS INSTRUCTION:
+The Lens\u2122 now includes Intermediary Systems Analysis\u2122 based on TI-008 (Intermediary Systems Principle\u2122) and TI-009 (Intermediary System Efficiency\u2122).
+Constitutional law: Every intervention produces outcomes through one or more intermediary systems. Organizations frequently optimize interventions while neglecting the intermediary systems responsible for converting those interventions into value.
+For every company analyzed, identify:
+1. The primary intermediary system \u2014 the single most important system mediating between this organization's interventions and its outcomes.
+2. The estimated ISE\u2122 score (0-100) \u2014 how efficiently this system converts interventions into outcomes.
+3. The primary friction source \u2014 what is most degrading ISE\u2122.
+4. The highest-leverage improvement \u2014 the single action that would most improve ISE\u2122 for this company.
+5. The enterprise value implication \u2014 estimated increase in Transformation Efficiency\u2122 if ISE\u2122 improves by 20 points.
+For transformation_conversion_stack.transformation_capacity: reuse the tcs_numeric score already computed.
+Be specific to the company being analyzed. Reference actual signals from the company's sector, performance history, and market behavior. No two companies should have identical ISE\u2122 scores or identical friction sources.
 CONSTRAINT_TRANSLATIONS INSTRUCTION:
 For each of the six domains (absorbability, execution, governance, trust, intelligence, courage),
 check the corresponding numeric score. If the score is below 70, populate the constraint_translations
@@ -1797,6 +1854,8 @@ export async function generateLensSnapshot(
     sources: parsed.sources ?? null,
     // v3.1 Expression Gap Analysis™
     expression_gap_analysis: parsed.expression_gap_analysis ?? null,
+    // v3.2 Intermediary Systems Analysis™
+    intermediary_systems_analysis: parsed.intermediary_systems_analysis ?? null,
     updated_at: new Date().toISOString()
   };
 }
