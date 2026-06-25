@@ -132,6 +132,50 @@ export interface LensSnapshot {
       supporting_mechanisms?: string[] | null;
     } | null;
   } | null;
+  // v4.0 Evidence Architecture™ + Truth Engine™ metadata
+  evidence_architecture?: {
+    absorbability?: {
+      evidence?: Array<{ claim: string; sourceTitle: string; sourceType: string; confidence: number; groundTruthSupported: boolean }> | null;
+      inferenceCount?: number | null;
+      evidenceCount?: number | null;
+      dimensionConfidence?: number | null;
+    } | null;
+    governance?: {
+      evidence?: Array<{ claim: string; sourceTitle: string; sourceType: string; confidence: number; groundTruthSupported: boolean }> | null;
+      inferenceCount?: number | null;
+      evidenceCount?: number | null;
+      dimensionConfidence?: number | null;
+    } | null;
+    execution?: {
+      evidence?: Array<{ claim: string; sourceTitle: string; sourceType: string; confidence: number; groundTruthSupported: boolean }> | null;
+      inferenceCount?: number | null;
+      evidenceCount?: number | null;
+      dimensionConfidence?: number | null;
+    } | null;
+    trust?: {
+      evidence?: Array<{ claim: string; sourceTitle: string; sourceType: string; confidence: number; groundTruthSupported: boolean }> | null;
+      inferenceCount?: number | null;
+      evidenceCount?: number | null;
+      dimensionConfidence?: number | null;
+    } | null;
+    courage?: {
+      evidence?: Array<{ claim: string; sourceTitle: string; sourceType: string; confidence: number; groundTruthSupported: boolean }> | null;
+      inferenceCount?: number | null;
+      evidenceCount?: number | null;
+      dimensionConfidence?: number | null;
+    } | null;
+    intelligence?: {
+      evidence?: Array<{ claim: string; sourceTitle: string; sourceType: string; confidence: number; groundTruthSupported: boolean }> | null;
+      inferenceCount?: number | null;
+      evidenceCount?: number | null;
+      dimensionConfidence?: number | null;
+    } | null;
+  } | null;
+  groundTruthId?: string | null;
+  lensVersion?: string | null;
+  truthEngineVersion?: string | null;
+  analysisGeneratedAt?: string | null;
+
   intermediary_systems_analysis?: {
     primary_intermediary_system?: {
       name?: string | null;

@@ -113,6 +113,82 @@ const LensAiSchema = z.object({
       supporting_mechanisms: z.array(z.string()).nullable().optional(),
     }).nullable().optional(),
   }).nullable().optional(),
+  // v4.0 Evidence Architecture™ — per-dimension evidence for TCS scorecard
+  evidence_architecture: z.object({
+    absorbability: z.object({
+      evidence: z.array(z.object({
+        claim: z.string(),
+        sourceTitle: z.string(),
+        sourceType: z.string(),
+        confidence: z.number().min(0).max(1),
+        groundTruthSupported: z.boolean(),
+      })).nullable().optional(),
+      inferenceCount: z.number().nullable().optional(),
+      evidenceCount: z.number().nullable().optional(),
+      dimensionConfidence: z.number().min(0).max(1).nullable().optional(),
+    }).nullable().optional(),
+    governance: z.object({
+      evidence: z.array(z.object({
+        claim: z.string(),
+        sourceTitle: z.string(),
+        sourceType: z.string(),
+        confidence: z.number().min(0).max(1),
+        groundTruthSupported: z.boolean(),
+      })).nullable().optional(),
+      inferenceCount: z.number().nullable().optional(),
+      evidenceCount: z.number().nullable().optional(),
+      dimensionConfidence: z.number().min(0).max(1).nullable().optional(),
+    }).nullable().optional(),
+    execution: z.object({
+      evidence: z.array(z.object({
+        claim: z.string(),
+        sourceTitle: z.string(),
+        sourceType: z.string(),
+        confidence: z.number().min(0).max(1),
+        groundTruthSupported: z.boolean(),
+      })).nullable().optional(),
+      inferenceCount: z.number().nullable().optional(),
+      evidenceCount: z.number().nullable().optional(),
+      dimensionConfidence: z.number().min(0).max(1).nullable().optional(),
+    }).nullable().optional(),
+    trust: z.object({
+      evidence: z.array(z.object({
+        claim: z.string(),
+        sourceTitle: z.string(),
+        sourceType: z.string(),
+        confidence: z.number().min(0).max(1),
+        groundTruthSupported: z.boolean(),
+      })).nullable().optional(),
+      inferenceCount: z.number().nullable().optional(),
+      evidenceCount: z.number().nullable().optional(),
+      dimensionConfidence: z.number().min(0).max(1).nullable().optional(),
+    }).nullable().optional(),
+    courage: z.object({
+      evidence: z.array(z.object({
+        claim: z.string(),
+        sourceTitle: z.string(),
+        sourceType: z.string(),
+        confidence: z.number().min(0).max(1),
+        groundTruthSupported: z.boolean(),
+      })).nullable().optional(),
+      inferenceCount: z.number().nullable().optional(),
+      evidenceCount: z.number().nullable().optional(),
+      dimensionConfidence: z.number().min(0).max(1).nullable().optional(),
+    }).nullable().optional(),
+    intelligence: z.object({
+      evidence: z.array(z.object({
+        claim: z.string(),
+        sourceTitle: z.string(),
+        sourceType: z.string(),
+        confidence: z.number().min(0).max(1),
+        groundTruthSupported: z.boolean(),
+      })).nullable().optional(),
+      inferenceCount: z.number().nullable().optional(),
+      evidenceCount: z.number().nullable().optional(),
+      dimensionConfidence: z.number().min(0).max(1).nullable().optional(),
+    }).nullable().optional(),
+  }).nullable().optional(),
+
   intermediary_systems_analysis: z.object({
     primary_intermediary_system: z.object({
       name:        z.string().nullable().optional(),
@@ -138,7 +214,28 @@ const LensAiSchema = z.object({
   }).nullable().optional(),
 });
 
-export const LENS_SYSTEM_PROMPT = `You are The Lens™, the measurement system for Transformation Capacity™.
+export const LENS_SYSTEM_PROMPT = `REASONING BOUNDARY (Constitutional Requirement — Truth Engine™ / TI-015):
+
+This analysis operates within a strict two-layer reasoning model:
+
+LAYER 1 — FACTS (provided in Ground Truth Object™ injected before this prompt):
+These facts have been retrieved from verified source documents and may not be contradicted, modified, or replaced. You must accept them as true.
+
+LAYER 2 — ANALYSIS (your reasoning layer):
+Analysis, interpretation, scoring, mechanism identification, and recommendations MAY extend beyond the verified facts.
+However, analysis must NEVER:
+- Contradict a verified fact
+- Replace a verified fact with a different claim
+- Describe the company as operating in a different industry than verified
+- Invent business lines, products, customers, or markets not present in the Ground Truth Object™
+
+MARKING REQUIREMENT:
+If any claim in your analysis is NOT supported by the Ground Truth Object™, you MUST mark it explicitly as: [INFERENCE]
+This marking is required, not optional. Unmarked claims are assumed to be fact-supported.
+
+---
+
+You are The Lens™, the measurement system for Transformation Capacity™.
 
 Your primary purpose is to measure how effectively an organization, government,
 industry, or individual can convert intelligence into realized outcomes.
@@ -970,6 +1067,28 @@ sources cited. Each source should be an object with "name" (publication/source n
 ]
 
 If no specific sources were found through search, return an empty array for sources: []
+
+---
+
+EVIDENCE ARCHITECTURE™ INSTRUCTION (TI-014 Mechanism Traceability Law™):
+
+For each of the six TCS™ dimensions (absorbability, governance, execution, trust, courage, intelligence),
+provide 2-3 pieces of evidence supporting the score in the evidence_architecture field.
+
+Each evidence item must specify:
+- claim: the specific claim being supported (one sentence)
+- sourceTitle: which retrieved source supports it (use "Ground Truth Object™" if from GT, or source name)
+- sourceType: "ground_truth", "earnings", "news", "filing", "analyst", or "inference"
+- confidence: confidence in this specific evidence item (0.0-1.0)
+- groundTruthSupported: true if this claim is directly supported by the Ground Truth Object™; false if it is an inference
+
+Also provide per-dimension:
+- inferenceCount: how many claims in this dimension are inferences (groundTruthSupported = false)
+- evidenceCount: how many claims are source-supported (groundTruthSupported = true)
+- dimensionConfidence: overall confidence in this dimension's score (0.0-1.0)
+
+IMPORTANT: At least 1 evidence item per dimension must have groundTruthSupported = true for well-sourced companies.
+For any claim that is an inference, set groundTruthSupported = false and sourceType = "inference".
 `;
 
 function extractJson(text: string) {

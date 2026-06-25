@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { createLensSnapshot } from '@/lib/lens-service';
 import { getSupabaseClient } from '@/lib/supabase';
+import { buildGroundTruthPromptContext } from '@/lib/lens/ground-truth';
+import type { GroundTruth } from '@/lib/lens/ground-truth';
 
 export const maxDuration = 60;
 
@@ -64,6 +66,7 @@ export async function POST(request: Request) {
 
     let retrievalResult: any = null;
     let identityResult: any = null;
+    let groundTruthObject: GroundTruth | null = null;
     let groundTruth: string | undefined;
 
     if (looksLikeTicker) {
@@ -118,9 +121,30 @@ export async function POST(request: Request) {
         });
       }
 
-      // ── Step 4: Build ground truth if PASS or NEEDS_REVIEW ───────────────
+      // ── Step 4: Assemble Ground Truth Object™ if PASS or NEEDS_REVIEW ─────
       if (identityResult?.identityCard) {
-        groundTruth = buildGroundTruthContext(identityResult.identityCard);
+        try {
+          const gtRes = await fetch(`${baseUrl}/api/lens/ground-truth`, {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              ticker,
+              companyName,
+              retrievalResult,
+              identityCard: identityResult.identityCard,
+            }),
+          });
+          if (gtRes.ok) {
+            const gtData = await gtRes.json();
+            groundTruthObject = gtData.groundTruth ?? null;
+            groundTruth = gtData.promptContext ?? buildGroundTruthContext(identityResult.identityCard);
+          } else {
+            groundTruth = buildGroundTruthContext(identityResult.identityCard);
+          }
+        } catch (err) {
+          console.warn('[lens/route] GT assembly failed (non-fatal):', err);
+          groundTruth = buildGroundTruthContext(identityResult.identityCard);
+        }
       }
     }
 
@@ -139,6 +163,8 @@ export async function POST(request: Request) {
       identityCard: identityResult?.identityCard ?? null,
       identityStatus: identityResult?.identityCard?.identity_status ?? null,
       retrievedDocuments: retrievalResult?.retrievedDocuments ?? [],
+      groundTruthId: groundTruthObject?.groundTruthId ?? null,
+      groundTruthObject: debug ? groundTruthObject : undefined,
       groundTruth: debug ? groundTruth : undefined,
     });
   } catch (error) {

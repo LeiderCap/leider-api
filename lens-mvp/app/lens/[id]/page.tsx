@@ -315,11 +315,45 @@ export default async function LensDetailPage({ params, searchParams }: { params:
 
           {/* Ground Truth Lock */}
           {groundTruthContext && (
-            <div>
+            <div className="mb-5">
               <p className="text-orange-300 font-bold mb-2">Ground Truth Lock™</p>
               <pre className="text-slate-300 text-[10px] overflow-x-auto whitespace-pre-wrap">{groundTruthContext}</pre>
             </div>
           )}
+
+          {/* Evidence Architecture™ */}
+          {item.evidence_architecture && (
+            <div className="mb-5">
+              <p className="text-orange-300 font-bold mb-2">Evidence Architecture™</p>
+              <div className="space-y-2">
+                {(['absorbability', 'governance', 'execution', 'trust', 'courage', 'intelligence'] as const).map((dim) => {
+                  const d = (item.evidence_architecture as any)?.[dim];
+                  if (!d) return null;
+                  return (
+                    <div key={dim} className="border border-slate-700 rounded p-2">
+                      <p className="text-slate-300 font-semibold capitalize mb-1">{dim} — conf: {d.dimensionConfidence != null ? Math.round(d.dimensionConfidence * 100) + '%' : 'N/A'} · {d.evidenceCount ?? 0} verified · {d.inferenceCount ?? 0} inferences</p>
+                      {(d.evidence ?? []).map((ev: any, i: number) => (
+                        <p key={i} className={`text-[10px] ${ev.groundTruthSupported ? 'text-emerald-400' : 'text-amber-400'}`}>
+                          [{ev.groundTruthSupported ? 'GT' : 'INF'}] {ev.claim}
+                        </p>
+                      ))}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Version Metadata */}
+          <div>
+            <p className="text-orange-300 font-bold mb-2">Version Metadata</p>
+            <div className="space-y-1 text-slate-300">
+              <p>lens_version: <span className="text-slate-400">{item.lensVersion ?? 'v4.0'}</span></p>
+              <p>truth_engine_version: <span className="text-slate-400">{item.truthEngineVersion ?? 'v1.0'}</span></p>
+              <p>analysis_generated_at: <span className="text-slate-400">{item.analysisGeneratedAt ?? item.updated_at}</span></p>
+              <p>ground_truth_id: <span className="text-slate-400">{item.groundTruthId ?? 'N/A'}</span></p>
+            </div>
+          </div>
         </div>
       )}
 
@@ -330,7 +364,18 @@ export default async function LensDetailPage({ params, searchParams }: { params:
           <div>
             <h1 className="text-3xl font-bold text-slate-900">{item.name}</h1>
             <p className="mt-1 text-sm font-semibold text-slate-500">Transformation Intelligence Report™</p>
-          <p className="text-xs text-slate-400">What is possible for this company.</p>
+            <p className="text-xs text-slate-400">What is possible for this company.</p>
+            {/* Version metadata block */}
+            <div className="mt-2 flex flex-wrap items-center gap-2">
+              <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-500">Lens v4.0</span>
+              <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-500">Truth Engine™ v1.0</span>
+              {item.groundTruthId && (
+                <span className="rounded-full bg-emerald-50 border border-emerald-200 px-2 py-0.5 text-[10px] font-semibold text-emerald-700">GT•{item.groundTruthId.slice(-8)}</span>
+              )}
+              {item.analysisGeneratedAt && (
+                <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] text-slate-400">{new Date(item.analysisGeneratedAt).toLocaleDateString()}</span>
+              )}
+            </div>
             {item.opportunity_id && <OidBadge oid={item.opportunity_id} />}
           </div>
 
@@ -471,6 +516,7 @@ export default async function LensDetailPage({ params, searchParams }: { params:
           secondaryConstraint={item.secondary_constraint}
           detectedIndustry={item.detected_industry}
           constraintTranslations={item.constraint_translations}
+          evidenceArchitecture={item.evidence_architecture as any}
         />
       </div>
 

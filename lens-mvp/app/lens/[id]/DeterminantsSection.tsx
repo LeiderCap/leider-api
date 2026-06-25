@@ -120,16 +120,85 @@ interface DeterminantItem {
 type ConstraintTranslationKey = 'intelligence' | 'absorbability' | 'trust' | 'governance' | 'courage' | 'execution';
 type ConstraintTranslations = Partial<Record<ConstraintTranslationKey, string | null>> | null;
 
+interface EvidenceItem {
+  claim: string;
+  sourceTitle: string;
+  sourceType: string;
+  confidence: number;
+  groundTruthSupported: boolean;
+}
+
+interface DimensionEvidence {
+  evidence?: EvidenceItem[] | null;
+  inferenceCount?: number | null;
+  evidenceCount?: number | null;
+  dimensionConfidence?: number | null;
+}
+
+type EvidenceArchitecture = Partial<Record<ConstraintTranslationKey, DimensionEvidence | null>> | null;
+
+function EvidenceModal({ title, dimEvidence, onClose }: { title: string; dimEvidence: DimensionEvidence; onClose: () => void }) {
+  const items = dimEvidence.evidence ?? [];
+  const conf = dimEvidence.dimensionConfidence;
+  const confPct = conf != null ? Math.round(conf * 100) : null;
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      style={{ backgroundColor: 'rgba(0,0,0,0.6)' }}
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-md rounded-2xl bg-white p-6 shadow-xl max-h-[80vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          className="absolute right-4 top-4 text-slate-400 hover:text-slate-700 text-xl leading-none"
+          aria-label="Close"
+        >×</button>
+        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">Evidence Architecture™</p>
+        <h3 className="text-base font-bold text-slate-900 mb-1">{title} — Evidence</h3>
+        {confPct != null && (
+          <p className="text-xs text-slate-500 mb-4">Dimension Confidence: <span className="font-semibold text-slate-700">{confPct}%</span> &middot; {dimEvidence.evidenceCount ?? 0} source-supported &middot; {dimEvidence.inferenceCount ?? 0} inferences</p>
+        )}
+        {items.length === 0 ? (
+          <p className="text-sm text-slate-500">No evidence items available for this dimension.</p>
+        ) : (
+          <div className="space-y-3">
+            {items.map((ev, i) => (
+              <div key={i} className={`rounded-lg border p-3 ${ev.groundTruthSupported ? 'border-emerald-200 bg-emerald-50' : 'border-amber-200 bg-amber-50'}`}>
+                <p className="text-xs font-semibold mb-1">
+                  <span className={`inline-block rounded px-1.5 py-0.5 text-[10px] font-bold mr-2 ${
+                    ev.groundTruthSupported ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'
+                  }`}>
+                    {ev.groundTruthSupported ? 'VERIFIED' : 'INFERENCE'}
+                  </span>
+                  {ev.sourceTitle}
+                </p>
+                <p className="text-xs text-slate-700 leading-5">{ev.claim}</p>
+                <p className="text-[10px] text-slate-400 mt-1">{ev.sourceType} &middot; {Math.round(ev.confidence * 100)}% confidence</p>
+              </div>
+            ))}
+          </div>
+        )}
+        <p className="mt-4 text-[10px] text-slate-400">Evidence Architecture™ powered by Truth Engine™ (TI-014)</p>
+      </div>
+    </div>
+  );
+}
+
 interface DeterminantsSectionProps {
   determinants: DeterminantItem[];
   primaryConstraint?: string | null;
   secondaryConstraint?: string | null;
   detectedIndustry?: string | null;
   constraintTranslations?: ConstraintTranslations;
+  evidenceArchitecture?: EvidenceArchitecture;
 }
 
-export function DeterminantsSection({ determinants, primaryConstraint, secondaryConstraint, detectedIndustry, constraintTranslations }: DeterminantsSectionProps) {
+export function DeterminantsSection({ determinants, primaryConstraint, secondaryConstraint, detectedIndustry, constraintTranslations, evidenceArchitecture }: DeterminantsSectionProps) {
   const [activeInfo, setActiveInfo] = useState<string | null>(null);
+  const [activeEvidence, setActiveEvidence] = useState<string | null>(null);
 
   // Find the first severe constraint callout to show (numeric < 55 AND is primary/secondary constraint)
   const severeCallout = determinants.find(({ label, numeric }) => {
@@ -149,6 +218,18 @@ export function DeterminantsSection({ determinants, primaryConstraint, secondary
           onClose={() => setActiveInfo(null)}
         />
       )}
+      {activeEvidence && (() => {
+        const key = activeEvidence.toLowerCase() as ConstraintTranslationKey;
+        const dimEvidence = evidenceArchitecture?.[key];
+        if (!dimEvidence) return null;
+        return (
+          <EvidenceModal
+            title={activeEvidence}
+            dimEvidence={dimEvidence}
+            onClose={() => setActiveEvidence(null)}
+          />
+        );
+      })()}
 
       <section className="card mt-8 p-6">
         <h2 className="text-xl font-bold">TCS Determinants</h2>
@@ -178,6 +259,16 @@ export function DeterminantsSection({ determinants, primaryConstraint, secondary
                     >
                       ⓘ
                     </button>
+                    {evidenceArchitecture?.[label.toLowerCase() as ConstraintTranslationKey] && (
+                      <button
+                        onClick={() => setActiveEvidence(label)}
+                        className="text-[10px] leading-none px-1.5 py-0.5 rounded bg-slate-100 text-slate-500 hover:bg-slate-200 hover:text-slate-700 font-semibold transition-colors"
+                        aria-label={`View evidence for ${label}`}
+                        title="View Evidence Architecture™"
+                      >
+                        EA
+                      </button>
+                    )}
                   </div>
                 </div>
                 {/* Progress bar */}
