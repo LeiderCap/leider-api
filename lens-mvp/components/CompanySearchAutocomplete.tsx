@@ -119,7 +119,12 @@ export function CompanySearchAutocomplete({
     setNavigating(true);
     setMsgIndex(0);
     setTimedOut(false);
-    router.push(`/lens/${result.ticker.toLowerCase()}`);
+    // Pass companyName and exchange so the lens page can run the identity gate
+    const params = new URLSearchParams();
+    if (result.name) params.set('company', result.name);
+    if (result.exchange) params.set('exchange', result.exchange);
+    const qs = params.toString();
+    router.push(`/lens/${result.ticker.toLowerCase()}${qs ? `?${qs}` : ''}`);
   };
 
   // Keyboard navigation

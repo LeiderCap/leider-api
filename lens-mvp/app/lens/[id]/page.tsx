@@ -67,10 +67,71 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   };
 }
 
-export default async function LensDetailPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams?: Promise<{ refresh?: string }> }) {
+export default async function LensDetailPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams?: Promise<{ refresh?: string; debug?: string; identity_status?: string; failure_reasons?: string; missing_sources?: string; identity_card?: string; ground_truth?: string; retrieved_docs?: string; company?: string; exchange?: string }> }) {
   const { id } = await params;
   const sp = searchParams ? await searchParams : {};
   const forceRefresh = sp?.refresh === '1';
+  const debugMode = sp?.debug === 'true';
+  const companyParam = sp?.company ?? '';
+  const exchangeParam = sp?.exchange ?? '';
+
+  // ── Identity gate: run retrieve + identity when company param is present ──
+  // This fires when the user selects from autocomplete (which passes ?company=&exchange=)
+  // It does NOT fire for direct URL access (no company param) to avoid breaking existing links.
+  let identityStatus = sp?.identity_status as 'PASS' | 'FAIL' | 'NEEDS_REVIEW' | undefined;
+  let failureReasons: string[] = sp?.failure_reasons ? JSON.parse(decodeURIComponent(sp.failure_reasons)) : [];
+  let missingSources: Record<string, boolean> = sp?.missing_sources ? JSON.parse(decodeURIComponent(sp.missing_sources)) : {};
+  let identityCard: any = sp?.identity_card ? JSON.parse(decodeURIComponent(sp.identity_card)) : null;
+  let groundTruthContext: string | null = sp?.ground_truth ? decodeURIComponent(sp.ground_truth) : null;
+  let retrievedDocs: any[] = sp?.retrieved_docs ? JSON.parse(decodeURIComponent(sp.retrieved_docs)) : [];
+
+  if (companyParam && !identityStatus) {
+    const ticker = id.toUpperCase();
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://leider-api.vercel.app';
+    try {
+      // Step 1: Retrieve
+      const retrieveRes = await fetch(`${baseUrl}/api/lens/retrieve`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ ticker, companyName: companyParam, exchange: exchangeParam }),
+        cache: 'no-store',
+      });
+      if (retrieveRes.ok) {
+        const retrieval = await retrieveRes.json();
+        retrievedDocs = retrieval.retrievedDocuments ?? [];
+        missingSources = retrieval.requiredSources ?? {};
+
+        // Step 2: Identity
+        const identityRes = await fetch(`${baseUrl}/api/lens/identity`, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({
+            ticker,
+            companyName: companyParam,
+            auditId: retrieval.auditId,
+            retrievedDocuments: retrieval.retrievedDocuments ?? [],
+            fmpProfile: retrieval.fmpProfile ?? {},
+            tickerNameMatch: retrieval.tickerNameMatch,
+            minimumSourcesMet: retrieval.minimumSourcesMet,
+          }),
+          cache: 'no-store',
+        });
+        if (identityRes.ok) {
+          const identity = await identityRes.json();
+          identityCard = identity.identityCard;
+          identityStatus = identity.identityCard?.identity_status;
+          failureReasons = identity.identityCard?.failure_reasons ?? [];
+          if (identityStatus !== 'FAIL' && identityCard) {
+            // Build ground truth for the debug panel
+            groundTruthContext = `Company: ${identityCard.legal_name}\nExchange: ${identityCard.exchange}\nBusiness: ${identityCard.business_description}\nMarkets: ${(identityCard.markets_served ?? []).join(', ')}`;
+          }
+        }
+      }
+    } catch (err) {
+      console.warn('[lens/page] Identity gate failed (non-fatal):', err);
+    }
+  }
+
   const item = await getLensByIdOrCache(id, forceRefresh);
 
   if (!item) {
@@ -131,11 +192,136 @@ export default async function LensDetailPage({ params, searchParams }: { params:
     item.analysis_summary
   );
 
+  // ── IDENTITY FAIL: block all analysis output ──────────────────────────
+  if (identityStatus === 'FAIL') {
+    const companyLabel = identityCard?.legal_name || id.toUpperCase();
+    return (
+      <main className="mx-auto min-h-screen max-w-4xl px-6 py-10">
+        <Link href="/search" className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
+          ← Back to Search
+        </Link>
+        <div className="mt-8 rounded-xl border-2 border-red-300 bg-red-50 p-8">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="text-2xl">⛔</span>
+            <h1 className="text-2xl font-bold text-red-800">Identity Verification Failed</h1>
+          </div>
+          <p className="text-red-700 font-semibold mb-2">{companyLabel} ({id.toUpperCase()})</p>
+          {failureReasons.length > 0 && (
+            <ul className="mt-3 space-y-1 text-sm text-red-700">
+              {failureReasons.map((r, i) => <li key={i} className="flex gap-2"><span>•</span><span>{r}</span></li>)}
+            </ul>
+          )}
+          {Object.keys(missingSources).length > 0 && (
+            <div className="mt-5">
+              <p className="text-xs font-bold uppercase tracking-widest text-red-600 mb-2">Source Checklist</p>
+              <ul className="space-y-1 text-sm">
+                {Object.entries(missingSources).map(([k, v]) => (
+                  <li key={k} className="flex items-center gap-2">
+                    <span className={v ? 'text-emerald-600' : 'text-red-500'}>{v ? '✓' : '✗'}</span>
+                    <span className={v ? 'text-slate-700' : 'text-red-600'}>{k.replace(/_/g, ' ')}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <Link href="/search" className="mt-6 inline-flex items-center gap-2 rounded-lg bg-red-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-red-800 transition-colors">
+            Try a different ticker →
+          </Link>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main className="mx-auto min-h-screen max-w-4xl px-6 py-10">
       <Link href="/search" className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
         ← Back to Search
       </Link>
+
+      {/* ── IDENTITY NEEDS_REVIEW: amber warning banner ─────────────────── */}
+      {identityStatus === 'NEEDS_REVIEW' && (
+        <div className="mt-4 flex items-start gap-3 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3">
+          <span className="text-amber-500 text-lg mt-0.5">⚠</span>
+          <div>
+            <p className="text-sm font-bold text-amber-800">Identity Confidence: Moderate</p>
+            <p className="text-xs text-amber-700 mt-0.5">Some source data was limited. Analysis proceeds but may have reduced accuracy for certain sections.</p>
+          </div>
+        </div>
+      )}
+
+      {/* ── IDENTITY PASS: green verification banner ────────────────────── */}
+      {identityStatus === 'PASS' && identityCard && (
+        <div className="mt-4 flex items-center gap-3 rounded-lg border border-emerald-300 bg-emerald-50 px-4 py-2.5">
+          <span className="text-emerald-600 text-lg">✓</span>
+          <p className="text-sm font-semibold text-emerald-800">Identity verified: {identityCard.legal_name} ({identityCard.ticker})</p>
+        </div>
+      )}
+
+      {/* ── DEBUG PANEL: Retrieval Pipeline Inspector™ (?debug=true) ─────── */}
+      {debugMode && (
+        <div className="mt-6 rounded-xl border-2 border-orange-400 bg-slate-900 p-6 font-mono text-xs">
+          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-orange-400 mb-4">🔍 Retrieval Pipeline Inspector™ — INTERNAL DEBUG</p>
+
+          {/* Retrieved Documents */}
+          <div className="mb-5">
+            <p className="text-orange-300 font-bold mb-2">Retrieved Documents</p>
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-slate-300 text-[11px]">
+                <thead><tr className="border-b border-slate-700">
+                  <th className="pr-3 pb-1">Source Type</th>
+                  <th className="pr-3 pb-1">Title</th>
+                  <th className="pr-3 pb-1">Relevance</th>
+                  <th className="pr-3 pb-1">Tokens</th>
+                  <th className="pb-1">Included?</th>
+                </tr></thead>
+                <tbody>
+                  {retrievedDocs.map((d: any, i: number) => (
+                    <tr key={i} className="border-b border-slate-800">
+                      <td className="pr-3 py-1 text-slate-400">{d.source_type}</td>
+                      <td className="pr-3 py-1 max-w-[200px] truncate">{d.title}</td>
+                      <td className="pr-3 py-1">{d.relevance_score}</td>
+                      <td className="pr-3 py-1">{d.tokens_used}</td>
+                      <td className="py-1">{d.included_in_prompt ? <span className="text-emerald-400">✓</span> : <span className="text-red-400">✗</span>}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Identity Card */}
+          {identityCard && (
+            <div className="mb-5">
+              <p className="text-orange-300 font-bold mb-2">Identity Card</p>
+              <pre className="text-slate-300 text-[10px] overflow-x-auto whitespace-pre-wrap">{JSON.stringify(identityCard, null, 2)}</pre>
+            </div>
+          )}
+
+          {/* Verification Status */}
+          <div className="mb-5">
+            <p className="text-orange-300 font-bold mb-2">Verification Status</p>
+            <div className="space-y-1 text-slate-300">
+              <p>identity_status: <span className={(identityStatus as string) === 'PASS' ? 'text-emerald-400' : (identityStatus as string) === 'FAIL' ? 'text-red-400' : 'text-amber-400'}>{identityStatus ?? 'N/A'}</span></p>
+              {identityCard && (
+                <>
+                  <p>source_confidence: {identityCard.source_confidence}</p>
+                  <p>business_description_confidence: {identityCard.business_description_confidence}</p>
+                  <p>ticker_name_match: {String(identityCard.ticker_name_match ?? 'N/A')}</p>
+                  <p>minimum_sources_met: {String(identityCard.minimum_sources_met ?? 'N/A')}</p>
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* Ground Truth Lock */}
+          {groundTruthContext && (
+            <div>
+              <p className="text-orange-300 font-bold mb-2">Ground Truth Lock™</p>
+              <pre className="text-slate-300 text-[10px] overflow-x-auto whitespace-pre-wrap">{groundTruthContext}</pre>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* ── 1. What Lens Sees™ — dark hero card ───────────────────────────── */}
       {hasAnalysis && (

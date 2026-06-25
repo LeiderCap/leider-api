@@ -303,14 +303,20 @@ export async function saveLensSnapshot(snapshot: LensSnapshot) {
   });
 }
 
-export async function createLensSnapshot(query: string): Promise<LensSnapshot> {
+export async function createLensSnapshot(
+  query: string,
+  hint?: { ticker?: string; exchange?: string; groundTruth?: string }
+): Promise<LensSnapshot> {
   const seedHit = searchSeed(query)[0];
   if (seedHit) return seedHit;
 
-  const cached = await getCachedLens(query);
-  if (cached) return cached;
+  // Only use cache if no ground truth override is provided
+  if (!hint?.groundTruth) {
+    const cached = await getCachedLens(query);
+    if (cached) return cached;
+  }
 
-  const generated = await generateLensSnapshot(query);
+  const generated = await generateLensSnapshot(query, hint);
   await saveLensSnapshot(generated);
   return generated;
 }

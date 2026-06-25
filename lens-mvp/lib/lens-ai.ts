@@ -980,9 +980,13 @@ function extractJson(text: string) {
   return match[0];
 }
 
-async function callAnthropic(query: string) {
+async function callAnthropic(query: string, groundTruth?: string) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) return null;
+
+  const systemPrompt = groundTruth
+    ? `${groundTruth}\n\n---\n\n${LENS_SYSTEM_PROMPT}`
+    : LENS_SYSTEM_PROMPT;
 
   const response = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
@@ -995,7 +999,7 @@ async function callAnthropic(query: string) {
       model: process.env.ANTHROPIC_MODEL ?? 'claude-3-5-sonnet-20241022',
       max_tokens: 1400,
       temperature: 0.2,
-      system: LENS_SYSTEM_PROMPT,
+      system: systemPrompt,
       messages: [{ role: 'user', content: `Create a Lens Snapshot™ for: ${query}` }]
     })
   });
@@ -1009,9 +1013,13 @@ async function callAnthropic(query: string) {
   return text;
 }
 
-async function callOpenAI(query: string) {
+async function callOpenAI(query: string, groundTruth?: string) {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) return null;
+
+  const systemPrompt = groundTruth
+    ? `${groundTruth}\n\n---\n\n${LENS_SYSTEM_PROMPT}`
+    : LENS_SYSTEM_PROMPT;
 
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
@@ -1024,7 +1032,7 @@ async function callOpenAI(query: string) {
       temperature: 0.2,
       response_format: { type: 'json_object' },
       messages: [
-        { role: 'system', content: LENS_SYSTEM_PROMPT },
+        { role: 'system', content: systemPrompt },
         { role: 'user', content: `Create a Lens Snapshot™ for: ${query}` }
       ]
     })
@@ -1627,7 +1635,7 @@ function hasPrivateFallback(text: string): boolean {
 
 export async function generateLensSnapshot(
   query: string,
-  hint?: { ticker?: string; exchange?: string }
+  hint?: { ticker?: string; exchange?: string; groundTruth?: string }
 ): Promise<LensSnapshot> {
   // ── PRE-GENERATION TICKER DETECTION ──────────────────────────────────────
   // Layer 0: Explicit hint from autocomplete selection (most reliable)
@@ -1674,8 +1682,10 @@ export async function generateLensSnapshot(
     ? fetchUnlockFinancials(confirmedTicker)
     : Promise.resolve(null);
 
+  const groundTruth = hint?.groundTruth;
+
   const [text, fmpFinancials] = await Promise.all([
-    (async () => (await callAnthropic(enrichedQuery)) ?? (await callOpenAI(enrichedQuery)))(),
+    (async () => (await callAnthropic(enrichedQuery, groundTruth)) ?? (await callOpenAI(enrichedQuery, groundTruth)))(),
     fmpFinancialsPromise,
   ]);
 
