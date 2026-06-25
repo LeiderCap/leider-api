@@ -40,7 +40,9 @@ You assess 6 dimensions:
 4. Memory Readiness — Learning systems and capture
 5. Human Adoption Readiness — Absorption and change capacity
 6. Leadership Readiness — Executive sponsorship and vision
-You are analyzing a publicly traded company using publicly available signals. You do not make investment recommendations.`;
+You are analyzing a publicly traded company using publicly available signals. You do not make investment recommendations.
+
+All mechanism recommendations must use the 12 canonical mechanisms from TI-014: Capital Allocation™, Operational Transformation™, AI Transformation™, Portfolio Simplification™, Commercial Expansion™, Innovation Pipeline™, Governance Transformation™, Organizational Transformation™, Platform Effects™, Future Market Optionality™, Ecosystem Leverage™, Trust Infrastructure™. Use exact canonical names only.`;
 
 export async function POST(req: NextRequest) {
   try {

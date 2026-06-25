@@ -771,6 +771,66 @@ export default async function LensDetailPage({ params, searchParams }: { params:
         </section>
       )}
 
+      {/* ── 10c. Mechanism Recommendations™ (TI-014) ─────────────────────── */}
+      {item.expression_gap_analysis?.reclamation_layer && (
+        <section className="card mt-6 p-6">
+          <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-1" style={{ color: '#E05A00' }}>Mechanism Recommendations™</p>
+          <h2 className="mt-1 text-lg font-bold mb-1">Value Creation Mechanisms</h2>
+          <p className="mb-5 text-sm text-slate-500">Ranked by estimated value contribution for this company. All mechanisms drawn from the 12 canonical mechanisms of Unlock Science™.</p>
+
+          <div className="space-y-4">
+            {/* Primary Mechanism */}
+            {item.expression_gap_analysis.reclamation_layer.primary_mechanism && (() => {
+              const mech = item.expression_gap_analysis.reclamation_layer.primary_mechanism;
+              const mechNum = ['Capital Allocation™','Operational Transformation™','AI Transformation™','Portfolio Simplification™','Commercial Expansion™','Innovation Pipeline™','Governance Transformation™','Organizational Transformation™','Platform Effects™','Future Market Optionality™','Ecosystem Leverage™','Trust Infrastructure™'].findIndex(m => mech.includes(m.replace('™','')));
+              return (
+                <div className="rounded-xl border border-slate-200 bg-white p-5">
+                  <div className="mb-3 flex flex-wrap items-center gap-3">
+                    {mechNum >= 0 && (
+                      <span className="flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold text-white" style={{ backgroundColor: '#E05A00' }}>#{mechNum + 1}</span>
+                    )}
+                    <span className="text-sm font-bold text-slate-900">{mech}</span>
+                    <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700">Primary</span>
+                  </div>
+                  {item.expression_gap_analysis.reclamation_layer.mechanism_rationale && (
+                    <p className="text-sm text-slate-600">{item.expression_gap_analysis.reclamation_layer.mechanism_rationale}</p>
+                  )}
+                </div>
+              );
+            })()}
+
+            {/* Supporting Mechanisms */}
+            {item.expression_gap_analysis.reclamation_layer.supporting_mechanisms && item.expression_gap_analysis.reclamation_layer.supporting_mechanisms.length > 0 && (
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+                <p className="mb-3 text-xs font-bold uppercase tracking-widest text-slate-400">Supporting Mechanisms</p>
+                <div className="space-y-2">
+                  {item.expression_gap_analysis.reclamation_layer.supporting_mechanisms.map((m: string, i: number) => {
+                    const mechList = ['Capital Allocation™','Operational Transformation™','AI Transformation™','Portfolio Simplification™','Commercial Expansion™','Innovation Pipeline™','Governance Transformation™','Organizational Transformation™','Platform Effects™','Future Market Optionality™','Ecosystem Leverage™','Trust Infrastructure™'];
+                    const idx = mechList.findIndex(ml => m.includes(ml.replace('™','')));
+                    return (
+                      <div key={i} className="flex items-start gap-3">
+                        {idx >= 0 ? (
+                          <span className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-white" style={{ backgroundColor: '#E05A00' }}>#{idx+1}</span>
+                        ) : (
+                          <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-slate-400" />
+                        )}
+                        <p className="text-sm text-slate-700">{m}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <p className="mt-5 text-xs text-slate-400">
+            Mechanisms drawn from the 12 canonical value mechanisms of Unlock Science™ ({' '}
+            <Link href="/constitution/ti-014" className="underline hover:text-slate-600">TI-014</Link>
+            ). No mechanism outside this taxonomy may be used in an Unlock Potential™ estimate.
+          </p>
+        </section>
+      )}
+
       {/* ── 10. Blueprint™ CTA ────────────────────────────────────────────── */}
       <section className="card mt-6 p-6 bg-slate-50">
         <div className="flex flex-wrap items-center justify-between gap-4">

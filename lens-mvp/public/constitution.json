@@ -1147,6 +1147,224 @@
       ]
     },
     {
+      "id": "TI-012",
+      "slug": "ti-012",
+      "name": "Unlock Science™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-24",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book VI — Unlock Science™",
+      "oid": "OID-2026-TI-US-001",
+      "lensUri": "lens://constitution/ti-012",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-012",
+      "principle": "Unlock Science™ is the scientific discipline within Transformation Intelligence™ that studies unrealized enterprise value through observation, measurement, evidence, modeling, experimentation, execution, and continuous learning.",
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-001",
+          "description": "Extends Transformation Intelligence™ with a formal scientific discipline and evidence standards"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-103",
+          "description": "Depends on Transformation Efficiency™ as primary measurement object"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-010",
+          "description": "Implements Addressability Principle™ through OID™ and Opportunity Atlas™"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-013",
+          "description": "Establishes framework enabling Conservation of Enterprise Value™ Law"
+        }
+      ],
+      "relatedIds": [
+        "TI-001",
+        "TI-103",
+        "TI-013",
+        "TI-014",
+        "TI-015",
+        "TI-016",
+        "TI-010",
+        "TI-801"
+      ]
+    },
+    {
+      "id": "TI-013",
+      "slug": "ti-013",
+      "name": "Conservation of Enterprise Value™ Law",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-24",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book VI — Unlock Science™",
+      "oid": "OID-2026-TI-CEV-001",
+      "lensUri": "lens://constitution/ti-013",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-013",
+      "principle": "Enterprise value cannot be created merely by analysis. Analysis reveals unrealized value or identifies mechanisms capable of creating additional value through transformation.",
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-012",
+          "description": "First constitutional law derived from Unlock Science™ declaration"
+        },
+        {
+          "type": "supports",
+          "targetId": "TI-014",
+          "description": "Conservation law supports Mechanism Traceability requirement"
+        },
+        {
+          "type": "applies_to",
+          "targetId": "TI-103",
+          "description": "Applies to Transformation Efficiency™ calculation constraints"
+        }
+      ],
+      "relatedIds": [
+        "TI-012",
+        "TI-014",
+        "TI-103",
+        "TI-801",
+        "TI-107"
+      ]
+    },
+    {
+      "id": "TI-014",
+      "slug": "ti-014",
+      "name": "Mechanism Traceability Law™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-24",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book VI — Unlock Science™",
+      "oid": "OID-2026-TI-MTL-001",
+      "lensUri": "lens://constitution/ti-014",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-014",
+      "principle": "Every projected dollar of enterprise value shall be traceable to one or more independently observable value creation mechanisms. No projected value may exist without an identifiable mechanism.",
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-012",
+          "description": "Second constitutional law derived from Unlock Science™ declaration"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-013",
+          "description": "Traceability depends on Conservation Law establishing mechanism requirement"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-015",
+          "description": "Mechanism traceability enables Evidence Sufficiency"
+        }
+      ],
+      "relatedIds": [
+        "TI-012",
+        "TI-013",
+        "TI-015",
+        "TI-801",
+        "TI-805"
+      ]
+    },
+    {
+      "id": "TI-015",
+      "slug": "ti-015",
+      "name": "Evidence Sufficiency Law™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-24",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book VI — Unlock Science™",
+      "oid": "OID-2026-TI-ESL-001",
+      "lensUri": "lens://constitution/ti-015",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-015",
+      "principle": "Every Unlock Potential™ estimate shall maintain explicit documentation of evidence, assumptions, probability, confidence, sources, and calculation methodology.",
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-012",
+          "description": "Third constitutional law of Unlock Science™"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-702",
+          "description": "Implemented by Evidence Architecture™"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-016",
+          "description": "Evidence sufficiency enables Continuous Learning"
+        }
+      ],
+      "relatedIds": [
+        "TI-012",
+        "TI-014",
+        "TI-702",
+        "TI-302"
+      ]
+    },
+    {
+      "id": "TI-016",
+      "slug": "ti-016",
+      "name": "Continuous Learning Law™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-24",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book VI — Unlock Science™",
+      "oid": "OID-2026-TI-CLL-001",
+      "lensUri": "lens://constitution/ti-016",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-016",
+      "principle": "Every completed transformation becomes permanent evidence used to improve future Unlock Potential™ estimates. The discipline shall continuously recalibrate itself through empirical observation.",
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-012",
+          "description": "Fourth constitutional law of Unlock Science™"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-015",
+          "description": "Learning requires Evidence Sufficiency as prerequisite"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-201",
+          "description": "Extends Cumulative Intelligence Principle™ at the discipline level"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-011",
+          "description": "Implements Knowledge Compounding Principle™ through Opportunity Atlas™"
+        }
+      ],
+      "relatedIds": [
+        "TI-012",
+        "TI-015",
+        "TI-201",
+        "TI-011",
+        "TI-010",
+        "TI-103"
+      ]
+    },
+    {
       "id": "TI-901",
       "slug": "ti-901",
       "name": "Expression Capacity Index™ (ECI™)",
@@ -1241,5 +1459,6 @@
   "lkasCompliant": true,
   "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
-  "canonicalBase": "https://lensanalysis.com/constitution/"
+  "canonicalBase": "https://lensanalysis.com/constitution/",
+  "totalPrinciples": 69
 }

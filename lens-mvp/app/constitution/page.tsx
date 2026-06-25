@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Constitution of Transformation Intelligence™ | TI Registry™',
   description:
-    'The governing principles behind The Lens™ and Transformation Intelligence™. 64 principles across 9 categories — each versioned, citable, and machine-readable.',
+    'The governing principles behind The Lens™ and Transformation Intelligence™. 69 principles across 9 categories — each versioned, citable, and machine-readable. Now includes Book VI — Unlock Science™.',
 };
 
 const statusColors: Record<string, string> = {
@@ -105,6 +105,9 @@ export default function ConstitutionPage() {
           {constitutionMeta.publisher} &nbsp;|&nbsp; Version {constitutionMeta.version}{' '}
           &nbsp;|&nbsp; Published June 23, 2026
         </p>
+        <p className="mt-3 mx-auto max-w-xl text-sm italic text-slate-400">
+          Now includes Book VI — Unlock Science™: the scientific discipline for measuring and realizing unrealized enterprise value.
+        </p>
         <p className="mt-2 text-xs text-slate-400">
           © 2026 Leider Capital. All Rights Reserved. All principles and named methodologies are proprietary to Leider Capital.
         </p>
@@ -128,6 +131,28 @@ export default function ConstitutionPage() {
             </span>
           </div>
 
+        </div>
+      </section>
+
+      {/* Book VI — Unlock Science™ featured group */}
+      <section className="mx-auto max-w-4xl px-6 pt-12 pb-0">
+        <div className="mb-10 rounded-xl border-2 border-orange-200 bg-orange-50 p-8">
+          <div className="mb-2 flex flex-wrap items-center gap-3">
+            <h2 className="text-xl font-bold text-slate-900">Book VI — Unlock Science™</h2>
+            <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-800">Ratified</span>
+          </div>
+          <p className="mb-6 text-sm text-slate-600">The scientific discipline for measuring and realizing unrealized enterprise value. Four constitutional laws: Conservation of Enterprise Value™, Mechanism Traceability™, Evidence Sufficiency™, and Continuous Learning™.</p>
+          <div className="space-y-3">
+            {principles.filter(p => ['TI-012','TI-013','TI-014','TI-015','TI-016'].includes(p.id)).map((p) => (
+              <div key={p.id} className="flex items-center justify-between rounded-lg border border-orange-200 bg-white px-5 py-3">
+                <div className="flex items-center gap-3">
+                  <span className="font-mono text-sm font-bold" style={{ color: '#E05A00' }}>{p.id}</span>
+                  <span className="text-sm font-semibold text-slate-800">{p.name}</span>
+                </div>
+                <Link href={`/constitution/${p.slug}`} className="text-xs font-medium hover:underline" style={{ color: '#E05A00' }}>Read →</Link>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

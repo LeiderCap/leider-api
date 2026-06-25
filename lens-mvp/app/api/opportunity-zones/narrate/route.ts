@@ -50,7 +50,9 @@ When a company is classified in Pilot Purgatory™, frame the Why It Appears Her
 
 Identify which of these failure modes are most evident for this specific company based on its sector, performance signals, and market behavior.
 
-Primary mechanism recommendation for Pilot Purgatory™ companies should always include 'AI Deployment Readiness Assessment' as the first recommended action.`;
+Primary mechanism recommendation for Pilot Purgatory™ companies should always include 'AI Deployment Readiness Assessment' as the first recommended action.
+
+All mechanism recommendations must use the 12 canonical mechanisms from TI-014: Capital Allocation™, Operational Transformation™, AI Transformation™, Portfolio Simplification™, Commercial Expansion™, Innovation Pipeline™, Governance Transformation™, Organizational Transformation™, Platform Effects™, Future Market Optionality™, Ecosystem Leverage™, Trust Infrastructure™. Use exact canonical names only.`;
 
 function buildUserPrompt(input: {
   ticker: string;

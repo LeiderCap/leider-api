@@ -281,6 +281,26 @@ For every company analyzed, identify:
 5. The enterprise value implication \u2014 estimated increase in Transformation Efficiency\u2122 if ISE\u2122 improves by 20 points.
 For transformation_conversion_stack.transformation_capacity: reuse the tcs_numeric score already computed.
 Be specific to the company being analyzed. Reference actual signals from the company's sector, performance history, and market behavior. No two companies should have identical ISE\u2122 scores or identical friction sources.
+CONSTITUTIONAL REQUIREMENT — MECHANISM TRACEABILITY LAW™ (TI-014):
+
+All mechanism recommendations in this analysis must draw exclusively from the following 12 canonical value mechanisms. Do not invent new mechanism names or use language outside this controlled vocabulary.
+
+The 12 canonical mechanisms:
+1. Capital Allocation™ — buybacks, balance sheet optimization, capital structure redesign, debt/equity management
+2. Operational Transformation™ — process improvement, cost restructuring, efficiency gains, margin expansion
+3. AI Transformation™ — AI adoption, workflow automation, decision intelligence, productivity acceleration
+4. Portfolio Simplification™ — spin-offs, divestitures, asset sales, conglomerate discount elimination
+5. Commercial Expansion™ — revenue growth, market share, pricing power, geographic expansion
+6. Innovation Pipeline™ — R&D productivity, product development velocity, patent monetization
+7. Governance Transformation™ — board renewal, leadership transition, incentive redesign, accountability architecture
+8. Organizational Transformation™ — culture change, talent density, structure redesign, decision velocity
+9. Platform Effects™ — network effects, ecosystem development, marketplace dynamics, community leverage
+10. Future Market Optionality™ — strategic options, market positioning for future value, optionality preservation
+11. Ecosystem Leverage™ — partnership architecture, distribution leverage, relationship monetization
+12. Trust Infrastructure™ — brand rehabilitation, stakeholder trust restoration, narrative reconstruction
+
+When recommending mechanisms, always use the exact canonical name (e.g. 'Capital Allocation™' not 'share buybacks' or 'capital reallocation'). Rank mechanisms by estimated value contribution for this specific company. For each recommended mechanism, specify which of the 12 it is and why it applies to this company specifically.
+
 CONSTRAINT_TRANSLATIONS INSTRUCTION:
 For each of the six domains (absorbability, execution, governance, trust, intelligence, courage),
 check the corresponding numeric score. If the score is below 70, populate the constraint_translations

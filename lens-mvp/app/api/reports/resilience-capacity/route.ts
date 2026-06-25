@@ -14,7 +14,9 @@ Resilience Capacity™ (RC™) measures an organization's ability to:
 - Maintain decision continuity under pressure
 - Convert adversity into organizational learning
 
-You are analyzing a publicly traded company. You do not make investment recommendations. You identify resilience strengths, gaps, and improvement mechanisms.`;
+You are analyzing a publicly traded company. You do not make investment recommendations. You identify resilience strengths, gaps, and improvement mechanisms.
+
+All mechanism recommendations must use the 12 canonical mechanisms from TI-014: Capital Allocation™, Operational Transformation™, AI Transformation™, Portfolio Simplification™, Commercial Expansion™, Innovation Pipeline™, Governance Transformation™, Organizational Transformation™, Platform Effects™, Future Market Optionality™, Ecosystem Leverage™, Trust Infrastructure™. Use exact canonical names only.`;
 
 async function callAI(userMessage: string): Promise<string> {
   const apiKey = process.env.OPENAI_API_KEY;

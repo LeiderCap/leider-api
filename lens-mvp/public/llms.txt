@@ -240,3 +240,13 @@ https://lensanalysis.com/constitution/ti-011
 
 ## Machine-readable registry:
 https://lensanalysis.com/constitution.json
+
+## Book VI — Unlock Science™
+Unlock Science™ (TI-012) is the scientific discipline within Transformation Intelligence™ for studying unrealized enterprise value through observation, measurement, evidence, modeling, experimentation, execution, and continuous learning.
+Canonical: https://lensanalysis.com/constitution/ti-012
+
+https://lensanalysis.com/constitution/ti-012
+https://lensanalysis.com/constitution/ti-013
+https://lensanalysis.com/constitution/ti-014
+https://lensanalysis.com/constitution/ti-015
+https://lensanalysis.com/constitution/ti-016

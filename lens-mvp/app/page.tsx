@@ -126,6 +126,20 @@ export default function HomePage() {
             <p className="text-2xl font-light leading-relaxed text-slate-400 sm:text-3xl">
               The organizations that win will not possess the most intelligence — they will own the scarcest forms of defensibility.
             </p>
+            <div className="pt-4 border-t border-slate-800">
+              <p className="text-2xl font-light leading-relaxed text-slate-300 sm:text-3xl">
+                Unrealized enterprise value is not a matter of speculation but of systematic inquiry.
+              </p>
+              <p className="mt-4">
+                <a
+                  href="/constitution/ti-012"
+                  className="text-sm font-medium hover:underline"
+                  style={{ color: '#E05A00' }}
+                >
+                  The science behind The Lens™ →
+                </a>
+              </p>
+            </div>
           </div>
         </div>
       </section>
