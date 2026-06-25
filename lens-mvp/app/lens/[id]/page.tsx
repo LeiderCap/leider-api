@@ -67,7 +67,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   };
 }
 
-export default async function LensDetailPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams?: Promise<{ refresh?: string; debug?: string; identity_status?: string; failure_reasons?: string; missing_sources?: string; identity_card?: string; ground_truth?: string; retrieved_docs?: string; company?: string; exchange?: string }> }) {
+export default async function LensDetailPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams?: Promise<{ refresh?: string; debug?: string; identity_status?: string; failure_reasons?: string; missing_sources?: string; identity_card?: string; ground_truth?: string; retrieved_docs?: string; company?: string; exchange?: string; retry?: string }> }) {
   const { id } = await params;
   const sp = searchParams ? await searchParams : {};
   const forceRefresh = sp?.refresh === '1';
@@ -84,6 +84,10 @@ export default async function LensDetailPage({ params, searchParams }: { params:
   let identityCard: any = sp?.identity_card ? JSON.parse(decodeURIComponent(sp.identity_card)) : null;
   let groundTruthContext: string | null = sp?.ground_truth ? decodeURIComponent(sp.ground_truth) : null;
   let retrievedDocs: any[] = sp?.retrieved_docs ? JSON.parse(decodeURIComponent(sp.retrieved_docs)) : [];
+  let failureMode: null | 'COMPANY_VERIFICATION' | 'RETRIEVAL_VERIFICATION' = null;
+  let retrievalChecklist: Record<string, boolean> = {};
+  let companyIdentifiedAs: string | null = null;
+  let isRetry = sp?.retry === '1';
 
   if (companyParam && !identityStatus) {
     const ticker = id.toUpperCase();
@@ -93,37 +97,49 @@ export default async function LensDetailPage({ params, searchParams }: { params:
       const retrieveRes = await fetch(`${baseUrl}/api/lens/retrieve`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ ticker, companyName: companyParam, exchange: exchangeParam }),
+        body: JSON.stringify({ ticker, companyName: companyParam, exchange: exchangeParam, retryMode: isRetry }),
         cache: 'no-store',
       });
       if (retrieveRes.ok) {
         const retrieval = await retrieveRes.json();
         retrievedDocs = retrieval.retrievedDocuments ?? [];
         missingSources = retrieval.requiredSources ?? {};
+        failureMode = retrieval.failureMode ?? null;
+        retrievalChecklist = retrieval.retrievalChecklist ?? {};
+        companyIdentifiedAs = retrieval.companyIdentifiedAs ?? null;
 
-        // Step 2: Identity
-        const identityRes = await fetch(`${baseUrl}/api/lens/identity`, {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({
-            ticker,
-            companyName: companyParam,
-            auditId: retrieval.auditId,
-            retrievedDocuments: retrieval.retrievedDocuments ?? [],
-            fmpProfile: retrieval.fmpProfile ?? {},
-            tickerNameMatch: retrieval.tickerNameMatch,
-            minimumSourcesMet: retrieval.minimumSourcesMet,
-          }),
-          cache: 'no-store',
-        });
-        if (identityRes.ok) {
-          const identity = await identityRes.json();
-          identityCard = identity.identityCard;
-          identityStatus = identity.identityCard?.identity_status;
-          failureReasons = identity.identityCard?.failure_reasons ?? [];
-          if (identityStatus !== 'FAIL' && identityCard) {
-            // Build ground truth for the debug panel
-            groundTruthContext = `Company: ${identityCard.legal_name}\nExchange: ${identityCard.exchange}\nBusiness: ${identityCard.business_description}\nMarkets: ${(identityCard.markets_served ?? []).join(', ')}`;
+        // If retrieval itself says FAIL (company verification), skip identity call
+        if (failureMode === 'COMPANY_VERIFICATION') {
+          identityStatus = 'FAIL';
+          if (!failureReasons.length) failureReasons = retrieval.failureReasons ?? [];
+        } else if (failureMode === 'RETRIEVAL_VERIFICATION') {
+          // Correct company, not enough sources — set FAIL with retrieval mode
+          identityStatus = 'FAIL';
+          if (!failureReasons.length) failureReasons = retrieval.failureReasons ?? [];
+        } else {
+          // Step 2: Identity (only when retrieval succeeded)
+          const identityRes = await fetch(`${baseUrl}/api/lens/identity`, {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              ticker,
+              companyName: companyParam,
+              auditId: retrieval.auditId,
+              retrievedDocuments: retrieval.retrievedDocuments ?? [],
+              fmpProfile: retrieval.fmpProfile ?? {},
+              tickerNameMatch: retrieval.tickerNameMatch,
+              minimumSourcesMet: retrieval.minimumSourcesMet,
+            }),
+            cache: 'no-store',
+          });
+          if (identityRes.ok) {
+            const identity = await identityRes.json();
+            identityCard = identity.identityCard;
+            identityStatus = identity.identityCard?.identity_status;
+            failureReasons = identity.identityCard?.failure_reasons ?? [];
+            if (identityStatus !== 'FAIL' && identityCard) {
+              groundTruthContext = `Company: ${identityCard.legal_name}\nExchange: ${identityCard.exchange}\nBusiness: ${identityCard.business_description}\nMarkets: ${(identityCard.markets_served ?? []).join(', ')}`;
+            }
           }
         }
       }
@@ -194,39 +210,101 @@ export default async function LensDetailPage({ params, searchParams }: { params:
 
   // ── IDENTITY FAIL: block all analysis output ──────────────────────────
   if (identityStatus === 'FAIL') {
-    const companyLabel = identityCard?.legal_name || id.toUpperCase();
+    const companyLabel = companyIdentifiedAs || identityCard?.legal_name || companyParam || id.toUpperCase();
+    const tickerLabel = id.toUpperCase();
+
+    // ── FAILURE STATE A: COMPANY_VERIFICATION (red) ──
+    if (failureMode === 'COMPANY_VERIFICATION' || !failureMode) {
+      return (
+        <main className="mx-auto min-h-screen max-w-4xl px-6 py-10">
+          <Link href="/search" className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
+            ← Back to Search
+          </Link>
+          <div className="mt-8 rounded-xl border-2 border-red-300 bg-red-50 p-8">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-2xl">⛔</span>
+              <h1 className="text-2xl font-bold text-red-800">Company Not Identified</h1>
+            </div>
+            <p className="text-red-700 font-semibold mb-1">The Lens could not confirm the identity of this company.</p>
+            <div className="mt-4 rounded-lg bg-red-100 border border-red-200 px-4 py-3">
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="text-red-500 font-bold mt-0.5">✗</span>
+                  <span className="text-red-700">Ticker <strong>{tickerLabel}</strong> — {failureReasons[0] ?? 'could not be verified'}</span>
+                </li>
+              </ul>
+            </div>
+            <p className="mt-4 text-sm text-red-600">This may indicate an incorrect ticker symbol. Please verify the ticker and try again.</p>
+            <Link href="/search" className="mt-6 inline-flex items-center gap-2 rounded-lg bg-red-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-red-800 transition-colors">
+              Search Again →
+            </Link>
+          </div>
+        </main>
+      );
+    }
+
+    // ── FAILURE STATE B: RETRIEVAL_VERIFICATION (amber) ──
+    const checklistLabels: Record<string, string> = {
+      company_profile: 'Company profile found',
+      financial_data: 'Financial data retrieved',
+      sec_filing: 'SEC filing retrieved',
+      earnings_or_transcript: 'Earnings release found',
+      recent_news: 'Recent news available',
+      business_description: 'Business description present',
+    };
+    const retryUrl = `/lens/${id}?company=${encodeURIComponent(companyParam)}&exchange=${encodeURIComponent(exchangeParam)}&retry=1`;
     return (
       <main className="mx-auto min-h-screen max-w-4xl px-6 py-10">
         <Link href="/search" className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
           ← Back to Search
         </Link>
-        <div className="mt-8 rounded-xl border-2 border-red-300 bg-red-50 p-8">
+        <div className="mt-8 rounded-xl border-2 border-amber-300 bg-amber-50 p-8">
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-2xl">⛔</span>
-            <h1 className="text-2xl font-bold text-red-800">Identity Verification Failed</h1>
+            <span className="text-2xl">⏸</span>
+            <h1 className="text-2xl font-bold text-amber-800">Verification Paused</h1>
           </div>
-          <p className="text-red-700 font-semibold mb-2">{companyLabel} ({id.toUpperCase()})</p>
-          {failureReasons.length > 0 && (
-            <ul className="mt-3 space-y-1 text-sm text-red-700">
-              {failureReasons.map((r, i) => <li key={i} className="flex gap-2"><span>•</span><span>{r}</span></li>)}
-            </ul>
-          )}
-          {Object.keys(missingSources).length > 0 && (
+
+          {/* Identity confirmed even in failure */}
+          <div className="mb-5 flex items-center gap-2 rounded-lg bg-emerald-50 border border-emerald-200 px-4 py-2.5">
+            <span className="text-emerald-600 font-bold">✓</span>
+            <p className="text-sm font-semibold text-emerald-800">Company identified: {companyLabel} ({tickerLabel})</p>
+          </div>
+
+          <p className="text-amber-800 font-semibold mb-1">The Lens verified your company but could not retrieve enough authoritative documents to proceed with analysis.</p>
+
+          {/* Source checklist */}
+          {Object.keys(retrievalChecklist).length > 0 && (
             <div className="mt-5">
-              <p className="text-xs font-bold uppercase tracking-widest text-red-600 mb-2">Source Checklist</p>
-              <ul className="space-y-1 text-sm">
-                {Object.entries(missingSources).map(([k, v]) => (
-                  <li key={k} className="flex items-center gap-2">
-                    <span className={v ? 'text-emerald-600' : 'text-red-500'}>{v ? '✓' : '✗'}</span>
-                    <span className={v ? 'text-slate-700' : 'text-red-600'}>{k.replace(/_/g, ' ')}</span>
+              <p className="text-xs font-bold uppercase tracking-widest text-amber-700 mb-3">Source Checklist</p>
+              <ul className="space-y-2">
+                {Object.entries(retrievalChecklist).map(([k, v]) => (
+                  <li key={k} className="flex items-center gap-2 text-sm">
+                    <span className={v ? 'text-emerald-600 font-bold' : 'text-amber-500 font-bold'}>{v ? '✓' : '⚠'}</span>
+                    <span className={v ? 'text-slate-700' : 'text-amber-700'}>{checklistLabels[k] ?? k.replace(/_/g, ' ')}</span>
                   </li>
                 ))}
               </ul>
             </div>
           )}
-          <Link href="/search" className="mt-6 inline-flex items-center gap-2 rounded-lg bg-red-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-red-800 transition-colors">
-            Try a different ticker →
-          </Link>
+
+          <div className="mt-5 rounded-lg bg-amber-100 border border-amber-200 px-4 py-3">
+            <p className="text-sm text-amber-800">To maintain analysis accuracy, The Lens stopped before generating scores or Unlock Potential™ estimates. This protects against analysis based on insufficient evidence.</p>
+          </div>
+
+          <p className="mt-3 text-xs text-amber-600 italic">{companyLabel} has abundant public information available. This pause indicates a retrieval limitation, not a lack of public data.</p>
+
+          {isRetry && (
+            <p className="mt-3 text-xs text-amber-700 font-medium">Retry also returned limited sources. This may indicate a temporary data availability issue.</p>
+          )}
+
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link href={retryUrl} className="inline-flex items-center gap-2 rounded-lg bg-amber-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-amber-700 transition-colors">
+              Try Again →
+            </Link>
+            <Link href="/search" className="inline-flex items-center gap-2 rounded-lg border border-amber-400 bg-white px-5 py-2.5 text-sm font-semibold text-amber-800 hover:bg-amber-50 transition-colors">
+              Search Different Company →
+            </Link>
+          </div>
         </div>
       </main>
     );
@@ -243,8 +321,8 @@ export default async function LensDetailPage({ params, searchParams }: { params:
         <div className="mt-4 flex items-start gap-3 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3">
           <span className="text-amber-500 text-lg mt-0.5">⚠</span>
           <div>
-            <p className="text-sm font-bold text-amber-800">Identity Confidence: Moderate</p>
-            <p className="text-xs text-amber-700 mt-0.5">Some source data was limited. Analysis proceeds but may have reduced accuracy for certain sections.</p>
+            <p className="text-sm font-bold text-amber-800">Retrieval Confidence: Moderate</p>
+            <p className="text-xs text-amber-700 mt-0.5">Company identity confirmed. Some source documents were limited. Analysis proceeds but certain sections may have reduced precision. Scores are based on available evidence only.</p>
           </div>
         </div>
       )}
