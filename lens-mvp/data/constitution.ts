@@ -16,6 +16,8 @@ export interface Principle {
   relatedIds: string[]
   oid?: string
   lensUri?: string
+  constitutionId?: string
+  book?: string
   typedRelationships?: Array<{
     type: string
     targetId: string
@@ -515,6 +517,143 @@ export const principles: Principle[] = [
       { type: 'implements', targetId: 'TI-011', description: 'Implements Knowledge Compounding Principle™ through Opportunity Atlas™' },
     ],
     relatedIds: ['TI-012', 'TI-015', 'TI-201', 'TI-011', 'TI-010', 'TI-103'],
+  },
+
+  // ============================================
+  // BOOK II — TRANSFORMATION CAPACITY™ / WTAP™
+  // (TI-017 to TI-020)
+  // ============================================
+
+  {
+    id: 'TI-017',
+    slug: 'ti-017',
+    name: 'Workflow Trace Advantage Principle™ (WTAP™)',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-25',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    constitutionId: 'PID-WTAP-001',
+    book: 'Book II — Transformation Capacity™',
+    oid: 'OID-2026-TI-WTAP-001',
+    lensUri: 'lens://constitution/ti-017',
+    principle: 'As artificial intelligence becomes universally accessible, sustainable competitive advantage shifts from owning superior models to owning superior organizational workflow intelligence.',
+    definition: "An organization's AI capability is ultimately constrained not by the intelligence of the model it deploys, but by the quality, continuity, observability, and verifiability of the workflow intelligence available to that model. As foundation models converge in capability, workflow intelligence becomes the primary source of durable differentiation. Transformation Law™: As intelligence becomes abundant, workflow intelligence becomes scarce.",
+    operatingLaw: 'Enterprise AI Advantage = Model Capability × Workflow Intelligence × Transformation Capacity. A deficiency in any factor constrains the entire system. The defining strategic question is no longer \'Which AI model should we use?\' It becomes \'How effectively does our organization convert everyday work into compounding organizational intelligence?\'',
+    implications: [
+      'Workflow Compounds: Financial capital compounds through investment. Knowledge compounds through learning. Workflow compounds through repeated execution. Organizations that continuously observe, refine, and operationalize workflow create exponentially increasing organizational intelligence.',
+      'Workflow Becomes an Enterprise Asset: Information was an asset. Knowledge became an asset. Data became an asset. Transformation Intelligence recognizes workflow as an enterprise asset deserving measurement, governance, investment, and valuation.',
+      'Organizational Memory Emerges from Workflow: Institutional memory is not created by documentation. It is created by persistent observation of decisions, execution, feedback, adaptation, and outcomes.',
+      'AI Learns Work, Not Organizations: Artificial intelligence cannot learn an organization — it learns representations of work. The fidelity of those representations determines the quality of AI-assisted decisions. Organizations with fragmented workflows produce fragmented intelligence.',
+      'Workflow Creates Proprietary Intelligence: Foundation models increasingly become commodities. Workflow intelligence remains proprietary. Future enterprise value increasingly shifts toward organizations capable of continuously capturing and improving workflow intelligence.',
+      'Five constitutional scorecards for Lens Analysis™: Workflow Trace Index™ (WTI™), Workflow Intelligence Density™ (WID™), Workflow Loss Ratio™ (WLR™), AI Ownership Readiness™ (AIOR™), AI Adaptability Index™ (AAI™). These become leading indicators of future Transformation Capacity™.',
+      'Workflow is the operating system of organizational intelligence — where decisions become memory, memory becomes learning, learning becomes transformation, and transformation becomes enterprise value.',
+    ],
+    typedRelationships: [
+      { type: 'extends', targetId: 'TI-004', description: 'Extends Transformation Capacity™ by identifying workflow intelligence as a primary constraint on transformation' },
+      { type: 'extends', targetId: 'TI-402', description: 'Extends Model Rental / Memory Ownership Principle™ — Rent the model, own the workflow intelligence' },
+      { type: 'implements', targetId: 'TI-202', description: 'Implements Transformation Memory Architecture™ — defines workflow as the mechanism through which durable organizational memory is created' },
+      { type: 'depends_on', targetId: 'TI-702', description: 'Depends on Evidence Architecture™ to ensure workflow intelligence is evidence-backed and auditable' },
+      { type: 'enables', targetId: 'TI-018', description: 'Enables Workflow Trace Index™ as primary measurement metric' },
+    ],
+    relatedIds: ['TI-004', 'TI-402', 'TI-202', 'TI-702', 'TI-018', 'TI-019', 'TI-020', 'TI-012', 'TI-201'],
+  },
+
+  {
+    id: 'TI-018',
+    slug: 'ti-018',
+    name: 'Workflow Trace Index™ (WTI™)',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-25',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book II — Transformation Capacity™',
+    oid: 'OID-2026-TI-WTI-001',
+    lensUri: 'lens://constitution/ti-018',
+    principle: 'Workflow Trace Index™ measures the completeness and quality of workflow observability across an organization.',
+    definition: 'WTI™ scores organizations 0–100 across five dimensions: workflow coverage (what percentage of organizational work is observable), event capture (how completely decisions and actions are recorded), process visibility (how clearly execution pathways are documented), metadata integrity (quality of context attached to workflow traces), and evidence linkage (how well workflow connects to outcomes and evidence).',
+    operatingLaw: 'Organizations with high WTI™ create compounding workflow intelligence — each captured workflow trace makes future execution more intelligent. Organizations with low WTI™ repeatedly rediscover the same lessons at significant cost.',
+    implications: [
+      'WTI™ is a leading indicator of Transformation Capacity™ — organizations cannot transform what they cannot observe.',
+      'Observable characteristics of high WTI™: Decision Continuity™ (decisions linked to assumptions, evidence, parties, implementation, outcomes), Workflow Visibility™ (work observable rather than inferred), Feedback Continuity™ (every execution cycle produces measurable learning), Organizational Memory™ (knowledge survives turnover, restructuring, and succession).',
+      'WTI™ is complemented by Workflow Loss Ratio™ (WLR™) — WLR = Uncaptured Workflow ÷ Total Workflow. Lower values indicate stronger organizational learning.',
+      'Workflow Intelligence Density™ (WID™) measures how much organizational activity becomes reusable intelligence: WID = Reusable Organizational Intelligence ÷ Total Organizational Activity.',
+    ],
+    typedRelationships: [
+      { type: 'derived_from', targetId: 'TI-017', description: 'Primary measurement metric derived from WTAP™' },
+      { type: 'measures', targetId: 'TI-004', description: 'Measures a leading indicator of Transformation Capacity™' },
+      { type: 'extends', targetId: 'TI-205', description: 'Extends Memory Capture Ratio™ with full workflow observability framework' },
+    ],
+    relatedIds: ['TI-017', 'TI-004', 'TI-205', 'TI-019', 'TI-020', 'TI-201'],
+  },
+
+  {
+    id: 'TI-019',
+    slug: 'ti-019',
+    name: 'AI Ownership Readiness™ (AIOR™)',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-25',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book II — Transformation Capacity™',
+    oid: 'OID-2026-TI-AIOR-001',
+    lensUri: 'lens://constitution/ti-019',
+    principle: 'AI Ownership Readiness™ measures whether an organization possesses sufficient workflow intelligence to create proprietary AI advantage rather than merely deploying commodity AI capability.',
+    definition: 'AIOR™ scores organizations across eight dimensions: Workflow Trace (completeness of workflow capture), Identity Verification (attributability of decisions to verified actors), Organizational Memory (durability of institutional knowledge), Governance (oversight architecture for AI decisions), Explainability (traceability of AI recommendations to evidence), Feedback Architecture (systems for continuous improvement), Learning Velocity (speed of converting experience into improved outcomes), and Outcome Verification (measurement of actual vs projected results).',
+    operatingLaw: 'Organizations that merely deploy AI improve productivity. Organizations with high AIOR™ create proprietary learning systems that compound over time — turning AI from a commodity tool into an organizational moat.',
+    implications: [
+      'AIOR™ is the constitutional metric for distinguishing AI adoption (commodity) from AI ownership (proprietary advantage).',
+      'The AIOR™ assessment answers: Does this organization\'s workflow intelligence create durable AI advantage, or is its AI capability fully replicable by any competitor with the same model access?',
+      'High AIOR™ organizations demonstrate: AI recommendations linked to organizational evidence and workflow history, decisions attributable to verified identities, learning that compounds across cycles rather than resetting with each initiative.',
+      'AIOR™ connects directly to the Truth Engine™ — the Ground Truth Object™ and Evidence Architecture™ are concrete implementations of AIOR™ infrastructure.',
+    ],
+    typedRelationships: [
+      { type: 'derived_from', targetId: 'TI-017', description: 'Derived from WTAP™ as readiness measurement metric' },
+      { type: 'implements', targetId: 'TI-401', description: 'Implements Adoption Scarcity Principle™ by measuring organizational readiness to convert AI into proprietary advantage' },
+      { type: 'depends_on', targetId: 'TI-018', description: 'Depends on Workflow Trace Index™ as foundational input' },
+      { type: 'extends', targetId: 'TI-404', description: 'Extends AI Transformation Efficiency™ with proprietary ownership readiness dimension' },
+    ],
+    relatedIds: ['TI-017', 'TI-018', 'TI-401', 'TI-404', 'TI-403', 'TI-302'],
+  },
+
+  {
+    id: 'TI-020',
+    slug: 'ti-020',
+    name: 'AI Adaptability Index™ (AAI™)',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-25',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book II — Transformation Capacity™',
+    oid: 'OID-2026-TI-AAI-001',
+    lensUri: 'lens://constitution/ti-020',
+    principle: 'AI Adaptability Index™ measures an organization\'s capacity to continuously improve AI performance through operational learning — the ability to get better at AI by doing AI.',
+    definition: 'AAI™ measures the speed and effectiveness with which an organization converts AI deployment experience into improved AI outcomes. High AAI™ organizations demonstrate learning velocity from AI operations — each AI deployment cycle produces better inputs for the next cycle through systematic capture of what worked, what failed, and why.',
+    operatingLaw: 'Organizations with high AAI™ compound their AI advantage over time — each cycle improves the next. Organizations with low AAI™ deploy AI episodically without institutional learning, repeating the same mistakes across initiatives and accumulating AI Incident Debt™.',
+    implications: [
+      'AAI™ is the AI-specific application of Learning Velocity™ (TI-207) — measuring how quickly AI operational experience converts into improved AI outcomes.',
+      'High AAI™ requires: systematic capture of AI decision outcomes, feedback loops from AI recommendations to realized results, governance architecture that learns from AI failures, and memory systems that preserve AI operational intelligence across cycles.',
+      'AAI™ directly relates to AROI™ (TI-105) — organizations with high adaptability generate compounding returns on intelligence investment rather than linear returns.',
+      'The Continuous Learning Law™ (TI-016) is the constitutional foundation for AAI™ — every completed AI deployment should improve future AI performance.',
+    ],
+    typedRelationships: [
+      { type: 'derived_from', targetId: 'TI-017', description: 'Derived from WTAP™ as adaptability measurement metric' },
+      { type: 'extends', targetId: 'TI-207', description: 'Extends Learning Velocity™ for AI-specific operational learning context' },
+      { type: 'implements', targetId: 'TI-016', description: 'Implements Continuous Learning Law™ at the AI operations level' },
+      { type: 'measures', targetId: 'TI-105', description: 'Measures the compounding dimension of AROI™ over time' },
+    ],
+    relatedIds: ['TI-017', 'TI-019', 'TI-207', 'TI-016', 'TI-105', 'TI-404'],
   },
 
   // ============================================
@@ -1273,11 +1412,14 @@ export const principles: Principle[] = [
       "The durable asset is not the model but the organization's governed memory layer.",
       'AI strategy should prioritize memory architecture, not only model selection.',
       'Enterprise memory improves switching power and resilience.',
+      'Workflow Trace Corollary™ (WTAP™ TI-017): The complete formulation is \'Rent the model, own the workflow intelligence.\' The memory layer is valuable; the workflow trace layer is the proprietary advantage that makes memory compounding and defensible.',
     ],
-    relatedIds: ['TI-203', 'TI-204', 'TI-201'],
+    relatedIds: ['TI-203', 'TI-204', 'TI-201', 'TI-017'],
     lensUri: 'lens://constitution/ti-402',
 
-    typedRelationships: [],
+    typedRelationships: [
+      { type: 'extended_by', targetId: 'TI-017', description: 'Extended by Workflow Trace Advantage Principle™ — workflow intelligence as the specific proprietary asset to own' },
+    ],
 
   },
 

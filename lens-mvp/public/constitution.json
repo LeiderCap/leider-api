@@ -1453,6 +1453,198 @@
       ],
       "lensUri": "lens://constitution/ti-903",
       "typedRelationships": []
+    },
+    {
+      "id": "TI-017",
+      "slug": "ti-017",
+      "name": "Workflow Trace Advantage Principle™ (WTAP™)",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "constitutionId": "PID-WTAP-001",
+      "book": "Book II — Transformation Capacity™",
+      "oid": "OID-2026-TI-WTAP-001",
+      "lensUri": "lens://constitution/ti-017",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-017",
+      "principle": "As artificial intelligence becomes universally accessible, sustainable competitive advantage shifts from owning superior models to owning superior organizational workflow intelligence.",
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-004",
+          "description": "Extends Transformation Capacity™ by identifying workflow intelligence as a primary constraint on transformation"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-402",
+          "description": "Extends Model Rental / Memory Ownership Principle™ — Rent the model, own the workflow intelligence"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-202",
+          "description": "Implements Transformation Memory Architecture™"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-702",
+          "description": "Depends on Evidence Architecture™"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-018",
+          "description": "Enables Workflow Trace Index™ as primary measurement metric"
+        }
+      ],
+      "relatedIds": [
+        "TI-004",
+        "TI-402",
+        "TI-202",
+        "TI-702",
+        "TI-018",
+        "TI-019",
+        "TI-020",
+        "TI-012",
+        "TI-201"
+      ]
+    },
+    {
+      "id": "TI-018",
+      "slug": "ti-018",
+      "name": "Workflow Trace Index™ (WTI™)",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book II — Transformation Capacity™",
+      "oid": "OID-2026-TI-WTI-001",
+      "lensUri": "lens://constitution/ti-018",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-018",
+      "principle": "Workflow Trace Index™ measures the completeness and quality of workflow observability across an organization.",
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-017",
+          "description": "Primary measurement metric derived from WTAP™"
+        },
+        {
+          "type": "measures",
+          "targetId": "TI-004",
+          "description": "Measures a leading indicator of Transformation Capacity™"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-205",
+          "description": "Extends Memory Capture Ratio™ with full workflow observability framework"
+        }
+      ],
+      "relatedIds": [
+        "TI-017",
+        "TI-004",
+        "TI-205",
+        "TI-019",
+        "TI-020",
+        "TI-201"
+      ]
+    },
+    {
+      "id": "TI-019",
+      "slug": "ti-019",
+      "name": "AI Ownership Readiness™ (AIOR™)",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book II — Transformation Capacity™",
+      "oid": "OID-2026-TI-AIOR-001",
+      "lensUri": "lens://constitution/ti-019",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-019",
+      "principle": "AI Ownership Readiness™ measures whether an organization possesses sufficient workflow intelligence to create proprietary AI advantage rather than merely deploying commodity AI capability.",
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-017",
+          "description": "Derived from WTAP™ as readiness measurement metric"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-401",
+          "description": "Implements Adoption Scarcity Principle™"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-018",
+          "description": "Depends on Workflow Trace Index™ as foundational input"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-404",
+          "description": "Extends AI Transformation Efficiency™ with proprietary ownership readiness dimension"
+        }
+      ],
+      "relatedIds": [
+        "TI-017",
+        "TI-018",
+        "TI-401",
+        "TI-404",
+        "TI-403",
+        "TI-302"
+      ]
+    },
+    {
+      "id": "TI-020",
+      "slug": "ti-020",
+      "name": "AI Adaptability Index™ (AAI™)",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book II — Transformation Capacity™",
+      "oid": "OID-2026-TI-AAI-001",
+      "lensUri": "lens://constitution/ti-020",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-020",
+      "principle": "AI Adaptability Index™ measures an organization's capacity to continuously improve AI performance through operational learning — the ability to get better at AI by doing AI.",
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-017",
+          "description": "Derived from WTAP™ as adaptability measurement metric"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-207",
+          "description": "Extends Learning Velocity™ for AI-specific operational learning context"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-016",
+          "description": "Implements Continuous Learning Law™ at the AI operations level"
+        },
+        {
+          "type": "measures",
+          "targetId": "TI-105",
+          "description": "Measures the compounding dimension of AROI™ over time"
+        }
+      ],
+      "relatedIds": [
+        "TI-017",
+        "TI-019",
+        "TI-207",
+        "TI-016",
+        "TI-105",
+        "TI-404"
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -1460,5 +1652,5 @@
   "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 69
+  "totalPrinciples": 73
 }
