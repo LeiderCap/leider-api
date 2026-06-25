@@ -15,6 +15,12 @@ export interface Principle {
   implications: string[]
   relatedIds: string[]
   oid?: string
+  lensUri?: string
+  typedRelationships?: Array<{
+    type: string
+    targetId: string
+    description: string
+  }>
 }
 
 export const principles: Principle[] = [
@@ -45,6 +51,14 @@ export const principles: Principle[] = [
       'Transformation Intelligence becomes a core enterprise capability.',
     ],
     relatedIds: ['TI-002', 'TI-003', 'TI-004', 'TI-601'],
+    lensUri: 'lens://constitution/ti-001',
+
+    typedRelationships: [
+      { type: 'depends_on', targetId: 'TI-004', description: 'Transformation Intelligence depends on Transformation Capacity' },
+      { type: 'enables', targetId: 'TI-003', description: 'Enables The Lens™ as discovery layer' },
+      { type: 'measures', targetId: 'TI-103', description: 'Measured by Transformation Efficiency™' },
+    ],
+
   },
 
   {
@@ -68,6 +82,10 @@ export const principles: Principle[] = [
       "Every transformation should improve the system's future ability to transform.",
     ],
     relatedIds: ['TI-001', 'TI-210', 'TI-301'],
+    lensUri: 'lens://constitution/ti-002',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -91,6 +109,10 @@ export const principles: Principle[] = [
       'It must become evidence-based, explainable, and repeatable.',
     ],
     relatedIds: ['TI-001', 'TI-801', 'TI-802', 'TI-803'],
+    lensUri: 'lens://constitution/ti-003',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -114,6 +136,14 @@ export const principles: Principle[] = [
       'Transformation Capacity becomes a strategic asset.',
     ],
     relatedIds: ['TI-001', 'TI-601', 'TI-103'],
+    lensUri: 'lens://constitution/ti-004',
+
+    typedRelationships: [
+      { type: 'depends_on', targetId: 'TI-008', description: 'Capacity is mediated by Intermediary Systems' },
+      { type: 'measured_by', targetId: 'TI-009', description: 'Efficiency measured by ISE™' },
+      { type: 'extends', targetId: 'TI-006', description: 'Extended by Expression Architecture™' },
+    ],
+
   },
 
   {
@@ -137,6 +167,10 @@ export const principles: Principle[] = [
       'Courage is an operating requirement, not a personality trait.',
     ],
     relatedIds: ['TI-502', 'TI-004', 'TI-303'],
+    lensUri: 'lens://constitution/ti-005',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -161,6 +195,14 @@ export const principles: Principle[] = [
       'As intelligence becomes abundant, expression capacity becomes the scarce and therefore valuable resource.',
     ],
     relatedIds: ['TI-004', 'TI-103', 'TI-401', 'TI-901', 'TI-902', 'TI-903'],
+    lensUri: 'lens://constitution/ti-006',
+
+    typedRelationships: [
+      { type: 'depends_on', targetId: 'TI-004', description: 'Expression requires Transformation Capacity' },
+      { type: 'measured_by', targetId: 'TI-901', description: 'Measured by Expression Capacity Index™' },
+      { type: 'implements', targetId: 'TI-008', description: 'Implements ISP™ at organizational expression layer' },
+    ],
+
   },
 
   {
@@ -185,6 +227,10 @@ export const principles: Principle[] = [
       'Organizations competing on deployment velocity rather than intelligence possession create self-reinforcing compounding advantages.',
     ],
     relatedIds: ['TI-006', 'TI-004', 'TI-103', 'TI-401', 'TI-604', 'TI-605'],
+    lensUri: 'lens://constitution/ti-007',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -211,6 +257,14 @@ export const principles: Principle[] = [
       'Every Lens Analysis™ shall identify the intermediary systems constraining value realization.',
     ],
     relatedIds: ['TI-001', 'TI-004', 'TI-009', 'TI-103', 'TI-701', 'TI-801'],
+    lensUri: 'lens://constitution/ti-008',
+
+    typedRelationships: [
+      { type: 'extends', targetId: 'TI-004', description: 'Extends TCP™ with conversion mechanism' },
+      { type: 'measured_by', targetId: 'TI-009', description: 'Measured by ISE™' },
+      { type: 'applies_to', targetId: 'TI-103', description: 'Applies to Transformation Efficiency™ as conversion law' },
+    ],
+
   },
 
   {
@@ -236,6 +290,72 @@ export const principles: Principle[] = [
       'Every Lens Analysis™ should identify primary intermediary systems, estimate ISE™ for each, identify friction sources, and project enterprise value unlocked through systemic optimization.',
     ],
     relatedIds: ['TI-008', 'TI-004', 'TI-103', 'TI-006', 'TI-901', 'TI-007'],
+    lensUri: 'lens://constitution/ti-009',
+
+    typedRelationships: [],
+
+  },
+
+  {
+    id: 'TI-010',
+    slug: 'ti-010',
+    name: 'Addressability Principle™',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-24',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    oid: 'OID-2026-TI-ADDR-001',
+    lensUri: 'lens://constitution/ti-010',
+    principle: 'A knowledge system becomes discoverable, reusable, citable, and defensible when every important object has a permanent address.',
+    definition: 'The Addressability Principle™ is the foundational law of the Lens Knowledge Addressing System™ (LKAS™). It states that AI systems can only reliably retrieve, cite, connect, and recommend knowledge objects that are persistent, structured, and uniquely identifiable. Unaddressed intelligence disappears. Addressed intelligence compounds.',
+    operatingLaw: 'Unaddressed intelligence disappears. Addressed intelligence compounds. Every Lens Analysis™, principle, blueprint, scorecard, evidence item, decision, relationship, and opportunity shall have a permanent identity, canonical URL, structured metadata, machine-readable JSON, JSON-LD, version history, provenance, and explicit relationships.',
+    implications: [
+      'LKAS™ Object Types: Opportunity (OID™), Principle (PID™), Blueprint (BID™), Scorecard (SID™), Atlas Node (AID™), Relationship (RID™), Evidence (EID™), Decision (DID™), Transformation Event (TID™).',
+      'The Lens URI Standard™ provides semantic addresses for all objects: lens://principles/transformation-capacity, lens://opportunities/INTC/TCA/2026/001, lens://constitution/book1/article12.',
+      'Every knowledge object should include: permanent ID, canonical URL, Lens URI, machine-readable JSON, JSON-LD schema, citation block, related objects, version history, and trust/confidence metadata.',
+      'LKAS™ turns The Lens™ from a publishing site into a Transformation Knowledge Infrastructure™ — not just findable, but computable.',
+      'AI systems can traverse LKAS™ objects to answer: What does this analysis depend on? Which principles support this opportunity? What evidence supports this scorecard? Which opportunities share the same transformation pattern?',
+    ],
+    typedRelationships: [
+      { type: 'extends', targetId: 'TI-004', description: 'Extends Transformation Capacity™ by requiring all capacity objects to be addressable' },
+      { type: 'enables', targetId: 'TI-011', description: 'Addressability enables Knowledge Compounding' },
+      { type: 'implements', targetId: 'TI-008', description: 'Implements the Intermediary Systems Principle™ at the knowledge infrastructure layer' },
+    ],
+    relatedIds: ['TI-011', 'TI-008', 'TI-004', 'TI-201', 'TI-210'],
+  },
+
+  {
+    id: 'TI-011',
+    slug: 'ti-011',
+    name: 'Knowledge Compounding Principle™ (KCP™)',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-24',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    oid: 'OID-2026-TI-KCP-001',
+    lensUri: 'lens://constitution/ti-011',
+    principle: 'Knowledge compounds when each new insight becomes a permanently addressable, linked, machine-readable object that increases the value of every existing object in the system.',
+    definition: 'The Knowledge Compounding Principle™ (KCP™) states that the value of a knowledge system grows super-linearly when objects are addressable, connected, and machine-readable. Equation: Knowledge Value ∝ Addressability × Connectivity × Reusability × Trust.',
+    operatingLaw: 'Each new knowledge object added to an LKAS™-compliant system increases the value of all existing objects by creating new possible connections, citations, derivations, and traversal paths. This is the knowledge analog of network effects.',
+    implications: [
+      'Knowledge Value ∝ Addressability × Connectivity × Reusability × Trust. Maximizing any dimension increases total system value.',
+      'LKAS™ creates compounding returns on intellectual property — each new principle added makes all existing principles more valuable by enabling new relationships.',
+      'AI systems compound knowledge faster when operating on LKAS™-structured objects versus unstructured documents — the difference between traversing a graph and scanning text.',
+      'The Transformation Intelligence™ Constitution becomes more valuable with each ratified principle — not linearly, but super-linearly — because each principle creates new relationship paths to all existing principles.',
+      'Every Lens Analysis™ that references LKAS™ objects inherits the credibility, provenance, and citability of those objects.',
+    ],
+    typedRelationships: [
+      { type: 'depends_on', targetId: 'TI-010', description: 'Compounding requires Addressability as a prerequisite' },
+      { type: 'extends', targetId: 'TI-201', description: 'Extends Cumulative Intelligence Principle™ with explicit addressing infrastructure' },
+      { type: 'measures', targetId: 'TI-009', description: 'KCP™ is a measure of ISE™ at the knowledge system level' },
+    ],
+    relatedIds: ['TI-010', 'TI-201', 'TI-009', 'TI-004', 'TI-103'],
   },
 
   // ============================================
@@ -263,6 +383,10 @@ export const principles: Principle[] = [
       'Capital formation depends on credible transformation evidence.',
     ],
     relatedIds: ['TI-102', 'TI-104', 'TI-103'],
+    lensUri: 'lens://constitution/ti-101',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -286,6 +410,10 @@ export const principles: Principle[] = [
       'Boards need visibility across the full continuum.',
     ],
     relatedIds: ['TI-301', 'TI-101', 'TI-209'],
+    lensUri: 'lens://constitution/ti-102',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -309,6 +437,14 @@ export const principles: Principle[] = [
       'Low TE™ reveals trapped value.',
     ],
     relatedIds: ['TI-808', 'TI-104', 'TI-801'],
+    lensUri: 'lens://constitution/ti-103',
+
+    typedRelationships: [
+      { type: 'derived_from', targetId: 'TI-004', description: 'Derived from Transformation Capacity' },
+      { type: 'depends_on', targetId: 'TI-009', description: 'Depends on ISE™ as conversion layer' },
+      { type: 'enables', targetId: 'TI-801', description: 'Enables Equity Reclamation™' },
+    ],
+
   },
 
   {
@@ -331,6 +467,10 @@ export const principles: Principle[] = [
       'TY™ helps compare initiatives across departments and portfolios.',
     ],
     relatedIds: ['TI-401', 'TI-103', 'TI-001'],
+    lensUri: 'lens://constitution/ti-104',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -354,6 +494,10 @@ export const principles: Principle[] = [
       'Organizations need AI outcome infrastructure.',
     ],
     relatedIds: ['TI-104', 'TI-004', 'TI-404'],
+    lensUri: 'lens://constitution/ti-105',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -377,6 +521,10 @@ export const principles: Principle[] = [
       'Poor decision capture creates hidden enterprise value leakage.',
     ],
     relatedIds: ['TI-201', 'TI-212', 'TI-210'],
+    lensUri: 'lens://constitution/ti-106',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -399,6 +547,10 @@ export const principles: Principle[] = [
       'Increasing TP™ is itself a value-creation act.',
     ],
     relatedIds: ['TI-808', 'TI-103', 'TI-602'],
+    lensUri: 'lens://constitution/ti-107',
+
+    typedRelationships: [],
+
   },
 
   // ============================================
@@ -426,6 +578,10 @@ export const principles: Principle[] = [
       'Memory architecture becomes a competitive advantage.',
     ],
     relatedIds: ['TI-202', 'TI-204', 'TI-106'],
+    lensUri: 'lens://constitution/ti-201',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -449,6 +605,10 @@ export const principles: Principle[] = [
       'Transformation becomes cumulative rather than episodic.',
     ],
     relatedIds: ['TI-201', 'TI-210', 'TI-203'],
+    lensUri: 'lens://constitution/ti-202',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -471,6 +631,10 @@ export const principles: Principle[] = [
       'High EMI™ improves AI performance and transformation velocity.',
     ],
     relatedIds: ['TI-204', 'TI-205', 'TI-206'],
+    lensUri: 'lens://constitution/ti-203',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -493,6 +657,10 @@ export const principles: Principle[] = [
       'Memory loss creates hidden enterprise cost.',
     ],
     relatedIds: ['TI-203', 'TI-106', 'TI-201'],
+    lensUri: 'lens://constitution/ti-204',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -515,6 +683,10 @@ export const principles: Principle[] = [
       'High MCR™ supports governance, training, and transformation continuity.',
     ],
     relatedIds: ['TI-212', 'TI-203', 'TI-207'],
+    lensUri: 'lens://constitution/ti-205',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -537,6 +709,10 @@ export const principles: Principle[] = [
       'AI memory should be evaluated by outcome contribution.',
     ],
     relatedIds: ['TI-204', 'TI-207', 'TI-203'],
+    lensUri: 'lens://constitution/ti-206',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -559,6 +735,10 @@ export const principles: Principle[] = [
       'Slow learning velocity signals transformation friction.',
     ],
     relatedIds: ['TI-206', 'TI-201', 'TI-103'],
+    lensUri: 'lens://constitution/ti-207',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -581,6 +761,10 @@ export const principles: Principle[] = [
       'Reducing memory debt improves transformation efficiency.',
     ],
     relatedIds: ['TI-209', 'TI-212', 'TI-203'],
+    lensUri: 'lens://constitution/ti-208',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -603,6 +787,10 @@ export const principles: Principle[] = [
       'KLC™ should be part of transformation diagnostics.',
     ],
     relatedIds: ['TI-208', 'TI-201', 'TI-203'],
+    lensUri: 'lens://constitution/ti-209',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -626,6 +814,10 @@ export const principles: Principle[] = [
       'Becomes the knowledge substrate for Transformation Intelligence™.',
     ],
     relatedIds: ['TI-211', 'TI-203', 'TI-106'],
+    lensUri: 'lens://constitution/ti-210',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -649,6 +841,10 @@ export const principles: Principle[] = [
       'Transformation should be observable over time.',
     ],
     relatedIds: ['TI-212', 'TI-102', 'TI-210'],
+    lensUri: 'lens://constitution/ti-211',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -671,6 +867,10 @@ export const principles: Principle[] = [
       'DCG™ contributes to Memory Debt™ and Knowledge Leakage Cost™.',
     ],
     relatedIds: ['TI-205', 'TI-106', 'TI-213'],
+    lensUri: 'lens://constitution/ti-212',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -694,6 +894,10 @@ export const principles: Principle[] = [
       'Conversation becomes part of the Transformation Graph™.',
     ],
     relatedIds: ['TI-211', 'TI-203', 'TI-210'],
+    lensUri: 'lens://constitution/ti-213',
+
+    typedRelationships: [],
+
   },
 
   // ============================================
@@ -721,6 +925,10 @@ export const principles: Principle[] = [
       'Decision visibility turns transformation into an investable process.',
     ],
     relatedIds: ['TI-303', 'TI-102', 'TI-702'],
+    lensUri: 'lens://constitution/ti-301',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -744,6 +952,10 @@ export const principles: Principle[] = [
       'Governance must extend into algorithms, workflows, and decisions.',
     ],
     relatedIds: ['TI-702', 'TI-301', 'TI-303'],
+    lensUri: 'lens://constitution/ti-302',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -767,6 +979,10 @@ export const principles: Principle[] = [
       'Board confidence supports capital formation and execution.',
     ],
     relatedIds: ['TI-301', 'TI-304', 'TI-302'],
+    lensUri: 'lens://constitution/ti-303',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -789,6 +1005,10 @@ export const principles: Principle[] = [
       'AI transformation requires board-level learning infrastructure.',
     ],
     relatedIds: ['TI-303', 'TI-601', 'TI-305'],
+    lensUri: 'lens://constitution/ti-304',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -811,6 +1031,10 @@ export const principles: Principle[] = [
       'Governance debt reduces transformation probability.',
     ],
     relatedIds: ['TI-403', 'TI-301', 'TI-304'],
+    lensUri: 'lens://constitution/ti-305',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -834,6 +1058,10 @@ export const principles: Principle[] = [
       'Public systems need decision visibility and evidence.',
     ],
     relatedIds: ['TI-302', 'TI-301', 'TI-503'],
+    lensUri: 'lens://constitution/ti-306',
+
+    typedRelationships: [],
+
   },
 
   // ============================================
@@ -861,6 +1089,10 @@ export const principles: Principle[] = [
       'Adoption scarcity explains why many AI pilots fail to scale.',
     ],
     relatedIds: ['TI-004', 'TI-105', 'TI-601'],
+    lensUri: 'lens://constitution/ti-401',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -884,6 +1116,10 @@ export const principles: Principle[] = [
       'Enterprise memory improves switching power and resilience.',
     ],
     relatedIds: ['TI-203', 'TI-204', 'TI-201'],
+    lensUri: 'lens://constitution/ti-402',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -907,6 +1143,10 @@ export const principles: Principle[] = [
       'Agent activity should connect to decision visibility infrastructure.',
     ],
     relatedIds: ['TI-301', 'TI-305', 'TI-302'],
+    lensUri: 'lens://constitution/ti-403',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -929,6 +1169,10 @@ export const principles: Principle[] = [
       'AI should increase learning velocity and reduce memory debt.',
     ],
     relatedIds: ['TI-105', 'TI-103', 'TI-401'],
+    lensUri: 'lens://constitution/ti-404',
+
+    typedRelationships: [],
+
   },
 
   // ============================================
@@ -956,6 +1200,10 @@ export const principles: Principle[] = [
       'Language quality affects transformation capacity.',
     ],
     relatedIds: ['TI-502', 'TI-504', 'TI-505'],
+    lensUri: 'lens://constitution/ti-501',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -979,6 +1227,10 @@ export const principles: Principle[] = [
       'The Human Meaning Layer™ is essential to adoption.',
     ],
     relatedIds: ['TI-503', 'TI-005', 'TI-504'],
+    lensUri: 'lens://constitution/ti-502',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -1002,6 +1254,10 @@ export const principles: Principle[] = [
       'Meaning is an operating requirement.',
     ],
     relatedIds: ['TI-502', 'TI-401', 'TI-005'],
+    lensUri: 'lens://constitution/ti-503',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -1024,6 +1280,10 @@ export const principles: Principle[] = [
       'AI-generated language can increase drift if not governed.',
     ],
     relatedIds: ['TI-501', 'TI-302', 'TI-505'],
+    lensUri: 'lens://constitution/ti-504',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -1047,6 +1307,10 @@ export const principles: Principle[] = [
       'LensAnalysis.com serves as the case study.',
     ],
     relatedIds: ['TI-501', 'TI-504', 'TI-502'],
+    lensUri: 'lens://constitution/ti-505',
+
+    typedRelationships: [],
+
   },
 
   // ============================================
@@ -1074,6 +1338,10 @@ export const principles: Principle[] = [
       'Boards and executives should measure absorbability before launching major initiatives.',
     ],
     relatedIds: ['TI-004', 'TI-304', 'TI-401'],
+    lensUri: 'lens://constitution/ti-601',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -1096,6 +1364,10 @@ export const principles: Principle[] = [
       'TRI™ improves Transformation Probability™.',
     ],
     relatedIds: ['TI-107', 'TI-601', 'TI-004'],
+    lensUri: 'lens://constitution/ti-602',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -1119,6 +1391,10 @@ export const principles: Principle[] = [
       'Sequencing initiatives by Operationalization Capacity™ rather than strategic priority is the primary lever for improving deployment outcomes.',
     ],
     relatedIds: ['TI-007', 'TI-004', 'TI-601', 'TI-605', 'TI-606'],
+    lensUri: 'lens://constitution/ti-604',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -1143,6 +1419,10 @@ export const principles: Principle[] = [
       'Primary mechanism for escaping Pilot Purgatory™: Deployment acceleration via the Transformation Factory™ product suite.',
     ],
     relatedIds: ['TI-007', 'TI-604', 'TI-606', 'TI-401', 'TI-802'],
+    lensUri: 'lens://constitution/ti-605',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -1166,6 +1446,10 @@ export const principles: Principle[] = [
       'Building Deployment Velocity™ is itself a strategic moat — organizational capacity that competitors cannot quickly replicate.',
     ],
     relatedIds: ['TI-007', 'TI-604', 'TI-605', 'TI-103', 'TI-201'],
+    lensUri: 'lens://constitution/ti-606',
+
+    typedRelationships: [],
+
   },
 
   // ============================================
@@ -1193,6 +1477,10 @@ export const principles: Principle[] = [
       'Operationalization requires trust, explainability, and adoption.',
     ],
     relatedIds: ['TI-702', 'TI-703', 'TI-704'],
+    lensUri: 'lens://constitution/ti-701',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -1216,6 +1504,10 @@ export const principles: Principle[] = [
       'Trust requires methodology, citations, and case support.',
     ],
     relatedIds: ['TI-301', 'TI-701', 'TI-302'],
+    lensUri: 'lens://constitution/ti-702',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -1239,6 +1531,10 @@ export const principles: Principle[] = [
       'Medical knowledge institutions become stewards of learning clinical decision systems.',
     ],
     relatedIds: ['TI-701', 'TI-702', 'TI-704'],
+    lensUri: 'lens://constitution/ti-703',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -1262,6 +1558,10 @@ export const principles: Principle[] = [
       'Adoption and reimbursement must be designed early.',
     ],
     relatedIds: ['TI-701', 'TI-702', 'TI-703'],
+    lensUri: 'lens://constitution/ti-704',
+
+    typedRelationships: [],
+
   },
 
   // ============================================
@@ -1289,6 +1589,14 @@ export const principles: Principle[] = [
       'Equity Reclamation™ links transformation to capital markets.',
     ],
     relatedIds: ['TI-802', 'TI-103', 'TI-808'],
+    lensUri: 'lens://constitution/ti-801',
+
+    typedRelationships: [
+      { type: 'depends_on', targetId: 'TI-103', description: 'Depends on Transformation Efficiency™' },
+      { type: 'implements', targetId: 'TI-006', description: 'Implements Expression Architecture™ at capital markets layer' },
+      { type: 'applies_to', targetId: 'TI-802', description: 'Applies to Opportunity Zones™' },
+    ],
+
   },
 
   {
@@ -1312,6 +1620,10 @@ export const principles: Principle[] = [
       'Discovery leads into diagnosis, Blueprint™, and execution.',
     ],
     relatedIds: ['TI-801', 'TI-803', 'TI-806'],
+    lensUri: 'lens://constitution/ti-802',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -1334,6 +1646,10 @@ export const principles: Principle[] = [
       'The Lens™ should identify whether the issue is temporary underperformance or structural impairment.',
     ],
     relatedIds: ['TI-801', 'TI-802', 'TI-804'],
+    lensUri: 'lens://constitution/ti-803',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -1357,6 +1673,10 @@ export const principles: Principle[] = [
       'Capital allocation choices must be linked to rerating logic.',
     ],
     relatedIds: ['TI-805', 'TI-806', 'TI-801'],
+    lensUri: 'lens://constitution/ti-804',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -1380,6 +1700,10 @@ export const principles: Principle[] = [
       'Not every company is a candidate.',
     ],
     relatedIds: ['TI-804', 'TI-801', 'TI-303'],
+    lensUri: 'lens://constitution/ti-805',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -1403,6 +1727,10 @@ export const principles: Principle[] = [
       'Improves portfolio prioritization.',
     ],
         relatedIds: ['TI-103', 'TI-107', 'TI-801'],
+    lensUri: 'lens://constitution/ti-806',
+
+    typedRelationships: [],
+
   },
 
   // ============================================
@@ -1432,6 +1760,10 @@ export const principles: Principle[] = [
       'ECI™ Classifications: 90–100 Fully Expressed™, 80–89 High Expression™, 70–79 Moderately Expressed™, 60–69 Underexpressed™, 40–59 Significantly Underexpressed™, Below 40 Expression Failure™.',
     ],
     relatedIds: ['TI-006', 'TI-902', 'TI-903', 'TI-004'],
+    lensUri: 'lens://constitution/ti-901',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -1455,6 +1787,10 @@ export const principles: Principle[] = [
       'Closing the expression gap requires architecture, not merely additional intelligence or capital.',
     ],
     relatedIds: ['TI-006', 'TI-901', 'TI-801', 'TI-103'],
+    lensUri: 'lens://constitution/ti-902',
+
+    typedRelationships: [],
+
   },
 
   {
@@ -1479,6 +1815,10 @@ export const principles: Principle[] = [
       'Adaptive Expression Failure™: inability to learn, slow correction cycles — common in former market leaders.',
     ],
     relatedIds: ['TI-006', 'TI-901', 'TI-902', 'TI-005'],
+    lensUri: 'lens://constitution/ti-903',
+
+    typedRelationships: [],
+
   },
 ]
 export const constitutionMeta = {

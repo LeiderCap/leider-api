@@ -15,6 +15,19 @@ function formatDate(iso: string) {
   });
 }
 
+// Typed relationship badge colors
+const REL_BADGE: Record<string, { bg: string; text: string; label: string }> = {
+  depends_on:   { bg: '#fee2e2', text: '#991b1b', label: 'DEPENDS ON' },
+  extends:      { bg: '#dbeafe', text: '#1e40af', label: 'EXTENDS' },
+  enables:      { bg: '#dcfce7', text: '#166534', label: 'ENABLES' },
+  measured_by:  { bg: '#f3e8ff', text: '#6b21a8', label: 'MEASURED BY' },
+  implements:   { bg: '#ccfbf1', text: '#0f766e', label: 'IMPLEMENTS' },
+  derived_from: { bg: '#f1f5f9', text: '#475569', label: 'DERIVED FROM' },
+  applies_to:   { bg: '#fef9c3', text: '#854d0e', label: 'APPLIES TO' },
+  supports:     { bg: '#f0fdf4', text: '#15803d', label: 'SUPPORTS' },
+  measures:     { bg: '#f3e8ff', text: '#6b21a8', label: 'MEASURES' },
+};
+
 export default function PrinciplePage() {
   const params = useParams();
   const router = useRouter();
@@ -26,6 +39,7 @@ export default function PrinciplePage() {
   const next = idx < principles.length - 1 ? principles[idx + 1] : null;
 
   const [copied, setCopied] = useState(false);
+  const [copiedJson, setCopiedJson] = useState(false);
 
   useEffect(() => {
     if (!principle) {
@@ -35,7 +49,23 @@ export default function PrinciplePage() {
 
   if (!principle) return null;
 
-  const citation = `Leider, Stephen F. "${principle.name}." Constitution of Transformation Intelligence™, ${principle.id}, Version ${principle.version}, Leider Capital, ${formatDate(principle.published)}.`;
+  // Enhanced citation text
+  const canonicalUrl = `https://lensanalysis.com/constitution/${principle.slug}`;
+  const citationText = `Leider, Stephen F. "${principle.name}." Constitution of Transformation Intelligence™, ${principle.id}, Version ${principle.version}, Leider Capital, ${formatDate(principle.published)}.${principle.lensUri ? ` Lens URI: ${principle.lensUri}.` : ''} Canonical URL: ${canonicalUrl}.`;
+
+  // Machine-readable JSON citation
+  const citationJson = JSON.stringify({
+    id: principle.id,
+    ...(principle.oid ? { oid: principle.oid } : {}),
+    ...(principle.lensUri ? { lensUri: principle.lensUri } : {}),
+    name: principle.name,
+    version: principle.version,
+    published: principle.published,
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    canonicalUrl,
+    citationText,
+  }, null, 2);
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -54,7 +84,7 @@ export default function PrinciplePage() {
     },
     datePublished: principle.published,
     version: principle.version,
-    url: `https://lensanalysis.com/constitution/${principle.slug}`,
+    url: canonicalUrl,
     isPartOf: {
       '@type': 'CreativeWork',
       name: 'Constitution of Transformation Intelligence™',
@@ -63,11 +93,26 @@ export default function PrinciplePage() {
   };
 
   function handleCopy() {
-    navigator.clipboard.writeText(citation).then(() => {
+    navigator.clipboard.writeText(citationText).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
   }
+
+  function handleCopyJson() {
+    navigator.clipboard.writeText(citationJson).then(() => {
+      setCopiedJson(true);
+      setTimeout(() => setCopiedJson(false), 2000);
+    });
+  }
+
+  // Typed relationships: IDs covered by typed rels (to exclude from simple related list)
+  const typedRelIds = new Set(
+    (principle.typedRelationships ?? []).map((r) => r.targetId)
+  );
+
+  // Remaining related IDs not in typed relationships
+  const remainingRelIds = principle.relatedIds.filter((id) => !typedRelIds.has(id));
 
   return (
     <>
@@ -131,6 +176,12 @@ export default function PrinciplePage() {
                   <dd className="select-all font-mono text-xs text-slate-400">{principle.oid}</dd>
                 </div>
               )}
+              {principle.lensUri && (
+                <div className="col-span-2 sm:col-span-3">
+                  <dt className="text-slate-500">Lens URI</dt>
+                  <dd className="select-all font-mono text-xs text-slate-400">{principle.lensUri}</dd>
+                </div>
+              )}
             </dl>
           </div>
         </section>
@@ -182,14 +233,54 @@ export default function PrinciplePage() {
             </ul>
           </div>
 
-          {/* Related Principles */}
-          {principle.relatedIds.length > 0 && (
+          {/* Typed Relationships */}
+          {principle.typedRelationships && principle.typedRelationships.length > 0 && (
+            <div>
+              <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-slate-400">
+                Typed Relationships
+              </h2>
+              <div className="space-y-3">
+                {principle.typedRelationships.map((rel, i) => {
+                  const badge = REL_BADGE[rel.type] ?? { bg: '#f1f5f9', text: '#475569', label: rel.type.toUpperCase().replace(/_/g, ' ') };
+                  const target = principles.find((p) => p.id === rel.targetId);
+                  return (
+                    <div key={i} className="flex flex-col gap-1 rounded-lg border border-slate-100 bg-slate-50 px-4 py-3">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span
+                          className="rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider"
+                          style={{ backgroundColor: badge.bg, color: badge.text }}
+                        >
+                          {badge.label}
+                        </span>
+                        <span className="text-slate-400 text-xs">→</span>
+                        {target ? (
+                          <Link
+                            href={`/constitution/${target.slug}`}
+                            className="text-sm font-semibold hover:underline"
+                            style={{ color: '#E05A00' }}
+                          >
+                            {rel.targetId} — {target.name}
+                          </Link>
+                        ) : (
+                          <span className="text-sm font-semibold text-slate-500">{rel.targetId}</span>
+                        )}
+                      </div>
+                      <p className="text-xs italic text-slate-500 ml-1">{rel.description}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Related Principles (remaining IDs not covered by typed relationships) */}
+          {(remainingRelIds.length > 0 || (principle.relatedIds.length > 0 && (!principle.typedRelationships || principle.typedRelationships.length === 0))) && (
             <div>
               <h2 className="mb-3 text-xs font-bold uppercase tracking-widest text-slate-400">
                 Related Principles
               </h2>
               <div className="flex flex-wrap gap-2">
-                {principle.relatedIds.map((id) => {
+                {(principle.typedRelationships && principle.typedRelationships.length > 0 ? remainingRelIds : principle.relatedIds).map((id) => {
                   const related = principles.find((p) => p.id === id);
                   return related ? (
                     <Link
@@ -219,16 +310,25 @@ export default function PrinciplePage() {
               Citation
             </h2>
             <div className="rounded-lg bg-slate-50 border border-slate-200 p-4">
-              <p className="font-mono text-sm text-slate-700 leading-relaxed mb-3">
-                {citation}
+              <p className="font-mono text-sm text-slate-700 leading-relaxed mb-4">
+                {citationText}
               </p>
-              <button
-                onClick={handleCopy}
-                className="rounded px-3 py-1.5 text-sm font-medium text-white transition-colors"
-                style={{ backgroundColor: copied ? '#16a34a' : '#E05A00' }}
-              >
-                {copied ? '✓ Copied' : 'Copy citation'}
-              </button>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={handleCopy}
+                  className="rounded px-3 py-1.5 text-sm font-medium text-white transition-colors"
+                  style={{ backgroundColor: copied ? '#16a34a' : '#E05A00' }}
+                >
+                  {copied ? '✓ Copied' : 'Copy Text Citation'}
+                </button>
+                <button
+                  onClick={handleCopyJson}
+                  className="rounded border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
+                  style={copiedJson ? { backgroundColor: '#dcfce7', borderColor: '#16a34a', color: '#166534' } : {}}
+                >
+                  {copiedJson ? '✓ Copied JSON' : 'Copy JSON Citation'}
+                </button>
+              </div>
             </div>
           </div>
         </section>

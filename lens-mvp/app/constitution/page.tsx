@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Constitution of Transformation Intelligence™ | TI Registry™',
   description:
-    'The governing principles behind The Lens™ and Transformation Intelligence™. 62 principles across 9 categories — each versioned, citable, and machine-readable.',
+    'The governing principles behind The Lens™ and Transformation Intelligence™. 64 principles across 9 categories — each versioned, citable, and machine-readable.',
 };
 
 const statusColors: Record<string, string> = {
@@ -88,7 +88,7 @@ export default function ConstitutionPage() {
           className="mb-4 text-sm font-semibold uppercase tracking-widest"
           style={{ color: '#E05A00' }}
         >
-          TI Registry™
+          TI Registry™  •  <span className="inline-block rounded-full bg-green-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-green-700">LKAS™ Compliant</span>
         </p>
         <h1 className="mx-auto mb-4 max-w-2xl text-4xl font-bold text-slate-900">
           Constitution of Transformation Intelligence™
@@ -96,6 +96,9 @@ export default function ConstitutionPage() {
         <p className="mx-auto mb-6 max-w-xl text-lg text-slate-600">
           The governing principles behind The Lens™ and Transformation Intelligence™.
           Each principle is versioned, citable, and machine-readable.
+        </p>
+        <p className="mx-auto mb-2 max-w-xl text-sm text-slate-500">
+          All principles are LKAS™-addressed with permanent Lens URIs, typed relationships, and machine-readable citations.
         </p>
         <p className="text-sm text-slate-400">
           Author: {constitutionMeta.author} &nbsp;|&nbsp; Publisher:{' '}

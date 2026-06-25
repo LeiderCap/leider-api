@@ -226,3 +226,17 @@ https://lensanalysis.com/constitution/ti-605
 https://lensanalysis.com/constitution/ti-606
 https://lensanalysis.com/constitution/ti-008
 https://lensanalysis.com/constitution/ti-009
+
+## LKAS™ Compliance
+This knowledge system is LKAS™-compliant (Lens Knowledge Addressing System™, TI-010).
+All principles have permanent Lens URIs and typed relationships.
+
+## Lens URI Base
+lens://constitution/
+
+## New principles:
+https://lensanalysis.com/constitution/ti-010
+https://lensanalysis.com/constitution/ti-011
+
+## Machine-readable registry:
+https://lensanalysis.com/constitution.json

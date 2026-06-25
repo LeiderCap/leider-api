@@ -9,7 +9,7 @@
     "canonical": "https://lensanalysis.com/constitution",
     "totalPrinciples": 56,
     "categories": 9,
-    "total": 62
+    "total": 64
   },
   "copyright": "© 2026 Leider Capital. All Rights Reserved.",
   "license": "All principles, frameworks, named methodologies, and Transformation Intelligence™ identifiers are proprietary to Leider Capital and Stephen F. Leider. Attribution required for any reference, citation, or reproduction.",
@@ -26,7 +26,25 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "url": "https://lensanalysis.com/constitution/ti-001"
+      "url": "https://lensanalysis.com/constitution/ti-001",
+      "lensUri": "lens://constitution/ti-001",
+      "typedRelationships": [
+        {
+          "type": "depends_on",
+          "targetId": "TI-004",
+          "description": "Transformation Intelligence depends on Transformation Capacity"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-003",
+          "description": "Enables The Lens™ as discovery layer"
+        },
+        {
+          "type": "measures",
+          "targetId": "TI-103",
+          "description": "Measured by Transformation Efficiency™"
+        }
+      ]
     },
     {
       "id": "TI-002",
@@ -39,7 +57,9 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "url": "https://lensanalysis.com/constitution/ti-002"
+      "url": "https://lensanalysis.com/constitution/ti-002",
+      "lensUri": "lens://constitution/ti-002",
+      "typedRelationships": []
     },
     {
       "id": "TI-003",
@@ -52,7 +72,9 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "url": "https://lensanalysis.com/constitution/ti-003"
+      "url": "https://lensanalysis.com/constitution/ti-003",
+      "lensUri": "lens://constitution/ti-003",
+      "typedRelationships": []
     },
     {
       "id": "TI-004",
@@ -65,7 +87,25 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "url": "https://lensanalysis.com/constitution/ti-004"
+      "url": "https://lensanalysis.com/constitution/ti-004",
+      "lensUri": "lens://constitution/ti-004",
+      "typedRelationships": [
+        {
+          "type": "depends_on",
+          "targetId": "TI-008",
+          "description": "Capacity is mediated by Intermediary Systems"
+        },
+        {
+          "type": "measured_by",
+          "targetId": "TI-009",
+          "description": "Efficiency measured by ISE™"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-006",
+          "description": "Extended by Expression Architecture™"
+        }
+      ]
     },
     {
       "id": "TI-005",
@@ -78,7 +118,9 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "url": "https://lensanalysis.com/constitution/ti-005"
+      "url": "https://lensanalysis.com/constitution/ti-005",
+      "lensUri": "lens://constitution/ti-005",
+      "typedRelationships": []
     },
     {
       "id": "TI-101",
@@ -91,7 +133,9 @@
       "publisher": "Leider Capital",
       "category": "Decision Economics",
       "categoryCode": "TI-ECON",
-      "url": "https://lensanalysis.com/constitution/ti-101"
+      "url": "https://lensanalysis.com/constitution/ti-101",
+      "lensUri": "lens://constitution/ti-101",
+      "typedRelationships": []
     },
     {
       "id": "TI-102",
@@ -104,7 +148,9 @@
       "publisher": "Leider Capital",
       "category": "Decision Economics",
       "categoryCode": "TI-ECON",
-      "url": "https://lensanalysis.com/constitution/ti-102"
+      "url": "https://lensanalysis.com/constitution/ti-102",
+      "lensUri": "lens://constitution/ti-102",
+      "typedRelationships": []
     },
     {
       "id": "TI-103",
@@ -117,7 +163,25 @@
       "publisher": "Leider Capital",
       "category": "Decision Economics",
       "categoryCode": "TI-ECON",
-      "url": "https://lensanalysis.com/constitution/ti-103"
+      "url": "https://lensanalysis.com/constitution/ti-103",
+      "lensUri": "lens://constitution/ti-103",
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-004",
+          "description": "Derived from Transformation Capacity"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-009",
+          "description": "Depends on ISE™ as conversion layer"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-801",
+          "description": "Enables Equity Reclamation™"
+        }
+      ]
     },
     {
       "id": "TI-104",
@@ -130,7 +194,9 @@
       "publisher": "Leider Capital",
       "category": "Decision Economics",
       "categoryCode": "TI-ECON",
-      "url": "https://lensanalysis.com/constitution/ti-104"
+      "url": "https://lensanalysis.com/constitution/ti-104",
+      "lensUri": "lens://constitution/ti-104",
+      "typedRelationships": []
     },
     {
       "id": "TI-105",
@@ -143,7 +209,9 @@
       "publisher": "Leider Capital",
       "category": "Decision Economics",
       "categoryCode": "TI-ECON",
-      "url": "https://lensanalysis.com/constitution/ti-105"
+      "url": "https://lensanalysis.com/constitution/ti-105",
+      "lensUri": "lens://constitution/ti-105",
+      "typedRelationships": []
     },
     {
       "id": "TI-106",
@@ -156,7 +224,9 @@
       "publisher": "Leider Capital",
       "category": "Decision Economics",
       "categoryCode": "TI-ECON",
-      "url": "https://lensanalysis.com/constitution/ti-106"
+      "url": "https://lensanalysis.com/constitution/ti-106",
+      "lensUri": "lens://constitution/ti-106",
+      "typedRelationships": []
     },
     {
       "id": "TI-107",
@@ -169,7 +239,9 @@
       "publisher": "Leider Capital",
       "category": "Decision Economics",
       "categoryCode": "TI-ECON",
-      "url": "https://lensanalysis.com/constitution/ti-107"
+      "url": "https://lensanalysis.com/constitution/ti-107",
+      "lensUri": "lens://constitution/ti-107",
+      "typedRelationships": []
     },
     {
       "id": "TI-201",
@@ -182,7 +254,9 @@
       "publisher": "Leider Capital",
       "category": "Enterprise Memory",
       "categoryCode": "TI-MEM",
-      "url": "https://lensanalysis.com/constitution/ti-201"
+      "url": "https://lensanalysis.com/constitution/ti-201",
+      "lensUri": "lens://constitution/ti-201",
+      "typedRelationships": []
     },
     {
       "id": "TI-202",
@@ -195,7 +269,9 @@
       "publisher": "Leider Capital",
       "category": "Enterprise Memory",
       "categoryCode": "TI-MEM",
-      "url": "https://lensanalysis.com/constitution/ti-202"
+      "url": "https://lensanalysis.com/constitution/ti-202",
+      "lensUri": "lens://constitution/ti-202",
+      "typedRelationships": []
     },
     {
       "id": "TI-203",
@@ -208,7 +284,9 @@
       "publisher": "Leider Capital",
       "category": "Enterprise Memory",
       "categoryCode": "TI-MEM",
-      "url": "https://lensanalysis.com/constitution/ti-203"
+      "url": "https://lensanalysis.com/constitution/ti-203",
+      "lensUri": "lens://constitution/ti-203",
+      "typedRelationships": []
     },
     {
       "id": "TI-204",
@@ -221,7 +299,9 @@
       "publisher": "Leider Capital",
       "category": "Enterprise Memory",
       "categoryCode": "TI-MEM",
-      "url": "https://lensanalysis.com/constitution/ti-204"
+      "url": "https://lensanalysis.com/constitution/ti-204",
+      "lensUri": "lens://constitution/ti-204",
+      "typedRelationships": []
     },
     {
       "id": "TI-205",
@@ -234,7 +314,9 @@
       "publisher": "Leider Capital",
       "category": "Enterprise Memory",
       "categoryCode": "TI-MEM",
-      "url": "https://lensanalysis.com/constitution/ti-205"
+      "url": "https://lensanalysis.com/constitution/ti-205",
+      "lensUri": "lens://constitution/ti-205",
+      "typedRelationships": []
     },
     {
       "id": "TI-206",
@@ -247,7 +329,9 @@
       "publisher": "Leider Capital",
       "category": "Enterprise Memory",
       "categoryCode": "TI-MEM",
-      "url": "https://lensanalysis.com/constitution/ti-206"
+      "url": "https://lensanalysis.com/constitution/ti-206",
+      "lensUri": "lens://constitution/ti-206",
+      "typedRelationships": []
     },
     {
       "id": "TI-207",
@@ -260,7 +344,9 @@
       "publisher": "Leider Capital",
       "category": "Enterprise Memory",
       "categoryCode": "TI-MEM",
-      "url": "https://lensanalysis.com/constitution/ti-207"
+      "url": "https://lensanalysis.com/constitution/ti-207",
+      "lensUri": "lens://constitution/ti-207",
+      "typedRelationships": []
     },
     {
       "id": "TI-208",
@@ -273,7 +359,9 @@
       "publisher": "Leider Capital",
       "category": "Enterprise Memory",
       "categoryCode": "TI-MEM",
-      "url": "https://lensanalysis.com/constitution/ti-208"
+      "url": "https://lensanalysis.com/constitution/ti-208",
+      "lensUri": "lens://constitution/ti-208",
+      "typedRelationships": []
     },
     {
       "id": "TI-209",
@@ -286,7 +374,9 @@
       "publisher": "Leider Capital",
       "category": "Enterprise Memory",
       "categoryCode": "TI-MEM",
-      "url": "https://lensanalysis.com/constitution/ti-209"
+      "url": "https://lensanalysis.com/constitution/ti-209",
+      "lensUri": "lens://constitution/ti-209",
+      "typedRelationships": []
     },
     {
       "id": "TI-210",
@@ -299,7 +389,9 @@
       "publisher": "Leider Capital",
       "category": "Enterprise Memory",
       "categoryCode": "TI-MEM",
-      "url": "https://lensanalysis.com/constitution/ti-210"
+      "url": "https://lensanalysis.com/constitution/ti-210",
+      "lensUri": "lens://constitution/ti-210",
+      "typedRelationships": []
     },
     {
       "id": "TI-211",
@@ -312,7 +404,9 @@
       "publisher": "Leider Capital",
       "category": "Enterprise Memory",
       "categoryCode": "TI-MEM",
-      "url": "https://lensanalysis.com/constitution/ti-211"
+      "url": "https://lensanalysis.com/constitution/ti-211",
+      "lensUri": "lens://constitution/ti-211",
+      "typedRelationships": []
     },
     {
       "id": "TI-212",
@@ -325,7 +419,9 @@
       "publisher": "Leider Capital",
       "category": "Enterprise Memory",
       "categoryCode": "TI-MEM",
-      "url": "https://lensanalysis.com/constitution/ti-212"
+      "url": "https://lensanalysis.com/constitution/ti-212",
+      "lensUri": "lens://constitution/ti-212",
+      "typedRelationships": []
     },
     {
       "id": "TI-213",
@@ -338,7 +434,9 @@
       "publisher": "Leider Capital",
       "category": "Enterprise Memory",
       "categoryCode": "TI-MEM",
-      "url": "https://lensanalysis.com/constitution/ti-213"
+      "url": "https://lensanalysis.com/constitution/ti-213",
+      "lensUri": "lens://constitution/ti-213",
+      "typedRelationships": []
     },
     {
       "id": "TI-301",
@@ -351,7 +449,9 @@
       "publisher": "Leider Capital",
       "category": "Governance & Explainability",
       "categoryCode": "TI-GOV",
-      "url": "https://lensanalysis.com/constitution/ti-301"
+      "url": "https://lensanalysis.com/constitution/ti-301",
+      "lensUri": "lens://constitution/ti-301",
+      "typedRelationships": []
     },
     {
       "id": "TI-302",
@@ -364,7 +464,9 @@
       "publisher": "Leider Capital",
       "category": "Governance & Explainability",
       "categoryCode": "TI-GOV",
-      "url": "https://lensanalysis.com/constitution/ti-302"
+      "url": "https://lensanalysis.com/constitution/ti-302",
+      "lensUri": "lens://constitution/ti-302",
+      "typedRelationships": []
     },
     {
       "id": "TI-303",
@@ -377,7 +479,9 @@
       "publisher": "Leider Capital",
       "category": "Governance & Explainability",
       "categoryCode": "TI-GOV",
-      "url": "https://lensanalysis.com/constitution/ti-303"
+      "url": "https://lensanalysis.com/constitution/ti-303",
+      "lensUri": "lens://constitution/ti-303",
+      "typedRelationships": []
     },
     {
       "id": "TI-304",
@@ -390,7 +494,9 @@
       "publisher": "Leider Capital",
       "category": "Governance & Explainability",
       "categoryCode": "TI-GOV",
-      "url": "https://lensanalysis.com/constitution/ti-304"
+      "url": "https://lensanalysis.com/constitution/ti-304",
+      "lensUri": "lens://constitution/ti-304",
+      "typedRelationships": []
     },
     {
       "id": "TI-305",
@@ -403,7 +509,9 @@
       "publisher": "Leider Capital",
       "category": "Governance & Explainability",
       "categoryCode": "TI-GOV",
-      "url": "https://lensanalysis.com/constitution/ti-305"
+      "url": "https://lensanalysis.com/constitution/ti-305",
+      "lensUri": "lens://constitution/ti-305",
+      "typedRelationships": []
     },
     {
       "id": "TI-306",
@@ -416,7 +524,9 @@
       "publisher": "Leider Capital",
       "category": "Governance & Explainability",
       "categoryCode": "TI-GOV",
-      "url": "https://lensanalysis.com/constitution/ti-306"
+      "url": "https://lensanalysis.com/constitution/ti-306",
+      "lensUri": "lens://constitution/ti-306",
+      "typedRelationships": []
     },
     {
       "id": "TI-401",
@@ -429,7 +539,9 @@
       "publisher": "Leider Capital",
       "category": "AI Transformation",
       "categoryCode": "TI-AI",
-      "url": "https://lensanalysis.com/constitution/ti-401"
+      "url": "https://lensanalysis.com/constitution/ti-401",
+      "lensUri": "lens://constitution/ti-401",
+      "typedRelationships": []
     },
     {
       "id": "TI-402",
@@ -442,7 +554,9 @@
       "publisher": "Leider Capital",
       "category": "AI Transformation",
       "categoryCode": "TI-AI",
-      "url": "https://lensanalysis.com/constitution/ti-402"
+      "url": "https://lensanalysis.com/constitution/ti-402",
+      "lensUri": "lens://constitution/ti-402",
+      "typedRelationships": []
     },
     {
       "id": "TI-403",
@@ -455,7 +569,9 @@
       "publisher": "Leider Capital",
       "category": "AI Transformation",
       "categoryCode": "TI-AI",
-      "url": "https://lensanalysis.com/constitution/ti-403"
+      "url": "https://lensanalysis.com/constitution/ti-403",
+      "lensUri": "lens://constitution/ti-403",
+      "typedRelationships": []
     },
     {
       "id": "TI-404",
@@ -468,7 +584,9 @@
       "publisher": "Leider Capital",
       "category": "AI Transformation",
       "categoryCode": "TI-AI",
-      "url": "https://lensanalysis.com/constitution/ti-404"
+      "url": "https://lensanalysis.com/constitution/ti-404",
+      "lensUri": "lens://constitution/ti-404",
+      "typedRelationships": []
     },
     {
       "id": "TI-501",
@@ -481,7 +599,9 @@
       "publisher": "Leider Capital",
       "category": "Language, Identity & Meaning",
       "categoryCode": "TI-LANG",
-      "url": "https://lensanalysis.com/constitution/ti-501"
+      "url": "https://lensanalysis.com/constitution/ti-501",
+      "lensUri": "lens://constitution/ti-501",
+      "typedRelationships": []
     },
     {
       "id": "TI-502",
@@ -494,7 +614,9 @@
       "publisher": "Leider Capital",
       "category": "Language, Identity & Meaning",
       "categoryCode": "TI-LANG",
-      "url": "https://lensanalysis.com/constitution/ti-502"
+      "url": "https://lensanalysis.com/constitution/ti-502",
+      "lensUri": "lens://constitution/ti-502",
+      "typedRelationships": []
     },
     {
       "id": "TI-503",
@@ -507,7 +629,9 @@
       "publisher": "Leider Capital",
       "category": "Language, Identity & Meaning",
       "categoryCode": "TI-LANG",
-      "url": "https://lensanalysis.com/constitution/ti-503"
+      "url": "https://lensanalysis.com/constitution/ti-503",
+      "lensUri": "lens://constitution/ti-503",
+      "typedRelationships": []
     },
     {
       "id": "TI-504",
@@ -520,7 +644,9 @@
       "publisher": "Leider Capital",
       "category": "Language, Identity & Meaning",
       "categoryCode": "TI-LANG",
-      "url": "https://lensanalysis.com/constitution/ti-504"
+      "url": "https://lensanalysis.com/constitution/ti-504",
+      "lensUri": "lens://constitution/ti-504",
+      "typedRelationships": []
     },
     {
       "id": "TI-505",
@@ -533,7 +659,9 @@
       "publisher": "Leider Capital",
       "category": "Language, Identity & Meaning",
       "categoryCode": "TI-LANG",
-      "url": "https://lensanalysis.com/constitution/ti-505"
+      "url": "https://lensanalysis.com/constitution/ti-505",
+      "lensUri": "lens://constitution/ti-505",
+      "typedRelationships": []
     },
     {
       "id": "TI-601",
@@ -546,7 +674,9 @@
       "publisher": "Leider Capital",
       "category": "Operationalization",
       "categoryCode": "TI-OPS",
-      "url": "https://lensanalysis.com/constitution/ti-601"
+      "url": "https://lensanalysis.com/constitution/ti-601",
+      "lensUri": "lens://constitution/ti-601",
+      "typedRelationships": []
     },
     {
       "id": "TI-602",
@@ -559,7 +689,9 @@
       "publisher": "Leider Capital",
       "category": "Operationalization",
       "categoryCode": "TI-OPS",
-      "url": "https://lensanalysis.com/constitution/ti-602"
+      "url": "https://lensanalysis.com/constitution/ti-602",
+      "lensUri": "lens://constitution/ti-602",
+      "typedRelationships": []
     },
     {
       "id": "TI-604",
@@ -572,7 +704,9 @@
       "publisher": "Leider Capital",
       "category": "Operationalization",
       "categoryCode": "TI-OPS",
-      "url": "https://lensanalysis.com/constitution/ti-604"
+      "url": "https://lensanalysis.com/constitution/ti-604",
+      "lensUri": "lens://constitution/ti-604",
+      "typedRelationships": []
     },
     {
       "id": "TI-605",
@@ -585,7 +719,9 @@
       "publisher": "Leider Capital",
       "category": "Operationalization",
       "categoryCode": "TI-OPS",
-      "url": "https://lensanalysis.com/constitution/ti-605"
+      "url": "https://lensanalysis.com/constitution/ti-605",
+      "lensUri": "lens://constitution/ti-605",
+      "typedRelationships": []
     },
     {
       "id": "TI-606",
@@ -598,7 +734,9 @@
       "publisher": "Leider Capital",
       "category": "Operationalization",
       "categoryCode": "TI-OPS",
-      "url": "https://lensanalysis.com/constitution/ti-606"
+      "url": "https://lensanalysis.com/constitution/ti-606",
+      "lensUri": "lens://constitution/ti-606",
+      "typedRelationships": []
     },
     {
       "id": "TI-701",
@@ -611,7 +749,9 @@
       "publisher": "Leider Capital",
       "category": "Health & Operationalization",
       "categoryCode": "TI-HEALTH",
-      "url": "https://lensanalysis.com/constitution/ti-701"
+      "url": "https://lensanalysis.com/constitution/ti-701",
+      "lensUri": "lens://constitution/ti-701",
+      "typedRelationships": []
     },
     {
       "id": "TI-702",
@@ -624,7 +764,9 @@
       "publisher": "Leider Capital",
       "category": "Health & Operationalization",
       "categoryCode": "TI-HEALTH",
-      "url": "https://lensanalysis.com/constitution/ti-702"
+      "url": "https://lensanalysis.com/constitution/ti-702",
+      "lensUri": "lens://constitution/ti-702",
+      "typedRelationships": []
     },
     {
       "id": "TI-703",
@@ -637,7 +779,9 @@
       "publisher": "Leider Capital",
       "category": "Health & Operationalization",
       "categoryCode": "TI-HEALTH",
-      "url": "https://lensanalysis.com/constitution/ti-703"
+      "url": "https://lensanalysis.com/constitution/ti-703",
+      "lensUri": "lens://constitution/ti-703",
+      "typedRelationships": []
     },
     {
       "id": "TI-704",
@@ -650,7 +794,9 @@
       "publisher": "Leider Capital",
       "category": "Health & Operationalization",
       "categoryCode": "TI-HEALTH",
-      "url": "https://lensanalysis.com/constitution/ti-704"
+      "url": "https://lensanalysis.com/constitution/ti-704",
+      "lensUri": "lens://constitution/ti-704",
+      "typedRelationships": []
     },
     {
       "id": "TI-801",
@@ -663,7 +809,25 @@
       "publisher": "Leider Capital",
       "category": "Market & Value Unlock",
       "categoryCode": "TI-MARKET",
-      "url": "https://lensanalysis.com/constitution/ti-801"
+      "url": "https://lensanalysis.com/constitution/ti-801",
+      "lensUri": "lens://constitution/ti-801",
+      "typedRelationships": [
+        {
+          "type": "depends_on",
+          "targetId": "TI-103",
+          "description": "Depends on Transformation Efficiency™"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-006",
+          "description": "Implements Expression Architecture™ at capital markets layer"
+        },
+        {
+          "type": "applies_to",
+          "targetId": "TI-802",
+          "description": "Applies to Opportunity Zones™"
+        }
+      ]
     },
     {
       "id": "TI-802",
@@ -676,7 +840,9 @@
       "publisher": "Leider Capital",
       "category": "Market & Value Unlock",
       "categoryCode": "TI-MARKET",
-      "url": "https://lensanalysis.com/constitution/ti-802"
+      "url": "https://lensanalysis.com/constitution/ti-802",
+      "lensUri": "lens://constitution/ti-802",
+      "typedRelationships": []
     },
     {
       "id": "TI-803",
@@ -689,7 +855,9 @@
       "publisher": "Leider Capital",
       "category": "Market & Value Unlock",
       "categoryCode": "TI-MARKET",
-      "url": "https://lensanalysis.com/constitution/ti-803"
+      "url": "https://lensanalysis.com/constitution/ti-803",
+      "lensUri": "lens://constitution/ti-803",
+      "typedRelationships": []
     },
     {
       "id": "TI-804",
@@ -702,7 +870,9 @@
       "publisher": "Leider Capital",
       "category": "Market & Value Unlock",
       "categoryCode": "TI-MARKET",
-      "url": "https://lensanalysis.com/constitution/ti-804"
+      "url": "https://lensanalysis.com/constitution/ti-804",
+      "lensUri": "lens://constitution/ti-804",
+      "typedRelationships": []
     },
     {
       "id": "TI-805",
@@ -715,7 +885,9 @@
       "publisher": "Leider Capital",
       "category": "Market & Value Unlock",
       "categoryCode": "TI-MARKET",
-      "url": "https://lensanalysis.com/constitution/ti-805"
+      "url": "https://lensanalysis.com/constitution/ti-805",
+      "lensUri": "lens://constitution/ti-805",
+      "typedRelationships": []
     },
     {
       "id": "TI-806",
@@ -728,7 +900,9 @@
       "publisher": "Leider Capital",
       "category": "Market & Value Unlock",
       "categoryCode": "TI-MARKET",
-      "url": "https://lensanalysis.com/constitution/ti-806"
+      "url": "https://lensanalysis.com/constitution/ti-806",
+      "lensUri": "lens://constitution/ti-806",
+      "typedRelationships": []
     },
     {
       "id": "TI-006",
@@ -758,6 +932,24 @@
         "TI-901",
         "TI-902",
         "TI-903"
+      ],
+      "lensUri": "lens://constitution/ti-006",
+      "typedRelationships": [
+        {
+          "type": "depends_on",
+          "targetId": "TI-004",
+          "description": "Expression requires Transformation Capacity"
+        },
+        {
+          "type": "measured_by",
+          "targetId": "TI-901",
+          "description": "Measured by Expression Capacity Index™"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-008",
+          "description": "Implements ISP™ at organizational expression layer"
+        }
       ]
     },
     {
@@ -771,7 +963,9 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "url": "https://lensanalysis.com/constitution/ti-007"
+      "url": "https://lensanalysis.com/constitution/ti-007",
+      "lensUri": "lens://constitution/ti-007",
+      "typedRelationships": []
     },
     {
       "id": "TI-008",
@@ -803,6 +997,24 @@
         "TI-103",
         "TI-701",
         "TI-801"
+      ],
+      "lensUri": "lens://constitution/ti-008",
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-004",
+          "description": "Extends TCP™ with conversion mechanism"
+        },
+        {
+          "type": "measured_by",
+          "targetId": "TI-009",
+          "description": "Measured by ISE™"
+        },
+        {
+          "type": "applies_to",
+          "targetId": "TI-103",
+          "description": "Applies to Transformation Efficiency™ as conversion law"
+        }
       ]
     },
     {
@@ -834,6 +1046,104 @@
         "TI-006",
         "TI-901",
         "TI-007"
+      ],
+      "lensUri": "lens://constitution/ti-009",
+      "typedRelationships": []
+    },
+    {
+      "id": "TI-010",
+      "slug": "ti-010",
+      "name": "Addressability Principle™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-24",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "oid": "OID-2026-TI-ADDR-001",
+      "lensUri": "lens://constitution/ti-010",
+      "principle": "A knowledge system becomes discoverable, reusable, citable, and defensible when every important object has a permanent address.",
+      "definition": "The Addressability Principle™ is the foundational law of the Lens Knowledge Addressing System™ (LKAS™). It states that AI systems can only reliably retrieve, cite, connect, and recommend knowledge objects that are persistent, structured, and uniquely identifiable. Unaddressed intelligence disappears. Addressed intelligence compounds.",
+      "operatingLaw": "Unaddressed intelligence disappears. Addressed intelligence compounds. Every Lens Analysis™, principle, blueprint, scorecard, evidence item, decision, relationship, and opportunity shall have a permanent identity, canonical URL, structured metadata, machine-readable JSON, JSON-LD, version history, provenance, and explicit relationships.",
+      "implications": [
+        "LKAS™ Object Types: Opportunity (OID™), Principle (PID™), Blueprint (BID™), Scorecard (SID™), Atlas Node (AID™), Relationship (RID™), Evidence (EID™), Decision (DID™), Transformation Event (TID™).",
+        "The Lens URI Standard™ provides semantic addresses for all objects: lens://principles/transformation-capacity, lens://opportunities/INTC/TCA/2026/001, lens://constitution/book1/article12.",
+        "Every knowledge object should include: permanent ID, canonical URL, Lens URI, machine-readable JSON, JSON-LD schema, citation block, related objects, version history, and trust/confidence metadata.",
+        "LKAS™ turns The Lens™ from a publishing site into a Transformation Knowledge Infrastructure™ — not just findable, but computable.",
+        "AI systems can traverse LKAS™ objects to answer: What does this analysis depend on? Which principles support this opportunity? What evidence supports this scorecard? Which opportunities share the same transformation pattern?"
+      ],
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-004",
+          "description": "Extends Transformation Capacity™ by requiring all capacity objects to be addressable"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-011",
+          "description": "Addressability enables Knowledge Compounding"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-008",
+          "description": "Implements the Intermediary Systems Principle™ at the knowledge infrastructure layer"
+        }
+      ],
+      "relatedIds": [
+        "TI-011",
+        "TI-008",
+        "TI-004",
+        "TI-201",
+        "TI-210"
+      ]
+    },
+    {
+      "id": "TI-011",
+      "slug": "ti-011",
+      "name": "Knowledge Compounding Principle™ (KCP™)",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-24",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "oid": "OID-2026-TI-KCP-001",
+      "lensUri": "lens://constitution/ti-011",
+      "principle": "Knowledge compounds when each new insight becomes a permanently addressable, linked, machine-readable object that increases the value of every existing object in the system.",
+      "definition": "The Knowledge Compounding Principle™ (KCP™) states that the value of a knowledge system grows super-linearly when objects are addressable, connected, and machine-readable. Equation: Knowledge Value ∝ Addressability × Connectivity × Reusability × Trust.",
+      "operatingLaw": "Each new knowledge object added to an LKAS™-compliant system increases the value of all existing objects by creating new possible connections, citations, derivations, and traversal paths. This is the knowledge analog of network effects.",
+      "implications": [
+        "Knowledge Value ∝ Addressability × Connectivity × Reusability × Trust. Maximizing any dimension increases total system value.",
+        "LKAS™ creates compounding returns on intellectual property — each new principle added makes all existing principles more valuable by enabling new relationships.",
+        "AI systems compound knowledge faster when operating on LKAS™-structured objects versus unstructured documents — the difference between traversing a graph and scanning text.",
+        "The Transformation Intelligence™ Constitution becomes more valuable with each ratified principle — not linearly, but super-linearly — because each principle creates new relationship paths to all existing principles.",
+        "Every Lens Analysis™ that references LKAS™ objects inherits the credibility, provenance, and citability of those objects."
+      ],
+      "typedRelationships": [
+        {
+          "type": "depends_on",
+          "targetId": "TI-010",
+          "description": "Compounding requires Addressability as a prerequisite"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-201",
+          "description": "Extends Cumulative Intelligence Principle™ with explicit addressing infrastructure"
+        },
+        {
+          "type": "measures",
+          "targetId": "TI-009",
+          "description": "KCP™ is a measure of ISE™ at the knowledge system level"
+        }
+      ],
+      "relatedIds": [
+        "TI-010",
+        "TI-201",
+        "TI-009",
+        "TI-004",
+        "TI-103"
       ]
     },
     {
@@ -863,7 +1173,9 @@
         "TI-902",
         "TI-903",
         "TI-004"
-      ]
+      ],
+      "lensUri": "lens://constitution/ti-901",
+      "typedRelationships": []
     },
     {
       "id": "TI-902",
@@ -890,7 +1202,9 @@
         "TI-901",
         "TI-801",
         "TI-103"
-      ]
+      ],
+      "lensUri": "lens://constitution/ti-902",
+      "typedRelationships": []
     },
     {
       "id": "TI-903",
@@ -918,7 +1232,14 @@
         "TI-901",
         "TI-902",
         "TI-005"
-      ]
+      ],
+      "lensUri": "lens://constitution/ti-903",
+      "typedRelationships": []
     }
-  ]
+  ],
+  "lkasVersion": "1.0",
+  "lkasCompliant": true,
+  "addressingSystem": "LKAS™",
+  "lensUriBase": "lens://constitution/",
+  "canonicalBase": "https://lensanalysis.com/constitution/"
 }
