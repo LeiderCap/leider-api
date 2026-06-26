@@ -2575,6 +2575,53 @@
           "targetId": "TI-801"
         }
       ]
+    },
+    {
+      "id": "TI-044",
+      "slug": "ti-044",
+      "name": "Divergence Acceleration Law™ (DAL™)",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book I — The Economics of Transformation",
+      "oid": "OID-2026-TI-DAL-001",
+      "lensUri": "lens://constitution/ti-044",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-044",
+      "lkasCompliant": true,
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-001"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-004"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-103"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-201"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-401"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-802"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-012"
+        }
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -2582,7 +2629,7 @@
   "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 96,
+  "totalPrinciples": 97,
   "lastUpdated": "2026-06-25",
   "constitutionalArchitecture": {
     "name": "Opportunity Hierarchy™",
@@ -2645,6 +2692,11 @@
         "description": "Evidence + Learning + Enterprise Value"
       }
     ],
-    "fullChain": "Market → Opportunity Zones™ → Company → Unlock Potential™ → Equity Reclamation™ → Mechanism → Blueprint™ → Transformation Compiler™ → Packets™ → SAFE™ → Realized Value"
+    "fullChain": "Market → Opportunity Zones™ → Company → Unlock Potential™ → Equity Reclamation™ → Mechanism → Blueprint™ → Transformation Compiler™ → Packets™ → SAFE™ → Realized Value",
+    "governingLaw": {
+      "id": "TI-044",
+      "name": "Divergence Acceleration Law™",
+      "statement": "As intelligence becomes abundant, enterprise performance diverges because transformation capacity — not intelligence — becomes the scarce resource."
+    }
   }
 }

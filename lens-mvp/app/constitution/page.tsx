@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Constitution of Transformation Intelligence™ | TI Registry™',
   description:
-    'The governing principles behind The Lens™ and Transformation Intelligence™. 96 principles across 9 categories — each versioned, citable, and machine-readable. Now includes Book IV — Transformation Absorbability™ (TAP™, TAS™), Book IX — SAFE™, Book VIII — Distributed Transformation Infrastructure™, Book V — The Future Firm™, Book VI — Unlock Science™, Book II — Organizational Dynamics (incl. Article XXII AI Absorption Principle™), and Book VII — Enterprise Value Architecture™.',
+    'The governing principles behind The Lens™ and Transformation Intelligence™. 97 principles across 9 categories — each versioned, citable, and machine-readable. Now includes Book I — The Economics of Transformation (Divergence Acceleration Law™), Book IV — Transformation Absorbability™, Book IX — SAFE™, Book VIII — Distributed Transformation Infrastructure™, Book V — The Future Firm™, Book VI — Unlock Science™, Book II — Organizational Dynamics, and Book VII — Enterprise Value Architecture™.',
 };
 
 const statusColors: Record<string, string> = {
@@ -106,7 +106,7 @@ export default function ConstitutionPage() {
           &nbsp;|&nbsp; Published June 23, 2026
         </p>
         <p className="mt-3 mx-auto max-w-xl text-sm italic text-slate-400">
-          Now includes Book IV — Transformation Absorbability™: the constitutional bridge between opportunity identification and value realization. As intelligence becomes abundant, absorbability becomes the limiting factor of enterprise transformation. Now includes Book II — Article XXII: AI Absorption Principle™ (AAP™) and AI Absorption Score™ (AAS™). Now includes Book IX — Strategic AI & Fulfillment Exchange™ (SAFE™). Now includes Book VIII — Distributed Transformation Infrastructure™. Now includes Book V — The Future Firm™. Now includes Book VI — Unlock Science™. Now includes Book VII — Enterprise Value Architecture™.
+          Now includes Book I — The Economics of Transformation: Divergence Acceleration Law™ (TI-044) — as intelligence becomes abundant, enterprise performance diverges because transformation capacity — not intelligence — becomes the scarce resource. Now includes Book IV — Transformation Absorbability™. Now includes Book II — Article XXII: AI Absorption Principle™. Now includes Book IX — SAFE™. Now includes Book VIII — Distributed Transformation Infrastructure™. Now includes Book V — The Future Firm™. Now includes Book VI — Unlock Science™. Now includes Book VII — Enterprise Value Architecture™.
         </p>
         <p className="mt-2 text-xs text-slate-400">
           © 2026 Leider Capital. All Rights Reserved. All principles and named methodologies are proprietary to Leider Capital.
@@ -131,6 +131,30 @@ export default function ConstitutionPage() {
             </span>
           </div>
 
+        </div>
+      </section>
+
+      {/* Book I — The Economics of Transformation featured group */}
+      <section className="mx-auto max-w-4xl px-6 pt-12 pb-0">
+        <div className="mb-10 rounded-xl border-2 border-slate-300 bg-slate-50 p-8">
+          <div className="mb-2 flex flex-wrap items-center gap-3">
+            <h2 className="text-xl font-bold text-slate-900">Book I — The Economics of Transformation</h2>
+            <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-800">Ratified</span>
+          </div>
+          <p className="mb-2 text-sm text-slate-600">The foundational laws explaining why transformation capacity determines enterprise value in an age of abundant intelligence.</p>
+          <p className="mb-6 text-xs italic text-slate-500">&ldquo;As intelligence becomes abundant, enterprise performance diverges because transformation capacity — not intelligence — becomes the scarce resource.&rdquo;</p>
+          <div className="space-y-3">
+            {principles.filter(p => p.id === 'TI-044').map((p) => (
+              <div key={p.id} className="flex items-center justify-between rounded-lg border border-slate-300 bg-white px-5 py-3">
+                <div className="flex items-center gap-3">
+                  <span className="font-mono text-sm font-bold text-slate-700">{p.id}</span>
+                  <span className="text-sm font-semibold text-slate-800">{p.name}</span>
+                </div>
+                <Link href={`/constitution/${p.slug}`} className="text-xs font-medium text-slate-700 hover:underline">Read →</Link>
+              </div>
+            ))}
+          </div>
+          <p className="mt-5 text-xs text-slate-400">Book I foundational principles TI-001 through TI-011 establish the constitutional framework. TI-044 formalizes the economic law that unifies them.</p>
         </div>
       </section>
 
@@ -314,7 +338,12 @@ export default function ConstitutionPage() {
         <div className="mx-auto max-w-4xl">
           <p className="mb-2 text-center text-xs font-semibold uppercase tracking-widest text-rose-400">Constitutional Architecture</p>
           <h2 className="mb-3 text-center text-2xl font-bold text-white">Opportunity Hierarchy™</h2>
-          <p className="mb-10 text-center text-sm text-slate-400">The complete chain from discovery to realized enterprise value — constitutionally defined across nine books.</p>
+          <p className="mb-4 text-center text-sm text-slate-400">The complete chain from discovery to realized enterprise value — constitutionally defined across nine books.</p>
+          <p className="mb-8 text-center text-xs text-amber-400">
+            Governed by the{' '}
+            <Link href="/constitution/ti-044" className="font-semibold underline hover:text-amber-300">Divergence Acceleration Law™ (TI-044)</Link>:{' '}
+            Organizations that master this chain compound advantage. Organizations that don’t compound inertia.
+          </p>
           <div className="flex flex-wrap items-center justify-center gap-0">
             {[
               { label: 'Market', sub: 'Opportunity Discovery', color: 'bg-slate-700 text-slate-200', border: 'border-slate-600' },

@@ -1486,6 +1486,50 @@ export const principles: Principle[] = [
   },
 
   // ============================================
+  // BOOK I — THE ECONOMICS OF TRANSFORMATION
+  // ARTICLE: DIVERGENCE ACCELERATION LAW™
+  // ============================================
+
+  {
+    id: 'TI-044',
+    slug: 'ti-044',
+    name: 'Divergence Acceleration Law™ (DAL™)',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-25',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book I — The Economics of Transformation',
+    oid: 'OID-2026-TI-DAL-001',
+    lensUri: 'lens://constitution/ti-044',
+    principle: 'As intelligence becomes abundant, enterprise performance diverges because transformation capacity — not intelligence — becomes the scarce resource. Organizations that repeatedly convert intelligence into execution compound their ability to create value, while organizations that fail to transform compound organizational inertia. Enterprise value increasingly reflects transformation capability rather than access to intelligence.',
+    definition: 'The Divergence Acceleration Law™ states that as intelligence, capital, technology, and information become increasingly abundant and accessible, differences in organizational performance expand rather than contract — because transformation capacity becomes the primary constraint on value creation. Core Equation: Enterprise Value Creation (EVC) = Intelligence × Transformation Capacity™ × Execution Continuity™. If Transformation Capacity approaches zero, incremental intelligence produces diminishing enterprise value regardless of intelligence quality or quantity.',
+    operatingLaw: 'When a previously scarce resource becomes abundant, competitive advantage migrates to the next limiting factor. AI dramatically reduces the scarcity of: knowledge, expertise, analysis, software development, research, content creation, and decision support. As these capabilities become widely available, they cease to be sustainable competitive advantages. The new constraint becomes the organization’s ability to transform. First Principle: Intelligence does not create enterprise value. Transformation creates enterprise value. Intelligence is an input. Transformation is the conversion process. Enterprise value is the output.',
+    implications: [
+      'Positive Transformation Loop (compounding success): Intelligence → Better Decisions → Better Execution → Better Outcomes → Organizational Learning → Higher Transformation Capacity™ → Greater Ability to Utilize Intelligence → Repeat. Each successful cycle increases future ability to transform.',
+      'Negative Transformation Loop (compounding failure): Intelligence → Fragmented Adoption → Poor Execution → Limited Results → Reduced Organizational Confidence → Lower Transformation Investment → Reduced Transformation Capacity™ → Increasing Competitive Disadvantage → Repeat. Failure compounds as predictably as success.',
+      'Five Stages of Divergence: Stage I Intelligence Democratization (access becomes broadly available, differentiation declines). Stage II Adoption Dispersion (organizations adopt at different speeds, performance differences emerge). Stage III Operational Transformation (leading organizations redesign workflows, governance, decision systems — TE™ begins to diverge). Stage IV Compounding Capability (transformation itself becomes self-reinforcing). Stage V Enterprise Value Divergence (markets reward superior transformation capability with higher valuation multiples, sustained value creation).',
+      'Five Corollaries: I Intelligence Commoditization (as intelligence commoditizes, transformation becomes primary differentiation). II Compounding Transformation (successful transformation increases future transformation capacity). III Organizational Inertia (failure to transform compounds friction, reducing future adaptability). IV Predictive Enterprise Value (future enterprise value reflects transformation capability rather than historical performance). V Transformation Alpha™ (superior investment returns from identifying organizations capable of accelerating transformation before the market recognizes it).',
+      'Future Lens Analysis™ implications: Divergence Potential™ (how much future separation from peers could occur if transformation succeeds), Divergence Risk™ (probability that competitors create value faster due to superior transformation capability), Transformation Velocity™ (rate of converting intelligence into operational improvement), Compounding Capacity™ (whether transformation increases future transformation capability), Intelligence Utilization™ (percentage of available intelligence converted into outcomes), Transformation Resilience™ (ability to sustain transformation despite changing conditions).',
+      'Strategic implication for The Lens™: Traditional financial analysis evaluates historical performance. Transformation Intelligence™ evaluates future transformation capability. Financial analysis explains what happened. Transformation Intelligence™ estimates what can happen. The Lens™ identifies future enterprise value before it becomes visible through conventional financial metrics.',
+      'DAL™ integration with existing principles: Transformation Capacity Principle™ (TI-004) defines the scarce resource. Adoption Scarcity Principle™ (TI-401) explains why intelligence alone is insufficient. Transformation Efficiency™ (TI-103) measures conversion effectiveness. Cumulative Intelligence Principle™ (TI-201) explains why learning compounds. Decision Continuity Framework™ (TI-102) explains why sustained execution amplifies value. DAL™ explains why these mechanisms produce widening performance differences.',
+      'The AI economy is not creating equal opportunity. It is creating unequal outcomes. The organizations that learn fastest, adapt fastest, and transform most effectively will increasingly separate from those that merely possess access to the same intelligence. The Lens™ exists to measure that separation before the market fully recognizes it.',
+    ],
+    typedRelationships: [
+      { type: 'extends', targetId: 'TI-001', description: 'Extends Transformation Intelligence™ with the economic law explaining why transformation capacity determines long-term competitive outcomes' },
+      { type: 'extends', targetId: 'TI-004', description: 'Extends Transformation Capacity Principle™ — DAL™ explains the macro-economic mechanism that makes TC™ the primary source of competitive advantage' },
+      { type: 'depends_on', targetId: 'TI-103', description: 'Depends on Transformation Efficiency™ as the primary measurable expression of DAL™ — TE™ is what diverges between organizations' },
+      { type: 'depends_on', targetId: 'TI-201', description: 'Depends on Cumulative Intelligence Principle™ — compounding is the mechanism that accelerates divergence once initiated' },
+      { type: 'depends_on', targetId: 'TI-401', description: 'Depends on Adoption Scarcity Principle™ — explains why intelligence access alone cannot prevent performance divergence' },
+      { type: 'enables', targetId: 'TI-802', description: 'Enables Opportunity Zones™ — DAL™ is the economic law that creates the divergence that Opportunity Zones™ identify and Equity Reclamation™ captures' },
+      { type: 'implements', targetId: 'TI-012', description: 'Implements Unlock Science™ at the macro-economic level — DAL™ is the law that creates the unrealized value that Unlock Science™ studies' },
+    ],
+    relatedIds: ['TI-001', 'TI-004', 'TI-103', 'TI-201', 'TI-401', 'TI-012', 'TI-802', 'TI-006', 'TI-038', 'TI-040'],
+  },
+
+  // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================
 
