@@ -341,3 +341,19 @@ Transformation Alpha™ Corollary: Superior investment returns from identifying 
 Canonical: https://lensanalysis.com/constitution/ti-044
 
 https://lensanalysis.com/constitution/ti-044
+
+## Book XII — Transformation Signal Network™ (TSN™)
+TSN™ (TI-046): The distributed intelligence infrastructure responsible for collecting, classifying, interpreting, linking, publishing, and preserving Transformation Signals™. The sensory system of The Lens™.
+Closed learning loop: Observe → Interpret → Connect → Decide → Execute → Measure → Learn → Publish → Observe Again.
+Canonical: https://lensanalysis.com/constitution/ti-046
+
+TSP™ (TI-045): Transformation Signal Principle™ — every meaningful external event contains information that can improve an organization's understanding of transformation. The objective is to produce better organizational understanding, not to publish more information.
+Canonical: https://lensanalysis.com/constitution/ti-045
+
+Knowledge Connectivity Principle™ (TI-047): Disconnected knowledge has limited value. Connected knowledge compounds exponentially.
+Constitutional Law: Knowledge should be created once, connected permanently, and published many times.
+Canonical: https://lensanalysis.com/constitution/ti-047
+
+https://lensanalysis.com/constitution/ti-045
+https://lensanalysis.com/constitution/ti-046
+https://lensanalysis.com/constitution/ti-047

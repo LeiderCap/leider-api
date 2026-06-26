@@ -1530,6 +1530,111 @@ export const principles: Principle[] = [
   },
 
   // ============================================
+  // BOOK XII — TRANSFORMATION SIGNAL NETWORK™
+  // ============================================
+
+  {
+    id: 'TI-045',
+    slug: 'ti-045',
+    name: 'Transformation Signal Principle™ (TSP™)',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-25',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book XII — Transformation Signal Network™ (TSN™)',
+    oid: 'OID-2026-TI-TSP-001',
+    lensUri: 'lens://constitution/ti-045',
+    principle: 'Every meaningful external event contains information that can improve an organization’s understanding of transformation. The objective is not to publish more information. The objective is to produce better organizational understanding.',
+    definition: 'A Transformation Signal™ is any observable event that materially increases, decreases, validates, challenges, or extends understanding of organizational transformation. Signals include: AI model releases, earnings calls, investor presentations, capital allocation decisions, board changes, leadership transitions, research publications, government policy, scientific discoveries, product launches, enterprise deployments, operational failures, customer behavior, technology adoption, and organizational redesign. A Transformation Signal™ is defined by its explanatory value, not its popularity.',
+    operatingLaw: 'Organizations that systematically convert external signals into operational knowledge will compound transformation capacity faster than organizations that merely consume information. Every validated Transformation Signal™ must improve the intelligence of the system. No signal should be consumed without increasing organizational knowledge.',
+    implications: [
+      'Transformation Signal Lifecycle™ — Seven Stages: Stage 1 Observation™ (signal detected: AI announcement, earnings call, research paper). Stage 2 Classification™ (standardized metadata: industry, technology, company, principle, Opportunity Zone™, enterprise function). Stage 3 Interpretation™ (what changed, why it matters, who is affected, what future behavior becomes more likely). Stage 4 Validation™ (evidence evaluated, confidence increases as corroborating signals accumulate). Stage 5 Integration™ (connected to principles, companies, scorecards, OIDs™, blueprints, prior signals). Stage 6 Publication™ (Lens Insights™, LinkedIn, newsletters, research briefs, Board Briefs™). Stage 7 Continuous Learning™ (future evidence updates previous conclusions — no signal ever permanently complete).',
+      'Transformation Signal Record™: Every signal receives a permanent record with: Transformation Signal ID™, date, source, evidence type, industry, organizations, transformation domain, affected Principles™, affected Opportunity IDs™, affected Scorecards™, strategic importance, evidence strength, confidence, version history, relationships. This creates complete auditability.',
+      'Evidence Hierarchy™ — Four Levels: Level I Observation™ (interesting, not yet repeatable). Level II Pattern™ (observed multiple times, emerging reliability). Level III Principle™ (consistently predictive, applicable across organizations). Level IV Law™ (repeatedly predictive, universally applicable within defined conditions — eligible for incorporation into the TI Constitution). Evidence becomes knowledge only after repeated validation across independent contexts.',
+      'Transformation Signal Score™ (TSS™): Every signal receives a quantitative assessment across: Novelty, Strategic Significance, Enterprise Value Impact, Transformation Capacity Impact, Cross-Industry Applicability, Financial Materiality, Evidence Quality, Urgency, Longevity, Network Connectivity. Higher TSS™ signals receive higher analytical priority.',
+      'Transformation Publishing Principle™: One signal should produce many artifacts: Lens Insight™, Executive Brief™, Transformation Brief™, Company Update™, Board Brief™, Newsletter, Podcast Discussion, LinkedIn Analysis, Blueprint Update™, Opportunity Update™, Knowledge Graph Update™. Publication is the dissemination of structured understanding, not merely the distribution of content. Constitutional Law: Knowledge should be created once, connected permanently, and published many times.',
+      'AI Discoverability Principle™: Every Transformation Signal™ shall be published with structured metadata enabling retrieval by both humans and AI systems — Transformation Signal ID™, Principle IDs™, Opportunity IDs™, company identifiers, industry taxonomy, technology taxonomy, version history, relationships, citations, evidence level. This ensures TI™ becomes a durable machine-readable body of knowledge rather than disconnected documents.',
+      'Relationship to LKAS™ (TI-010): The AI Discoverability Principle™ extends the Addressability Principle™ to the signal layer — every Transformation Signal™ must be permanently addressed, just as every constitution principle has a TI ID and Lens URI.',
+    ],
+    typedRelationships: [
+      { type: 'extends', targetId: 'TI-010', description: 'Extends Addressability Principle™ — every Transformation Signal™ must be permanently addressed and machine-readable per LKAS™' },
+      { type: 'extends', targetId: 'TI-201', description: 'Extends Cumulative Intelligence Principle™ — TSP™ adds the external signal layer that feeds cumulative intelligence' },
+      { type: 'implements', targetId: 'TI-016', description: 'Implements Continuous Learning Law™ — the Signal Lifecycle is the operational mechanism for continuous learning from external evidence' },
+      { type: 'depends_on', targetId: 'TI-702', description: 'Depends on Evidence Architecture™ — the Evidence Hierarchy™ extends EA™ to external signal classification' },
+      { type: 'enables', targetId: 'TI-046', description: 'Enables Transformation Signal Network™ as the infrastructure implementing TSP™ at scale' },
+    ],
+    relatedIds: ['TI-010', 'TI-201', 'TI-016', 'TI-702', 'TI-046', 'TI-047', 'TI-011', 'TI-044'],
+  },
+
+  {
+    id: 'TI-046',
+    slug: 'ti-046',
+    name: 'Transformation Signal Network™ (TSN™)',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-25',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book XII — Transformation Signal Network™ (TSN™)',
+    oid: 'OID-2026-TI-TSN-001',
+    lensUri: 'lens://constitution/ti-046',
+    principle: 'The Transformation Signal Network™ is the distributed intelligence infrastructure responsible for collecting, classifying, interpreting, linking, publishing, and preserving Transformation Signals™. Its purpose is continuous learning. It serves as the sensory system of The Lens™.',
+    definition: 'TSN™ Primary Functions: Observe → Interpret → Validate → Connect → Publish → Learn → Improve → Repeat. The Transformation Signal Atlas™ is the public repository of all validated Transformation Signals™, navigable by: industry, company, technology, principle, Opportunity Zone™, enterprise function, evidence strength, Transformation Capacity™, date, financial impact, and transformation theme. The Atlas functions as the public memory of Transformation Intelligence™.',
+    operatingLaw: 'As intelligence becomes abundant, competitive advantage shifts to organizations that can most rapidly detect, interpret, connect, and operationalize Transformation Signals™. The Learning Enterprise Principle™: the enduring advantage of an enterprise is not the volume of information it possesses, but the rate at which it converts external signals into coordinated action. TSN™ operationalizes this advantage by continuously transforming observation into evidence, evidence into knowledge, knowledge into decisions, and decisions into enterprise value.',
+    implications: [
+      'TSN™ completes the Transformation Intelligence™ learning architecture: Observe → Interpret → Connect → Decide → Execute → Measure → Learn → Publish → Observe Again. This closed loop makes TI™ not just a framework for analysis but a continuously evolving system for organizational learning and value creation.',
+      'Relationship to existing TI™ architecture: Book II (Transformation Capacity) explains why organizations fail to convert intelligence into outcomes. Book III (Decision Economics) explains how decisions create value. Transformation Memory Architecture™ preserves internal knowledge. Decision Visibility Infrastructure™ makes decisions observable. LKAS™ provides permanent identifiers. Book XII (TSN™) adds the external sensing layer, creating a continuous feedback loop between the outside world and the internal transformation system.',
+      'Transformation Signal Atlas™ is the constitutional equivalent of the Opportunity Atlas™ (TI-016) for external signals. Just as the Opportunity Atlas™ accumulates completed transformation records, the Signal Atlas™ accumulates validated external intelligence — both compound over time to improve future analysis quality.',
+      'TSN™ is the Phase 3 external intelligence infrastructure. In Phase 1, The Lens™ analyzes on demand. In Phase 2, it generates reports and reports on specific companies. In Phase 3, TSN™ continuously ingests external signals and pushes relevant intelligence to Lens users without requiring them to ask — making The Lens™ proactive rather than reactive.',
+    ],
+    typedRelationships: [
+      { type: 'derived_from', targetId: 'TI-045', description: 'Infrastructure implementation of Transformation Signal Principle™' },
+      { type: 'extends', targetId: 'TI-202', description: 'Extends Transformation Memory Architecture™ — TSN™ adds the external signal layer that feeds organizational memory' },
+      { type: 'extends', targetId: 'TI-210', description: 'Extends Transformation Graph™ — the Signal Atlas™ is the external node network that connects to the internal Transformation Graph™' },
+      { type: 'implements', targetId: 'TI-044', description: 'Implements Divergence Acceleration Law™ — TSN™ is the sensing infrastructure that enables organizations to detect and respond to divergence signals before competitors' },
+      { type: 'enables', targetId: 'TI-047', description: 'Enables Knowledge Connectivity Principle™ — TSN™ is the network through which signals become connected knowledge' },
+    ],
+    relatedIds: ['TI-045', 'TI-047', 'TI-202', 'TI-210', 'TI-044', 'TI-011', 'TI-010', 'TI-016'],
+  },
+
+  {
+    id: 'TI-047',
+    slug: 'ti-047',
+    name: 'Knowledge Connectivity Principle™',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-25',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book XII — Transformation Signal Network™ (TSN™)',
+    oid: 'OID-2026-TI-KCP2-001',
+    lensUri: 'lens://constitution/ti-047',
+    principle: 'No Transformation Signal™ exists independently. The value of knowledge increases with the richness of its connections. Disconnected knowledge has limited value. Connected knowledge compounds exponentially.',
+    definition: 'Every Transformation Signal™ must connect to one or more: Transformation Principles™, Opportunity IDs™, Transformation Blueprints™, companies, industries, technologies, historical signals, and future signals. Knowledge Connectivity is operationalized through the Transformation Signal Atlas™ and the LKAS™ relationship standard (TI-010) — the same typed relationship system used to connect TI Constitution principles applies to every Transformation Signal™.',
+    operatingLaw: 'Knowledge should be created once, connected permanently, and published many times. Every validated signal must generate at minimum: one connection to a TI Constitution principle, one connection to an Opportunity Zone™ or OID™, one connection to one or more affected companies or industries. Signals that cannot be connected have not yet reached sufficient maturity for publication.',
+    implications: [
+      'The Knowledge Connectivity Principle™ is the application of the Knowledge Compounding Principle™ (TI-011) to the external signal layer. TI-011 states that knowledge compounds when addressable, connected, reusable, and trusted. KCP™ (TI-047) specifies the minimum connectivity requirements for a Transformation Signal™ to qualify as compounding knowledge.',
+      'Constitutional Law: Knowledge compounds through connected evidence, not isolated observations. A Transformation Signal™ about a company earnings call connected to TI-044 (Divergence Acceleration Law™), an existing OID™ for that company, and the AI Transformation Opportunity Zone is exponentially more valuable than the same signal published as an isolated article.',
+      'KCP™ operationalizes LKAS™ (TI-010) at the signal layer — the same relationship types used in the constitution (depends_on, extends, implements, enables, measures) apply to signal-to-signal and signal-to-principle relationships in the Transformation Signal Atlas™.',
+      'The Learning Enterprise Principle™ (Article XII of Book XII): The enduring advantage of an enterprise is not the volume of information it possesses, but the rate at which it converts external signals into coordinated action. Knowledge connectivity is the mechanism that makes this conversion possible — isolated observations never become coordinated action, but connected knowledge naturally flows toward decision and execution.',
+    ],
+    typedRelationships: [
+      { type: 'derived_from', targetId: 'TI-046', description: 'Connectivity requirement derived from TSN™ architecture' },
+      { type: 'extends', targetId: 'TI-011', description: 'Extends Knowledge Compounding Principle™ — KCP™ specifies minimum connectivity requirements for signals to qualify as compounding knowledge' },
+      { type: 'implements', targetId: 'TI-010', description: 'Implements Addressability Principle™ at signal layer — same LKAS™ relationship standard applies to signals as to principles' },
+      { type: 'depends_on', targetId: 'TI-210', description: 'Depends on Transformation Graph™ as the connection substrate — signals become nodes in the Transformation Graph™' },
+    ],
+    relatedIds: ['TI-045', 'TI-046', 'TI-011', 'TI-010', 'TI-210', 'TI-016', 'TI-201', 'TI-044'],
+  },
+
+  // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================
 
