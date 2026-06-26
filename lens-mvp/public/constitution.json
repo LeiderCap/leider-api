@@ -2766,6 +2766,38 @@
           "targetId": "TI-011"
         }
       ]
+    },
+    {
+      "id": "TI-049",
+      "slug": "ti-049",
+      "name": "Terminology Convention™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book I — Constitutional Governance",
+      "constitutionId": "Constitutional Appendix A",
+      "oid": "OID-2026-TI-TC-001",
+      "lensUri": "lens://constitution/ti-049",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-049",
+      "lkasCompliant": true,
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-048"
+        },
+        {
+          "type": "applies_to",
+          "targetId": "TI-001"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-012"
+        }
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -2773,7 +2805,7 @@
   "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 101,
+  "totalPrinciples": 102,
   "lastUpdated": "2026-06-25",
   "constitutionalArchitecture": {
     "name": "Opportunity Hierarchy™",
@@ -2863,6 +2895,28 @@
       "constitutionalLanguage": "Discipline description, not marketing"
     },
     "universalConcepts": [
+      "Identity",
+      "Knowledge",
+      "Intelligence",
+      "Organizational Cognition",
+      "Transformation",
+      "Enterprise Value",
+      "Leadership",
+      "Governance",
+      "Learning",
+      "Memory",
+      "Trust",
+      "Evidence",
+      "Execution",
+      "Strategy",
+      "Purpose",
+      "Culture",
+      "Incentives",
+      "Risk",
+      "Adaptation"
+    ],
+    "appendixA": "TI-049",
+    "constitutionalArchitecture": [
       "Identity",
       "Knowledge",
       "Intelligence",

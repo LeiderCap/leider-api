@@ -1669,6 +1669,41 @@ export const principles: Principle[] = [
     relatedIds: ['TI-001', 'TI-010', 'TI-011', 'TI-012', 'TI-044'],
   },
 
+  {
+    id: 'TI-049',
+    slug: 'ti-049',
+    name: 'Terminology Convention™',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-25',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book I — Constitutional Governance',
+    constitutionId: 'Constitutional Appendix A',
+    oid: 'OID-2026-TI-TC-001',
+    lensUri: 'lens://constitution/ti-049',
+    principle: 'Transformation Intelligence™ does not seek to own universal language. Instead, it provides proprietary methods for understanding, measuring, and improving universal organizational phenomena. Universal concepts remain open. Transformation Intelligence™ develops the operating systems, measurements, architectures, and principles that enable organizations to apply those concepts more effectively.',
+    definition: 'Constitutional Appendix A establishes the Terminology Convention governing all publications, analyses, frameworks, software, research, and communications within Transformation Intelligence™. The objective is to distinguish universal concepts from proprietary methods while maintaining consistent constitutional language across the TI™ ecosystem. The Convention extends TI-048 with the canonical Constitutional Architecture sequence, Naming Philosophy, and Writing Style standard.',
+    operatingLaw: 'Constitutional Standard (Rule 10): Every future publication, software product, research paper, Lens Analysis™, white paper, presentation, and educational work shall conform to this Terminology Convention unless an explicit constitutional amendment supersedes it. This convention preserves conceptual integrity, enables consistent interpretation, and supports the long-term evolution of Transformation Intelligence™ as a coherent discipline.',
+    implications: [
+      'Rule 1 — Universal Concepts (no trademark): Identity, Knowledge, Intelligence, Organizational Cognition, Transformation, Enterprise Value, Leadership, Governance, Learning, Memory, Trust, Evidence, Execution, Strategy, Purpose, Culture, Incentives, Risk, Adaptation. These represent enduring concepts that exist independently of Transformation Intelligence™.',
+      'Rule 2 — Constitutional Architecture (canonical display sequence): Identity → Knowledge → Intelligence → Organizational Cognition → Transformation → Enterprise Value. This sequence constitutes the foundational architecture of the discipline and shall be displayed consistently across all constitutional materials.',
+      'Rules 3–7 — Proprietary Designations (™ retained): Disciplines (Rule 3): Transformation Intelligence™, Decision Economics™. Principles (Rule 4): Transformation Capacity Principle™, Divergence Acceleration Law™. Measurements (Rule 5): Transformation Efficiency™, AROI™, Decision Capital™. Frameworks (Rule 6): Transformation Blueprint™, Transformation Graph™, Explainability Architecture™, Organizational Identity Graph™. Products (Rule 7): The Lens™, Board EA™, SAFE™.',
+      'Rule 8 — Naming Philosophy: Transformation Intelligence™ does not seek to own universal language. Universal concepts remain open. TI™ develops the operating systems, measurements, architectures, and principles that enable organizations to apply those concepts more effectively. This is the philosophical distinction between a discipline and a brand.',
+      'Rule 9 — Writing Style: Constitutional writing shall: define before prescribing, explain before measuring, establish principles before introducing methods, distinguish observation from recommendation, use consistent terminology throughout. The Constitution should read as a foundational work of organizational science. Commercial materials may reference the Constitution but should not alter its terminology.',
+      'New universal concepts added in Appendix A (extending TI-048 list): Leadership, Governance, Learning, Memory, Trust, Evidence, Execution, Strategy, Purpose, Culture, Incentives, Risk, Adaptation. These nineteen concepts plus Identity, Knowledge, Intelligence, Organizational Cognition, Transformation, and Enterprise Value constitute the complete universal concept vocabulary of the discipline.',
+      'Relationship to TI-048: Appendix A is the formal codification of the Constitutional Style Guide (TI-048). Where TI-048 established the seven-rule framework, Appendix A extends it with Naming Philosophy (Rule 8), Writing Style (Rule 9), and Constitutional Standard (Rule 10) — and expands the universal concepts list from six to nineteen terms.',
+    ],
+    typedRelationships: [
+      { type: 'extends', targetId: 'TI-048', description: 'Formal appendix extending the Constitutional Style Guide with three additional rules and an expanded universal concept vocabulary' },
+      { type: 'applies_to', targetId: 'TI-001', description: 'Governs terminology usage across all TI™ constitutional principles and publications from TI-001 forward' },
+      { type: 'implements', targetId: 'TI-012', description: 'Implements Unlock Science™ Scientific Standards — consistent terminology is a prerequisite for Reproducibility and Transparency standards' },
+    ],
+    relatedIds: ['TI-048', 'TI-001', 'TI-012', 'TI-010', 'TI-044'],
+  },
+
   // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================

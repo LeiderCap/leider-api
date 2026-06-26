@@ -364,3 +364,11 @@ Constitutional Style Guide: Seven rules governing all TI™ constitutional docum
 Canonical: https://lensanalysis.com/constitution/ti-048
 
 https://lensanalysis.com/constitution/ti-048
+
+## Constitutional Appendix A
+Terminology Convention™ (TI-049): The governing standard for all TI™ publications and communications.
+Universal concepts (no trademark): Identity, Knowledge, Intelligence, Organizational Cognition, Transformation, Enterprise Value, Leadership, Governance, Learning, Memory, Trust, Evidence, Execution, Strategy, Purpose, Culture, Incentives, Risk, Adaptation.
+Constitutional Architecture sequence: Identity → Knowledge → Intelligence → Organizational Cognition → Transformation → Enterprise Value.
+Canonical: https://lensanalysis.com/constitution/ti-049
+
+https://lensanalysis.com/constitution/ti-049

@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Constitution of Transformation Intelligence™ | TI Registry™',
   description:
-    'The governing principles behind The Lens™ and Transformation Intelligence™. 101 principles across 9 categories — each versioned, citable, and machine-readable. Includes TI-048 Constitutional Style Guide (Trademark Convention Principle™), Book XII — Transformation Signal Network™ (TSN™), Book I — The Economics of Transformation (DAL™), Book IV — Transformation Absorbability™, Book IX — SAFE™, Book VIII — Distributed Transformation Infrastructure™, Book V — The Future Firm™, Book VI — Unlock Science™, Book II — Organizational Dynamics, and Book VII — Enterprise Value Architecture™.',
+    'The governing principles behind The Lens™ and Transformation Intelligence™. 102 principles across 9 categories — each versioned, citable, and machine-readable. Includes TI-049 Constitutional Appendix A (Terminology Convention™), TI-048 Constitutional Style Guide, Book XII — Transformation Signal Network™ (TSN™), Book I — The Economics of Transformation (DAL™), Book IV — Transformation Absorbability™, Book IX — SAFE™, Book VIII — Distributed Transformation Infrastructure™, Book V — The Future Firm™, Book VI — Unlock Science™, Book II — Organizational Dynamics, and Book VII — Enterprise Value Architecture™.',
 };
 
 const statusColors: Record<string, string> = {
@@ -106,7 +106,7 @@ export default function ConstitutionPage() {
           &nbsp;|&nbsp; Published June 23, 2026
         </p>
         <p className="mt-3 mx-auto max-w-xl text-sm italic text-slate-400">
-          Now includes TI-048 — Trademark Convention Principle™ (Constitutional Style Guide): universal architectural concepts appear without ™; named principles, measurements, frameworks, and products carry ™. This constitution describes a discipline, not a product catalog.
+          Now includes TI-049 — Constitutional Appendix A (Terminology Convention™): the governing standard for all TI™ publications. Constitutional Architecture: Identity → Knowledge → Intelligence → Organizational Cognition → Transformation → Enterprise Value. This constitution describes a discipline, not a product catalog.
         </p>
         <p className="mt-2 text-xs text-slate-400">
           © 2026 Leider Capital. All Rights Reserved. All principles and named methodologies are proprietary to Leider Capital.
@@ -171,7 +171,19 @@ export default function ConstitutionPage() {
               </div>
             ))}
           </div>
-          <p className="mt-5 text-xs text-slate-400">Book I foundational principles TI-001 through TI-011 establish the constitutional framework. TI-044 formalizes the economic law that unifies them.</p>
+          <div className="mt-6 border-t border-slate-200 pt-5">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-400">Constitutional Architecture</p>
+            <div className="flex flex-col items-start gap-0">
+              {['Identity', 'Knowledge', 'Intelligence', 'Organizational Cognition', 'Transformation', 'Enterprise Value'].map((layer, i, arr) => (
+                <div key={layer} className="flex flex-col items-start">
+                  <span className="text-sm font-semibold text-slate-700">{layer}</span>
+                  {i < arr.length - 1 && <span className="ml-1 text-slate-300 text-lg leading-tight">↓</span>}
+                </div>
+              ))}
+            </div>
+            <p className="mt-3 text-xs text-slate-400">The foundational sequence of Transformation Intelligence™. Each layer is a universal concept. The principles, measurements, and frameworks of TI™ improve each stage of this architecture.</p>
+          </div>
+          <p className="mt-4 text-xs text-slate-400">Book I foundational principles TI-001 through TI-011 establish the constitutional framework. TI-044 formalizes the economic law that unifies them. TI-048 — TI-049 establish the Constitutional Governance standard.</p>
         </div>
       </section>
 
