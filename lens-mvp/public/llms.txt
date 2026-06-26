@@ -7,6 +7,15 @@ Canonical: https://lensanalysis.com/constitution/ti-051
 
 https://lensanalysis.com/constitution/ti-051
 
+## TIBOK™ — Body of Knowledge
+TI-052: The official corpus of knowledge governing Transformation Intelligence™.
+Constitutional Declaration: "Transformation Intelligence™ shall exist as an enduring discipline independent of any single technology, software platform, organization, or generation of artificial intelligence."
+Seven-Level Hierarchy: I Constitution | II Standards | III Reference Architectures | IV Methods | V Applications | VI Evidence | VII Education & Certification.
+The Lens™ is Level V Application — the primary software implementation of the discipline, not the discipline itself.
+Canonical: https://lensanalysis.com/constitution/ti-052
+
+https://lensanalysis.com/constitution/ti-052
+
 # © 2026 Leider Capital.
 # All Rights Reserved.
 #

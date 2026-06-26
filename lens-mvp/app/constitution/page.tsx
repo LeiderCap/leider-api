@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Constitution of Transformation Intelligence™ | TI Registry™',
   description:
-    'The governing principles behind The Lens™ and Transformation Intelligence™. 104 principles across 9 categories — each versioned, citable, and machine-readable. Includes TI-051 Master Constitutional Structure™ v5.0 (self-governing constitution), TI-050 Constitutional Canon™ (Appendix B), TI-049 Terminology Convention™ (Appendix A), TI-048 Constitutional Style Guide, Book XII — Transformation Signal Network™ (TSN™), Book I — The Economics of Transformation (DAL™), Book IV — Transformation Absorbability™, Book IX — SAFE™, Book VIII — Distributed Transformation Infrastructure™, Book V — The Future Firm™, Book VI — Unlock Science™, Book II — Organizational Dynamics, and Book VII — Enterprise Value Architecture™.',
+    'The governing principles behind The Lens™ and Transformation Intelligence™. 105 principles across 9 categories — each versioned, citable, and machine-readable. Includes TI-052 TIBOK™ (Body of Knowledge), TI-051 Master Constitutional Structure™ v5.0 (self-governing constitution), TI-050 Constitutional Canon™ (Appendix B), TI-049 Terminology Convention™ (Appendix A), TI-048 Constitutional Style Guide, Book XII — Transformation Signal Network™ (TSN™), Book I — The Economics of Transformation (DAL™), Book IV — Transformation Absorbability™, Book IX — SAFE™, Book VIII — Distributed Transformation Infrastructure™, Book V — The Future Firm™, Book VI — Unlock Science™, Book II — Organizational Dynamics, and Book VII — Enterprise Value Architecture™.',
 };
 
 const statusColors: Record<string, string> = {
@@ -106,7 +106,7 @@ export default function ConstitutionPage() {
           &nbsp;|&nbsp; Published June 23, 2026
         </p>
         <p className="mt-3 mx-auto max-w-xl text-sm italic text-slate-400">
-          Now includes TI-051 — Master Constitutional Structure™ v5.0: the complete seven-part organizational framework. 104 principles, 9 books, self-governing constitution. This constitution describes a discipline, not a product catalog.
+          Now includes TI-052 — TIBOK™ (Body of Knowledge): the official corpus of knowledge governing the discipline. 105 principles, 9 books, self-governing constitution. The Lens™ is not the discipline — it is the primary software implementation of the discipline.
         </p>
         <p className="mt-2 text-xs text-slate-400">
           © 2026 Leider Capital. All Rights Reserved. All principles and named methodologies are proprietary to Leider Capital.
@@ -472,6 +472,50 @@ export default function ConstitutionPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* TIBOK™ — Body of Knowledge section */}
+      <section className="mx-auto max-w-4xl px-6 pt-8 pb-0">
+        <div className="rounded-lg border border-slate-200 bg-white px-6 py-6">
+          <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <h2 className="text-lg font-bold text-slate-900">TIBOK™ — Body of Knowledge</h2>
+              <p className="mt-1 text-sm text-slate-500">The canonical structure through which Transformation Intelligence™ is defined, taught, applied, validated, and continuously improved.</p>
+            </div>
+            <Link href="/constitution/ti-052" className="text-xs font-medium text-slate-500 hover:text-slate-700 hover:underline whitespace-nowrap shrink-0">View TIBOK™ →</Link>
+          </div>
+          <div className="space-y-2 mb-6">
+            {[
+              { level: 'I', name: 'Constitution', desc: 'Defines the discipline', status: 'active', href: '/constitution' },
+              { level: 'II', name: 'Standards', desc: 'Ensures repeatability across practitioners', status: 'dev', href: null },
+              { level: 'III', name: 'Reference Architectures', desc: 'Describes operational systems', status: 'active', href: null },
+              { level: 'IV', name: 'Methods', desc: 'Repeatable methodologies', status: 'active', href: null },
+              { level: 'V', name: 'Applications', desc: 'Software and services', status: 'active', href: 'https://lensanalysis.com' },
+              { level: 'VI', name: 'Evidence', desc: 'Validates the discipline', status: 'dev', href: null },
+              { level: 'VII', name: 'Education & Certification', desc: 'Perpetuates the discipline', status: 'dev', href: null },
+            ].map(item => (
+              <div key={item.level} className="flex items-baseline gap-3 py-1.5 border-b border-slate-50 last:border-0">
+                <span className="w-8 shrink-0 text-xs font-bold text-slate-400">{item.level}</span>
+                <div className="flex-1">
+                  <span className={`text-sm font-semibold ${item.status === 'dev' ? 'text-slate-400' : 'text-slate-800'}`}>{item.name}</span>
+                  <span className={`ml-2 text-xs ${item.status === 'dev' ? 'text-slate-300' : 'text-slate-500'}`}>— {item.desc}</span>
+                </div>
+                <div className="shrink-0">
+                  {item.status === 'dev' ? (
+                    <span className="text-xs text-slate-300">In development</span>
+                  ) : item.href ? (
+                    <Link href={item.href} className="text-xs text-slate-400 hover:text-slate-600 hover:underline">{item.href === '/constitution' ? '[Current page]' : 'lensanalysis.com →'}</Link>
+                  ) : (
+                    <span className="text-xs text-slate-400">[Distributed across Books]</span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+          <blockquote className="border-l-2 border-slate-300 pl-4 text-sm italic text-slate-500">
+            &ldquo;Transformation Intelligence™ shall exist as an enduring discipline independent of any single technology, software platform, organization, or generation of artificial intelligence.&rdquo;
+          </blockquote>
         </div>
       </section>
 

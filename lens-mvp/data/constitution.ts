@@ -1792,6 +1792,43 @@ export const principles: Principle[] = [
     relatedIds: ['TI-048', 'TI-049', 'TI-050', 'TI-001', 'TI-016', 'TI-044', 'TI-012', 'TI-010'],
   },
 
+  {
+    id: 'TI-052',
+    slug: 'ti-052',
+    name: 'Transformation Intelligence™ Body of Knowledge (TIBOK™)',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-25',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book I — Constitutional Governance',
+    oid: 'OID-2026-TI-TIBOK-001',
+    lensUri: 'lens://constitution/ti-052',
+    canon: 'I-Foundations',
+    principle: 'The Transformation Intelligence™ Body of Knowledge (TIBOK™) is the official corpus of knowledge governing the discipline of Transformation Intelligence™. The Lens™ is not the discipline — The Lens™ is the primary software implementation of the discipline. Transformation Intelligence™ shall exist as an enduring discipline independent of any single technology, software platform, organization, or generation of artificial intelligence.',
+    definition: 'TIBOK™ establishes the canonical structure through which Transformation Intelligence™ is defined, taught, applied, validated, and continuously improved. The Constitution serves as the foundational authority from which every principle, measurement, architecture, methodology, application, certification, and publication derives its meaning. Every future component of TI™ shall trace its lineage to the Constitution. No component may contradict constitutional principles without a formally adopted amendment.',
+    operatingLaw: 'Constitutional Rule: Every publication, product, framework, dataset, API, software platform, certification, research paper, educational program, and commercial offering developed under Transformation Intelligence™ shall trace its lineage to the Constitution. Constitutional Declaration: Transformation Intelligence™ shall exist as an enduring discipline independent of any single technology, software platform, organization, or generation of artificial intelligence. Its principles may be implemented through many tools. Its Constitution remains the permanent reference from which those implementations derive legitimacy.',
+    implications: [
+      'TIBOK™ Seven-Level Constitutional Hierarchy: Level I Constitution (defines the discipline — answers what TI™ is, what laws govern it, what is measured — changes only through formal amendments). Level II Standards (define how constitutional concepts are implemented consistently — examples: Lens Analysis™ Standard, Evidence Standard™, Benchmark Standard™). Level III Reference Architectures (recommended implementations — examples: Organizational Cognition Architecture™, Decision Visibility Infrastructure™, Transformation Memory Architecture™). Level IV Methods (repeatable approaches — examples: Lens Analysis™, Transformation Blueprint™, Enterprise Value Frontier™). Level V Applications (software and services — The Lens™, Board EA™, SAFE™ — may evolve rapidly while remaining constitutionally aligned). Level VI Evidence (validates the discipline — empirical studies, case studies, transformation recordings, peer review — informs but does not automatically modify the Constitution). Level VII Education & Certification (perpetuates the discipline — Certified Transformation Intelligence Practitioner™, Certified Lens Analyst™, Certified Organizational Cognition Architect™, Executive Education, University Curriculum, Research Fellowships).',
+      'Relationship to The Lens™: The Lens™ is not the discipline. The Constitution defines the theory. The Body of Knowledge organizes the theory. The Lens™ operationalizes the theory. Lens Analysis™ applies the theory. Transformation Blueprints™ execute the theory. Evidence continuously improves the theory.',
+      'Certification basis: Certification demonstrates mastery of the Body of Knowledge rather than proficiency with any individual software application. This is constitutionally significant — a Certified Lens Analyst™ is certified in a discipline, not in a software product. The credential retains value independent of platform evolution.',
+      'Standards layer (Level II) is the most significant unbuilt layer: Standards ensure that two different practitioners applying Lens Analysis™ to the same company reach materially similar conclusions. This is the Reproducibility standard from Unlock Science™ (TI-015) applied at the practice level. Without Standards, the discipline cannot scale beyond individual practitioners.',
+      'TIBOK™ relationship to existing governance documents: TI-048 governs trademark style. TI-049 governs terminology. TI-050 governs classification. TI-051 governs structure. TI-052 (TIBOK™) governs the entire knowledge hierarchy — it is the meta-document that establishes how all other governance documents relate to each other and to the discipline.',
+      'Long-term institutional significance: The TIBOK™ is the constitutional instrument that makes Transformation Intelligence™ teachable, licensable, certifiable, and institutionally perpetuable. Without it, TI™ is a product. With it, TI™ is a discipline that can be taught at universities, licensed to consulting firms, certified through professional bodies, and practiced independently of any single technology platform.',
+    ],
+    typedRelationships: [
+      { type: 'extends', targetId: 'TI-051', description: 'TIBOK™ extends Master Constitutional Structure™ — provides the complete seven-level knowledge hierarchy that organizes everything the Master Structure defines' },
+      { type: 'depends_on', targetId: 'TI-050', description: 'Depends on Constitutional Canon™ — the Canon’s seven categories map to TIBOK™’s seven levels: Foundations → Level I, Laws → Level II, and so on' },
+      { type: 'implements', targetId: 'TI-015', description: 'Implements Evidence Sufficiency Law™ — Level VI Evidence and Level II Standards together enforce the Reproducibility requirement of Unlock Science™' },
+      { type: 'implements', targetId: 'TI-037', description: 'Implements SAFE™ Certification Framework — TIBOK™ Level VII Education & Certification is the constitutional body of knowledge that SAFE™ certifications are based on' },
+      { type: 'applies_to', targetId: 'TI-003', description: 'Applies to The Lens™ — establishes that The Lens™ is Level V Application of TIBOK™, not the discipline itself' },
+      { type: 'enables', targetId: 'TI-016', description: 'Enables Continuous Learning Law™ at discipline scale — TIBOK™ Level VI Evidence is the constitutional mechanism for discipline-level learning' },
+    ],
+    relatedIds: ['TI-051', 'TI-050', 'TI-049', 'TI-048', 'TI-015', 'TI-037', 'TI-003', 'TI-016', 'TI-012'],
+  },
+
   // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================

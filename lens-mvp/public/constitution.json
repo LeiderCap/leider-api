@@ -2884,6 +2884,50 @@
           "targetId": "TI-044"
         }
       ]
+    },
+    {
+      "id": "TI-052",
+      "slug": "ti-052",
+      "name": "Transformation Intelligence™ Body of Knowledge (TIBOK™)",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book I — Constitutional Governance",
+      "oid": "OID-2026-TI-TIBOK-001",
+      "lensUri": "lens://constitution/ti-052",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-052",
+      "canon": "I-Foundations",
+      "lkasCompliant": true,
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-051"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-050"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-015"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-037"
+        },
+        {
+          "type": "applies_to",
+          "targetId": "TI-003"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-016"
+        }
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -2891,7 +2935,7 @@
   "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 104,
+  "totalPrinciples": 105,
   "lastUpdated": "2026-06-25",
   "constitutionalArchitecture": {
     "name": "Opportunity Hierarchy™",
@@ -3198,6 +3242,81 @@
         "name": "Glossary",
         "principleId": null,
         "status": "Pending"
+      }
+    ]
+  },
+  "tibok": {
+    "version": "1.0",
+    "principleId": "TI-052",
+    "ratified": "2026-06-25",
+    "canonicalUrl": "https://lensanalysis.com/constitution/ti-052",
+    "declaration": "Transformation Intelligence™ shall exist as an enduring discipline independent of any single technology, software platform, organization, or generation of artificial intelligence.",
+    "levels": [
+      {
+        "level": "I",
+        "name": "Constitution",
+        "purpose": "Defines the discipline",
+        "status": "Active",
+        "canonicalUrl": "https://lensanalysis.com/constitution"
+      },
+      {
+        "level": "II",
+        "name": "Standards",
+        "purpose": "Ensures repeatability",
+        "status": "In Development",
+        "examples": [
+          "Lens Analysis™ Standard",
+          "Evidence Standard™",
+          "Benchmark Standard™"
+        ]
+      },
+      {
+        "level": "III",
+        "name": "Reference Architectures",
+        "purpose": "Describes operational systems",
+        "status": "Active",
+        "examples": [
+          "TI-202 Transformation Memory Architecture™",
+          "TI-301 Decision Visibility Infrastructure™"
+        ]
+      },
+      {
+        "level": "IV",
+        "name": "Methods",
+        "purpose": "Repeatable methodologies",
+        "status": "Active",
+        "examples": [
+          "TI-003 Lens Analysis™",
+          "Transformation Blueprint™"
+        ]
+      },
+      {
+        "level": "V",
+        "name": "Applications",
+        "purpose": "Software and services",
+        "status": "Active",
+        "examples": [
+          "The Lens™",
+          "Board EA™",
+          "SAFE™"
+        ],
+        "primaryApplication": "https://lensanalysis.com"
+      },
+      {
+        "level": "VI",
+        "name": "Evidence",
+        "purpose": "Validates the discipline",
+        "status": "In Development"
+      },
+      {
+        "level": "VII",
+        "name": "Education & Certification",
+        "purpose": "Perpetuates the discipline",
+        "status": "In Development",
+        "examples": [
+          "Certified Transformation Intelligence Practitioner™",
+          "Certified Lens Analyst™"
+        ]
       }
     ]
   }
