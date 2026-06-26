@@ -1634,6 +1634,41 @@ export const principles: Principle[] = [
     relatedIds: ['TI-045', 'TI-046', 'TI-011', 'TI-010', 'TI-210', 'TI-016', 'TI-201', 'TI-044'],
   },
 
+  {
+    id: 'TI-048',
+    slug: 'ti-048',
+    name: 'Trademark Convention Principle™',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-25',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book I — Constitutional Governance',
+    oid: 'OID-2026-TI-TCP-001',
+    lensUri: 'lens://constitution/ti-048',
+    principle: 'Transformation Intelligence™ distinguishes between universal concepts that describe reality and proprietary intellectual property that describes the methods, measurements, architectures, and systems developed within Transformation Intelligence™. This distinction preserves both scientific clarity and intellectual property integrity.',
+    definition: 'The Constitutional Style Guide governs trademark usage across all Transformation Intelligence™ constitutional documents and publications. Universal concepts — such as Identity, Knowledge, Intelligence, Transformation, and Enterprise Value — describe reality and appear without trademark symbols. Proprietary concepts — principles, measurements, frameworks, disciplines, and products — carry the ™ designation. The Constitution should read as the description of a discipline rather than as product marketing.',
+    operatingLaw: 'Architectural layers are written as universal concepts. Methods, measurements, systems, and commercial offerings are identified as proprietary intellectual property. Enduring disciplines are built upon universally understandable concepts — Transformation Intelligence™ provides the principles, measurements, methods, and operating systems through which organizations intentionally improve every stage of the constitutional architecture.',
+    implications: [
+      'Rule I — Architectural Layers: Written without trademark symbols. Examples: Identity, Knowledge, Intelligence, Organizational Cognition, Transformation, Enterprise Value. These represent universal stages within the TI™ architecture rather than proprietary products.',
+      'Rule II — Disciplines: Formal disciplines retain trademark designation. Examples: Transformation Intelligence™, Decision Economics™, Transformation Infrastructure™, Organizational Cognition Architecture™.',
+      'Rule III — Principles: Named constitutional principles retain trademark designation. Examples: Transformation Capacity Principle™, Adoption Scarcity Principle™, Identity Continuity Principle™, Divergence Acceleration Law™.',
+      'Rule IV — Measurements: All proprietary measurements retain trademark designation. Examples: Transformation Efficiency™, Transformation Capacity™, Decision Continuity™, Transformation Probability™, AROI™, Decision Capital™.',
+      'Rule V — Frameworks: Formal frameworks retain trademark designation. Examples: Transformation Blueprint™, Enterprise Value Frontier™, Decision Visibility Infrastructure™, Transformation Memory Architecture™, Transformation Graph™.',
+      'Rule VI — Products: Commercial offerings retain trademark designation. Examples: The Lens™, Lens Analysis™, Board EA™, Strategic AI & Fulfillment Exchange™.',
+      'Rule VII — Constitutional Language: The Constitution reads as the description of a discipline rather than product marketing. This reflects the philosophy that Transformation Intelligence™ seeks to explain how organizations transform while also providing proprietary methods for measuring and improving that transformation.',
+      'Application: When writing new constitutional principles, check every ™ against these seven rules. A standalone architectural term (transformation, knowledge, identity) should never carry ™. A named principle, measurement, framework, or product always carries ™.',
+    ],
+    typedRelationships: [
+      { type: 'applies_to', targetId: 'TI-001', description: 'Governs trademark usage in all principles from TI-001 forward — the constitutional style standard for the entire registry' },
+      { type: 'extends', targetId: 'TI-010', description: 'Extends Addressability Principle™ — proper trademark usage ensures every addressable object is correctly identified as universal or proprietary' },
+      { type: 'implements', targetId: 'TI-011', description: 'Implements Knowledge Compounding Principle™ — clear trademark conventions enable AI systems to correctly identify and cite proprietary vs universal concepts' },
+    ],
+    relatedIds: ['TI-001', 'TI-010', 'TI-011', 'TI-012', 'TI-044'],
+  },
+
   // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================

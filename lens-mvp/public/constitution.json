@@ -2735,6 +2735,37 @@
           "targetId": "TI-210"
         }
       ]
+    },
+    {
+      "id": "TI-048",
+      "slug": "ti-048",
+      "name": "Trademark Convention Principle™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book I — Constitutional Governance",
+      "oid": "OID-2026-TI-TCP-001",
+      "lensUri": "lens://constitution/ti-048",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-048",
+      "lkasCompliant": true,
+      "typedRelationships": [
+        {
+          "type": "applies_to",
+          "targetId": "TI-001"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-010"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-011"
+        }
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -2742,7 +2773,7 @@
   "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 100,
+  "totalPrinciples": 101,
   "lastUpdated": "2026-06-25",
   "constitutionalArchitecture": {
     "name": "Opportunity Hierarchy™",
@@ -2816,5 +2847,28 @@
       "name": "Divergence Acceleration Law™",
       "statement": "As intelligence becomes abundant, enterprise performance diverges because transformation capacity — not intelligence — becomes the scarce resource."
     }
+  },
+  "styleGuide": {
+    "version": "1.0",
+    "principleId": "TI-048",
+    "ratified": "2026-06-25",
+    "canonicalUrl": "https://lensanalysis.com/constitution/ti-048",
+    "rules": {
+      "architecturalLayers": "No trademark — universal concepts",
+      "disciplines": "Trademark retained",
+      "principles": "Trademark retained",
+      "measurements": "Trademark retained",
+      "frameworks": "Trademark retained",
+      "products": "Trademark retained",
+      "constitutionalLanguage": "Discipline description, not marketing"
+    },
+    "universalConcepts": [
+      "Identity",
+      "Knowledge",
+      "Intelligence",
+      "Organizational Cognition",
+      "Transformation",
+      "Enterprise Value"
+    ]
   }
 }

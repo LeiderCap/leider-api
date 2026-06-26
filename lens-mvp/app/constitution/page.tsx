@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Constitution of Transformation Intelligence™ | TI Registry™',
   description:
-    'The governing principles behind The Lens™ and Transformation Intelligence™. 100 principles across 9 categories — each versioned, citable, and machine-readable. Now includes Book XII — Transformation Signal Network™ (TSN™), Book I — The Economics of Transformation (DAL™), Book IV — Transformation Absorbability™, Book IX — SAFE™, Book VIII — Distributed Transformation Infrastructure™, Book V — The Future Firm™, Book VI — Unlock Science™, Book II — Organizational Dynamics, and Book VII — Enterprise Value Architecture™.',
+    'The governing principles behind The Lens™ and Transformation Intelligence™. 101 principles across 9 categories — each versioned, citable, and machine-readable. Includes TI-048 Constitutional Style Guide (Trademark Convention Principle™), Book XII — Transformation Signal Network™ (TSN™), Book I — The Economics of Transformation (DAL™), Book IV — Transformation Absorbability™, Book IX — SAFE™, Book VIII — Distributed Transformation Infrastructure™, Book V — The Future Firm™, Book VI — Unlock Science™, Book II — Organizational Dynamics, and Book VII — Enterprise Value Architecture™.',
 };
 
 const statusColors: Record<string, string> = {
@@ -106,7 +106,7 @@ export default function ConstitutionPage() {
           &nbsp;|&nbsp; Published June 23, 2026
         </p>
         <p className="mt-3 mx-auto max-w-xl text-sm italic text-slate-400">
-          100th Principle Milestone. Now includes Book XII — Transformation Signal Network™ (TSN™): the external sensing layer of Transformation Intelligence™ — knowledge should be created once, connected permanently, and published many times. Now includes Book I — Divergence Acceleration Law™ (TI-044). Now includes Book IV — Transformation Absorbability™. Now includes Book II — AI Absorption Principle™. Now includes Book IX — SAFE™. Now includes Book VIII — Distributed Transformation Infrastructure™. Now includes Book V — The Future Firm™. Now includes Book VI — Unlock Science™. Now includes Book VII — Enterprise Value Architecture™.
+          Now includes TI-048 — Trademark Convention Principle™ (Constitutional Style Guide): universal architectural concepts appear without ™; named principles, measurements, frameworks, and products carry ™. This constitution describes a discipline, not a product catalog.
         </p>
         <p className="mt-2 text-xs text-slate-400">
           © 2026 Leider Capital. All Rights Reserved. All principles and named methodologies are proprietary to Leider Capital.
@@ -131,6 +131,23 @@ export default function ConstitutionPage() {
             </span>
           </div>
 
+        </div>
+      </section>
+
+      {/* Constitutional Governance box */}
+      <section className="mx-auto max-w-4xl px-6 pt-8 pb-0">
+        <div className="rounded-lg border border-slate-200 bg-slate-50 px-6 py-4 text-xs text-slate-500">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="mb-1 font-semibold text-slate-600 uppercase tracking-wide text-xs">Constitutional Governance</p>
+              <p className="mb-1"><strong className="text-slate-700">Version 1.0</strong> — Style Guide (TI-048 Ratified June 25, 2026)</p>
+              <p className="mb-1"><strong className="text-slate-700">Trademark Convention:</strong> Universal architectural concepts (Identity, Knowledge, Intelligence, Transformation, Enterprise Value) appear without ™. Named principles, measurements, frameworks, disciplines, and products carry ™ designation.</p>
+              <p className="text-slate-400 italic">This constitution describes a discipline, not a product catalog.</p>
+            </div>
+            <div className="shrink-0">
+              <Link href="/constitution/ti-048" className="text-xs font-medium text-slate-500 hover:text-slate-700 hover:underline whitespace-nowrap">View Constitutional Style Guide →</Link>
+            </div>
+          </div>
         </div>
       </section>
 
