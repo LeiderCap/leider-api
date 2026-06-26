@@ -2033,6 +2033,197 @@
           "targetId": "TI-028"
         }
       ]
+    },
+    {
+      "id": "TI-030",
+      "slug": "ti-030",
+      "name": "Distributed Transformation Infrastructure Principle™ (DTIP™)",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book VIII — Distributed Transformation Infrastructure™",
+      "oid": "OID-2026-TI-DTIP-001",
+      "lensUri": "lens://constitution/ti-030",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-030",
+      "lkasCompliant": true,
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-001"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-026"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-027"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-008"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-031"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-034"
+        }
+      ]
+    },
+    {
+      "id": "TI-031",
+      "slug": "ti-031",
+      "name": "Transformation Compiler™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book VIII — Distributed Transformation Infrastructure™",
+      "oid": "OID-2026-TI-TC-001",
+      "lensUri": "lens://constitution/ti-031",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-031",
+      "lkasCompliant": true,
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-030"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-012"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-032"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-102"
+        }
+      ]
+    },
+    {
+      "id": "TI-032",
+      "slug": "ti-032",
+      "name": "Transformation Packet™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book VIII — Distributed Transformation Infrastructure™",
+      "oid": "OID-2026-TI-TP-001",
+      "lensUri": "lens://constitution/ti-032",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-032",
+      "lkasCompliant": true,
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-031"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-015"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-016"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-014"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-033"
+        }
+      ]
+    },
+    {
+      "id": "TI-033",
+      "slug": "ti-033",
+      "name": "Transformation Matching Engine™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book VIII — Distributed Transformation Infrastructure™",
+      "oid": "OID-2026-TI-TME-001",
+      "lensUri": "lens://constitution/ti-033",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-033",
+      "lkasCompliant": true,
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-030"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-032"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-034"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-019"
+        }
+      ]
+    },
+    {
+      "id": "TI-034",
+      "slug": "ti-034",
+      "name": "Transformation Marketplace™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book VIII — Distributed Transformation Infrastructure™",
+      "oid": "OID-2026-TI-TM-001",
+      "lensUri": "lens://constitution/ti-034",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-034",
+      "lkasCompliant": true,
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-030"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-033"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-011"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-023"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-016"
+        }
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -2040,6 +2231,6 @@
   "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 82,
+  "totalPrinciples": 87,
   "lastUpdated": "2026-06-25"
 }

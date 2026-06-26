@@ -283,3 +283,13 @@ Ratified: 2026-06-25. The AI-native enterprise architecture for the Intelligence
 - https://lensanalysis.com/constitution/ti-027 (Intelligence Orchestration Principle™ / IOP™ — OID-2026-TI-IOP-001)
 - https://lensanalysis.com/constitution/ti-028 (Future Firm Readiness™ / FFR™ — OID-2026-TI-FFR-001)
 - https://lensanalysis.com/constitution/ti-029 (Institutional Memory Principle™ / IMP™ — OID-2026-TI-IMP-001)
+
+## Book VIII — Distributed Transformation Infrastructure™ (TI-030 to TI-034)
+Canonical URL: https://lensanalysis.com/constitution
+Lens URI Base: lens://constitution/
+
+- TI-030: Distributed Transformation Infrastructure Principle™ (DTIP™) — https://lensanalysis.com/constitution/ti-030
+- TI-031: Transformation Compiler™ — https://lensanalysis.com/constitution/ti-031
+- TI-032: Transformation Packet™ — https://lensanalysis.com/constitution/ti-032
+- TI-033: Transformation Matching Engine™ — https://lensanalysis.com/constitution/ti-033
+- TI-034: Transformation Marketplace™ — https://lensanalysis.com/constitution/ti-034
