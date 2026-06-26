@@ -259,3 +259,14 @@ https://lensanalysis.com/constitution/ti-017
 https://lensanalysis.com/constitution/ti-018
 https://lensanalysis.com/constitution/ti-019
 https://lensanalysis.com/constitution/ti-020
+
+## Book II — Enterprise Intelligence Architecture™ (Updated)
+Enterprise Intelligence Architecture Principle™ (TI-021) establishes EIA™ as the primary source of durable AI competitive advantage.
+The Enterprise Intelligence Stack™: Compute → Model → Agent → Knowledge → Decision → Transformation → Enterprise Value.
+Canonical: https://lensanalysis.com/constitution/ti-021
+
+EIAS™ (TI-022) is the scoring framework for evaluating EIA™ across 8 architectural layers.
+Canonical: https://lensanalysis.com/constitution/ti-022
+
+https://lensanalysis.com/constitution/ti-021
+https://lensanalysis.com/constitution/ti-022

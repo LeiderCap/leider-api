@@ -1645,6 +1645,128 @@
         "TI-105",
         "TI-404"
       ]
+    },
+    {
+      "id": "TI-021",
+      "slug": "ti-021",
+      "name": "Enterprise Intelligence Architecture Principle™ (EIAP™)",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book II — Enterprise Intelligence Architecture™",
+      "constitutionId": "PID-EIAP-001",
+      "oid": "OID-2026-TI-EIAP-001",
+      "lensUri": "lens://constitution/ti-021",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-021",
+      "principle": "As artificial intelligence becomes abundant and commoditized, sustainable competitive advantage shifts away from owning models toward designing, orchestrating, governing, and continuously improving an organization's Enterprise Intelligence Architecture™.",
+      "operatingLaw": "The highest-performing organizations will not necessarily possess the most powerful AI models. They will possess the most effective intelligence architecture. Organizations should optimize the system rather than individual components.",
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-004",
+          "description": "Extends Transformation Capacity™ — EIA™ provides the structural foundation"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-017",
+          "description": "Extends Workflow Trace Advantage Principle™ — EIA™ is the broader architectural context"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-402",
+          "description": "Implements Model Rental / Memory Ownership Principle™ at full architectural scale"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-301",
+          "description": "Depends on Decision Visibility Infrastructure™ as Layer 6 Verification Infrastructure"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-202",
+          "description": "Depends on Transformation Memory Architecture™ as Layer 7 Organizational Memory"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-022",
+          "description": "Enables Enterprise Intelligence Architecture Score™ as measurement framework"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-401",
+          "description": "Implements Adoption Scarcity Principle™ — architecture determines realized advantage"
+        }
+      ],
+      "relatedIds": [
+        "TI-004",
+        "TI-017",
+        "TI-402",
+        "TI-301",
+        "TI-202",
+        "TI-401",
+        "TI-022",
+        "TI-103",
+        "TI-008"
+      ]
+    },
+    {
+      "id": "TI-022",
+      "slug": "ti-022",
+      "name": "Enterprise Intelligence Architecture Score™ (EIAS™)",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book II — Enterprise Intelligence Architecture™",
+      "oid": "OID-2026-TI-EIAS-001",
+      "lensUri": "lens://constitution/ti-022",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-022",
+      "principle": "The Lens™ shall evaluate Enterprise Intelligence Architecture™ using a multidimensional scoring model across eight architectural layers.",
+      "operatingLaw": "EIAS™ evolves the Lens™ from evaluating AI adoption to evaluating Enterprise Intelligence Architecture™ — measuring whether intelligence is strategically architected, effectively routed, continuously verified, and reliably converted into enterprise value.",
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-021",
+          "description": "Primary scoring metric derived from EIAP™"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-004",
+          "description": "Extends TCS™ scoring framework with full 8-layer architecture assessment"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-702",
+          "description": "Implements Evidence Architecture™ in Layer 6 Verification Infrastructure"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-301",
+          "description": "Implements Decision Visibility Infrastructure™ in Layer 6 assessment"
+        },
+        {
+          "type": "measures",
+          "targetId": "TI-021",
+          "description": "Primary measurement instrument for EIAP™ compliance"
+        }
+      ],
+      "relatedIds": [
+        "TI-021",
+        "TI-004",
+        "TI-702",
+        "TI-301",
+        "TI-202",
+        "TI-018",
+        "TI-019",
+        "TI-103"
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -1652,5 +1774,6 @@
   "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 73
+  "totalPrinciples": 75,
+  "lastUpdated": "2026-06-25"
 }

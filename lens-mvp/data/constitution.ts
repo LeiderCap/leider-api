@@ -657,6 +657,90 @@ export const principles: Principle[] = [
   },
 
   // ============================================
+  // BOOK II — ENTERPRISE INTELLIGENCE ARCHITECTURE™ (TI-021 to TI-022)
+  // ============================================
+
+  {
+    id: 'TI-021',
+    slug: 'ti-021',
+    name: 'Enterprise Intelligence Architecture Principle™ (EIAP™)',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-25',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    constitutionId: 'PID-EIAP-001',
+    book: 'Book II — Enterprise Intelligence Architecture™',
+    oid: 'OID-2026-TI-EIAP-001',
+    lensUri: 'lens://constitution/ti-021',
+    principle: 'As artificial intelligence becomes abundant and commoditized, sustainable competitive advantage shifts away from owning models toward designing, orchestrating, governing, and continuously improving an organization\'s Enterprise Intelligence Architecture™.',
+    definition: 'Enterprise Intelligence Architecture™ (EIA™) is the complete operating architecture through which an organization acquires, routes, specializes, governs, verifies, preserves, and operationalizes intelligence across humans, AI models, agents, and organizational memory. It represents the intelligence equivalent of an enterprise technology stack. Operating Law: As intelligence supply approaches abundance, Competitive Advantage ∝ Intelligence Architecture Quality — not Model Capability.',
+    operatingLaw: 'The highest-performing organizations will not necessarily possess the most powerful AI models. They will possess the most effective intelligence architecture. Organizations should optimize the system rather than individual components.',
+    implications: [
+      'Model Commoditization Principle™: Foundation models increasingly become interchangeable infrastructure. Competitive differentiation migrates upward into architecture, orchestration, and execution.',
+      'Architecture Dominance Principle™: The intelligence architecture creates more long-term enterprise value than any individual model deployed within it.',
+      'Domain Specialization Principle™: General intelligence becomes increasingly commoditized. Proprietary domain intelligence compounds. Enterprise knowledge therefore becomes a strategic asset.',
+      'Intelligence Routing Principle™: No single model is optimal for every task. Organizations create value by dynamically routing work to the appropriate intelligence resource based on reasoning capability, latency, cost, compliance, privacy, specialization, and confidence.',
+      'Verification Principle™: AI-generated intelligence creates value only when organizations possess adequate verification infrastructure. Trust is produced by evidence, not generation.',
+      'Memory Compounding Principle™: Enterprise intelligence compounds only when organizational learning compounds. Without memory, every AI interaction is temporary. With memory, every interaction improves future performance.',
+      'The Enterprise Intelligence Stack™: Compute Infrastructure → Model Infrastructure → Agent Infrastructure → Knowledge Infrastructure → Decision Infrastructure → Transformation Intelligence™ → Enterprise Value™. Each layer represents an independent source of competitive advantage.',
+      'The Eight Architectural Layers: 1. Frontier Intelligence™  2. Open Intelligence™  3. Domain Intelligence™  4. Intelligence Routing™  5. Agent Architecture™  6. Verification Infrastructure™  7. Organizational Memory™  8. Transformation Intelligence™',
+      'Board Governance Implication: Boards should govern Enterprise Intelligence Architecture™ as they currently govern Financial Architecture, Cybersecurity, Enterprise Risk, and Capital Allocation — because EIA™ increasingly determines organizational adaptability, innovation velocity, decision quality, operational resilience, and enterprise valuation.',
+      'The Lens™ evolution: Rather than asking \'Does this organization use AI?\' — The Lens asks: Is intelligence strategically architected? Is it routed effectively? Is proprietary knowledge compounding? Are agents coordinated? Is evidence verifiable? Is organizational memory preserved? Does intelligence consistently produce measurable enterprise value?',
+    ],
+    typedRelationships: [
+      { type: 'extends', targetId: 'TI-004', description: 'Extends Transformation Capacity™ — EIA™ provides the structural foundation determining an organization\'s ability to absorb and operationalize intelligence' },
+      { type: 'extends', targetId: 'TI-017', description: 'Extends Workflow Trace Advantage Principle™ — EIA™ is the broader architectural context within which workflow intelligence operates' },
+      { type: 'implements', targetId: 'TI-402', description: 'Implements Model Rental / Memory Ownership Principle™ at full architectural scale — rent models, own the architecture' },
+      { type: 'depends_on', targetId: 'TI-301', description: 'Depends on Decision Visibility Infrastructure™ as Layer 6 Verification Infrastructure' },
+      { type: 'depends_on', targetId: 'TI-202', description: 'Depends on Transformation Memory Architecture™ as Layer 7 Organizational Memory' },
+      { type: 'enables', targetId: 'TI-022', description: 'Enables Enterprise Intelligence Architecture Score™ as measurement framework' },
+      { type: 'implements', targetId: 'TI-401', description: 'Implements Adoption Scarcity Principle™ — explains why access to AI is insufficient; architecture determines realized advantage' },
+    ],
+    relatedIds: ['TI-004', 'TI-017', 'TI-402', 'TI-301', 'TI-202', 'TI-401', 'TI-022', 'TI-103', 'TI-008'],
+  },
+
+  {
+    id: 'TI-022',
+    slug: 'ti-022',
+    name: 'Enterprise Intelligence Architecture Score™ (EIAS™)',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-25',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book II — Enterprise Intelligence Architecture™',
+    oid: 'OID-2026-TI-EIAS-001',
+    lensUri: 'lens://constitution/ti-022',
+    principle: 'The Lens™ shall evaluate Enterprise Intelligence Architecture™ using a multidimensional scoring model across eight architectural layers.',
+    definition: 'Enterprise Intelligence Architecture Score™ (EIAS™) is the composite score measuring how effectively an organization has designed, implemented, and optimized its Enterprise Intelligence Architecture™ across eight layers: Frontier Intelligence™ (10%), Open Intelligence™ (10%), Domain Intelligence™ (15%), Intelligence Routing™ (10%), Agent Architecture™ (15%), Verification Infrastructure™ (15%), Organizational Memory™ (10%), Transformation Intelligence™ (15%). Weights evolve as empirical validation and benchmarking data mature.',
+    operatingLaw: 'EIAS™ evolves the Lens™ from evaluating AI adoption to evaluating Enterprise Intelligence Architecture™ — measuring whether intelligence is strategically architected, effectively routed, continuously verified, and reliably converted into enterprise value.',
+    implications: [
+      'Layer 1 — Frontier Intelligence™: Measures leverage of highest-capability AI systems. Metrics: Frontier Utilization™, Intelligence Utilization™, AI Productivity Gain™.',
+      'Layer 2 — Open Intelligence™: Measures organization-controlled open-weight model deployment. Metrics: Open Intelligence Maturity™ (OIM™), Local Deployment Capability™, Fine-Tuning Readiness™, Inference Cost Efficiency™.',
+      'Layer 3 — Domain Intelligence™: Measures proprietary organizational knowledge encoding. Metrics: Domain Intelligence Depth™ (DID™), Knowledge Freshness™, Knowledge Coverage™, Retrieval Quality™.',
+      'Layer 4 — Intelligence Routing™: Measures work routing to optimal intelligence sources. Metrics: Routing Sophistication™, Multi-Model Utilization™, Dynamic Optimization™, Cost Optimization™.',
+      'Layer 5 — Agent Architecture™: Measures autonomous work coordination. Metrics: Agent Density™, Agent Productivity™, Agent Span™, Human Coordination Ratio™, Autonomous Workflow Coverage™.',
+      'Layer 6 — Verification Infrastructure™: Measures trust established through evidence. Metrics: Evidence Coverage™, Auditability™, Decision Traceability™, Verification Maturity™. Supported by: Decision Visibility Infrastructure™ (TI-301), Evidence Architecture™ (TI-702).',
+      'Layer 7 — Organizational Memory™: Measures intelligence conversion to cumulative capability. Metrics: Enterprise Memory Index™, Memory Capital™, Learning Velocity™, Decision Capture Ratio™, Memory Debt™.',
+      'Layer 8 — Transformation Intelligence™: Measures coordination of intelligence into measurable enterprise outcomes. Metrics: Transformation Capacity™, Transformation Efficiency™, Transformation Probability™, Transformation Readiness™, Enterprise Value Creation™.',
+      'EIAS™ is a future Lens Analysis™ scoring module — Phase 2 build after existing scoring layers are stable. Ratified now as constitutional framework.',
+    ],
+    typedRelationships: [
+      { type: 'derived_from', targetId: 'TI-021', description: 'Primary scoring metric derived from EIAP™' },
+      { type: 'extends', targetId: 'TI-004', description: 'Extends TCS™ scoring framework with full 8-layer architecture assessment' },
+      { type: 'implements', targetId: 'TI-702', description: 'Implements Evidence Architecture™ in Layer 6 Verification Infrastructure' },
+      { type: 'implements', targetId: 'TI-301', description: 'Implements Decision Visibility Infrastructure™ in Layer 6 assessment' },
+      { type: 'measures', targetId: 'TI-021', description: 'Primary measurement instrument for EIAP™ compliance' },
+    ],
+    relatedIds: ['TI-021', 'TI-004', 'TI-702', 'TI-301', 'TI-202', 'TI-018', 'TI-019', 'TI-103'],
+  },
+
+  // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================
 
