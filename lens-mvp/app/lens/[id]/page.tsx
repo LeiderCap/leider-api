@@ -1190,7 +1190,7 @@ export default async function LensDetailPage({ params, searchParams }: { params:
       <section className="card mt-6 p-6">
         <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3">Additional Reports</p>
         <h2 className="text-lg font-bold mb-4">Go deeper on {item.name}</h2>
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {/* AI Deployment Readiness Assessment */}
           <div className="rounded-xl border border-slate-200 bg-slate-50 p-5 flex flex-col">
             <div className="flex items-center gap-2 mb-2">
@@ -1243,6 +1243,25 @@ export default async function LensDetailPage({ params, searchParams }: { params:
               <Link
                 href={`/reports/ai-governance?ticker=${encodeURIComponent(item.ticker ?? '')}&company=${encodeURIComponent(item.name)}`}
                 className="inline-flex items-center gap-1 rounded-lg border border-blue-300 bg-blue-50 px-3 py-1.5 text-xs font-semibold text-blue-700 hover:bg-blue-100 transition-colors"
+              >
+                Generate →
+              </Link>
+            </div>
+          </div>
+          {/* Buyer Evidence Report */}
+          <div className="rounded-xl border border-slate-800 bg-slate-900 p-5 flex flex-col">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-2xl">🔍</span>
+              <p className="font-semibold text-sm text-white">Buyer Evidence Report™</p>
+            </div>
+            <p className="text-xs text-slate-400 leading-5 flex-1 mb-4">
+              BES™ + Underwriteability Index™ across 5 evidentiary dimensions. For PE, M&A, boards, and transaction teams.
+            </p>
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-bold text-white">$500</span>
+              <Link
+                href={`/reports/buyer-evidence?ticker=${encodeURIComponent(item.ticker ?? '')}&company=${encodeURIComponent(item.name)}`}
+                className="inline-flex items-center gap-1 rounded-lg border border-slate-500 bg-slate-700 px-3 py-1.5 text-xs font-semibold text-white hover:bg-slate-600 transition-colors"
               >
                 Generate →
               </Link>

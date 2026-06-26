@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
-type Tier = 'single' | 'pro' | 'enterprise' | 'resilience' | 'ai_governance' | 'deployment_readiness';
+type Tier = 'single' | 'pro' | 'enterprise' | 'resilience' | 'ai_governance' | 'deployment_readiness' | 'buyer_evidence';
 
 // Live Stripe Price IDs — prefer env vars, fall back to hardcoded live IDs
 // resilience and ai_governance use the same $95 single price
@@ -12,6 +12,7 @@ const PRICE_FALLBACKS: Record<Tier, string> = {
   resilience:          'price_1TlNJJRDk2X11H6s6jzMTCfh', // $95 same as single
   ai_governance:       'price_1TlNJJRDk2X11H6s6jzMTCfh', // $95 same as single
   deployment_readiness:'price_1TlNJJRDk2X11H6s6jzMTCfh', // $95 same as single
+  buyer_evidence:      'price_1TmT3kRDk2X11H6s3Hftmk60', // $500 Buyer Evidence Report™
 };
 
 /**
@@ -39,6 +40,10 @@ function getPriceId(tier: Tier): string {
       const envVal = process.env.STRIPE_PRICE_ENTERPRISE;
       return isValidPriceId(envVal) ? envVal : PRICE_FALLBACKS.enterprise;
     }
+    case 'buyer_evidence': {
+      const envVal = process.env.STRIPE_PRICE_BUYER_EVIDENCE;
+      return isValidPriceId(envVal) ? envVal : PRICE_FALLBACKS.buyer_evidence;
+    }
     default: {
       const envVal = process.env.STRIPE_PRICE_SINGLE;
       return isValidPriceId(envVal) ? envVal : PRICE_FALLBACKS.single;
@@ -53,6 +58,7 @@ const PRODUCT_LABELS: Record<Tier, string> = {
   resilience:           'Resilience Capacity Report™',
   ai_governance:        'AI Governance Report™',
   deployment_readiness: 'AI Deployment Readiness Assessment™',
+  buyer_evidence:       'Buyer Evidence Report™',
 };
 
 export async function POST(req: NextRequest) {

@@ -52,6 +52,32 @@ const REPORTS = [
     checkColor: 'text-emerald-500',
   },
   {
+    icon: '🔍',
+    name: 'Buyer Evidence Report™',
+    description:
+      'Generate a Buyer Evidence Score™ (BES™) and Underwriteability Index™ (UI™) — the constitutional measure of transaction readiness. Designed for PE operating partners, M&A advisors, boards, and transaction teams.',
+    price: '$500 one-time',
+    cta: 'Generate Report →',
+    href: '/reports/buyer-evidence',
+    color: 'slate',
+    badge: 'NEW',
+    items: [
+      'Buyer Evidence Score™ (BES™) — 0–100',
+      'Underwriteability Index™ (UI™)',
+      'Decision Evidence™ dimension',
+      'Operational Evidence™ dimension',
+      'Financial Evidence™ dimension',
+      'Institutional Evidence™ dimension',
+      'Transferability Evidence™ dimension',
+      'Evidence Capital™ profile',
+      'Institutional Risk™ + Value Transfer Risk™',
+      '3–5 Evidence Gaps with severity',
+      'Transaction Readiness Summary',
+      'PDF export',
+    ],
+    checkColor: 'text-slate-600',
+  },
+  {
     icon: '🤖',
     name: 'AI Governance Report™',
     description:
@@ -91,7 +117,7 @@ export default function ReportsPage() {
             Specialized Intelligence Reports
           </h1>
           <p className="mt-4 text-lg text-slate-500 max-w-2xl mx-auto leading-7">
-            Targeted analysis beyond the Lens™ — purpose-built for boards, investors, and
+            Targeted analysis beyond the Lens™ — purpose-built for boards, investors, transaction teams, and
             transformation leaders.
           </p>
         </div>
@@ -100,7 +126,7 @@ export default function ReportsPage() {
       {/* Report Cards */}
       <section className="section py-16">
         <div className="section-inner">
-          <div className="mx-auto max-w-5xl grid gap-8 sm:grid-cols-3">
+          <div className="mx-auto max-w-6xl grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {REPORTS.map((report) => (
               <div
                 key={report.name}

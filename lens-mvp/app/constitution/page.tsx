@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Constitution of Transformation Intelligence™ | TI Registry™',
   description:
-    'The governing principles behind The Lens™ and Transformation Intelligence™. 75 principles across 9 categories — each versioned, citable, and machine-readable. Now includes Book VI — Unlock Science™ and Book II — Enterprise Intelligence Architecture™.',
+    'The governing principles behind The Lens™ and Transformation Intelligence™. 78 principles across 9 categories — each versioned, citable, and machine-readable. Now includes Book VI — Unlock Science™, Book II — Enterprise Intelligence Architecture™, and Book VII — Enterprise Value Architecture™.',
 };
 
 const statusColors: Record<string, string> = {
@@ -106,7 +106,7 @@ export default function ConstitutionPage() {
           &nbsp;|&nbsp; Published June 23, 2026
         </p>
         <p className="mt-3 mx-auto max-w-xl text-sm italic text-slate-400">
-          Now includes Book VI — Unlock Science™: the scientific discipline for measuring and realizing unrealized enterprise value. Now includes Book II — Enterprise Intelligence Architecture™: workflow intelligence, AI ownership readiness, and Enterprise Intelligence Architecture™ as foundations of durable competitive advantage.
+          Now includes Book VI — Unlock Science™: the scientific discipline for measuring and realizing unrealized enterprise value. Now includes Book II — Enterprise Intelligence Architecture™: workflow intelligence and EIA™ as foundations of durable competitive advantage. Now includes Book VII — Enterprise Value Architecture™: the evidentiary layer connecting transformation to transaction readiness.
         </p>
         <p className="mt-2 text-xs text-slate-400">
           © 2026 Leider Capital. All Rights Reserved. All principles and named methodologies are proprietary to Leider Capital.
@@ -150,6 +150,28 @@ export default function ConstitutionPage() {
                   <span className="text-sm font-semibold text-slate-800">{p.name}</span>
                 </div>
                 <Link href={`/constitution/${p.slug}`} className="text-xs font-medium text-blue-700 hover:underline">Read →</Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Book VII — Enterprise Value Architecture™ featured group */}
+      <section className="mx-auto max-w-4xl px-6 pt-12 pb-0">
+        <div className="mb-10 rounded-xl border-2 border-purple-200 bg-purple-50 p-8">
+          <div className="mb-2 flex flex-wrap items-center gap-3">
+            <h2 className="text-xl font-bold text-slate-900">Book VII — Enterprise Value Architecture™</h2>
+            <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-800">Ratified</span>
+          </div>
+          <p className="mb-6 text-sm text-slate-600">The evidentiary layer connecting operational transformation to enterprise value recognition, transaction readiness, and underwriteability. Three principles: Buyer Evidence Principle™ (BEP™), Buyer Evidence Score™ (BES™), and Underwriteability Index™ (UI™).</p>
+          <div className="space-y-3">
+            {principles.filter(p => ['TI-023','TI-024','TI-025'].includes(p.id)).map((p) => (
+              <div key={p.id} className="flex items-center justify-between rounded-lg border border-purple-200 bg-white px-5 py-3">
+                <div className="flex items-center gap-3">
+                  <span className="font-mono text-sm font-bold text-purple-700">{p.id}</span>
+                  <span className="text-sm font-semibold text-slate-800">{p.name}</span>
+                </div>
+                <Link href={`/constitution/${p.slug}`} className="text-xs font-medium text-purple-700 hover:underline">Read →</Link>
               </div>
             ))}
           </div>

@@ -1767,6 +1767,120 @@
         "TI-019",
         "TI-103"
       ]
+    },
+    {
+      "id": "TI-023",
+      "slug": "ti-023",
+      "name": "Buyer Evidence Principle™ (BEP™)",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book VII — Enterprise Value Architecture™",
+      "oid": "OID-2026-TI-BEP-001",
+      "lensUri": "lens://constitution/ti-023",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-023",
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-103"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-301"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-702"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-202"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-024"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-025"
+        }
+      ]
+    },
+    {
+      "id": "TI-024",
+      "slug": "ti-024",
+      "name": "Buyer Evidence Score™ (BES™)",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book VII — Enterprise Value Architecture™",
+      "oid": "OID-2026-TI-BES-001",
+      "lensUri": "lens://constitution/ti-024",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-024",
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-023"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-301"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-702"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-025"
+        }
+      ]
+    },
+    {
+      "id": "TI-025",
+      "slug": "ti-025",
+      "name": "Underwriteability Index™ (UI™)",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book VII — Enterprise Value Architecture™",
+      "oid": "OID-2026-TI-UI-001",
+      "lensUri": "lens://constitution/ti-025",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-025",
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-023"
+        },
+        {
+          "type": "derived_from",
+          "targetId": "TI-024"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-103"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-801"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-012"
+        }
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -1774,6 +1888,6 @@
   "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 75,
+  "totalPrinciples": 78,
   "lastUpdated": "2026-06-25"
 }

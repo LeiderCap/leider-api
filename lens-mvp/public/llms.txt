@@ -270,3 +270,9 @@ Canonical: https://lensanalysis.com/constitution/ti-022
 
 https://lensanalysis.com/constitution/ti-021
 https://lensanalysis.com/constitution/ti-022
+
+## Book VII — Enterprise Value Architecture™
+
+/constitution/ti-023 — Buyer Evidence Principle™ (BEP™) — OID-2026-TI-BEP-001 — Lens URI: lens://constitution/ti-023
+/constitution/ti-024 — Buyer Evidence Score™ (BES™) — OID-2026-TI-BES-001 — Lens URI: lens://constitution/ti-024
+/constitution/ti-025 — Underwriteability Index™ (UI™) — OID-2026-TI-UI-001 — Lens URI: lens://constitution/ti-025
