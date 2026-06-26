@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Constitution of Transformation Intelligence™ | TI Registry™',
   description:
-    'The governing principles behind The Lens™ and Transformation Intelligence™. 90 principles across 9 categories — each versioned, citable, and machine-readable. Now includes Book IX — Strategic AI & Fulfillment Exchange™ (SAFE™), Book VIII — Distributed Transformation Infrastructure™, Book V — The Future Firm™, Book VI — Unlock Science™, Book II — Enterprise Intelligence Architecture™, and Book VII — Enterprise Value Architecture™.',
+    'The governing principles behind The Lens™ and Transformation Intelligence™. 92 principles across 9 categories — each versioned, citable, and machine-readable. Now includes Book IX — Strategic AI & Fulfillment Exchange™ (SAFE™), Book VIII — Distributed Transformation Infrastructure™, Book V — The Future Firm™, Book VI — Unlock Science™, Book II — Organizational Dynamics (incl. Article XXII AI Absorption Principle™), and Book VII — Enterprise Value Architecture™.',
 };
 
 const statusColors: Record<string, string> = {
@@ -106,7 +106,7 @@ export default function ConstitutionPage() {
           &nbsp;|&nbsp; Published June 23, 2026
         </p>
         <p className="mt-3 mx-auto max-w-xl text-sm italic text-slate-400">
-          Now includes Book IX — Strategic AI & Fulfillment Exchange™ (SAFE™): the fulfillment infrastructure of Transformation Intelligence™. Now includes Book VIII — Distributed Transformation Infrastructure™: the constitutional architecture for converting strategic intent into distributed, measurable execution at scale. Now includes Book V — The Future Firm™: the AI-native enterprise architecture for the Intelligence Age. Now includes Book VI — Unlock Science™: the scientific discipline for measuring and realizing unrealized enterprise value. Now includes Book II — Enterprise Intelligence Architecture™: workflow intelligence and EIA™ as foundations of durable competitive advantage. Now includes Book VII — Enterprise Value Architecture™: the evidentiary layer connecting transformation to transaction readiness.
+          Now includes Book II — Article XXII: AI Absorption Principle™ (AAP™) and AI Absorption Score™ (AAS™) — Organizational Absorption™ is the mechanism through which intelligence becomes enterprise value. Now includes Book IX — Strategic AI & Fulfillment Exchange™ (SAFE™): the fulfillment infrastructure of Transformation Intelligence™. Now includes Book VIII — Distributed Transformation Infrastructure™: the constitutional architecture for converting strategic intent into distributed, measurable execution at scale. Now includes Book V — The Future Firm™: the AI-native enterprise architecture for the Intelligence Age. Now includes Book VI — Unlock Science™: the scientific discipline for measuring and realizing unrealized enterprise value. Now includes Book VII — Enterprise Value Architecture™: the evidentiary layer connecting transformation to transaction readiness.
         </p>
         <p className="mt-2 text-xs text-slate-400">
           © 2026 Leider Capital. All Rights Reserved. All principles and named methodologies are proprietary to Leider Capital.
@@ -204,10 +204,10 @@ export default function ConstitutionPage() {
       <section className="mx-auto max-w-4xl px-6 pt-12 pb-0">
         <div className="mb-10 rounded-xl border-2 border-blue-200 bg-blue-50 p-8">
           <div className="mb-2 flex flex-wrap items-center gap-3">
-            <h2 className="text-xl font-bold text-slate-900">Book II — Enterprise Intelligence Architecture™</h2>
+            <h2 className="text-xl font-bold text-slate-900">Book II — Organizational Dynamics</h2>
             <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-800">Ratified</span>
           </div>
-          <p className="mb-6 text-sm text-slate-600">Workflow intelligence, AI ownership readiness, and Enterprise Intelligence Architecture™ as foundations of durable competitive advantage. Six principles: WTAP™, WTI™, AIOR™, AAI™, EIAP™, and EIAS™.</p>
+          <p className="mb-6 text-sm text-slate-600">Organizational Dynamics — Workflow intelligence, AI ownership readiness, Enterprise Intelligence Architecture™, and AI Absorption as the operational mechanisms of transformation capacity. Eight principles: WTAP™, WTI™, AIOR™, AAI™, EIAP™, EIAS™, AAP™, and AAS™.</p>
           <div className="space-y-3">
             {principles.filter(p => ['TI-017','TI-018','TI-019','TI-020','TI-021','TI-022'].includes(p.id)).map((p) => (
               <div key={p.id} className="flex items-center justify-between rounded-lg border border-blue-200 bg-white px-5 py-3">
@@ -218,6 +218,20 @@ export default function ConstitutionPage() {
                 <Link href={`/constitution/${p.slug}`} className="text-xs font-medium text-blue-700 hover:underline">Read →</Link>
               </div>
             ))}
+          </div>
+          <div className="mt-4 border-t border-blue-200 pt-4">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-blue-600">Article XXII — AI Absorption Principle™</p>
+            <div className="space-y-3">
+              {principles.filter(p => ['TI-038','TI-039'].includes(p.id)).map((p) => (
+                <div key={p.id} className="flex items-center justify-between rounded-lg border border-blue-200 bg-white px-5 py-3">
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono text-sm font-bold text-blue-700">{p.id}</span>
+                    <span className="text-sm font-semibold text-slate-800">{p.name}</span>
+                  </div>
+                  <Link href={`/constitution/${p.slug}`} className="text-xs font-medium text-blue-700 hover:underline">Read →</Link>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

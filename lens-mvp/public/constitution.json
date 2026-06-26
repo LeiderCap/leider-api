@@ -2341,6 +2341,84 @@
           "targetId": "TI-034"
         }
       ]
+    },
+    {
+      "id": "TI-038",
+      "slug": "ti-038",
+      "name": "AI Absorption Principle™ (AAP™)",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book II — Organizational Dynamics",
+      "oid": "OID-2026-TI-AAP-001",
+      "lensUri": "lens://constitution/ti-038",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-038",
+      "lkasCompliant": true,
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-004"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-401"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-201"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-008"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-039"
+        },
+        {
+          "type": "measured_by",
+          "targetId": "TI-103"
+        }
+      ]
+    },
+    {
+      "id": "TI-039",
+      "slug": "ti-039",
+      "name": "AI Absorption Score™ (AAS™)",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book II — Organizational Dynamics",
+      "oid": "OID-2026-TI-AAS-001",
+      "lensUri": "lens://constitution/ti-039",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-039",
+      "lkasCompliant": true,
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-038"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-004"
+        },
+        {
+          "type": "measures",
+          "targetId": "TI-401"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-019"
+        }
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -2348,7 +2426,7 @@
   "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 90,
+  "totalPrinciples": 92,
   "lastUpdated": "2026-06-25",
   "constitutionalArchitecture": {
     "name": "Opportunity Hierarchy™",

@@ -302,3 +302,14 @@ Ratified: 2026-06-25. The fulfillment infrastructure of Transformation Intellige
 - TI-035: Strategic AI & Fulfillment Exchange™ (SAFE™) — https://www.lensanalysis.com/constitution/ti-035
 - TI-036: Fulfillment Principle™ — https://www.lensanalysis.com/constitution/ti-036
 - TI-037: SAFE™ Certification Framework — https://www.lensanalysis.com/constitution/ti-037
+
+## Book II — Article XXII
+## AI Absorption Principle™ (AAP™)
+AAP™ (TI-038): Organizational Absorption™ is the mechanism through which intelligence becomes enterprise value. Adoption measures participation. Absorption measures transformation.
+Canonical: https://lensanalysis.com/constitution/ti-038
+
+AAS™ (TI-039): AI Absorption Score™ measures demonstrated capacity to operationalize intelligence — leading indicator of Transformation Capacity™.
+Canonical: https://lensanalysis.com/constitution/ti-039
+
+https://lensanalysis.com/constitution/ti-038
+https://lensanalysis.com/constitution/ti-039

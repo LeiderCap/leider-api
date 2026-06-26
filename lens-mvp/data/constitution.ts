@@ -1274,6 +1274,79 @@ export const principles: Principle[] = [
   },
 
   // ============================================
+  // BOOK II — ARTICLE XXII: AI ABSORPTION PRINCIPLE™
+  // ============================================
+
+  {
+    id: 'TI-038',
+    slug: 'ti-038',
+    name: 'AI Absorption Principle™ (AAP™)',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-25',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book II — Organizational Dynamics',
+    oid: 'OID-2026-TI-AAP-001',
+    lensUri: 'lens://constitution/ti-038',
+    principle: 'Intelligence alone possesses no intrinsic enterprise value. Enterprise value is created only when intelligence is absorbed into organizational behavior, operational systems, decision processes, and institutional memory. Organizational Absorption™ is the mechanism through which intelligence becomes enterprise value.',
+    definition: 'Organizational Absorption™ is the sustained integration of intelligence into organizational behavior, operational workflows, decision systems, governance, and institutional memory such that intelligence consistently improves enterprise outcomes. Absorption represents organizational capability rather than individual activity. Constitutional distinction: Adoption measures participation — it does not measure transformation. Absorption measures whether intelligence has become organizational capability.',
+    operatingLaw: 'As intelligence becomes abundant, organizational absorption becomes the primary determinant of enterprise performance. Intelligence creates possibility. Organizational absorption creates capability. Transformation creates value. AI Absorption Equation™: Organizational Absorption = Leadership × Workflow × Decision × Knowledge × Governance × Human × Execution. This relationship is multiplicative — a significant weakness in any single dimension constrains the entire system.',
+    implications: [
+      'Five-Stage Absorption Progression: Stage I Access (intelligence exists — no value created merely through availability). Stage II Adoption (individuals use intelligence — transformation remains localized). Stage III Organizational Absorption (intelligence embedded in workflows, decisions, and institutional learning — intelligence becomes organizational capability). Stage IV Coordination (transformation extends across functional boundaries — shared language, governance, decision architecture). Stage V Compounding (learning continuously increases future transformation capacity — competitive advantage becomes self-reinforcing).',
+      'Seven Dimensions of Organizational Absorption Model™: Leadership Absorption™ (executive incorporation of intelligence into strategic decisions), Workflow Absorption™ (operational processes redesigned around intelligence), Decision Absorption™ (intelligence systematically improves decisions), Knowledge Absorption™ (preserve, reuse, and compound institutional knowledge), Governance Absorption™ (intelligence integrated into oversight and risk management), Human Absorption™ (organizational trust, understanding, and behavioral acceptance), Execution Absorption™ (consistency with which intelligence produces measurable operational outcomes).',
+      'Relationship to Transformation Efficiency™: TE™ measures realized enterprise value. Organizational Absorption™ explains the mechanism by which that value is created. TE™ is the observable outcome. Organizational Absorption™ is the operational mechanism.',
+      'Relationship to Organizational Memory™: Without preserved organizational memory, intelligence decays, learning resets, transformation slows, and enterprise value is lost. Organizational memory serves as the compounding substrate of Organizational Absorption™.',
+      'Relationship to Decision Continuum™: Absorption strengthens every stage: Intent → Questions → Options → Decisions → Commitment → Execution → Evidence → Learning → Adjustment → Value Realization → TE™ → Enterprise Value. Absorption ensures intelligence persists across each stage rather than being lost between handoffs.',
+      'Lens™ Implementation: AI Absorption Assessment™ (enterprise diagnostic of current absorption capabilities), AI Absorption Blueprint™ (prioritized roadmap for increasing absorption), AI Absorption Dashboard™ (continuous measurement of absorption trends), AI Absorption Benchmark™ (cross-company and industry comparisons identifying leading practices).',
+      'Critical distinction for boards and PE firms: Organizations at Stage II Adoption have AI activity metrics — utilization, prompt volume, active users. Organizations at Stage III+ Absorption have AI outcome metrics — workflow redesign, decision quality, institutional learning. The Lens™ measures absorption stage, not adoption activity.',
+    ],
+    typedRelationships: [
+      { type: 'extends', targetId: 'TI-004', description: 'Extends Transformation Capacity™ — AAP™ specifies the operational mechanism through which transformation capacity is realized' },
+      { type: 'extends', targetId: 'TI-401', description: 'Extends Adoption Scarcity Principle™ — absorption is the stage beyond adoption where durable competitive advantage is actually created' },
+      { type: 'depends_on', targetId: 'TI-201', description: 'Depends on Cumulative Intelligence Principle™ — organizational memory is the compounding substrate of absorption' },
+      { type: 'implements', targetId: 'TI-008', description: 'Implements Intermediary Systems Principle™ — Organizational Absorption™ is the intermediary system between intelligence and enterprise value' },
+      { type: 'enables', targetId: 'TI-039', description: 'Enables AI Absorption Score™ as primary measurement instrument' },
+      { type: 'measured_by', targetId: 'TI-103', description: 'Measured by Transformation Efficiency™ — TE™ is the observable outcome of successful absorption' },
+    ],
+    relatedIds: ['TI-004', 'TI-401', 'TI-201', 'TI-008', 'TI-039', 'TI-103', 'TI-102', 'TI-017', 'TI-404'],
+  },
+
+  {
+    id: 'TI-039',
+    slug: 'ti-039',
+    name: 'AI Absorption Score™ (AAS™)',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-25',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book II — Organizational Dynamics',
+    oid: 'OID-2026-TI-AAS-001',
+    lensUri: 'lens://constitution/ti-039',
+    principle: 'The AI Absorption Score™ measures an organization’s demonstrated capacity to operationalize intelligence and functions as a leading indicator of Transformation Capacity™.',
+    definition: 'AAS™ scores organizations 0-100 across eight dimensions: Leadership Alignment, Workflow Integration, Decision Integration, Organizational Memory, Governance Readiness, Human Trust, Execution Consistency, and Continuous Learning. AAS™ is the primary instrument for diagnosing where an organization sits on the five-stage absorption progression and which specific absorption dimensions are constraining transformation capacity.',
+    operatingLaw: 'AAS™ is multiplicative not additive — a score of 90 on six dimensions with a score of 20 on one dimension does not produce a high-performing organization. The constraint dimension sets the ceiling for overall absorption and therefore for Transformation Efficiency™.',
+    implications: [
+      'AAS™ Stage Mapping: AAS™ 0-20: Stage I Access — intelligence available but not utilized. AAS™ 20-40: Stage II Adoption — individual usage without organizational integration. AAS™ 40-60: Stage III Absorption — intelligence embedded in workflows and decisions. AAS™ 60-80: Stage IV Coordination — transformation systemic across functions. AAS™ 80-100: Stage V Compounding — competitive advantage self-reinforcing.',
+      'AAS™ is a leading indicator of Transformation Efficiency™ (TI-103) — organizations with high AAS™ consistently generate higher TE™ from identical intelligence inputs. This makes AAS™ predictively valuable for investors and boards assessing future enterprise value creation potential.',
+      'AAS™ relationship to existing scoring systems: AAS™ measures absorption mechanism. TCS™ measures transformation capacity. EIAS™ measures intelligence architecture maturity. DCI™ measures deployment capacity. Together they form a comprehensive organizational intelligence assessment framework.',
+      'AAS™ is a Phase 2 Lens Analysis™ addition — ratified constitutionally now, built after existing scoring layers are stable. When built, it appears alongside TCS™ as a complementary organizational intelligence score.',
+    ],
+    typedRelationships: [
+      { type: 'derived_from', targetId: 'TI-038', description: 'Primary measurement instrument derived from AI Absorption Principle™' },
+      { type: 'extends', targetId: 'TI-004', description: 'Extends TCS™ scoring framework with absorption-specific measurement across eight dimensions' },
+      { type: 'measures', targetId: 'TI-401', description: 'Measures whether adoption has converted to absorption — the transition from activity to capability' },
+      { type: 'implements', targetId: 'TI-019', description: 'Implements AI Ownership Readiness™ — AAS™ measures whether the organization owns its AI absorption capability as a proprietary asset' },
+    ],
+    relatedIds: ['TI-038', 'TI-004', 'TI-401', 'TI-019', 'TI-103', 'TI-022', 'TI-028', 'TI-404'],
+  },
+
+  // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================
 
