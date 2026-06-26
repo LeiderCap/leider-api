@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Constitution of Transformation Intelligence™ | TI Registry™',
   description:
-    'The governing principles behind The Lens™ and Transformation Intelligence™. 102 principles across 9 categories — each versioned, citable, and machine-readable. Includes TI-049 Constitutional Appendix A (Terminology Convention™), TI-048 Constitutional Style Guide, Book XII — Transformation Signal Network™ (TSN™), Book I — The Economics of Transformation (DAL™), Book IV — Transformation Absorbability™, Book IX — SAFE™, Book VIII — Distributed Transformation Infrastructure™, Book V — The Future Firm™, Book VI — Unlock Science™, Book II — Organizational Dynamics, and Book VII — Enterprise Value Architecture™.',
+    'The governing principles behind The Lens™ and Transformation Intelligence™. 103 principles across 9 categories — each versioned, citable, and machine-readable. Includes TI-050 Constitutional Canon™ (Appendix B — seven-category classification system), TI-049 Terminology Convention™ (Appendix A), TI-048 Constitutional Style Guide, Book XII — Transformation Signal Network™ (TSN™), Book I — The Economics of Transformation (DAL™), Book IV — Transformation Absorbability™, Book IX — SAFE™, Book VIII — Distributed Transformation Infrastructure™, Book V — The Future Firm™, Book VI — Unlock Science™, Book II — Organizational Dynamics, and Book VII — Enterprise Value Architecture™.',
 };
 
 const statusColors: Record<string, string> = {
@@ -106,7 +106,7 @@ export default function ConstitutionPage() {
           &nbsp;|&nbsp; Published June 23, 2026
         </p>
         <p className="mt-3 mx-auto max-w-xl text-sm italic text-slate-400">
-          Now includes TI-049 — Constitutional Appendix A (Terminology Convention™): the governing standard for all TI™ publications. Constitutional Architecture: Identity → Knowledge → Intelligence → Organizational Cognition → Transformation → Enterprise Value. This constitution describes a discipline, not a product catalog.
+          Now includes TI-050 — Constitutional Canon™ (Appendix B): the seven-category classification system for all TI™ concepts. Foundations → Laws → Measurements → Architectures → Methods → Applications → Evidence. This constitution describes a discipline, not a product catalog.
         </p>
         <p className="mt-2 text-xs text-slate-400">
           © 2026 Leider Capital. All Rights Reserved. All principles and named methodologies are proprietary to Leider Capital.
@@ -147,6 +147,35 @@ export default function ConstitutionPage() {
             <div className="shrink-0">
               <Link href="/constitution/ti-048" className="text-xs font-medium text-slate-500 hover:text-slate-700 hover:underline whitespace-nowrap">View Constitutional Style Guide →</Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Constitutional Canon™ summary section */}
+      <section className="mx-auto max-w-4xl px-6 pt-6 pb-0">
+        <div className="rounded-lg border border-slate-200 bg-white px-6 py-5">
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">Constitutional Canon™</p>
+              <p className="mt-0.5 text-xs text-slate-400">The seven-category classification system for all Transformation Intelligence™ concepts. Appendix B (TI-050).</p>
+            </div>
+            <Link href="/constitution/ti-050" className="text-xs font-medium text-slate-500 hover:text-slate-700 hover:underline whitespace-nowrap">View Constitutional Canon™ →</Link>
+          </div>
+          <div className="grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-4 md:grid-cols-7">
+            {[
+              { num: 'I', name: 'Foundations', q: 'What exists?' },
+              { num: 'II', name: 'Laws', q: 'Why this way?' },
+              { num: 'III', name: 'Measurements', q: 'How measured?' },
+              { num: 'IV', name: 'Architectures', q: 'How structured?' },
+              { num: 'V', name: 'Methods', q: 'How applied?' },
+              { num: 'VI', name: 'Applications', q: 'How delivered?' },
+              { num: 'VII', name: 'Evidence', q: 'How do we know?' },
+            ].map(c => (
+              <div key={c.num} className="border-l border-slate-200 pl-3">
+                <p className="text-xs font-bold text-slate-700">{c.num} — {c.name}</p>
+                <p className="text-xs italic text-slate-400">{c.q}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

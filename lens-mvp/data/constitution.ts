@@ -23,6 +23,7 @@ export interface Principle {
     targetId: string
     description: string
   }>
+  canon?: 'I-Foundations' | 'II-Laws' | 'III-Measurements' | 'IV-Architectures' | 'V-Methods' | 'VI-Applications' | 'VII-Evidence'
 }
 
 export const principles: Principle[] = [
@@ -34,6 +35,7 @@ export const principles: Principle[] = [
   {
     id: 'TI-001',
     slug: 'ti-001',
+    canon: 'II-Laws',
     name: 'Transformation Intelligence™',
     status: 'Ratified',
     version: '3.0',
@@ -93,6 +95,7 @@ export const principles: Principle[] = [
   {
     id: 'TI-003',
     slug: 'ti-003',
+    canon: 'VI-Applications',
     name: 'The Lens™',
     status: 'Ratified',
     version: '1.0',
@@ -120,6 +123,7 @@ export const principles: Principle[] = [
   {
     id: 'TI-004',
     slug: 'ti-004',
+    canon: 'II-Laws',
     name: 'Transformation Capacity Principle™',
     status: 'Ratified',
     version: '4.0',
@@ -178,6 +182,7 @@ export const principles: Principle[] = [
   {
     id: 'TI-006',
     slug: 'ti-006',
+    canon: 'II-Laws',
     name: 'Expression Architecture Principle™',
     status: 'Ratified',
     version: '1.0',
@@ -238,6 +243,7 @@ export const principles: Principle[] = [
   {
     id: 'TI-008',
     slug: 'ti-008',
+    canon: 'II-Laws',
     name: 'Intermediary Systems Principle™ (ISP™)',
     status: 'Ratified',
     version: '1.0',
@@ -301,6 +307,7 @@ export const principles: Principle[] = [
   {
     id: 'TI-010',
     slug: 'ti-010',
+    canon: 'II-Laws',
     name: 'Addressability Principle™',
     status: 'Ratified',
     version: '1.0',
@@ -369,6 +376,7 @@ export const principles: Principle[] = [
   {
     id: 'TI-012',
     slug: 'ti-012',
+    canon: 'II-Laws',
     name: 'Unlock Science™',
     status: 'Ratified',
     version: '1.0',
@@ -431,6 +439,7 @@ export const principles: Principle[] = [
   {
     id: 'TI-014',
     slug: 'ti-014',
+    canon: 'II-Laws',
     name: 'Mechanism Traceability Law™',
     status: 'Ratified',
     version: '1.0',
@@ -492,6 +501,7 @@ export const principles: Principle[] = [
   {
     id: 'TI-016',
     slug: 'ti-016',
+    canon: 'II-Laws',
     name: 'Continuous Learning Law™',
     status: 'Ratified',
     version: '1.0',
@@ -1493,6 +1503,7 @@ export const principles: Principle[] = [
   {
     id: 'TI-044',
     slug: 'ti-044',
+    canon: 'II-Laws',
     name: 'Divergence Acceleration Law™ (DAL™)',
     status: 'Ratified',
     version: '1.0',
@@ -1702,6 +1713,45 @@ export const principles: Principle[] = [
       { type: 'implements', targetId: 'TI-012', description: 'Implements Unlock Science™ Scientific Standards — consistent terminology is a prerequisite for Reproducibility and Transparency standards' },
     ],
     relatedIds: ['TI-048', 'TI-001', 'TI-012', 'TI-010', 'TI-044'],
+  },
+
+  {
+    id: 'TI-050',
+    slug: 'ti-050',
+    name: 'Constitutional Canon™',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-25',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book I — Constitutional Governance',
+    constitutionId: 'Constitutional Appendix B',
+    oid: 'OID-2026-TI-CC-001',
+    lensUri: 'lens://constitution/ti-050',
+    canon: 'I-Foundations',
+    principle: 'Every principle, framework, measurement, architecture, publication, and commercial offering within Transformation Intelligence™ shall belong to one canonical category. Every new concept introduced into Transformation Intelligence™ shall first be classified within the Constitutional Canon before publication. No constitutional amendment is considered complete until its canonical classification has been established.',
+    definition: 'The Constitutional Canon™ establishes the official seven-category classification system for all concepts within Transformation Intelligence™. The Canonical Progression: Foundations → Laws → Measurements → Architectures → Methods → Applications → Evidence → Constitutional Evolution. As evidence accumulates, the Constitution itself evolves through formal amendments.',
+    operatingLaw: 'Foundations explain reality. Laws describe recurring behavior. Measurements quantify performance. Architectures organize capability. Methods guide implementation. Applications deliver capability. Evidence validates and refines the discipline. Together they constitute the living body of Transformation Intelligence™.',
+    implications: [
+      'Canon I — Foundations: Universal realities upon which TI™ is built. Not proprietary — represent enduring concepts that exist independently of the discipline. Current Foundations: Identity, Knowledge, Intelligence, Organizational Cognition, Transformation, Enterprise Value. Question answered: What exists?',
+      'Canon II — Laws: Recurring patterns governing organizational behavior. Laws explain reality rather than prescribe behavior. Examples: Transformation Capacity Principle™, Adoption Scarcity Principle™, Divergence Acceleration Law™, Identity Continuity Principle™. Question answered: Why does transformation behave this way?',
+      'Canon III — Measurements: Quantify organizational performance. Make transformation observable. Examples: Transformation Efficiency™, Transformation Capacity™, Decision Capital™, AROI™, Transformation Probability™. Question answered: How can it be measured?',
+      'Canon IV — Architectures: Structural design of organizational systems. Define how capabilities are organized. Examples: Transformation Memory Architecture™, Decision Visibility Infrastructure™, Organizational Cognition Architecture™, Transformation Infrastructure™. Question answered: How is it structured?',
+      'Canon V — Methods: Repeatable approaches for applying TI™. Convert principles into action. Examples: Lens Analysis™, Transformation Blueprint™, Enterprise Value Frontier™, Opportunity Assessment™. Question answered: How is it applied?',
+      'Canon VI — Applications: Operationalize the discipline through software, products, and services. Examples: The Lens™, Go Deep™, Board EA™, Strategic AI & Fulfillment Exchange™. Question answered: How is it delivered?',
+      'Canon VII — Evidence: Validates, challenges, and improves the discipline. Evidence includes: organizational outcomes, transformation recordings, case studies, longitudinal research, benchmark analyses, peer review, implementation results, continuous learning. Question answered: How do we know?',
+      'Constitutional application: The Constitutional Canon maps backward to the existing 102 principles — TI-001 through TI-011 are primarily Foundations and Laws. TI-012 through TI-016 are Laws (Unlock Science™). TI-018 through TI-025 are primarily Measurements. TI-026 through TI-037 are Architectures and Methods. TI-038 through TI-049 extend Laws and Measurements. TI-044 (DAL™) is the foundational Law that unifies all preceding categories.',
+    ],
+    typedRelationships: [
+      { type: 'extends', targetId: 'TI-049', description: 'Constitutional Appendix B extending Appendix A — provides the classification taxonomy that Appendix A’s style rules apply to' },
+      { type: 'extends', targetId: 'TI-048', description: 'Extends Trademark Convention Principle™ — the Canon determines which category a concept belongs to, which determines its trademark treatment' },
+      { type: 'applies_to', targetId: 'TI-001', description: 'Governs classification of all TI™ concepts from TI-001 forward — every existing principle can be mapped to one of the seven Canon categories' },
+      { type: 'implements', targetId: 'TI-010', description: 'Implements Addressability Principle™ — the Canon is the classification layer that makes every LKAS™ object categorically addressable' },
+      { type: 'depends_on', targetId: 'TI-016', description: 'Depends on Continuous Learning Law™ — Canon VII (Evidence) is the constitutional mechanism through which the Canon itself evolves' },
+    ],
+    relatedIds: ['TI-048', 'TI-049', 'TI-001', 'TI-010', 'TI-016', 'TI-012', 'TI-044'],
   },
 
   // ============================================

@@ -2798,6 +2798,47 @@
           "targetId": "TI-012"
         }
       ]
+    },
+    {
+      "id": "TI-050",
+      "slug": "ti-050",
+      "name": "Constitutional Canon™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book I — Constitutional Governance",
+      "constitutionId": "Constitutional Appendix B",
+      "oid": "OID-2026-TI-CC-001",
+      "lensUri": "lens://constitution/ti-050",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-050",
+      "canon": "I-Foundations",
+      "lkasCompliant": true,
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-049"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-048"
+        },
+        {
+          "type": "applies_to",
+          "targetId": "TI-001"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-010"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-016"
+        }
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -2805,7 +2846,7 @@
   "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 102,
+  "totalPrinciples": 103,
   "lastUpdated": "2026-06-25",
   "constitutionalArchitecture": {
     "name": "Opportunity Hierarchy™",
@@ -2923,6 +2964,93 @@
       "Organizational Cognition",
       "Transformation",
       "Enterprise Value"
+    ]
+  },
+  "constitutionalCanon": {
+    "version": "1.0",
+    "principleId": "TI-050",
+    "appendixB": true,
+    "ratified": "2026-06-25",
+    "canonicalUrl": "https://lensanalysis.com/constitution/ti-050",
+    "categories": [
+      {
+        "id": "I",
+        "name": "Foundations",
+        "question": "What exists?",
+        "trademark": false,
+        "examples": [
+          "Identity",
+          "Knowledge",
+          "Intelligence",
+          "Organizational Cognition",
+          "Transformation",
+          "Enterprise Value"
+        ]
+      },
+      {
+        "id": "II",
+        "name": "Laws",
+        "question": "Why does transformation behave this way?",
+        "trademark": true,
+        "examples": [
+          "Transformation Capacity Principle™",
+          "Divergence Acceleration Law™",
+          "Adoption Scarcity Principle™"
+        ]
+      },
+      {
+        "id": "III",
+        "name": "Measurements",
+        "question": "How can it be measured?",
+        "trademark": true,
+        "examples": [
+          "Transformation Efficiency™",
+          "Transformation Capacity™",
+          "AROI™"
+        ]
+      },
+      {
+        "id": "IV",
+        "name": "Architectures",
+        "question": "How is it structured?",
+        "trademark": true,
+        "examples": [
+          "Transformation Memory Architecture™",
+          "Decision Visibility Infrastructure™"
+        ]
+      },
+      {
+        "id": "V",
+        "name": "Methods",
+        "question": "How is it applied?",
+        "trademark": true,
+        "examples": [
+          "Lens Analysis™",
+          "Transformation Blueprint™"
+        ]
+      },
+      {
+        "id": "VI",
+        "name": "Applications",
+        "question": "How is it delivered?",
+        "trademark": true,
+        "examples": [
+          "The Lens™",
+          "Board EA™",
+          "SAFE™"
+        ]
+      },
+      {
+        "id": "VII",
+        "name": "Evidence",
+        "question": "How do we know?",
+        "trademark": false,
+        "examples": [
+          "Organizational outcomes",
+          "Case studies",
+          "Longitudinal research"
+        ]
+      }
     ]
   }
 }

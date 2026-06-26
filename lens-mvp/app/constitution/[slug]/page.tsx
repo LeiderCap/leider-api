@@ -182,6 +182,16 @@ export default function PrinciplePage() {
                   <dd className="select-all font-mono text-xs text-slate-400">{principle.lensUri}</dd>
                 </div>
               )}
+              {principle.canon && (
+                <div className="col-span-2 sm:col-span-3">
+                  <dt className="text-slate-500">Canon</dt>
+                  <dd>
+                    <span className="inline-block rounded-full px-2 py-0.5 text-xs font-semibold" style={{ backgroundColor: '#7c3a1e', color: '#fde8d8' }}>
+                      Canon {principle.canon.replace('I-', 'I — ').replace('II-', 'II — ').replace('III-', 'III — ').replace('IV-', 'IV — ').replace('V-', 'V — ').replace('VI-', 'VI — ').replace('VII-', 'VII — ')}
+                    </span>
+                  </dd>
+                </div>
+              )}
             </dl>
           </div>
         </section>
