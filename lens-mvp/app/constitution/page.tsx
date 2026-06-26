@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Constitution of Transformation Intelligence™ | TI Registry™',
   description:
-    'The governing principles behind The Lens™ and Transformation Intelligence™. 87 principles across 9 categories — each versioned, citable, and machine-readable. Now includes Book VIII — Distributed Transformation Infrastructure™, Book V — The Future Firm™, Book VI — Unlock Science™, Book II — Enterprise Intelligence Architecture™, and Book VII — Enterprise Value Architecture™.',
+    'The governing principles behind The Lens™ and Transformation Intelligence™. 90 principles across 9 categories — each versioned, citable, and machine-readable. Now includes Book IX — Strategic AI & Fulfillment Exchange™ (SAFE™), Book VIII — Distributed Transformation Infrastructure™, Book V — The Future Firm™, Book VI — Unlock Science™, Book II — Enterprise Intelligence Architecture™, and Book VII — Enterprise Value Architecture™.',
 };
 
 const statusColors: Record<string, string> = {
@@ -106,7 +106,7 @@ export default function ConstitutionPage() {
           &nbsp;|&nbsp; Published June 23, 2026
         </p>
         <p className="mt-3 mx-auto max-w-xl text-sm italic text-slate-400">
-          Now includes Book VIII — Distributed Transformation Infrastructure™: the constitutional architecture for converting strategic intent into distributed, measurable execution at scale. Now includes Book V — The Future Firm™: the AI-native enterprise architecture for the Intelligence Age. Now includes Book VI — Unlock Science™: the scientific discipline for measuring and realizing unrealized enterprise value. Now includes Book II — Enterprise Intelligence Architecture™: workflow intelligence and EIA™ as foundations of durable competitive advantage. Now includes Book VII — Enterprise Value Architecture™: the evidentiary layer connecting transformation to transaction readiness.
+          Now includes Book IX — Strategic AI & Fulfillment Exchange™ (SAFE™): the fulfillment infrastructure of Transformation Intelligence™. Now includes Book VIII — Distributed Transformation Infrastructure™: the constitutional architecture for converting strategic intent into distributed, measurable execution at scale. Now includes Book V — The Future Firm™: the AI-native enterprise architecture for the Intelligence Age. Now includes Book VI — Unlock Science™: the scientific discipline for measuring and realizing unrealized enterprise value. Now includes Book II — Enterprise Intelligence Architecture™: workflow intelligence and EIA™ as foundations of durable competitive advantage. Now includes Book VII — Enterprise Value Architecture™: the evidentiary layer connecting transformation to transaction readiness.
         </p>
         <p className="mt-2 text-xs text-slate-400">
           © 2026 Leider Capital. All Rights Reserved. All principles and named methodologies are proprietary to Leider Capital.
@@ -131,6 +131,28 @@ export default function ConstitutionPage() {
             </span>
           </div>
 
+        </div>
+      </section>
+
+      {/* Book IX — Strategic AI & Fulfillment Exchange™ (SAFE™) featured group */}
+      <section className="mx-auto max-w-4xl px-6 pt-12 pb-0">
+        <div className="mb-10 rounded-xl border-2 border-rose-200 bg-rose-50 p-8">
+          <div className="mb-2 flex flex-wrap items-center gap-3">
+            <h2 className="text-xl font-bold text-slate-900">Book IX — Strategic AI &amp; Fulfillment Exchange™ (SAFE™)</h2>
+            <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-800">Ratified</span>
+          </div>
+          <p className="mb-6 text-sm text-slate-600">The fulfillment infrastructure of Transformation Intelligence™. The purpose of intelligence is not recommendation — it is fulfillment. Three principles: SAFE™, Fulfillment Principle™, and SAFE™ Certification Framework.</p>
+          <div className="space-y-3">
+            {principles.filter(p => ['TI-035','TI-036','TI-037'].includes(p.id)).map((p) => (
+              <div key={p.id} className="flex items-center justify-between rounded-lg border border-rose-200 bg-white px-5 py-3">
+                <div className="flex items-center gap-3">
+                  <span className="font-mono text-sm font-bold text-rose-700">{p.id}</span>
+                  <span className="text-sm font-semibold text-slate-800">{p.name}</span>
+                </div>
+                <Link href={`/constitution/${p.slug}`} className="text-xs font-medium text-rose-700 hover:underline">Read →</Link>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -241,6 +263,44 @@ export default function ConstitutionPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Constitutional Architecture Flow Diagram */}
+      <section className="bg-slate-900 px-6 py-16">
+        <div className="mx-auto max-w-4xl">
+          <p className="mb-2 text-center text-xs font-semibold uppercase tracking-widest text-rose-400">Constitutional Architecture</p>
+          <h2 className="mb-3 text-center text-2xl font-bold text-white">Opportunity Hierarchy™</h2>
+          <p className="mb-10 text-center text-sm text-slate-400">The complete chain from discovery to realized enterprise value — constitutionally defined across nine books.</p>
+          <div className="flex flex-wrap items-center justify-center gap-0">
+            {[
+              { label: 'Market', sub: 'Opportunity Discovery', color: 'bg-slate-700 text-slate-200', border: 'border-slate-600' },
+              { label: '→', sub: '', color: 'bg-transparent text-slate-500', border: 'border-transparent', arrow: true },
+              { label: 'Opportunity Zones™', sub: 'TI-001 – TI-011', color: 'bg-orange-900/60 text-orange-200', border: 'border-orange-700' },
+              { label: '→', sub: '', color: 'bg-transparent text-slate-500', border: 'border-transparent', arrow: true },
+              { label: 'The Lens™', sub: 'Analysis & Scoring', color: 'bg-orange-800/60 text-orange-100', border: 'border-orange-600' },
+              { label: '→', sub: '', color: 'bg-transparent text-slate-500', border: 'border-transparent', arrow: true },
+              { label: 'Blueprint™', sub: 'Strategic Design', color: 'bg-blue-900/60 text-blue-200', border: 'border-blue-700' },
+              { label: '→', sub: '', color: 'bg-transparent text-slate-500', border: 'border-transparent', arrow: true },
+              { label: 'Compiler™', sub: 'TI-031', color: 'bg-blue-800/60 text-blue-100', border: 'border-blue-600' },
+              { label: '→', sub: '', color: 'bg-transparent text-slate-500', border: 'border-transparent', arrow: true },
+              { label: 'Packets™', sub: 'TI-032', color: 'bg-cyan-900/60 text-cyan-200', border: 'border-cyan-700' },
+              { label: '→', sub: '', color: 'bg-transparent text-slate-500', border: 'border-transparent', arrow: true },
+              { label: 'SAFE™', sub: 'TI-035 – TI-037', color: 'bg-rose-900/60 text-rose-200', border: 'border-rose-700' },
+              { label: '→', sub: '', color: 'bg-transparent text-slate-500', border: 'border-transparent', arrow: true },
+              { label: 'Realized Value', sub: 'Evidence + Learning', color: 'bg-green-900/60 text-green-200', border: 'border-green-700' },
+            ].map((node, i) =>
+              node.arrow ? (
+                <span key={i} className="text-2xl font-bold text-slate-500 px-1">→</span>
+              ) : (
+                <div key={i} className={`rounded-lg border px-4 py-3 text-center ${node.color} ${node.border}`}>
+                  <div className="text-sm font-bold">{node.label}</div>
+                  {node.sub && <div className="text-xs opacity-70 mt-0.5">{node.sub}</div>}
+                </div>
+              )
+            )}
+          </div>
+          <p className="mt-8 text-center text-xs text-slate-500">Market → Opportunity Zones™ → Company → Unlock Potential™ → Equity Reclamation™ → Mechanism → Blueprint™ → Transformation Compiler™ → Packets™ → SAFE™ → Realized Value</p>
         </div>
       </section>
 

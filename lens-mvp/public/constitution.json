@@ -2224,6 +2224,123 @@
           "targetId": "TI-016"
         }
       ]
+    },
+    {
+      "id": "TI-035",
+      "slug": "ti-035",
+      "name": "Strategic AI & Fulfillment Exchange™ (SAFE™)",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book IX — Strategic AI & Fulfillment Exchange™ (SAFE™)",
+      "oid": "OID-2026-TI-SAFE-001",
+      "lensUri": "lens://constitution/ti-035",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-035",
+      "lkasCompliant": true,
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-030"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-033"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-032"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-012"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-023"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-036"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-037"
+        }
+      ]
+    },
+    {
+      "id": "TI-036",
+      "slug": "ti-036",
+      "name": "Fulfillment Principle™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book IX — Strategic AI & Fulfillment Exchange™ (SAFE™)",
+      "oid": "OID-2026-TI-FP-001",
+      "lensUri": "lens://constitution/ti-036",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-036",
+      "lkasCompliant": true,
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-035"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-103"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-013"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-107"
+        }
+      ]
+    },
+    {
+      "id": "TI-037",
+      "slug": "ti-037",
+      "name": "SAFE™ Certification Framework",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book IX — Strategic AI & Fulfillment Exchange™ (SAFE™)",
+      "oid": "OID-2026-TI-SCF-001",
+      "lensUri": "lens://constitution/ti-037",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-037",
+      "lkasCompliant": true,
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-035"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-015"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-016"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-034"
+        }
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -2231,6 +2348,69 @@
   "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 87,
-  "lastUpdated": "2026-06-25"
+  "totalPrinciples": 90,
+  "lastUpdated": "2026-06-25",
+  "constitutionalArchitecture": {
+    "name": "Opportunity Hierarchy™",
+    "description": "The complete chain from market discovery to realized enterprise value — constitutionally defined across nine books.",
+    "chain": [
+      {
+        "stage": "Market",
+        "description": "Opportunity Discovery"
+      },
+      {
+        "stage": "Opportunity Zones™",
+        "principles": [
+          "TI-001",
+          "TI-002",
+          "TI-003",
+          "TI-004",
+          "TI-005",
+          "TI-006",
+          "TI-007",
+          "TI-008",
+          "TI-009",
+          "TI-010",
+          "TI-011"
+        ]
+      },
+      {
+        "stage": "The Lens™",
+        "description": "Analysis & Scoring",
+        "principles": [
+          "TI-003"
+        ]
+      },
+      {
+        "stage": "Blueprint™",
+        "description": "Strategic Design"
+      },
+      {
+        "stage": "Transformation Compiler™",
+        "principles": [
+          "TI-031"
+        ]
+      },
+      {
+        "stage": "Transformation Packets™",
+        "principles": [
+          "TI-032"
+        ]
+      },
+      {
+        "stage": "SAFE™",
+        "description": "Strategic AI & Fulfillment Exchange™",
+        "principles": [
+          "TI-035",
+          "TI-036",
+          "TI-037"
+        ]
+      },
+      {
+        "stage": "Realized Value",
+        "description": "Evidence + Learning + Enterprise Value"
+      }
+    ],
+    "fullChain": "Market → Opportunity Zones™ → Company → Unlock Potential™ → Equity Reclamation™ → Mechanism → Blueprint™ → Transformation Compiler™ → Packets™ → SAFE™ → Realized Value"
+  }
 }

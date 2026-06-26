@@ -293,3 +293,12 @@ Lens URI Base: lens://constitution/
 - TI-032: Transformation Packet™ — https://lensanalysis.com/constitution/ti-032
 - TI-033: Transformation Matching Engine™ — https://lensanalysis.com/constitution/ti-033
 - TI-034: Transformation Marketplace™ — https://lensanalysis.com/constitution/ti-034
+
+## Book IX — Strategic AI & Fulfillment Exchange™ (SAFE™) (TI-035 to TI-037)
+Canonical URL: https://lensanalysis.com/constitution
+Lens URI Base: lens://constitution/
+Ratified: 2026-06-25. The fulfillment infrastructure of Transformation Intelligence™. The purpose of intelligence is not recommendation — it is fulfillment.
+
+- TI-035: Strategic AI & Fulfillment Exchange™ (SAFE™) — https://www.lensanalysis.com/constitution/ti-035
+- TI-036: Fulfillment Principle™ — https://www.lensanalysis.com/constitution/ti-036
+- TI-037: SAFE™ Certification Framework — https://www.lensanalysis.com/constitution/ti-037
