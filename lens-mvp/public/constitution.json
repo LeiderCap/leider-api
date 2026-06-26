@@ -1881,6 +1881,158 @@
           "targetId": "TI-012"
         }
       ]
+    },
+    {
+      "id": "TI-026",
+      "slug": "ti-026",
+      "name": "Future Firm Principle™ (FFP™)",
+      "oid": "OID-2026-TI-FFP-001",
+      "lensUri": "lens://constitution/ti-026",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-026",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "book": "Book V — The Future Firm™",
+      "principle": "Every enterprise is evolving into a hybrid intelligence system composed of people, artificial intelligence, institutional knowledge, operational memory, and governance systems. Competitive advantage no longer arises primarily from generating intelligence. Competitive advantage increasingly arises from orchestrating intelligence.",
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-001"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-004"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-021"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-017"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-027"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-028"
+        }
+      ]
+    },
+    {
+      "id": "TI-027",
+      "slug": "ti-027",
+      "name": "Intelligence Orchestration Principle™ (IOP™)",
+      "oid": "OID-2026-TI-IOP-001",
+      "lensUri": "lens://constitution/ti-027",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-027",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "book": "Book V — The Future Firm™",
+      "principle": "As intelligence becomes increasingly abundant, orchestration becomes increasingly scarce. The limiting factor in organizational performance is no longer intelligence production — it is intelligence coordination.",
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-026"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-021"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-401"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-008"
+        }
+      ]
+    },
+    {
+      "id": "TI-028",
+      "slug": "ti-028",
+      "name": "Future Firm Readiness™ (FFR™)",
+      "oid": "OID-2026-TI-FFR-001",
+      "lensUri": "lens://constitution/ti-028",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-028",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "book": "Book V — The Future Firm™",
+      "principle": "Future Firm Readiness™ measures an organization's ability to continuously convert intelligence into enterprise value across seven constitutional dimensions.",
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-026"
+        },
+        {
+          "type": "measures",
+          "targetId": "TI-027"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-004"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-022"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-011"
+        }
+      ]
+    },
+    {
+      "id": "TI-029",
+      "slug": "ti-029",
+      "name": "Institutional Memory Principle™ (IMP™)",
+      "oid": "OID-2026-TI-IMP-001",
+      "lensUri": "lens://constitution/ti-029",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-029",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "book": "Book V — The Future Firm™",
+      "principle": "Institutional memory is a strategic asset. Organizations that lose institutional memory repeatedly restart transformation. Organizations that preserve institutional memory accelerate transformation.",
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-201"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-202"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-011"
+        },
+        {
+          "type": "derived_from",
+          "targetId": "TI-026"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-028"
+        }
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -1888,6 +2040,6 @@
   "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 78,
+  "totalPrinciples": 82,
   "lastUpdated": "2026-06-25"
 }

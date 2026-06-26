@@ -276,3 +276,10 @@ https://lensanalysis.com/constitution/ti-022
 /constitution/ti-023 — Buyer Evidence Principle™ (BEP™) — OID-2026-TI-BEP-001 — Lens URI: lens://constitution/ti-023
 /constitution/ti-024 — Buyer Evidence Score™ (BES™) — OID-2026-TI-BES-001 — Lens URI: lens://constitution/ti-024
 /constitution/ti-025 — Underwriteability Index™ (UI™) — OID-2026-TI-UI-001 — Lens URI: lens://constitution/ti-025
+
+## Book V — The Future Firm™ (TI-026 to TI-029)
+Ratified: 2026-06-25. The AI-native enterprise architecture for the Intelligence Age.
+- https://lensanalysis.com/constitution/ti-026 (Future Firm Principle™ / FFP™ — OID-2026-TI-FFP-001)
+- https://lensanalysis.com/constitution/ti-027 (Intelligence Orchestration Principle™ / IOP™ — OID-2026-TI-IOP-001)
+- https://lensanalysis.com/constitution/ti-028 (Future Firm Readiness™ / FFR™ — OID-2026-TI-FFR-001)
+- https://lensanalysis.com/constitution/ti-029 (Institutional Memory Principle™ / IMP™ — OID-2026-TI-IMP-001)
