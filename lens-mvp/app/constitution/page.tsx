@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Constitution of Transformation Intelligence™ | TI Registry™',
   description:
-    'The governing principles behind The Lens™ and Transformation Intelligence™. 105 principles across 9 categories — each versioned, citable, and machine-readable. Includes TI-052 TIBOK™ (Body of Knowledge), TI-051 Master Constitutional Structure™ v5.0 (self-governing constitution), TI-050 Constitutional Canon™ (Appendix B), TI-049 Terminology Convention™ (Appendix A), TI-048 Constitutional Style Guide, Book XII — Transformation Signal Network™ (TSN™), Book I — The Economics of Transformation (DAL™), Book IV — Transformation Absorbability™, Book IX — SAFE™, Book VIII — Distributed Transformation Infrastructure™, Book V — The Future Firm™, Book VI — Unlock Science™, Book II — Organizational Dynamics, and Book VII — Enterprise Value Architecture™.',
+    'The governing principles behind The Lens™ and Transformation Intelligence™. 106 principles across 9 categories — each versioned, citable, and machine-readable. Includes TI-053 Product Constitution™ (seven-phase development roadmap), TI-052 TIBOK™ (Body of Knowledge), TI-051 Master Constitutional Structure™ v5.0 (self-governing constitution), TI-050 Constitutional Canon™ (Appendix B), TI-049 Terminology Convention™ (Appendix A), TI-048 Constitutional Style Guide, Book XII — Transformation Signal Network™ (TSN™), Book I — The Economics of Transformation (DAL™), Book IV — Transformation Absorbability™, Book IX — SAFE™, Book VIII — Distributed Transformation Infrastructure™, Book V — The Future Firm™, Book VI — Unlock Science™, Book II — Organizational Dynamics, and Book VII — Enterprise Value Architecture™.',
 };
 
 const statusColors: Record<string, string> = {
@@ -106,7 +106,7 @@ export default function ConstitutionPage() {
           &nbsp;|&nbsp; Published June 23, 2026
         </p>
         <p className="mt-3 mx-auto max-w-xl text-sm italic text-slate-400">
-          Now includes TI-052 — TIBOK™ (Body of Knowledge): the official corpus of knowledge governing the discipline. 105 principles, 9 books, self-governing constitution. The Lens™ is not the discipline — it is the primary software implementation of the discipline.
+          Now includes TI-053 — Product Constitution™: the seven-phase development roadmap for The Lens™. 106 principles, 9 books, self-governing constitution. Phase One: Trust Infrastructure — establish before expanding.
         </p>
         <p className="mt-2 text-xs text-slate-400">
           © 2026 Leider Capital. All Rights Reserved. All principles and named methodologies are proprietary to Leider Capital.
@@ -124,7 +124,7 @@ export default function ConstitutionPage() {
               This Constitution establishes the foundational concepts, governing laws, measurement systems, architectures, methods, applications, and evidentiary standards of the discipline.
             </p>
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <p className="text-xs font-semibold text-slate-500">Version 5.0 &nbsp;|&nbsp; 104 Principles &nbsp;|&nbsp; 9 Books &nbsp;|&nbsp; Self-Governing Constitution</p>
+              <p className="text-xs font-semibold text-slate-500">Version 5.0 &nbsp;|&nbsp; 106 Principles &nbsp;|&nbsp; 9 Books &nbsp;|&nbsp; Self-Governing Constitution</p>
               <Link href="/constitution/ti-051" className="text-xs font-medium text-slate-500 hover:text-slate-700 hover:underline whitespace-nowrap">View Master Constitutional Structure™ →</Link>
             </div>
           </div>
@@ -160,10 +160,12 @@ export default function ConstitutionPage() {
               <p className="mb-1 font-semibold text-slate-600 uppercase tracking-wide text-xs">Constitutional Governance</p>
               <p className="mb-1"><strong className="text-slate-700">Version 1.0</strong> — Style Guide (TI-048 Ratified June 25, 2026)</p>
               <p className="mb-1"><strong className="text-slate-700">Trademark Convention:</strong> Universal architectural concepts (Identity, Knowledge, Intelligence, Transformation, Enterprise Value) appear without ™. Named principles, measurements, frameworks, disciplines, and products carry ™ designation.</p>
+              <p className="mb-1 mt-2"><strong className="text-slate-700">Product Constitution™ (TI-053):</strong> The Constitution defines the discipline. The Lens™ proves it. Phase One: Trust Infrastructure — establish before expanding.</p>
               <p className="text-slate-400 italic">This constitution describes a discipline, not a product catalog.</p>
             </div>
-            <div className="shrink-0">
+            <div className="shrink-0 flex flex-col gap-2 items-end">
               <Link href="/constitution/ti-048" className="text-xs font-medium text-slate-500 hover:text-slate-700 hover:underline whitespace-nowrap">View Constitutional Style Guide →</Link>
+              <Link href="/constitution/ti-053" className="text-xs font-medium text-slate-500 hover:text-slate-700 hover:underline whitespace-nowrap">View Product Constitution™ →</Link>
             </div>
           </div>
         </div>

@@ -345,6 +345,21 @@ function DeploymentReadinessResultInner() {
         <p className="text-xs text-slate-400 text-center leading-5">
           {report.disclaimer}
         </p>
+
+        {/* Constitutional Basis */}
+        <div className="mt-6 rounded-lg border border-slate-100 bg-slate-50 px-5 py-4">
+          <p className="mb-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">Constitutional Basis</p>
+          <div className="space-y-1">
+            <p className="text-[10px] text-slate-400">
+              <a href="/constitution/ti-007" className="font-mono hover:underline" style={{ color: '#E05A00' }}>[TI-007]</a>{' '}
+              Deployment Velocity Principle™
+            </p>
+            <p className="text-[10px] text-slate-400">
+              <a href="/constitution/ti-040" className="font-mono hover:underline" style={{ color: '#E05A00' }}>[TI-040]</a>{' '}
+              Transformation Absorbability Principle™
+            </p>
+          </div>
+        </div>
       </div>
     </main>
   );

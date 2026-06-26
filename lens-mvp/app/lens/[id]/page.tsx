@@ -733,6 +733,14 @@ export default async function LensDetailPage({ params, searchParams }: { params:
               item.confidence === 'Moderate' ? 'bg-amber-100 text-amber-700' :
               'bg-slate-100 text-slate-500'
             }`}>{item.confidence} Confidence</span>
+            <p className="mt-2 text-[10px] text-slate-400">
+              Governed by{' '}
+              <a href="/constitution/ti-013" className="font-mono hover:underline" style={{ color: '#E05A00' }}>[TI-013]</a>{' '}
+              Conservation of Enterprise Value™ Law &nbsp;&middot;&nbsp;
+              Evidence standard:{' '}
+              <a href="/constitution/ti-015" className="font-mono hover:underline" style={{ color: '#E05A00' }}>[TI-015]</a>{' '}
+              Evidence Sufficiency Law™
+            </p>
           </div>
         </div>
       </section>
@@ -942,9 +950,10 @@ export default async function LensDetailPage({ params, searchParams }: { params:
             )}
           </div>
           {/* Section footer */}
-          <p className="mt-4 text-xs text-slate-400">
-            Expression Gap Analysis™ is powered by The Lens™ and the{' '}
-            <Link href="/constitution/ti-006" className="underline hover:text-slate-600">Expression Architecture Principle™ (TI-006)</Link>.
+          <p className="mt-4 text-[10px] text-slate-400">
+            Governed by{' '}
+            <a href="/constitution/ti-006" className="font-mono hover:underline" style={{ color: '#E05A00' }}>[TI-006]</a>{' '}
+            Expression Architecture Principle™
           </p>
         </section>
       )}
@@ -1073,10 +1082,10 @@ export default async function LensDetailPage({ params, searchParams }: { params:
           )}
 
           {/* Section footer */}
-          <p className="mt-4 text-xs text-slate-400">
-            Intermediary Systems Analysis™ is powered by{' '}
-            <Link href="/constitution/ti-008" className="underline hover:text-slate-600">TI-008</Link>{' '}and{' '}
-            <Link href="/constitution/ti-009" className="underline hover:text-slate-600">TI-009</Link>{' '}of the Transformation Intelligence™ Constitution.
+          <p className="mt-4 text-[10px] text-slate-400">
+            Governed by{' '}
+            <a href="/constitution/ti-008" className="font-mono hover:underline" style={{ color: '#E05A00' }}>[TI-008]</a>{' '}
+            Intermediary Systems Principle™
           </p>
         </section>
       )}
@@ -1133,10 +1142,10 @@ export default async function LensDetailPage({ params, searchParams }: { params:
             )}
           </div>
 
-          <p className="mt-5 text-xs text-slate-400">
-            Mechanisms drawn from the 12 canonical value mechanisms of Unlock Science™ ({' '}
-            <Link href="/constitution/ti-014" className="underline hover:text-slate-600">TI-014</Link>
-            ). No mechanism outside this taxonomy may be used in an Unlock Potential™ estimate.
+          <p className="mt-5 text-[10px] text-slate-400">
+            Mechanism taxonomy:{' '}
+            <a href="/constitution/ti-014" className="font-mono hover:underline" style={{ color: '#E05A00' }}>[TI-014]</a>{' '}
+            Mechanism Traceability Law™. No mechanism outside this taxonomy may be used in an Unlock Potential™ estimate.
           </p>
         </section>
       )}

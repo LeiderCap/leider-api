@@ -348,6 +348,27 @@ function AIGovernanceResultPageInner() {
           </button>
         </div>
       </section>
+
+      {/* Constitutional Basis */}
+      <section className="mx-auto max-w-2xl px-6 pb-8 pt-2">
+        <div className="rounded-lg border border-slate-100 bg-slate-50 px-5 py-4">
+          <p className="mb-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">Constitutional Basis</p>
+          <div className="space-y-1">
+            <p className="text-[10px] text-slate-400">
+              <a href="/constitution/ti-403" className="font-mono hover:underline" style={{ color: '#E05A00' }}>[TI-403]</a>{' '}
+              Agent Visibility Governance™
+            </p>
+            <p className="text-[10px] text-slate-400">
+              <a href="/constitution/ti-302" className="font-mono hover:underline" style={{ color: '#E05A00' }}>[TI-302]</a>{' '}
+              Trust Infrastructure Principle™
+            </p>
+            <p className="text-[10px] text-slate-400">
+              <a href="/constitution/ti-301" className="font-mono hover:underline" style={{ color: '#E05A00' }}>[TI-301]</a>{' '}
+              Decision Visibility Infrastructure™
+            </p>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

@@ -161,6 +161,11 @@ export function TcsHero({ name, ticker, industry, description, tcsScore }: TcsHe
             {tcsScore}
           </span>
           <TcsScaleIndicator current={tcsScore} />
+          <p className="mt-1 text-[10px] text-slate-400">
+            Governed by{' '}
+            <a href="/constitution/ti-004" className="font-mono hover:underline" style={{ color: '#E05A00' }}>[TI-004]</a>{' '}
+            Transformation Capacity Principle™
+          </p>
         </div>
       </div>
     </>

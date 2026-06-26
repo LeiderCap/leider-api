@@ -287,6 +287,47 @@ export function DeterminantsSection({ determinants, primaryConstraint, secondary
                     Learn why →
                   </Link>
                 )}
+                {/* Constitutional Traceability™ citation */}
+                {({
+                  'Intelligence':  { id: 'TI-038', name: 'AI Absorption Principle™' },
+                  'Absorbability': { id: 'TI-601', name: 'Transformation Absorbability™' },
+                  'Trust':         { id: 'TI-005', name: 'Trust Infrastructure Principle™' },
+                  'Governance':    { id: 'TI-301', name: 'Decision Visibility Infrastructure™' },
+                  'Courage':       { id: 'TI-005', name: 'Courage-to-Transform Principle™' },
+                  'Execution':     { id: 'TI-007', name: 'Deployment Velocity Principle™' },
+                } as Record<string, { id: string; name: string }>)[label] && (
+                  <p className="mt-1 text-[10px] text-slate-400">
+                    <a
+                      href={`/constitution/${({
+                        'Intelligence':  'ti-038',
+                        'Absorbability': 'ti-601',
+                        'Trust':         'ti-005',
+                        'Governance':    'ti-301',
+                        'Courage':       'ti-005',
+                        'Execution':     'ti-007',
+                      } as Record<string, string>)[label]}`}
+                      className="font-mono hover:underline"
+                      style={{ color: '#E05A00' }}
+                    >
+                      [{({
+                        'Intelligence':  'TI-038',
+                        'Absorbability': 'TI-601',
+                        'Trust':         'TI-005',
+                        'Governance':    'TI-301',
+                        'Courage':       'TI-005',
+                        'Execution':     'TI-007',
+                      } as Record<string, string>)[label]}]
+                    </a>{' '}
+                    {({
+                      'Intelligence':  'AI Absorption Principle™',
+                      'Absorbability': 'Transformation Absorbability™',
+                      'Trust':         'Trust Infrastructure Principle™',
+                      'Governance':    'Decision Visibility Infrastructure™',
+                      'Courage':       'Courage-to-Transform Principle™',
+                      'Execution':     'Deployment Velocity Principle™',
+                    } as Record<string, string>)[label]}
+                  </p>
+                )}
               </div>
             );
           })}
