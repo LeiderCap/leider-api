@@ -1754,6 +1754,44 @@ export const principles: Principle[] = [
     relatedIds: ['TI-048', 'TI-049', 'TI-001', 'TI-010', 'TI-016', 'TI-012', 'TI-044'],
   },
 
+  {
+    id: 'TI-051',
+    slug: 'ti-051',
+    name: 'Master Constitutional Structure™',
+    status: 'Ratified',
+    version: '5.0',
+    published: '2026-06-25',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book I — Constitutional Governance',
+    constitutionId: 'Master Constitutional Structure v5.0',
+    oid: 'OID-2026-TI-MCS-001',
+    lensUri: 'lens://constitution/ti-051',
+    canon: 'I-Foundations',
+    principle: 'Transformation Intelligence™ is the discipline that explains how organizations convert identity into enterprise value through the coordinated application of knowledge, intelligence, organizational cognition, and transformation. Every future addition to Transformation Intelligence™ shall conform to this constitutional structure.',
+    definition: 'The Master Constitutional Structure™ establishes the seven-part organizational framework for the complete body of Transformation Intelligence™: Part I Foundations (universal concepts), Part II Laws (governing principles), Part III Measurements (quantitative language), Part IV Architectures (structural systems), Part V Methods (repeatable methodologies), Part VI Applications (operationalized discipline), Part VII Evidence & Constitutional Evolution (continuous improvement). The Constitution is a living document whose evolution is governed by evidence rather than opinion.',
+    operatingLaw: 'Every measurement shall include: definition, mathematical formulation where appropriate, interpretation, limitations, and evidence requirements. Constitutional amendments shall require: conceptual rationale, supporting evidence, canonical classification, version history, and documented implications for the discipline.',
+    implications: [
+      'Preamble: Transformation Intelligence™ is the discipline that explains how organizations convert identity into enterprise value through the coordinated application of knowledge, intelligence, organizational cognition, and transformation.',
+      'Constitutional Transformation Stack™ (canonical sequence — from Part I): Identity → Knowledge → Intelligence → Organizational Cognition → Transformation → Enterprise Value. This is the foundational architecture of the discipline.',
+      'Seven-Part Structure: Part I Foundations (What exists?), Part II Laws (Why does transformation behave this way?), Part III Measurements (How can it be measured?), Part IV Architectures (How is it structured?), Part V Methods (How is it applied?), Part VI Applications (How is it delivered?), Part VII Evidence & Constitutional Evolution (How do we know, and how does the discipline improve?).',
+      'Constitutional Appendices roadmap: Appendix A Terminology Convention (TI-049 — ratified). Appendix B Constitutional Canon (TI-050 — ratified). Appendix C Definitions (pending). Appendix D Symbol Dictionary (pending). Appendix E Mathematical Notation (pending). Appendix F Version History (pending). Appendix G Referenced Frameworks (pending). Appendix H Glossary (pending).',
+      'Closing Declaration: Enduring disciplines require more than ideas. They require a coherent structure through which ideas can be defined, tested, organized, communicated, challenged, and improved. The Constitution’s Foundations define reality. Its Laws explain behavior. Its Measurements quantify performance. Its Architectures organize capability. Its Methods guide implementation. Its Applications create value. Its Evidence ensures continuous refinement.',
+      'Version 5.0 significance: The Master Constitutional Structure reaching Version 5.0 reflects the maturity and depth of the TI™ framework — 103 principles across 9 books, governed by a complete style guide, terminology convention, and canonical classification system. The discipline is now self-governing and self-organizing.',
+    ],
+    typedRelationships: [
+      { type: 'extends', targetId: 'TI-050', description: 'Master Structure extends Constitutional Canon™ — provides the complete seven-part organizational framework that the Canon classifies within' },
+      { type: 'extends', targetId: 'TI-049', description: 'Master Structure extends Terminology Convention — establishes the structural context in which style rules apply' },
+      { type: 'extends', targetId: 'TI-048', description: 'Master Structure extends Trademark Convention Principle™ — the complete constitutional framework within which trademark rules are applied' },
+      { type: 'applies_to', targetId: 'TI-001', description: 'Governs the organizational structure of all TI™ principles from TI-001 forward — every principle maps to one of seven constitutional parts' },
+      { type: 'implements', targetId: 'TI-016', description: 'Implements Continuous Learning Law™ — Part VII Evidence & Constitutional Evolution is the constitutional mechanism for ongoing discipline improvement' },
+      { type: 'depends_on', targetId: 'TI-044', description: 'Depends on Divergence Acceleration Law™ as the governing economic law that makes this entire constitutional structure necessary and valuable' },
+    ],
+    relatedIds: ['TI-048', 'TI-049', 'TI-050', 'TI-001', 'TI-016', 'TI-044', 'TI-012', 'TI-010'],
+  },
+
   // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================

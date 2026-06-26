@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Constitution of Transformation Intelligence™ | TI Registry™',
   description:
-    'The governing principles behind The Lens™ and Transformation Intelligence™. 103 principles across 9 categories — each versioned, citable, and machine-readable. Includes TI-050 Constitutional Canon™ (Appendix B — seven-category classification system), TI-049 Terminology Convention™ (Appendix A), TI-048 Constitutional Style Guide, Book XII — Transformation Signal Network™ (TSN™), Book I — The Economics of Transformation (DAL™), Book IV — Transformation Absorbability™, Book IX — SAFE™, Book VIII — Distributed Transformation Infrastructure™, Book V — The Future Firm™, Book VI — Unlock Science™, Book II — Organizational Dynamics, and Book VII — Enterprise Value Architecture™.',
+    'The governing principles behind The Lens™ and Transformation Intelligence™. 104 principles across 9 categories — each versioned, citable, and machine-readable. Includes TI-051 Master Constitutional Structure™ v5.0 (self-governing constitution), TI-050 Constitutional Canon™ (Appendix B), TI-049 Terminology Convention™ (Appendix A), TI-048 Constitutional Style Guide, Book XII — Transformation Signal Network™ (TSN™), Book I — The Economics of Transformation (DAL™), Book IV — Transformation Absorbability™, Book IX — SAFE™, Book VIII — Distributed Transformation Infrastructure™, Book V — The Future Firm™, Book VI — Unlock Science™, Book II — Organizational Dynamics, and Book VII — Enterprise Value Architecture™.',
 };
 
 const statusColors: Record<string, string> = {
@@ -106,11 +106,29 @@ export default function ConstitutionPage() {
           &nbsp;|&nbsp; Published June 23, 2026
         </p>
         <p className="mt-3 mx-auto max-w-xl text-sm italic text-slate-400">
-          Now includes TI-050 — Constitutional Canon™ (Appendix B): the seven-category classification system for all TI™ concepts. Foundations → Laws → Measurements → Architectures → Methods → Applications → Evidence. This constitution describes a discipline, not a product catalog.
+          Now includes TI-051 — Master Constitutional Structure™ v5.0: the complete seven-part organizational framework. 104 principles, 9 books, self-governing constitution. This constitution describes a discipline, not a product catalog.
         </p>
         <p className="mt-2 text-xs text-slate-400">
           © 2026 Leider Capital. All Rights Reserved. All principles and named methodologies are proprietary to Leider Capital.
         </p>
+      </section>
+
+      {/* Master Constitutional Preamble */}
+      <section className="border-b border-slate-200 bg-slate-50 px-6 py-8">
+        <div className="mx-auto max-w-4xl">
+          <div className="rounded-lg border border-slate-300 bg-white px-8 py-6">
+            <p className="mb-4 text-base text-slate-700 leading-relaxed">
+              &ldquo;Transformation Intelligence™ is the discipline that explains how organizations convert identity into enterprise value through the coordinated application of knowledge, intelligence, organizational cognition, and transformation.&rdquo;
+            </p>
+            <p className="mb-4 text-sm text-slate-600 leading-relaxed">
+              This Constitution establishes the foundational concepts, governing laws, measurement systems, architectures, methods, applications, and evidentiary standards of the discipline.
+            </p>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <p className="text-xs font-semibold text-slate-500">Version 5.0 &nbsp;|&nbsp; 104 Principles &nbsp;|&nbsp; 9 Books &nbsp;|&nbsp; Self-Governing Constitution</p>
+              <Link href="/constitution/ti-051" className="text-xs font-medium text-slate-500 hover:text-slate-700 hover:underline whitespace-nowrap">View Master Constitutional Structure™ →</Link>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Stats bar */}
@@ -416,6 +434,43 @@ export default function ConstitutionPage() {
             <p className="text-xs text-slate-500 leading-relaxed">
               Observe → Interpret → Connect → Decide → Execute → Measure → Learn → Publish → Observe Again ↺
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Constitutional Appendices section */}
+      <section className="mx-auto max-w-4xl px-6 pt-12 pb-0">
+        <div className="rounded-lg border border-slate-200 bg-white px-6 py-5">
+          <p className="mb-4 text-sm font-semibold text-slate-700 uppercase tracking-wide">Constitutional Appendices</p>
+          <div className="space-y-2">
+            {[
+              { id: 'A', name: 'Terminology Convention', principleId: 'TI-049', slug: 'ti-049', status: 'Ratified' },
+              { id: 'B', name: 'Constitutional Canon', principleId: 'TI-050', slug: 'ti-050', status: 'Ratified' },
+              { id: 'C', name: 'Definitions', principleId: null, slug: null, status: 'Pending' },
+              { id: 'D', name: 'Symbol Dictionary', principleId: null, slug: null, status: 'Pending' },
+              { id: 'E', name: 'Mathematical Notation', principleId: null, slug: null, status: 'Pending' },
+              { id: 'F', name: 'Version History', principleId: null, slug: null, status: 'Pending' },
+              { id: 'G', name: 'Referenced Frameworks', principleId: null, slug: null, status: 'Pending' },
+              { id: 'H', name: 'Glossary', principleId: null, slug: null, status: 'Pending' },
+            ].map(a => (
+              <div key={a.id} className="flex items-center justify-between border-b border-slate-100 py-2 last:border-0">
+                <div className="flex items-center gap-3">
+                  <span className="w-6 text-xs font-bold text-slate-500">{a.id}</span>
+                  <span className={`text-sm ${a.status === 'Ratified' ? 'text-slate-800 font-medium' : 'text-slate-400'}`}>{a.name}</span>
+                  {a.principleId && <span className="font-mono text-xs text-slate-400">{a.principleId}</span>}
+                </div>
+                <div className="flex items-center gap-2">
+                  {a.status === 'Ratified' ? (
+                    <>
+                      <span className="text-xs font-semibold text-green-700">✓ Ratified</span>
+                      {a.slug && <Link href={`/constitution/${a.slug}`} className="text-xs text-slate-400 hover:text-slate-600 hover:underline">View →</Link>}
+                    </>
+                  ) : (
+                    <span className="text-xs text-slate-300">Pending</span>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

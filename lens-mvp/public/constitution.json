@@ -2839,6 +2839,51 @@
           "targetId": "TI-016"
         }
       ]
+    },
+    {
+      "id": "TI-051",
+      "slug": "ti-051",
+      "name": "Master Constitutional Structure™",
+      "status": "Ratified",
+      "version": "5.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book I — Constitutional Governance",
+      "constitutionId": "Master Constitutional Structure v5.0",
+      "oid": "OID-2026-TI-MCS-001",
+      "lensUri": "lens://constitution/ti-051",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-051",
+      "canon": "I-Foundations",
+      "lkasCompliant": true,
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-050"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-049"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-048"
+        },
+        {
+          "type": "applies_to",
+          "targetId": "TI-001"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-016"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-044"
+        }
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -2846,7 +2891,7 @@
   "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 103,
+  "totalPrinciples": 104,
   "lastUpdated": "2026-06-25",
   "constitutionalArchitecture": {
     "name": "Opportunity Hierarchy™",
@@ -3050,6 +3095,109 @@
           "Case studies",
           "Longitudinal research"
         ]
+      }
+    ]
+  },
+  "masterStructure": {
+    "version": "5.0",
+    "principleId": "TI-051",
+    "ratified": "2026-06-25",
+    "totalPrinciples": 104,
+    "totalBooks": 9,
+    "canonicalUrl": "https://lensanalysis.com/constitution/ti-051",
+    "preamble": "Transformation Intelligence™ is the discipline that explains how organizations convert identity into enterprise value through the coordinated application of knowledge, intelligence, organizational cognition, and transformation.",
+    "parts": [
+      {
+        "number": "I",
+        "name": "Foundations",
+        "purpose": "Define universal concepts upon which the discipline is built",
+        "question": "What exists?"
+      },
+      {
+        "number": "II",
+        "name": "Laws",
+        "purpose": "Define governing principles explaining organizational behavior",
+        "question": "Why does transformation behave this way?"
+      },
+      {
+        "number": "III",
+        "name": "Measurements",
+        "purpose": "Define the quantitative language of TI™",
+        "question": "How can it be measured?"
+      },
+      {
+        "number": "IV",
+        "name": "Architectures",
+        "purpose": "Describe structural systems through which transformation occurs",
+        "question": "How is it structured?"
+      },
+      {
+        "number": "V",
+        "name": "Methods",
+        "purpose": "Define repeatable methodologies",
+        "question": "How is it applied?"
+      },
+      {
+        "number": "VI",
+        "name": "Applications",
+        "purpose": "Operationalize the discipline",
+        "question": "How is it delivered?"
+      },
+      {
+        "number": "VII",
+        "name": "Evidence & Constitutional Evolution",
+        "purpose": "Ensure continuous improvement through observation and learning",
+        "question": "How do we know?"
+      }
+    ],
+    "appendices": [
+      {
+        "id": "A",
+        "name": "Terminology Convention",
+        "principleId": "TI-049",
+        "status": "Ratified"
+      },
+      {
+        "id": "B",
+        "name": "Constitutional Canon",
+        "principleId": "TI-050",
+        "status": "Ratified"
+      },
+      {
+        "id": "C",
+        "name": "Definitions",
+        "principleId": null,
+        "status": "Pending"
+      },
+      {
+        "id": "D",
+        "name": "Symbol Dictionary",
+        "principleId": null,
+        "status": "Pending"
+      },
+      {
+        "id": "E",
+        "name": "Mathematical Notation",
+        "principleId": null,
+        "status": "Pending"
+      },
+      {
+        "id": "F",
+        "name": "Version History",
+        "principleId": null,
+        "status": "Pending"
+      },
+      {
+        "id": "G",
+        "name": "Referenced Frameworks",
+        "principleId": null,
+        "status": "Pending"
+      },
+      {
+        "id": "H",
+        "name": "Glossary",
+        "principleId": null,
+        "status": "Pending"
       }
     ]
   }
