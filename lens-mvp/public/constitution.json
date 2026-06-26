@@ -2419,6 +2419,162 @@
           "targetId": "TI-019"
         }
       ]
+    },
+    {
+      "id": "TI-040",
+      "slug": "ti-040",
+      "name": "Transformation Absorbability Principle™ (TAP™)",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book IV — Transformation Absorbability™",
+      "oid": "OID-2026-TI-TAP-001",
+      "lensUri": "lens://constitution/ti-040",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-040",
+      "lkasCompliant": true,
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-004"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-038"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-302"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-301"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-008"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-041"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-043"
+        }
+      ]
+    },
+    {
+      "id": "TI-041",
+      "slug": "ti-041",
+      "name": "Identity Preservation Principle™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book IV — Transformation Absorbability™",
+      "oid": "OID-2026-TI-IPP-001",
+      "lensUri": "lens://constitution/ti-041",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-041",
+      "lkasCompliant": true,
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-040"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-502"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-503"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-005"
+        }
+      ]
+    },
+    {
+      "id": "TI-042",
+      "slug": "ti-042",
+      "name": "Transformation Friction Principle™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book IV — Transformation Absorbability™",
+      "oid": "OID-2026-TI-TFP-001",
+      "lensUri": "lens://constitution/ti-042",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-042",
+      "lkasCompliant": true,
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-040"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-305"
+        },
+        {
+          "type": "applies_to",
+          "targetId": "TI-605"
+        },
+        {
+          "type": "measured_by",
+          "targetId": "TI-043"
+        }
+      ]
+    },
+    {
+      "id": "TI-043",
+      "slug": "ti-043",
+      "name": "Transformation Absorbability Score™ (TAS™)",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-25",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book IV — Transformation Absorbability™",
+      "oid": "OID-2026-TI-TAS-001",
+      "lensUri": "lens://constitution/ti-043",
+      "canonicalUrl": "https://lensanalysis.com/constitution/ti-043",
+      "lkasCompliant": true,
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-040"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-004"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-039"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-601"
+        },
+        {
+          "type": "applies_to",
+          "targetId": "TI-801"
+        }
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -2426,7 +2582,7 @@
   "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 92,
+  "totalPrinciples": 96,
   "lastUpdated": "2026-06-25",
   "constitutionalArchitecture": {
     "name": "Opportunity Hierarchy™",
