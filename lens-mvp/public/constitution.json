@@ -2999,6 +2999,121 @@
           "targetId": "TI-015"
         }
       ]
+    },
+    {
+      "id": "TI-055",
+      "slug": "ti-055",
+      "name": "Evidence Intelligence Principle\u2122 (EIP\u2122)",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-27",
+      "category": "Foundational Constitution",
+      "book": "Book XIV \u2014 Evidence Intelligence Pipeline\u2122",
+      "oid": "OID-2026-TI-EIP-001",
+      "lensUri": "lens://constitution/ti-055",
+      "principle": "Enterprise value is created by preserving the integrity of information as it moves from reality to organizational action.",
+      "stages": 12,
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-045"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-702"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-008"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-016"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-010"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-056"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-057"
+        }
+      ]
+    },
+    {
+      "id": "TI-056",
+      "slug": "ti-056",
+      "name": "Trust Gates\u2122",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-27",
+      "category": "Foundational Constitution",
+      "book": "Book XIV \u2014 Evidence Intelligence Pipeline\u2122",
+      "oid": "OID-2026-TI-TG-001",
+      "lensUri": "lens://constitution/ti-056",
+      "principle": "Each stage of the Evidence Intelligence Pipeline\u2122 shall contain a Trust Gate\u2122 before information advances to the next stage.",
+      "gateCount": 9,
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-055"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-015"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-302"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-010"
+        },
+        {
+          "type": "applies_to",
+          "targetId": "TI-003"
+        }
+      ]
+    },
+    {
+      "id": "TI-057",
+      "slug": "ti-057",
+      "name": "Continuous Transformation Principle\u2122",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-27",
+      "category": "Foundational Constitution",
+      "book": "Book XIV \u2014 Evidence Intelligence Pipeline\u2122",
+      "oid": "OID-2026-TI-CTP-001",
+      "lensUri": "lens://constitution/ti-057",
+      "principle": "Transformation is not a sequence of isolated projects. Transformation is a continuous organizational process.",
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-055"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-016"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-044"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-030"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-056"
+        }
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -3006,7 +3121,7 @@
   "addressingSystem": "LKAS\u2122",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 107,
+  "totalPrinciples": 110,
   "lastUpdated": "2026-06-25",
   "constitutionalArchitecture": {
     "name": "Opportunity Hierarchy\u2122",
@@ -3079,6 +3194,13 @@
       "id": "TI-044",
       "name": "Divergence Acceleration Law\u2122",
       "statement": "As intelligence becomes abundant, enterprise performance diverges because transformation capacity \u2014 not intelligence \u2014 becomes the scarce resource."
+    },
+    "pipelineReference": {
+      "id": "TI-055",
+      "name": "Evidence Intelligence Pipeline\u2122",
+      "stages": 12,
+      "trustGates": "TI-056",
+      "closingPrinciple": "TI-057"
     }
   },
   "styleGuide": {

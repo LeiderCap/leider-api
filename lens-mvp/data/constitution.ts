@@ -1906,6 +1906,112 @@ export const principles: Principle[] = [
   },
 
   // ============================================
+  // BOOK XIV — EVIDENCE INTELLIGENCE PIPELINE™
+  // ============================================
+
+  {
+    id: 'TI-055',
+    slug: 'ti-055',
+    name: 'Evidence Intelligence Principle™ (EIP™)',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-27',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book XIV — Evidence Intelligence Pipeline™',
+    oid: 'OID-2026-TI-EIP-001',
+    lensUri: 'lens://constitution/ti-055',
+    principle: 'Enterprise value is created by preserving the integrity of information as it moves from reality to organizational action. The Evidence Intelligence Pipeline™ is the operational architecture through which external reality becomes trusted organizational action. It governs the complete lifecycle of intelligence from observation to continuous learning.',
+    definition: 'The Evidence Intelligence Pipeline™ ensures that every organizational recommendation is Observable, Traceable, Explainable, Versioned, Evidence-based, and Continuously improvable. The pipeline exists to preserve trust across the complete transformation lifecycle. Twelve constitutional stages: Reality → Transformation Signal Network™ → Evidence Boundary Layer™ → Transformation Memory Architecture™ → Knowledge Addressing System™ → Knowledge Graph → Transformation Intelligence™ → Decision Visibility Infrastructure™ → Transformation Blueprint™ → Organizational Execution → Outcome Measurement → Continuous Learning.',
+    operatingLaw: 'The integrity of the pipeline determines the integrity of organizational decisions. An organization\'s capacity to transform is constrained by the weakest transition within its Evidence Intelligence Pipeline™. Every organizational outcome becomes new evidence for future transformation.',
+    implications: [
+      'Twelve Pipeline Stages: Stage 1 Reality (origin of all organizational intelligence — markets, customers, employees, science, financial performance, regulation, technology). Stage 2 Transformation Signal Network™ (observation, detection, classification, normalization — no conclusions produced). Stage 3 Evidence Boundary Layer™ (distinguishes verified evidence, supported inference, strategic interpretation, hypothesis, speculation — integrity before reasoning). Stage 4 Transformation Memory Architecture™ (preserves evidence, signals, decisions, outcomes, principles, corrections, version history). Stage 5 Knowledge Addressing System™ (permanent identity for every knowledge object). Stage 6 Knowledge Graph (knowledge objects become connected across organizations, principles, industries, technologies, opportunities). Stage 7 Transformation Intelligence™ (connected knowledge becomes understanding — meaning, implications, dependencies, constraints, opportunities). Stage 8 Decision Visibility Infrastructure™ (understanding becomes observable decision-making — intent, alternatives, assumptions, evidence, trade-offs, owner, expected outcomes). Stage 9 Transformation Blueprint™ (observable decisions become executable transformation). Stage 10 Organizational Execution (coordinated work — resource allocation, operational change, technology deployment). Stage 11 Outcome Measurement (execution evaluated against reality — TC™, TE™, TY™, AROI™, EBS™). Stage 12 Continuous Learning (every outcome becomes a new Transformation Signal™, updating principles, evidence, blueprints, decision models, organizational memory).',
+      'Explainable Transformation — the full traceability chain: Reality → Transformation Signal™ → Evidence → Reasoning → Understanding → Decision → Blueprint → Execution → Outcome → Learning. Every organizational action shall remain traceable to the reality from which it originated.',
+      'Knowledge Continuity: Every recommendation shall preserve evidence provenance, decision history, version history, relationship history, and outcome history. No recommendation shall exist independently of its historical context.',
+      'Pipeline Integrity dimensions: Evidence integrity, Decision integrity, Knowledge continuity, Traceability, Explainability, Version control, Organizational learning, Value realization. Pipeline integrity is an enterprise capability.',
+      'Book XIV as operational backbone: Unifies all previous books into a single continuous system. Book XII (TSN™) observes reality. Evidence Boundary Layer™ governs integrity. Memory Architecture™ preserves knowledge. LKAS™ establishes identity. TI™ converts to understanding. DVI™ ensures transparency. Blueprint™ coordinates execution. Outcome Measurement evaluates value. Continuous Learning closes the loop. Rather than treating AI as a system that produces answers, EIP™ defines TI™ as a system that continuously converts reality into trustworthy decisions and decisions into measurable enterprise value through a transparent, auditable, and self-improving pipeline.',
+    ],
+    typedRelationships: [
+      { type: 'extends', targetId: 'TI-045', description: 'Extends Transformation Signal Principle™ — EIP™ shows where TSN™ fits in the complete 12-stage pipeline as Stage 2' },
+      { type: 'extends', targetId: 'TI-702', description: 'Extends Evidence Architecture™ — EIP™ is the complete pipeline within which Evidence Architecture™ operates as Stage 3' },
+      { type: 'implements', targetId: 'TI-008', description: 'Implements Intermediary Systems Principle™ — the 12-stage pipeline is the constitutional intermediary system between reality and enterprise value' },
+      { type: 'implements', targetId: 'TI-016', description: 'Implements Continuous Learning Law™ — Stage 12 is the constitutional mechanism closing the learning loop back to Stage 1 Reality' },
+      { type: 'depends_on', targetId: 'TI-010', description: 'Depends on Addressability Principle™ — Stage 5 Knowledge Addressing System™ requires LKAS™ for permanent identity of every knowledge object' },
+      { type: 'enables', targetId: 'TI-056', description: 'Enables Trust Gates™ as the constitutional integrity mechanism at each pipeline stage transition' },
+      { type: 'enables', targetId: 'TI-057', description: 'Enables Continuous Transformation Principle™ — the 12-stage pipeline institutionalizes continuous transformation' },
+    ],
+    relatedIds: ['TI-045', 'TI-702', 'TI-008', 'TI-016', 'TI-010', 'TI-056', 'TI-057', 'TI-301', 'TI-202', 'TI-012', 'TI-044'],
+  },
+
+  {
+    id: 'TI-056',
+    slug: 'ti-056',
+    name: 'Trust Gates™',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-27',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book XIV — Evidence Intelligence Pipeline™',
+    oid: 'OID-2026-TI-TG-001',
+    lensUri: 'lens://constitution/ti-056',
+    principle: 'Each stage of the Evidence Intelligence Pipeline™ shall contain a Trust Gate™ before information advances to the next stage. Information shall not advance through the pipeline until the trust requirements of the current stage have been satisfied.',
+    definition: 'Trust Gates™ are the constitutional integrity checkpoints within the Evidence Intelligence Pipeline™. Nine constitutional Trust Gates™: Signal Gate™ (validates Transformation Signal™ quality and classification), Evidence Gate™ (validates evidentiary integrity and classification level), Memory Gate™ (validates knowledge preservation completeness), Identity Gate™ (validates permanent addressing per LKAS™), Relationship Gate™ (validates knowledge connectivity), Interpretation Gate™ (validates reasoning quality and assumption transparency), Decision Gate™ (validates decision visibility and evidence support), Execution Gate™ (validates blueprint completeness and resource alignment), Learning Gate™ (validates outcome capture and learning integration).',
+    operatingLaw: 'The purpose of each Trust Gate™ is to preserve the integrity of organizational knowledge. A failed Trust Gate™ pauses pipeline progression — it does not skip or override. This is the constitutional basis for the Company Identity Verification Gate™ already implemented in the Truth Engine™: that gate is the constitutional Identity Gate™ (Stage 5) applied to the Lens Analysis™ pipeline.',
+    implications: [
+      'Trust Gates™ make the Evidence Intelligence Pipeline™ auditable at every transition — not just at the final output. An organization can inspect which gate failed and why, enabling precise diagnosis of where intelligence integrity was compromised.',
+      'Constitutional connection to existing platform: The Company Identity Verification Gate™ (Truth Engine™) = Identity Gate™ (Stage 5). The Retrieval Pipeline Inspector™ = Signal Gate™ (Stage 2) audit log. The Ground Truth Object™ = Memory Gate™ (Stage 4) output. The Evidence Architecture™ info bubbles on TCS™ scores = Evidence Gate™ (Stage 3) display. Every Truth Engine™ component already built maps to a constitutional Trust Gate™.',
+      'Trust Gates™ implement the Verification Principle™ from EIAP™ (TI-021 Corollary 5): \'AI-generated intelligence creates value only when organizations possess adequate verification infrastructure. Trust is produced by evidence. Not generation.\' Trust Gates™ are the constitutional verification infrastructure.',
+      'Future platform implication: Every Lens Analysis™ result page should eventually show a Trust Gate™ status panel — which gates passed, which were flagged, and what the user can do to strengthen pipeline integrity for this specific analysis.',
+    ],
+    typedRelationships: [
+      { type: 'derived_from', targetId: 'TI-055', description: 'Constitutional integrity mechanism derived from Evidence Intelligence Pipeline™ — one Trust Gate™ per stage transition' },
+      { type: 'implements', targetId: 'TI-015', description: 'Implements Evidence Sufficiency Law™ — Evidence Gate™ and Learning Gate™ are the pipeline enforcement mechanisms for TI-015' },
+      { type: 'implements', targetId: 'TI-302', description: 'Implements Trust Infrastructure Principle™ — Trust Gates™ are the operational architecture of trust infrastructure in the intelligence pipeline' },
+      { type: 'extends', targetId: 'TI-010', description: 'Extends Addressability Principle™ — the Identity Gate™ is the LKAS™ enforcement checkpoint within the pipeline' },
+      { type: 'applies_to', targetId: 'TI-003', description: 'Applies to The Lens™ — every existing Truth Engine™ component maps to a named Trust Gate™' },
+    ],
+    relatedIds: ['TI-055', 'TI-015', 'TI-302', 'TI-010', 'TI-003', 'TI-023', 'TI-702', 'TI-021'],
+  },
+
+  {
+    id: 'TI-057',
+    slug: 'ti-057',
+    name: 'Continuous Transformation Principle™',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-27',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book XIV — Evidence Intelligence Pipeline™',
+    oid: 'OID-2026-TI-CTP-001',
+    lensUri: 'lens://constitution/ti-057',
+    principle: 'Transformation is not a sequence of isolated projects. Transformation is a continuous organizational process in which reality repeatedly informs evidence, evidence informs understanding, understanding informs action, and action generates new reality. Organizations that continuously preserve the integrity of this cycle will compound knowledge, trust, and enterprise value faster than organizations that treat transformation as episodic change.',
+    definition: 'The Continuous Transformation Principle™ institutionalizes the closed-loop nature of the Evidence Intelligence Pipeline™. The pipeline is not linear — it is circular. Stage 12 Continuous Learning feeds directly back into Stage 1 Reality as new Transformation Signals™, meaning every completed transformation makes future transformations more intelligent, more efficient, and more evidence-grounded. The value of intelligence is realized only when organizational learning permanently improves future decisions.',
+    operatingLaw: 'Organizations shall continuously compare expected outcomes against actual outcomes, identify observed variance, update evidence, and update principles. Learning becomes institutional rather than individual. The Divergence Acceleration Law™ (TI-044) operates through this principle — organizations that maintain continuous transformation cycles compound their advantage while organizations that treat transformation episodically accumulate organizational inertia.',
+    implications: [
+      'Continuous Transformation distinguishes The Lens™ from conventional consulting: Consulting produces a report, then exits. The Lens™ produces an analysis that feeds into a continuous pipeline — each completed transformation becomes a new Signal, updates the Ground Truth Object™, improves future scoring calibration, and strengthens the Opportunity Atlas™.',
+      'Organizational Learning requirements for constitutional compliance: Expected outcomes documented before execution. Actual outcomes measured after execution. Variance identified and explained. Evidence updated in Transformation Memory Architecture™. Principles updated where evidence warrants. The pipeline does not close until learning is captured.',
+      'CTP™ is the constitutional basis for the Transformation Cloud™ (TI-034 Marketplace implication) — aggregating anonymized execution patterns across organizations creates a network-level continuous transformation capability that compounds across all participants.',
+      'CTP™ extends the Continuous Learning Law™ (TI-016) from a principle into an organizational architecture requirement — it is not sufficient to acknowledge that learning should be continuous. The pipeline must be structurally designed to make discontinuous learning impossible.',
+    ],
+    typedRelationships: [
+      { type: 'derived_from', targetId: 'TI-055', description: 'Closing principle of the Evidence Intelligence Pipeline™ — CTP™ is what makes the 12-stage pipeline circular rather than linear' },
+      { type: 'extends', targetId: 'TI-016', description: 'Extends Continuous Learning Law™ from principle to architectural requirement — the pipeline must be structurally designed for continuous learning' },
+      { type: 'implements', targetId: 'TI-044', description: 'Implements Divergence Acceleration Law™ — CTP™ is the organizational architecture through which the compounding advantage described in DAL™ is operationally achieved' },
+      { type: 'extends', targetId: 'TI-030', description: 'Extends Distributed Transformation Infrastructure™ — CTP™ establishes that DTI™ must be continuous, not episodic' },
+      { type: 'depends_on', targetId: 'TI-056', description: 'Depends on Trust Gates™ — continuous transformation is only valuable if each cycle maintains pipeline integrity through all nine gates' },
+    ],
+    relatedIds: ['TI-055', 'TI-056', 'TI-016', 'TI-044', 'TI-030', 'TI-034', 'TI-202', 'TI-011'],
+  },
+
+  // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================
 

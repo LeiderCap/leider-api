@@ -408,6 +408,26 @@ Canonical: https://lensanalysis.com/constitution/ti-054
 
 https://lensanalysis.com/constitution/ti-054
 
+## Book XIV — Evidence Intelligence Pipeline™ (EIP™)
+EIP™ (TI-055): The 12-stage operational architecture through which reality becomes trusted organizational action.
+Stages: Reality → Signal → Evidence → Memory → Identity → Knowledge → Understanding → Decision → Blueprint → Execution → Measurement → Learning ↺
+Operating Law: The integrity of the pipeline determines the integrity of organizational decisions. An organization's capacity to transform is constrained by the weakest transition within its Evidence Intelligence Pipeline™.
+Canonical: https://lensanalysis.com/constitution/ti-055
+
+https://lensanalysis.com/constitution/ti-055
+
+Trust Gates™ (TI-056): Constitutional integrity checkpoints at every pipeline stage transition. Nine gates: Signal Gate™, Evidence Gate™, Memory Gate™, Identity Gate™, Relationship Gate™, Interpretation Gate™, Decision Gate™, Execution Gate™, Learning Gate™.
+The Company Identity Verification Gate™ in the Truth Engine™ is the constitutional Identity Gate™ (Stage 5).
+Canonical: https://lensanalysis.com/constitution/ti-056
+
+https://lensanalysis.com/constitution/ti-056
+
+Continuous Transformation Principle™ (TI-057): Transformation is not episodic. The pipeline is circular — Stage 12 learning feeds back into Stage 1 reality, making every completed transformation more intelligent than the last.
+DAL™ connection: Organizations that maintain continuous transformation cycles compound their advantage while organizations that treat transformation episodically accumulate organizational inertia.
+Canonical: https://lensanalysis.com/constitution/ti-057
+
+https://lensanalysis.com/constitution/ti-057
+
 ## Constitutional Canon™ (Appendix B)
 TI-050 establishes the seven-category classification system for all Transformation Intelligence™ concepts.
 Canonical Progression: Foundations → Laws → Measurements → Architectures → Methods → Applications → Evidence → Constitutional Evolution.

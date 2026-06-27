@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Constitution of Transformation Intelligence™ | TI Registry™',
   description:
-    'The governing principles behind The Lens™ and Transformation Intelligence™. 107 principles across 9 categories — each versioned, citable, and machine-readable. Includes TI-053 Product Constitution™ (seven-phase development roadmap), TI-052 TIBOK™ (Body of Knowledge), TI-051 Master Constitutional Structure™ v5.0 (self-governing constitution), TI-050 Constitutional Canon™ (Appendix B), TI-049 Terminology Convention™ (Appendix A), TI-048 Constitutional Style Guide, Book XII — Transformation Signal Network™ (TSN™), Book I — The Economics of Transformation (DAL™), Book IV — Transformation Absorbability™, Book IX — SAFE™, Book VIII — Distributed Transformation Infrastructure™, Book V — The Future Firm™, Book VI — Unlock Science™, Book II — Organizational Dynamics, and Book VII — Enterprise Value Architecture™.',
+    'The governing principles behind The Lens™ and Transformation Intelligence™. 110 principles across 9 categories — each versioned, citable, and machine-readable. Includes TI-053 Product Constitution™ (seven-phase development roadmap), TI-052 TIBOK™ (Body of Knowledge), TI-051 Master Constitutional Structure™ v5.0 (self-governing constitution), TI-050 Constitutional Canon™ (Appendix B), TI-049 Terminology Convention™ (Appendix A), TI-048 Constitutional Style Guide, Book XII — Transformation Signal Network™ (TSN™), Book I — The Economics of Transformation (DAL™), Book IV — Transformation Absorbability™, Book IX — SAFE™, Book VIII — Distributed Transformation Infrastructure™, Book V — The Future Firm™, Book VI — Unlock Science™, Book II — Organizational Dynamics, and Book VII — Enterprise Value Architecture™.',
 };
 
 const statusColors: Record<string, string> = {
@@ -106,7 +106,7 @@ export default function ConstitutionPage() {
           &nbsp;|&nbsp; Published June 23, 2026
         </p>
         <p className="mt-3 mx-auto max-w-xl text-sm italic text-slate-400">
-          Now includes TI-054 — Constitutional Drafting Standard: the final constitutional addition before platform proof phase. 107 principles, 9 books, self-governing constitution. Trademarks identify proprietary systems. Constitutional language explains universal principles.
+          Now includes Book XIV — Evidence Intelligence Pipeline™ (TI-055/056/057): the 12-stage operational backbone through which reality becomes trusted organizational action. Constitutional expansion phase complete per TI-053. 110 principles, 9 books, self-governing constitution.
         </p>
         <p className="mt-2 text-xs text-slate-400">
           © 2026 Leider Capital. All Rights Reserved. All principles and named methodologies are proprietary to Leider Capital.
@@ -124,7 +124,7 @@ export default function ConstitutionPage() {
               This Constitution establishes the foundational concepts, governing laws, measurement systems, architectures, methods, applications, and evidentiary standards of the discipline.
             </p>
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <p className="text-xs font-semibold text-slate-500">Version 5.0 &nbsp;|&nbsp; 107 Principles &nbsp;|&nbsp; 9 Books &nbsp;|&nbsp; Self-Governing Constitution</p>
+              <p className="text-xs font-semibold text-slate-500">Version 5.0 &nbsp;|&nbsp; 110 Principles &nbsp;|&nbsp; 9 Books &nbsp;|&nbsp; Self-Governing Constitution</p>
               <Link href="/constitution/ti-051" className="text-xs font-medium text-slate-500 hover:text-slate-700 hover:underline whitespace-nowrap">View Master Constitutional Structure™ →</Link>
             </div>
           </div>
@@ -441,6 +441,35 @@ export default function ConstitutionPage() {
         </div>
       </section>
 
+      {/* Book XIV — Evidence Intelligence Pipeline™ featured group */}
+      <section className="mx-auto max-w-4xl px-6 pt-12 pb-0">
+        <div className="mb-10 rounded-xl border-2 border-cyan-200 bg-cyan-50 p-8">
+          <div className="mb-2 flex flex-wrap items-center gap-3">
+            <h2 className="text-xl font-bold text-slate-900">Book XIV — Evidence Intelligence Pipeline™ (EIP™)</h2>
+            <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-800">Ratified</span>
+          </div>
+          <p className="mb-2 text-sm text-slate-600">The operational backbone of Transformation Intelligence™ — the 12-stage constitutional architecture through which reality becomes trusted organizational action and action becomes new evidence.</p>
+          <p className="mb-6 text-xs italic text-cyan-700">&ldquo;Enterprise value is created by preserving the integrity of information as it moves from reality to organizational action.&rdquo;</p>
+          <div className="space-y-3">
+            {principles.filter(p => ['TI-055','TI-056','TI-057'].includes(p.id)).map((p) => (
+              <div key={p.id} className="flex items-center justify-between rounded-lg border border-cyan-200 bg-white px-5 py-3">
+                <div className="flex items-center gap-3">
+                  <span className="font-mono text-sm font-bold text-cyan-700">{p.id}</span>
+                  <span className="text-sm font-semibold text-slate-800">{p.name}</span>
+                </div>
+                <Link href={`/constitution/${p.slug}`} className="text-xs font-medium text-cyan-700 hover:underline">Read →</Link>
+              </div>
+            ))}
+          </div>
+          <div className="mt-5 border-t border-cyan-200 pt-4">
+            <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-cyan-600">12-Stage Evidence Intelligence Pipeline™</p>
+            <p className="text-xs text-slate-500 leading-relaxed">
+              Reality → Signal → Evidence → Memory → Identity → Knowledge → Understanding → Decision → Blueprint → Execution → Measurement → Learning ↺
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Constitutional Appendices section */}
       <section className="mx-auto max-w-4xl px-6 pt-12 pb-0">
         <div className="rounded-lg border border-slate-200 bg-white px-6 py-5">
@@ -564,6 +593,15 @@ export default function ConstitutionPage() {
             )}
           </div>
           <p className="mt-8 text-center text-xs text-slate-500">Market → Opportunity Zones™ → Company → Unlock Potential™ → Equity Reclamation™ → Mechanism → Blueprint™ → Transformation Compiler™ → Packets™ → SAFE™ → Realized Value</p>
+          <div className="mt-8 rounded-lg border border-cyan-800/40 bg-cyan-900/20 px-5 py-4 text-center">
+            <p className="text-xs text-cyan-300">
+              The{' '}
+              <Link href="/constitution/ti-055" className="font-semibold underline hover:text-cyan-200">Evidence Intelligence Pipeline™ (TI-055)</Link>{' '}
+              provides the 12-stage operational architecture governing each transition in this flow.{' '}
+              <Link href="/constitution/ti-056" className="font-semibold underline hover:text-cyan-200">Trust Gates™ (TI-056)</Link>{' '}
+              validate integrity at every stage.
+            </p>
+          </div>
         </div>
       </section>
 
