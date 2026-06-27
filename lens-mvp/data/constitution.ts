@@ -1867,6 +1867,44 @@ export const principles: Principle[] = [
     relatedIds: ['TI-052', 'TI-003', 'TI-015', 'TI-016', 'TI-044', 'TI-012', 'TI-051', 'TI-050'],
   },
 
+  {
+    id: 'TI-054',
+    slug: 'ti-054',
+    name: 'Constitutional Drafting Standard — Trademark Usage™',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-25',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book I — Constitutional Governance',
+    oid: 'OID-2026-TI-CDS-001',
+    lensUri: 'lens://constitution/ti-054',
+    canon: 'I-Foundations',
+    principle: 'Trademarks identify proprietary systems. Constitutional language explains universal principles. The Constitution should read like a governing framework, not a trademark registry. Trademark protection is strongest when applied selectively to proprietary intellectual property and omitted from universal concepts.',
+    definition: 'The Constitutional Drafting Standard establishes consistent trademark usage across all Transformation Intelligence™ publications. It distinguishes between: proprietary intellectual property (™ retained), constitutional doctrine (no ™ on explanatory language), taxonomies and classifications (no ™ on structural components), scientific and common language (no ™ on universal terminology), and named metrics unique to TI™ (™ retained). The Constitution should communicate with the precision of law, the clarity of science, and the permanence of institutional doctrine.',
+    operatingLaw: 'Editorial Test — three questions before assigning ™: 1. Is this a proprietary product, framework, metric, or methodology unique to Transformation Intelligence™? If yes, retain ™. 2. Is this a universal concept, classification, stage, or explanatory term? If yes, omit ™. 3. Would the term still make sense in an academic textbook or constitutional document without the trademark? If yes, omit ™ unless it identifies proprietary IP.',
+    implications: [
+      'Rule I — Trademark Proprietary Systems (™ retained): proprietary products, frameworks, methodologies, metrics, and branded architectural components. Examples: Transformation Intelligence™, The Lens™, Lens Analysis™, Transformation Signal Network™, Decision Visibility Infrastructure™, Transformation Capacity™, Transformation Efficiency™.',
+      'Rule II — Constitutional Doctrine: Constitutional articles, principles, and explanatory language avoid unnecessary ™ unless referencing a formally named proprietary framework. Correct: \'Organizations create value by converting evidence into coordinated action.\' Not: \'Organizations create value by converting Evidence™ into Coordinated Action™.\' The Constitution explains ideas. It does not trademark every noun.',
+      'Rule III — Taxonomies and Classifications: Categories, stages, levels, and taxonomies are constitutional classifications, not proprietary names. No ™. Examples: Five Evidence Layers, Verified Evidence, Supported Inference, Observation, Pattern, Validated Pattern, Hypothesis, Speculation.',
+      'Rule IV — Scientific and Common Language: Widely recognized scientific, legal, financial, and organizational terminology remains unmarked. Examples: Evidence, Intelligence, Trust, Governance, Finance, Leadership, Strategy, Biology, Transformation, Decision, Organization.',
+      'Rule V — Metrics and Named Indices: Named metrics unique to TI™ retain ™. Examples: Transformation Capacity™, Transformation Efficiency™, Decision Capital™, Intelligence Utilization™.',
+      'Rule VI — Constitutional Progressions: Sequential models and maturity progressions written without ™. The progression represents the evolution of knowledge, not a collection of proprietary products.',
+      'Rule VII — Visual Simplicity: ™ used sparingly. Overuse reduces readability and diminishes the visual distinction of genuinely proprietary concepts. The Constitution should appear authoritative, academic, legislative, durable, and timeless — not promotional.',
+      'Reference Table — Use ™: Company/platform (Transformation Intelligence™, The Lens™), Products (Lens Analysis™, Transformation Blueprint™), Proprietary frameworks, Proprietary metrics, Architectural components. Omit ™: Generic concepts (Evidence, Trust, Knowledge, Governance), Taxonomies, Maturity stages, Constitutional articles, Scientific terminology.',
+      'Relationship to TI-048/049: TI-054 is the operational drafting standard that extends TI-048 (seven-rule trademark framework) and TI-049 (Terminology Convention) with the Editorial Test, reference table, and visual simplicity principle. Together TI-048, TI-049, and TI-054 constitute the complete constitutional style governance system.',
+    ],
+    typedRelationships: [
+      { type: 'extends', targetId: 'TI-048', description: 'Extends Trademark Convention Principle™ with the Editorial Test, reference table, and Rule II constitutional doctrine distinction' },
+      { type: 'extends', targetId: 'TI-049', description: 'Extends Terminology Convention — TI-054 provides the operational drafting standard for applying TI-049\'s trademark rules in practice' },
+      { type: 'applies_to', targetId: 'TI-053', description: 'Applies to Product Constitution™ — all future platform documentation shall follow this drafting standard' },
+      { type: 'implements', targetId: 'TI-015', description: 'Implements Evidence Sufficiency Law™ at the editorial level — clear trademark standards make constitutional claims more defensible and reproducible' },
+    ],
+    relatedIds: ['TI-048', 'TI-049', 'TI-050', 'TI-051', 'TI-053', 'TI-015'],
+  },
+
   // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================

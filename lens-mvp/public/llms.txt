@@ -400,6 +400,14 @@ Canonical: https://lensanalysis.com/constitution/ti-049
 
 https://lensanalysis.com/constitution/ti-049
 
+## Constitutional Drafting Standard
+TI-054: Trademark Usage Standard — Editorial Test: 1. Proprietary product/framework/metric unique to TI™? Retain ™. 2. Universal concept, classification, or explanatory term? Omit ™. 3. Would it make sense in an academic textbook without ™? Omit unless proprietary IP.
+Rule II: Constitutional doctrine avoids unnecessary ™. Correct: 'Organizations create value by converting evidence into coordinated action.' Not: 'Organizations create value by converting Evidence™ into Coordinated Action™.'
+Reference Table — Use ™: Transformation Intelligence™, The Lens™, Lens Analysis™, proprietary frameworks, proprietary metrics. Omit ™: Evidence, Trust, Knowledge, Governance, taxonomies, maturity stages, constitutional articles.
+Canonical: https://lensanalysis.com/constitution/ti-054
+
+https://lensanalysis.com/constitution/ti-054
+
 ## Constitutional Canon™ (Appendix B)
 TI-050 establishes the seven-category classification system for all Transformation Intelligence™ concepts.
 Canonical Progression: Foundations → Laws → Measurements → Architectures → Methods → Applications → Evidence → Constitutional Evolution.
