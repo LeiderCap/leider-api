@@ -428,6 +428,11 @@ Canonical: https://lensanalysis.com/constitution/ti-057
 
 https://lensanalysis.com/constitution/ti-057
 
+Measurement Integrity Principle™ (TI-058): Every metric is a model of reality — not reality itself. Organizations do not optimize reality; they optimize what they measure. Five Integrity Layers: Construct, Behavioral, Causal, Temporal, System. As AI lowers the cost of producing answers, the limiting factor becomes the quality of the measurements guiding those systems. Measurement Integrity is not a reporting discipline — it is a decision discipline.
+Canonical: https://lensanalysis.com/constitution/ti-058
+
+https://lensanalysis.com/constitution/ti-058
+
 ## Constitutional Canon™ (Appendix B)
 TI-050 establishes the seven-category classification system for all Transformation Intelligence™ concepts.
 Canonical Progression: Foundations → Laws → Measurements → Architectures → Methods → Applications → Evidence → Constitutional Evolution.

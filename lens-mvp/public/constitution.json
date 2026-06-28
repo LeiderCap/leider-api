@@ -3114,6 +3114,45 @@
           "targetId": "TI-056"
         }
       ]
+    },
+    {
+      "id": "TI-058",
+      "slug": "ti-058",
+      "name": "Measurement Integrity Principle\u2122",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-27",
+      "category": "Foundational Constitution",
+      "book": "Book XIV \u2014 Evidence Intelligence Pipeline\u2122",
+      "oid": "OID-2026-TI-MIP-001",
+      "lensUri": "lens://constitution/ti-058",
+      "principle": "Every organizational measurement must be continuously validated to ensure it remains causally connected to the value it is intended to represent. No metric is permanently valid.",
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-055"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-702"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-015"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-013"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-044"
+        },
+        {
+          "type": "applies_to",
+          "targetId": "TI-004"
+        }
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -3121,7 +3160,7 @@
   "addressingSystem": "LKAS\u2122",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 110,
+  "totalPrinciples": 111,
   "lastUpdated": "2026-06-25",
   "constitutionalArchitecture": {
     "name": "Opportunity Hierarchy\u2122",

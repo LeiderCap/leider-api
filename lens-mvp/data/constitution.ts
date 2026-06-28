@@ -2011,6 +2011,43 @@ export const principles: Principle[] = [
     relatedIds: ['TI-055', 'TI-056', 'TI-016', 'TI-044', 'TI-030', 'TI-034', 'TI-202', 'TI-011'],
   },
 
+  {
+    id: 'TI-058',
+    slug: 'ti-058',
+    name: 'Measurement Integrity Principle™',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-27',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book XIV — Evidence Intelligence Pipeline™',
+    oid: 'OID-2026-TI-MIP-001',
+    lensUri: 'lens://constitution/ti-058',
+    principle: 'Every organizational measurement must be continuously validated to ensure it remains causally connected to the value it is intended to represent. No metric is permanently valid. Organizations do not optimize reality — they optimize what they measure. As measurements become targets, they naturally drift away from the realities they were originally designed to represent.',
+    definition: 'Measurement Integrity is the discipline of continuously validating that organizational measurements remain faithful representations of the outcomes they are intended to measure. Every metric is a model of reality — not reality itself — and all measurements are susceptible to distortion, incentive effects, and degradation over time. The purpose is to preserve the causal relationship between measurement and value creation. Core question: Can leadership trust the measurements driving organizational decisions?',
+    operatingLaw: 'As artificial intelligence lowers the cost of producing answers, analyses, and optimization, the limiting factor increasingly becomes the quality of the measurements used to guide those systems. Organizations that continuously validate their measurement systems will make better decisions than organizations that merely optimize them. Measurement Integrity is therefore not a reporting discipline — it is a decision discipline.',
+    implications: [
+      'Measurement Integrity Lifecycle™: Reality → Observation → Measurement → Optimization → Behavior Changes → System Adaptation → Measurement Drift → Value Divergence → Validation → Measurement Refinement. Every organizational metric progresses through this lifecycle.',
+      'Five Integrity Layers: Layer 1 Construct Integrity (does this measurement accurately represent the underlying construct? — outputs: Construct Validity Score, Definition Confidence). Layer 2 Behavioral Integrity (what behaviors does this metric encourage? — outputs: Behavioral Distortion Score, Incentive Alignment Score). Layer 3 Causal Integrity (does improvement in this metric produce meaningful organizational outcomes? — outputs: Causal Confidence Score, Value Linkage Score). Layer 4 Temporal Integrity (does this metric still measure what it once measured? — outputs: Metric Half-Life, Drift Risk Score). Layer 5 System Integrity (do the organization’s measurements function as an integrated system? — outputs: KPI Coherence Score, System Alignment Score).',
+      'Five Measurement Failure Modes: Construct Failure (the wrong thing is measured), Behavioral Failure (people optimize the metric instead of the outcome), Causal Failure (the metric improves while organizational performance does not), Temporal Failure (the metric loses predictive power as conditions change), System Failure (multiple metrics create conflicting incentives).',
+      'Indicators of Measurement Drift: Rapid KPI improvement without business improvement, high dashboard performance with declining outcomes, increasing manual intervention, incentive gaming, metric inflation, narrative disconnected from operational evidence, declining predictive accuracy, reduced decision quality despite improving scores.',
+      'Position within EIP™ architecture: Evidence Boundary Layer™ (asks: what do we know?) → Decision Visibility Infrastructure™ → Measurement Integrity (asks: are we measuring the right things?) → Transformation Capacity™ → Transformation Execution → Value Realization → Enterprise Value. Measurement Integrity acts as the verification layer between observed evidence and organizational action.',
+      'Relationship to Evidence Boundary Layer™: EBL™ asks “what do we know?” Measurement Integrity asks “are we measuring the right things?” Together they prevent organizations from making high-confidence decisions based on low-integrity measurements.',
+      'Platform implication: Every TCS™ dimension score in The Lens™ is subject to Measurement Integrity validation. The Causal Integrity layer is particularly relevant — does a high Governance dimension score actually predict better organizational outcomes? This is the empirical validation work that the Opportunity Atlas™ (TI-016) will eventually answer as transformation outcome data accumulates.',
+    ],
+    typedRelationships: [
+      { type: 'extends', targetId: 'TI-055', description: 'Extends Evidence Intelligence Pipeline™ — Measurement Integrity is the governance discipline for Stage 11 Outcome Measurement within EIP™' },
+      { type: 'depends_on', targetId: 'TI-702', description: 'Depends on Evidence Architecture™ — measurement validation requires the evidence infrastructure to compare metric performance against actual outcomes' },
+      { type: 'implements', targetId: 'TI-015', description: 'Implements Evidence Sufficiency Law™ at the measurement layer — no metric is constitutionally valid without causal evidence connecting it to enterprise value' },
+      { type: 'extends', targetId: 'TI-013', description: 'Extends Conservation of Enterprise Value™ Law — Measurement Integrity ensures that metrics track actual value creation rather than measurement artifacts' },
+      { type: 'implements', targetId: 'TI-044', description: 'Implements Divergence Acceleration Law™ at the measurement layer — organizations with high Measurement Integrity compound advantage because their decisions are guided by metrics that still reflect reality' },
+      { type: 'applies_to', targetId: 'TI-004', description: 'Applies to Transformation Capacity™ — TCS™ scores must be continuously validated to ensure they remain causally connected to actual transformation outcomes' },
+    ],
+    relatedIds: ['TI-055', 'TI-702', 'TI-015', 'TI-013', 'TI-044', 'TI-004', 'TI-016', 'TI-301', 'TI-056'],
+  },
+
   // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================
