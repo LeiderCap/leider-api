@@ -3153,6 +3153,76 @@
           "targetId": "TI-004"
         }
       ]
+    },
+    {
+      "id": "TI-059",
+      "slug": "ti-059",
+      "name": "Interrogability Principle\u2122",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-27",
+      "category": "Foundational Constitution",
+      "book": "Book VII \u2014 Interrogability",
+      "oid": "OID-2026-TI-IP-001",
+      "lensUri": "lens://constitution/ti-059",
+      "principle": "Decision quality is determined not only by the quality of answers an organization produces, but by the quality of questions it is capable of asking before action.",
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-301"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-044"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-015"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-056"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-202"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-060"
+        }
+      ]
+    },
+    {
+      "id": "TI-060",
+      "slug": "ti-060",
+      "name": "Interrogability Index\u2122",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-27",
+      "category": "Foundational Constitution",
+      "book": "Book VII \u2014 Interrogability",
+      "oid": "OID-2026-TI-II-001",
+      "lensUri": "lens://constitution/ti-060",
+      "principle": "Organizations should measure their capacity for disciplined inquiry through the Interrogability Index\u2122 \u2014 the degree to which recommendations remain open to constructive challenge before execution.",
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-059"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-004"
+        },
+        {
+          "type": "measures",
+          "targetId": "TI-301"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-058"
+        }
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -3160,7 +3230,7 @@
   "addressingSystem": "LKAS\u2122",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 111,
+  "totalPrinciples": 113,
   "lastUpdated": "2026-06-25",
   "constitutionalArchitecture": {
     "name": "Opportunity Hierarchy\u2122",

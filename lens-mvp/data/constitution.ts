@@ -2049,6 +2049,80 @@ export const principles: Principle[] = [
   },
 
   // ============================================
+  // BOOK VII — INTERROGABILITY (TI-059 to TI-060)
+  // ============================================
+
+  {
+    id: 'TI-059',
+    slug: 'ti-059',
+    name: 'Interrogability Principle™',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-27',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book VII — Interrogability',
+    oid: 'OID-2026-TI-IP-001',
+    lensUri: 'lens://constitution/ti-059',
+    principle: 'Decision quality is determined not only by the quality of answers an organization produces, but by the quality of questions it is capable of asking before action. As intelligence becomes abundant, the long-term advantage of an enterprise will not be determined by the volume of intelligence it can produce, but by its capacity to systematically question, challenge, validate, and improve that intelligence before committing resources to action.',
+    definition: 'Interrogability is the measurable ability of a claim, recommendation, decision, analysis, or AI-generated output to be systematically questioned, challenged, explained, tested, and improved before action is taken. It measures whether an organization possesses sufficient visibility into assumptions, evidence, reasoning, alternatives, and uncertainty to exercise informed judgment rather than passive acceptance. Interrogability is a property of decision quality, not of artificial intelligence alone — any decision produced by humans, AI systems, consultants, or executive leadership should possess a measurable degree of interrogability.',
+    operatingLaw: 'Constitutional Axiom: As intelligence becomes abundant, judgment becomes scarce. As judgment becomes scarce, disciplined inquiry becomes the defining capability of high-performing organizations. Interrogability provides the measurable standard by which organizations transform answers into trustworthy decisions before committing resources to action.',
+    implications: [
+      'Purpose: Interrogability protects organizations from: automation bias, authority bias, confirmation bias, hidden assumptions, opaque reasoning, premature certainty, and unexamined recommendations. Its objective is not to slow decision-making — its objective is to increase decision quality while reducing avoidable risk.',
+      'Eight Core Dimensions: 5.1 Assumption Visibility (What must be true?). 5.2 Question Coverage (What have we failed to ask?). 5.3 Evidence Traceability (How do we know this?). 5.4 Reasoning Transparency (How was this conclusion reached?). 5.5 Human Readiness (Are we prepared to judge this?). 5.6 Decision Explainability (Could we defend this decision?). 5.7 Alternative Visibility (What else could we do?). 5.8 Uncertainty Visibility (What could invalidate this recommendation?).',
+      'Five Maturity Levels: Level I Acceptance (recommendations accepted with minimal scrutiny). Level II Explanation (recommendations can be explained after produced). Level III Structured Review (evidence, assumptions, reasoning consistently visible). Level IV Disciplined Inquiry (critical questioning is standard — recommendations improve through structured challenge). Level V Institutional Learning (organization continuously improves by learning which questions produce better decisions — inquiry becomes organizational capability).',
+      'Relationship to Decision Visibility Infrastructure™: DVI™ establishes visibility. Interrogability establishes challenge. Together they ensure observable decisions are also examinable. Visibility without interrogability creates transparency without accountability. Interrogability without visibility is impossible.',
+      'Relationship to TI™: Transformation Intelligence™ answers “How do we operationalize this?” Interrogability answers “Should we operationalize this?” Together they separate the generation of intelligence from the governance of intelligence.',
+      'Relationship to Transformation Recording™: Every significant question asked during interrogation is organizational knowledge. Recording captures: questions asked, assumptions challenged, evidence introduced, alternatives evaluated, decisions revised, lessons learned. Organizations accumulate institutional memory of inquiry — increasing future decision quality by preventing repeated loss of critical reasoning.',
+      'Relationship to Explainability Agent™: The Explainability Agent™ operationalizes Interrogability. It actively increases decision quality by generating structured inquiry, exposing assumptions, surfacing conflicting evidence, identifying uncertainty, and prompting consideration of meaningful alternatives. It functions as an organizational interrogation engine rather than merely an explanation engine.',
+      'Enterprise Applications: Executive leadership, corporate governance, board oversight, AI governance, healthcare and clinical decision support, pharmaceutical R&D, financial services, capital allocation, public policy, national security, manufacturing, scientific discovery, enterprise transformation. Application is universal because every consequential decision benefits from disciplined inquiry.',
+    ],
+    typedRelationships: [
+      { type: 'extends', targetId: 'TI-301', description: 'Extends Decision Visibility Infrastructure™ — DVI™ establishes visibility, Interrogability establishes challenge. Both required before governance and execution can occur' },
+      { type: 'extends', targetId: 'TI-044', description: 'Extends Divergence Acceleration Law™ — organizations with high Interrogability compound decision quality advantage because they catch errors before execution, not after' },
+      { type: 'implements', targetId: 'TI-015', description: 'Implements Evidence Sufficiency Law™ — Evidence Traceability dimension (5.3) enforces TI-015 at the decision governance layer' },
+      { type: 'implements', targetId: 'TI-056', description: 'Implements Trust Gates™ — Interrogability is the organizational capability that makes Trust Gates™ operational rather than nominal checkpoints' },
+      { type: 'depends_on', targetId: 'TI-202', description: 'Depends on Transformation Memory Architecture™ — institutional memory of inquiry requires TMA™ to preserve questions, challenges, and lessons across decision cycles' },
+      { type: 'enables', targetId: 'TI-060', description: 'Enables Interrogability Index™ as primary measurement instrument' },
+    ],
+    relatedIds: ['TI-301', 'TI-044', 'TI-015', 'TI-056', 'TI-202', 'TI-060', 'TI-058', 'TI-302', 'TI-021'],
+  },
+
+  {
+    id: 'TI-060',
+    slug: 'ti-060',
+    name: 'Interrogability Index™',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-27',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book VII — Interrogability',
+    oid: 'OID-2026-TI-II-001',
+    lensUri: 'lens://constitution/ti-060',
+    principle: 'Organizations should measure their capacity for disciplined inquiry through the Interrogability Index™ — the degree to which recommendations remain open to constructive challenge before execution. The resulting score represents the organization’s ability to transform intelligence into informed judgment.',
+    definition: 'The Interrogability Index™ scores organizations across eight dimensions corresponding to the core dimensions of the Interrogability Principle™: Assumption Visibility, Question Coverage, Evidence Traceability, Reasoning Transparency, Human Readiness, Decision Explainability, Alternative Visibility, and Uncertainty Visibility. Score represents the organization’s demonstrated capacity to exercise disciplined inquiry rather than passive acceptance of intelligence.',
+    operatingLaw: 'High Interrogability Index™ does not slow decisions — it accelerates confident decisions by eliminating avoidable error before commitment. Organizations with high II™ scores compound decision quality over time because institutional learning from structured inquiry reduces the cost of future interrogation. Organizations with low II™ scores repeatedly pay the cost of undiscovered assumptions after execution.',
+    implications: [
+      'II™ is a leading indicator of Transformation Efficiency™ (TI-103) — organizations with high Interrogability Index™ consistently generate higher TE™ because they avoid executing on flawed intelligence. A low II™ score predicts execution failure regardless of intelligence quality.',
+      'II™ relationship to existing scoring systems: TCS™ measures transformation capacity. AAS™ measures AI absorption. TAS™ measures transformation absorbability. II™ measures decision governance quality. Together they form a comprehensive organizational intelligence readiness framework.',
+      'II™ is a Phase 2 Lens Analysis™ addition — ratified constitutionally now, built after existing scoring layers are stable. When built, it appears as a governance quality signal on every Lens Analysis™ — qualifying whether the organization has the decision infrastructure to actually use the recommendations The Lens™ generates.',
+      'Board governance implication: Boards with low II™ scores are structurally unable to govern AI systems effectively — they lack the interrogation capability to challenge AI recommendations before execution. II™ therefore belongs on board agendas alongside financial metrics as a governance infrastructure indicator.',
+    ],
+    typedRelationships: [
+      { type: 'derived_from', targetId: 'TI-059', description: 'Primary measurement instrument of Interrogability Principle™' },
+      { type: 'extends', targetId: 'TI-004', description: 'Extends TCS™ scoring framework with decision governance quality dimension — II™ measures whether the organization can responsibly use its transformation capacity' },
+      { type: 'measures', targetId: 'TI-301', description: 'Measures the effective utilization of Decision Visibility Infrastructure™ — high DVI™ with low II™ indicates visibility without interrogation practice' },
+      { type: 'implements', targetId: 'TI-058', description: 'Implements Measurement Integrity Principle™ — II™ applies Measurement Integrity to the measurement of decision governance itself' },
+    ],
+    relatedIds: ['TI-059', 'TI-004', 'TI-301', 'TI-058', 'TI-103', 'TI-039', 'TI-028', 'TI-022'],
+  },
+
+  // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================
 

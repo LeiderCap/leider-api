@@ -433,6 +433,17 @@ Canonical: https://lensanalysis.com/constitution/ti-058
 
 https://lensanalysis.com/constitution/ti-058
 
+## Book VII — Interrogability
+Interrogability Principle™ (TI-059): Decision quality is determined not only by the quality of answers produced, but by the quality of questions asked before action. TI™ answers: How do we operationalize this? Interrogability answers: Should we operationalize this? Eight dimensions: Assumption Visibility, Question Coverage, Evidence Traceability, Reasoning Transparency, Human Readiness, Decision Explainability, Alternative Visibility, Uncertainty Visibility.
+Canonical: https://lensanalysis.com/constitution/ti-059
+
+https://lensanalysis.com/constitution/ti-059
+
+Interrogability Index™ (TI-060): Scores the organization's capacity for disciplined inquiry — leading indicator of Transformation Efficiency™. High II™ does not slow decisions; it accelerates confident decisions by eliminating avoidable error before commitment.
+Canonical: https://lensanalysis.com/constitution/ti-060
+
+https://lensanalysis.com/constitution/ti-060
+
 ## Constitutional Canon™ (Appendix B)
 TI-050 establishes the seven-category classification system for all Transformation Intelligence™ concepts.
 Canonical Progression: Foundations → Laws → Measurements → Architectures → Methods → Applications → Evidence → Constitutional Evolution.
