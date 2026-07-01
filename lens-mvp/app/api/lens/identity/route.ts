@@ -9,6 +9,13 @@ You must answer seven required identity questions, each citing at least one retr
 
 Your output determines whether a Lens Analysis™ can proceed. Accuracy is the only objective.
 
+CRITICAL ACCURACY RULES — READ BEFORE GENERATING:
+1. If the source documents describe satellite imagery, Earth observation, geospatial intelligence, or space technology, you MUST describe those businesses. Do NOT describe the company as software, CRM, or SaaS unless the source documents explicitly confirm this.
+2. If the source documents describe a company in Aerospace & Defense, Industrial, or Hardware sector, do NOT reclassify it as a software or technology services company.
+3. The word "cloud-native" in a description refers to the delivery mechanism, NOT the product category. A satellite imagery company that delivers data via a cloud platform is NOT a cloud software company.
+4. Read the FMP Sector and Industry fields carefully. Your business_description MUST be consistent with the stated sector and industry.
+5. If you are uncertain about the business model, use the FMP description field verbatim as the basis for business_description.
+
 Return ONLY valid JSON. No preamble. No markdown. No explanation outside the JSON object.`;
 
 interface RetrievedDocument {
@@ -246,6 +253,34 @@ export async function POST(req: NextRequest) {
     // Override AI-returned status with our deterministic rules
     parsed.identity_status = identityStatus;
     parsed.failure_reasons = failureReasons.length > 0 ? failureReasons : (parsed.failure_reasons ?? []);
+
+    // ── Ticker override safety net ──────────────────────────────────────────
+    // Hard block: if a known non-CRM company gets a CRM description, force FAIL
+    const descLower = (parsed.business_description ?? '').toLowerCase();
+    const knownNonCrm: Record<string, string> = {
+      'PL': 'Planet Labs PBC is an Earth observation and satellite imagery company, not a CRM provider.',
+    };
+    if (knownNonCrm[tickerUpper] && (descLower.includes('crm') || descLower.includes('customer relationship management'))) {
+      parsed.identity_status = 'FAIL';
+      parsed.failure_reasons = [
+        ...(parsed.failure_reasons ?? []),
+        `Business description contains CRM reference for ticker ${tickerUpper} — ${knownNonCrm[tickerUpper]} This indicates a data source error.`,
+      ];
+      console.warn(`[identity][${tickerUpper}] SAFETY NET triggered: CRM description detected for known non-CRM company`);
+    }
+
+    // ── Sector mismatch validation ──────────────────────────────────────────
+    // If FMP sector is Aerospace/Defense/Industrial/Hardware but AI describes software/SaaS/CRM, flag NEEDS_REVIEW
+    const fmpSectorLower = (fmpProfile.sector ?? '').toLowerCase();
+    const fmpIndustryLower = (fmpProfile.industry ?? '').toLowerCase();
+    const hardwareSectors = ['aerospace', 'defense', 'industrial', 'energy', 'materials', 'utilities', 'real estate'];
+    const softwareTerms = ['software', 'saas', 'crm', 'cloud software', 'platform-as-a-service', 'paas'];
+    const isFmpHardwareSector = hardwareSectors.some(s => fmpSectorLower.includes(s) || fmpIndustryLower.includes(s));
+    const aiDescribesSoftware = softwareTerms.some(t => descLower.includes(t));
+    if (isFmpHardwareSector && aiDescribesSoftware && parsed.identity_status === 'PASS') {
+      parsed.identity_status = 'NEEDS_REVIEW';
+      console.warn(`[identity][${tickerUpper}] SECTOR MISMATCH: FMP sector="${fmpProfile.sector}" but AI described software/SaaS. Flagging NEEDS_REVIEW.`);
+    }
 
     const identityCard = {
       ticker: tickerUpper,
