@@ -26,6 +26,8 @@ import { LensSnapshot } from './types';
 import { getSupabaseClient } from './supabase';
 import { slugify } from './ids';
 import { generateLensSnapshot } from './lens-ai';
+import { generateAnalysisOid } from './lens/oid';
+import { LENS_VERSIONS } from './lens/versions';
 
 const seedRecords = seed as LensSnapshot[];
 
@@ -322,6 +324,89 @@ export async function createLensSnapshot(
 }
 
 /**
+ * Parse a display dollar string (e.g. "$420B", "$1.05T") to a number for storage.
+ */
+function parseDollarToNumber(s: string | null | undefined): number | null {
+  if (!s) return null;
+  const clean = s.replace(/[^0-9.KMBT]/gi, '').toUpperCase();
+  const num = parseFloat(clean);
+  if (isNaN(num)) return null;
+  if (s.toUpperCase().includes('T')) return Math.round(num * 1e12);
+  if (s.toUpperCase().includes('B')) return Math.round(num * 1e9);
+  if (s.toUpperCase().includes('M')) return Math.round(num * 1e6);
+  if (s.toUpperCase().includes('K')) return Math.round(num * 1e3);
+  return Math.round(num);
+}
+
+/**
+ * Save a completed Lens Analysis™ to the lens_analyses table.
+ * Generates an OID™, marks previous analyses is_latest=false, inserts new row.
+ * Non-fatal — errors are logged but do not block the caller.
+ */
+export async function saveLensAnalysis(
+  snapshot: any,
+  ticker: string,
+  companyName: string,
+  exchange: string | null | undefined,
+  groundTruthId: string | null,
+  identityStatus: string | null,
+): Promise<string | null> {
+  try {
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      console.warn('[lens-service] Supabase not configured — skipping lens_analyses save');
+      return null;
+    }
+    const tickerUpper = ticker.toUpperCase();
+    const oid = await generateAnalysisOid(tickerUpper);
+    try {
+      await supabase
+        .from('lens_analyses')
+        .update({ is_latest: false })
+        .eq('ticker', tickerUpper)
+        .eq('is_latest', true);
+    } catch (err) {
+      console.warn('[lens-service] Failed to mark previous analyses as not-latest:', err);
+    }
+    const unlockLow = parseDollarToNumber(snapshot.unlock_low);
+    const unlockHigh = parseDollarToNumber(snapshot.unlock_high);
+    const { error } = await supabase.from('lens_analyses').insert({
+      oid,
+      ticker: tickerUpper,
+      company_name: companyName || snapshot.name || tickerUpper,
+      exchange: exchange || null,
+      ground_truth_id: groundTruthId || null,
+      analysis_json: snapshot,
+      tcs_score: snapshot.tcs_numeric ?? null,
+      tcs_label: snapshot.tcs_score ?? null,
+      opportunity_zone: null,
+      unlock_potential_low: unlockLow,
+      unlock_potential_high: unlockHigh,
+      top_mechanism: snapshot.top_unlock ?? null,
+      lens_version: '4.0',
+      prompt_version: LENS_VERSIONS.promptVersion,
+      model_version: LENS_VERSIONS.modelVersion,
+      constitution_version: LENS_VERSIONS.constitutionVersion,
+      identity_status: identityStatus || null,
+      source_confidence: null,
+      is_public: true,
+      is_latest: true,
+      generated_at: new Date().toISOString(),
+      expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+    });
+    if (error) {
+      console.warn('[lens-service] lens_analyses insert failed:', error.message);
+      return null;
+    }
+    console.log('[lens-service] Saved analysis to lens_analyses:', oid);
+    return oid;
+  } catch (err) {
+    console.warn('[lens-service] saveLensAnalysis failed (non-fatal):', err);
+    return null;
+  }
+}
+
+/**
  * Fetch the latest stored Lens Analysis™ from lens_analyses for a given ticker.
  * Returns null if not found or if the table doesn't exist yet.
  */
@@ -433,6 +518,20 @@ export async function getLensByIdOrCache(id: string, forceRefresh = false): Prom
   try {
     const generated = await generateLensSnapshot(queryForAI);
     await saveLensSnapshot(generated);
+    // ── Sprint 1A: Also persist to lens_analyses for SSR cache and permanent URLs
+    if (isTickerSlug) {
+      const oid = await saveLensAnalysis(
+        generated,
+        queryForAI,
+        generated.name || queryForAI,
+        null,
+        null,
+        null,
+      );
+      if (oid) {
+        (generated as any).opportunity_id = oid;
+      }
+    }
     return generated;
   } catch (err) {
     console.error('getLensByIdOrCache: AI regeneration failed for id:', id, err);

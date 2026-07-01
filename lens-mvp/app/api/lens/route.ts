@@ -1,10 +1,8 @@
 import { NextResponse } from 'next/server';
-import { createLensSnapshot } from '@/lib/lens-service';
+import { createLensSnapshot, saveLensAnalysis } from '@/lib/lens-service';
 import { getSupabaseClient } from '@/lib/supabase';
 import { buildGroundTruthPromptContext } from '@/lib/lens/ground-truth';
 import type { GroundTruth } from '@/lib/lens/ground-truth';
-import { generateAnalysisOid } from '@/lib/lens/oid';
-import { LENS_VERSIONS } from '@/lib/lens/versions';
 
 export const maxDuration = 60;
 
@@ -45,101 +43,6 @@ If a claim in your analysis is NOT supported by the retrieved source documents o
 Do not invent business lines, customers, revenue models, products, or strategic priorities that do not appear in the Ground Truth Context.
 
 Do not describe this company as operating in a different industry than: ${(identityCard.markets_served ?? []).join(', ')}`;
-}
-
-/**
- * Parse a formatted dollar string like "$15.0B", "$1.2T", "$500M" into a bigint (dollars).
- * Returns null if unparseable.
- */
-function parseDollarToBigint(s: string | null | undefined): bigint | null {
-  if (!s) return null;
-  const clean = s.replace(/[^0-9.KMBT]/gi, '').toUpperCase();
-  const num = parseFloat(clean);
-  if (isNaN(num)) return null;
-  if (s.toUpperCase().includes('T')) return BigInt(Math.round(num * 1e12));
-  if (s.toUpperCase().includes('B')) return BigInt(Math.round(num * 1e9));
-  if (s.toUpperCase().includes('M')) return BigInt(Math.round(num * 1e6));
-  if (s.toUpperCase().includes('K')) return BigInt(Math.round(num * 1e3));
-  return BigInt(Math.round(num));
-}
-
-/**
- * Save a completed Lens Analysis™ to the lens_analyses table.
- * Generates an OID™, marks previous analyses is_latest=false, inserts new row.
- * Non-fatal — errors are logged but do not block the response.
- */
-async function saveLensAnalysis(
-  snapshot: any,
-  ticker: string,
-  companyName: string,
-  exchange: string,
-  groundTruthId: string | null,
-  identityStatus: string | null,
-): Promise<string | null> {
-  try {
-    const supabase = getSupabaseClient();
-    if (!supabase) {
-      console.warn('[lens/route] Supabase not configured — skipping lens_analyses save');
-      return null;
-    }
-
-    const tickerUpper = ticker.toUpperCase();
-
-    // Generate OID™
-    const oid = await generateAnalysisOid(tickerUpper);
-
-    // Mark previous analyses for this ticker as is_latest = false
-    try {
-      await supabase
-        .from('lens_analyses')
-        .update({ is_latest: false })
-        .eq('ticker', tickerUpper)
-        .eq('is_latest', true);
-    } catch (err) {
-      console.warn('[lens/route] Failed to mark previous analyses as not-latest:', err);
-    }
-
-    // Parse unlock potential to bigint
-    const unlockLow = parseDollarToBigint(snapshot.unlock_low);
-    const unlockHigh = parseDollarToBigint(snapshot.unlock_high);
-
-    // Insert new analysis row
-    const { error } = await supabase.from('lens_analyses').insert({
-      oid,
-      ticker: tickerUpper,
-      company_name: companyName || snapshot.name || tickerUpper,
-      exchange: exchange || null,
-      ground_truth_id: groundTruthId || null,
-      analysis_json: snapshot,
-      tcs_score: snapshot.tcs_numeric ?? null,
-      tcs_label: snapshot.tcs_score ?? null,
-      opportunity_zone: null, // populated by opportunity zone screener separately
-      unlock_potential_low: unlockLow !== null ? Number(unlockLow) : null,
-      unlock_potential_high: unlockHigh !== null ? Number(unlockHigh) : null,
-      top_mechanism: snapshot.top_unlock ?? null,
-      lens_version: '4.0',
-      prompt_version: LENS_VERSIONS.promptVersion,
-      model_version: LENS_VERSIONS.modelVersion,
-      constitution_version: LENS_VERSIONS.constitutionVersion,
-      identity_status: identityStatus || null,
-      source_confidence: null,
-      is_public: true,
-      is_latest: true,
-      generated_at: new Date().toISOString(),
-      expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-    });
-
-    if (error) {
-      console.warn('[lens/route] lens_analyses insert failed:', error.message);
-      return null;
-    }
-
-    console.log('[lens/route] Saved analysis to lens_analyses:', oid);
-    return oid;
-  } catch (err) {
-    console.warn('[lens/route] saveLensAnalysis failed (non-fatal):', err);
-    return null;
-  }
 }
 
 export async function POST(request: Request) {
