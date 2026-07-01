@@ -321,9 +321,89 @@ export async function createLensSnapshot(
   return generated;
 }
 
+/**
+ * Fetch the latest stored Lens Analysis™ from lens_analyses for a given ticker.
+ * Returns null if not found or if the table doesn't exist yet.
+ */
+export async function getLatestAnalysisFromDb(ticker: string): Promise<LensSnapshot | null> {
+  try {
+    const supabase = getSupabaseClient();
+    if (!supabase) return null;
+    const tickerUpper = ticker.toUpperCase();
+    const { data, error } = await supabase
+      .from('lens_analyses')
+      .select('*')
+      .eq('ticker', tickerUpper)
+      .eq('is_latest', true)
+      .eq('is_public', true)
+      .or(`expires_at.is.null,expires_at.gt.${new Date().toISOString()}`)
+      .order('generated_at', { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    if (error) {
+      // Table may not exist yet — non-fatal
+      if (!error.message?.includes('does not exist') && error.code !== '42P01') {
+        console.warn('[lens-service] getLatestAnalysisFromDb error:', error.message);
+      }
+      return null;
+    }
+    if (!data) return null;
+    // analysis_json is the full snapshot
+    const snap = data.analysis_json as LensSnapshot;
+    if (!snap) return null;
+    // Ensure the OID is set from the stored oid field
+    if (data.oid) snap.opportunity_id = data.oid;
+    return snap;
+  } catch (err) {
+    console.warn('[lens-service] getLatestAnalysisFromDb failed (non-fatal):', err);
+    return null;
+  }
+}
+
+/**
+ * Fetch a specific Lens Analysis™ by its OID™ from lens_analyses.
+ * Used for permanent URL /lens/[ticker]/[oid] routes.
+ */
+export async function getAnalysisByOid(oid: string): Promise<LensSnapshot | null> {
+  try {
+    const supabase = getSupabaseClient();
+    if (!supabase) return null;
+    const { data, error } = await supabase
+      .from('lens_analyses')
+      .select('*')
+      .eq('oid', oid)
+      .eq('is_public', true)
+      .maybeSingle();
+    if (error) {
+      console.warn('[lens-service] getAnalysisByOid error:', error.message);
+      return null;
+    }
+    if (!data) return null;
+    const snap = data.analysis_json as LensSnapshot;
+    if (!snap) return null;
+    if (data.oid) snap.opportunity_id = data.oid;
+    return snap;
+  } catch (err) {
+    console.warn('[lens-service] getAnalysisByOid failed (non-fatal):', err);
+    return null;
+  }
+}
+
 export async function getLensByIdOrCache(id: string, forceRefresh = false): Promise<LensSnapshot | null> {
   const seedHit = getSeedById(id);
   if (seedHit) return seedHit;
+
+  // ── Sprint 1A: Check lens_analyses first (SSR cache-first) ────────────────────
+  if (!forceRefresh) {
+    const isTickerSlugCheck = /^[a-z]{1,5}$/.test(id.trim());
+    if (isTickerSlugCheck) {
+      const fromDb = await getLatestAnalysisFromDb(id);
+      if (fromDb) {
+        console.log('[lens-service] Cache hit from lens_analyses for:', id);
+        return fromDb;
+      }
+    }
+  }
 
   const supabase = getSupabaseClient();
   if (supabase && !forceRefresh) {

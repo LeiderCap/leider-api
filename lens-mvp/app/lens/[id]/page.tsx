@@ -52,18 +52,50 @@ const tierDotColor: Record<string, string> = {
   Emerging:     'bg-slate-400',
 };
 
+function formatUnlockRange(item: LensSnapshot): string {
+  if (item.unlock_low && item.unlock_high) {
+    return `${item.unlock_low}\u2013${item.unlock_high}`;
+  }
+  if (item.opportunity_value && item.opportunity_value !== 'N/A') {
+    return item.opportunity_value;
+  }
+  return '';
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
   const item = await getLensByIdOrCache(id);
-  if (!item) return { title: 'Not Found' };
+  if (!item) {
+    return {
+      title: `${id.toUpperCase()} Lens Analysis\u2122 | The Lens\u2122`,
+    };
+  }
+  const tickerLower = (item.ticker ?? id).toLowerCase();
+  const canonicalUrl = `https://www.lensanalysis.com/lens/${tickerLower}`;
+  const unlockRange = formatUnlockRange(item);
+  const description = [
+    `Transformation Intelligence\u2122 analysis of ${item.name}.`,
+    `TCS\u2122 Score: ${item.tcs_score}.`,
+    unlockRange ? `Unlock Potential\u2122: ${unlockRange}.` : '',
+    item.industry ? `Industry: ${item.industry}.` : '',
+    'Powered by The Lens\u2122.',
+  ].filter(Boolean).join(' ');
   return {
-    title: `Transformation Intelligence Report™ — ${item.name}`,
-    description: item.analysis_summary || item.summary,
+    title: `${item.name} (${item.ticker ?? id.toUpperCase()}) \u2014 Lens Analysis\u2122 | The Lens\u2122`,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: {
-      title: `${item.name} — Transformation Capacity Score™: ${item.tcs_score}`,
-      description: item.analysis_summary || item.summary,
+      title: `${item.name} Lens Analysis\u2122`,
+      description: `TCS\u2122 Score: ${item.tcs_score}${unlockRange ? ` \u00b7 Unlock Potential\u2122: ${unlockRange}` : ''}`,
+      url: canonicalUrl,
       type: 'article',
-    }
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
   };
 }
 
@@ -454,7 +486,7 @@ export default async function LensDetailPage({ params, searchParams }: { params:
                 <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] text-slate-400">{new Date(item.analysisGeneratedAt).toLocaleDateString()}</span>
               )}
             </div>
-            {item.opportunity_id && <OidBadge oid={item.opportunity_id} />}
+            {item.opportunity_id && <OidBadge oid={item.opportunity_id} ticker={item.ticker ?? id} />}
           </div>
 
           {item.what_lens_sees && (
@@ -1281,6 +1313,62 @@ export default async function LensDetailPage({ params, searchParams }: { params:
 
       {/* ── 12. Lens Opportunities™ ───────────────────────────────────────── */}
       <OpportunityZonesSection />
+
+      {/* ── JSON-LD Structured Data ───────────────────────────────────────── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'AnalysisNewsArticle',
+            headline: `${item.name} (${item.ticker ?? id.toUpperCase()}) Transformation Intelligence™ Analysis`,
+            description: item.analysis_summary || item.what_lens_sees || item.summary || '',
+            url: `https://www.lensanalysis.com/lens/${(item.ticker ?? id).toLowerCase()}`,
+            datePublished: item.analysisGeneratedAt || item.updated_at,
+            dateModified: item.analysisGeneratedAt || item.updated_at,
+            publisher: {
+              '@type': 'Organization',
+              name: 'The Lens™',
+              url: 'https://www.lensanalysis.com',
+            },
+            about: {
+              '@type': 'Corporation',
+              name: item.name,
+              tickerSymbol: item.ticker ?? id.toUpperCase(),
+              industry: item.industry,
+            },
+            ...(item.opportunity_id ? {
+              identifier: {
+                '@type': 'PropertyValue',
+                name: 'Opportunity ID™',
+                value: item.opportunity_id,
+              },
+            } : {}),
+            additionalProperty: [
+              {
+                '@type': 'PropertyValue',
+                name: 'Transformation Capacity Score™',
+                value: item.tcs_score,
+              },
+              ...(item.tcs_numeric != null ? [{
+                '@type': 'PropertyValue',
+                name: 'TCS™ Numeric',
+                value: String(item.tcs_numeric),
+              }] : []),
+              ...(item.transformation_capacity_gap ? [{
+                '@type': 'PropertyValue',
+                name: 'Transformation Capacity Gap™',
+                value: item.transformation_capacity_gap,
+              }] : []),
+              ...(item.unlock_low && item.unlock_high ? [{
+                '@type': 'PropertyValue',
+                name: 'Unlock Potential™',
+                value: `${item.unlock_low}–${item.unlock_high}`,
+              }] : []),
+            ],
+          }),
+        }}
+      />
     </main>
   );
 }
