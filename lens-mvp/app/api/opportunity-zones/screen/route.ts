@@ -307,8 +307,25 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const batchSize = Math.min(parseInt(searchParams.get('batch') ?? '50'), 100);
     const singleTicker = searchParams.get('ticker')?.trim().toUpperCase();
+    const clearCache = searchParams.get('clearCache') === 'true';
 
     const supabase = getSupabaseClient();
+
+    // ── Cache clear mode ───────────────────────────────────────────────────
+    // Deletes ALL rows from opportunity_zone_cache so fresh data is fetched.
+    // Usage: GET /api/opportunity-zones/screen?clearCache=true
+    if (clearCache) {
+      const { error: deleteError } = await supabase
+        .from('opportunity_zone_cache')
+        .delete()
+        .neq('ticker', '__never_match__'); // delete all rows
+      if (deleteError) {
+        console.error('[opportunity-zones/screen] Cache clear error:', deleteError);
+        return NextResponse.json({ ok: false, error: deleteError.message }, { status: 500 });
+      }
+      console.log('[opportunity-zones/screen] Cache cleared successfully');
+      return NextResponse.json({ ok: true, action: 'cache_cleared', message: 'All cached rows deleted. Call without clearCache to repopulate.' });
+    }
 
     // ── Single ticker mode ─────────────────────────────────────────────────
     if (singleTicker) {

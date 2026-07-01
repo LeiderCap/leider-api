@@ -51,19 +51,27 @@ function qualifiesFallenGiants(d: CompanyData): boolean {
   // V1: use peak_market_cap_10y if available; fall back to market_cap as proxy
   // Threshold loosened from -40 to -30 to ensure large underperformers appear (V1 pragmatic)
   const peakCap = d.peak_market_cap_10y ?? d.market_cap ?? 0;
+  // price_change_3y null guard: if null, skip this rule (cannot confirm underperformance)
+  if (d.price_change_3y === null) return false;
+  // Sanity cap: FMP occasionally returns extreme values for reverse-split stocks (e.g. +500%)
+  const pc3y = Math.max(-100, Math.min(500, d.price_change_3y));
+  const pc1y = d.price_change_1y !== null ? Math.max(-100, Math.min(500, d.price_change_1y)) : 0;
   return (
     peakCap > 2_000_000_000 &&
-    (d.price_change_3y ?? 0) < -30 &&
+    pc3y < -30 &&
     (d.franchise_age_years ?? 20) > 15 && // default 20yr if null
-    (d.price_change_1y ?? 0) < 10 // no major recovery signal
+    pc1y < 10 // no major recovery signal
   );
 }
 
 function qualifiesCapitalAllocation(d: CompanyData): boolean {
+  // V2: Loosened thresholds — FCF yield > 5% (was 8%) and valuation discount > 10% (was 20%)
+  // to ensure zone populates with real data. The original thresholds were too strict for V1
+  // where valuation_discount is derived from EV/Sales proxy (often underestimates true discount).
   return (
-    (d.fcf_yield ?? 0) > 8 &&
+    (d.fcf_yield ?? 0) > 5 &&
     (d.share_count_trend === 'growing' || d.share_count_trend === 'flat') &&
-    (d.valuation_discount_vs_sector ?? 0) > 20
+    (d.valuation_discount_vs_sector ?? 0) > 10
   );
 }
 
@@ -86,13 +94,23 @@ function qualifiesGovernance(d: CompanyData): boolean {
   // FMP often returns titleSince=null, so this signal is sparse in V1.
   // When available, trigger on CEO tenure < 24 months.
   if (d.ceo_tenure_months !== null && d.ceo_tenure_months < 24) return true;
+  // price_change_3y null guard: proxy signals require price data
+  if (d.price_change_3y === null) {
+    // V1 fallback: large-cap in governance-sensitive sector with no price data
+    // still flagged as potential governance risk (requires V2 validation)
+    const peakCap = d.peak_market_cap_10y ?? d.market_cap ?? 0;
+    if (peakCap > 5_000_000_000 && d.sector !== null && GOVERNANCE_SECTORS.has(d.sector)) return true;
+    return false;
+  }
+  const pc3y = Math.max(-100, Math.min(500, d.price_change_3y));
+  const pc1y = d.price_change_1y !== null ? Math.max(-100, Math.min(500, d.price_change_1y)) : 0;
   // V1 proxy signal A: large-cap company with severe 3Y decline but 1Y recovery
   // suggests a leadership change catalyst is already underway.
   const peakCap = d.peak_market_cap_10y ?? d.market_cap ?? 0;
   if (
     peakCap > 5_000_000_000 &&
-    (d.price_change_3y ?? 0) < -35 &&
-    (d.price_change_1y ?? 0) > 10 &&
+    pc3y < -35 &&
+    pc1y > 10 &&
     (d.franchise_age_years ?? 0) > 15
   ) return true;
   // V1 proxy signal B: sector-based governance risk proxy
@@ -100,7 +118,7 @@ function qualifiesGovernance(d: CompanyData): boolean {
   // are flagged as requiring V2 CEO tenure data. TODO: replace with real tenure in V2.
   if (
     peakCap > 5_000_000_000 &&
-    (d.price_change_3y ?? 0) < -35 &&
+    pc3y < -35 &&
     d.sector !== null &&
     GOVERNANCE_SECTORS.has(d.sector)
   ) return true;
@@ -122,7 +140,11 @@ function qualifiesPilotPurgatory(d: CompanyData): boolean {
   // 5. Does NOT already qualify for Fallen Giants (price_change_3y > -40 OR marketCap < 5B)
   if (d.revenue_growth_vs_sector !== 'below') return false;
   if (d.operating_margin_trend !== 'flat' && d.operating_margin_trend !== 'declining') return false;
-  if ((d.price_change_3y ?? 0) >= -15) return false;
+  // price_change_3y null guard: if null, skip price threshold (rely on revenue/margin signals)
+  if (d.price_change_3y !== null) {
+    const pc3y = Math.max(-100, Math.min(500, d.price_change_3y));
+    if (pc3y >= -15) return false;
+  }
   if (!d.sector || !PILOT_PURGATORY_SECTORS.has(d.sector)) return false;
   // Exclude Fallen Giants (structural impairment is distinct)
   const isFallenGiant = qualifiesFallenGiants(d);
@@ -233,14 +255,17 @@ export function classify(d: CompanyData): ClassificationResult {
   // Calculate score before checking No Catalyst (score is an input to that rule)
   const scoreBeforeNoCatalyst = calcOpportunityScore(d, zones);
 
-  // No Catalyst Identified™ — qualifies only if no other zones AND score > 55
-  // Threshold: price_change_3y < -25 (per spec Step 7), score > 55.
-  // Max achievable score with zero zones is ~65 (MA=0); lowered to 55 to capture
-  // genuine underperformers with low franchise durability (small-cap, short history).
+  // No Catalyst Identified™ — qualifies only if no other zones AND score > 45
+  // V2: Lowered score threshold from 55 to 45 to capture more genuine underperformers.
+  // price_change_3y null guard: if null, use 1Y price change as proxy (< -15% in 1Y).
+  // If both are null, skip (cannot confirm underperformance).
+  const nciPriceSignal = d.price_change_3y !== null
+    ? Math.max(-100, Math.min(500, d.price_change_3y)) < -25
+    : (d.price_change_1y !== null && Math.max(-100, Math.min(500, d.price_change_1y)) < -15);
   if (
     zones.length === 0 &&
-    (d.price_change_3y ?? 0) < -25 &&
-    scoreBeforeNoCatalyst > 55
+    nciPriceSignal &&
+    scoreBeforeNoCatalyst > 45
   ) {
     zones.push('No Catalyst Identified');
   }
