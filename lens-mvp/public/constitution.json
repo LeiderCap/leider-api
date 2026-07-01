@@ -3223,6 +3223,76 @@
           "targetId": "TI-058"
         }
       ]
+    },
+    {
+      "id": "TI-061",
+      "slug": "ti-061",
+      "name": "Validation Principle\u2122",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-27",
+      "category": "Foundational Constitution",
+      "book": "Book XV \u2014 Validation Science\u2122",
+      "oid": "OID-2026-TI-VP-001",
+      "lensUri": "lens://constitution/ti-061",
+      "principle": "Transformation Intelligence\u2122 derives its authority not from persuasive explanation, but from repeated empirical validation across organizations, industries, and market cycles.",
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-012"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-016"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-015"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-044"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-062"
+        }
+      ]
+    },
+    {
+      "id": "TI-062",
+      "slug": "ti-062",
+      "name": "Lens Validation Engine\u2122 (LVE\u2122)",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-27",
+      "category": "Foundational Constitution",
+      "book": "Book XV \u2014 Validation Science\u2122",
+      "oid": "OID-2026-TI-LVE-001",
+      "lensUri": "lens://constitution/ti-062",
+      "principle": "The Lens Validation Engine\u2122 transforms The Lens\u2122 from a static analytical framework into a continuously improving system of organizational learning.",
+      "typedRelationships": [
+        {
+          "type": "derived_from",
+          "targetId": "TI-061"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-011"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-016"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-202"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-044"
+        }
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -3230,7 +3300,7 @@
   "addressingSystem": "LKAS\u2122",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 113,
+  "totalPrinciples": 115,
   "lastUpdated": "2026-06-25",
   "constitutionalArchitecture": {
     "name": "Opportunity Hierarchy\u2122",

@@ -444,6 +444,17 @@ Canonical: https://lensanalysis.com/constitution/ti-060
 
 https://lensanalysis.com/constitution/ti-060
 
+## Book XV — Validation Science™
+Validation Principle™ (TI-061): Transformation Intelligence™ derives its authority not from persuasive explanation, but from repeated empirical validation. Every analysis is a testable hypothesis. Constitutional Law: Every analysis is a hypothesis. Every hypothesis is measurable. Every measurement strengthens the collective intelligence of the system. Validation Hierarchy™ Five Levels: Level I Historical Replay™, Level II Outcome Validation™, Level III Attribution Analysis™, Level IV Model Learning™, Level V Continuous Validation™.
+Canonical: https://lensanalysis.com/constitution/ti-061
+
+https://lensanalysis.com/constitution/ti-061
+
+Lens Validation Engine™ (TI-062): The technical implementation of Validation Science™. Transformation Lead Time™ (TLT™) measures the informational advantage The Lens™ generates — average time between Lens identification and market recognition. Six Validation Metrics™: PTA™, EVPA™, CPR™, TLT™, ESS™, VCI™. Phase 3 infrastructure — constitutionally ratified now, built when platform has 50-100 completed analyses with 18+ month outcome histories.
+Canonical: https://lensanalysis.com/constitution/ti-062
+
+https://lensanalysis.com/constitution/ti-062
+
 ## Constitutional Canon™ (Appendix B)
 TI-050 establishes the seven-category classification system for all Transformation Intelligence™ concepts.
 Canonical Progression: Foundations → Laws → Measurements → Architectures → Methods → Applications → Evidence → Constitutional Evolution.

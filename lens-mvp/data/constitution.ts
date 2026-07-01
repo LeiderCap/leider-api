@@ -2123,6 +2123,81 @@ export const principles: Principle[] = [
   },
 
   // ============================================
+  // BOOK XV — VALIDATION SCIENCE™ (TI-061 to TI-062)
+  // ============================================
+
+  {
+    id: 'TI-061',
+    slug: 'ti-061',
+    name: 'Validation Principle™',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-27',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book XV — Validation Science™',
+    oid: 'OID-2026-TI-VP-001',
+    lensUri: 'lens://constitution/ti-061',
+    principle: 'Transformation Intelligence™ must be continuously validated against observable enterprise outcomes. Every analysis is a testable hypothesis whose long-term value is determined not by narrative quality, but by empirical performance. Transformation Intelligence™ derives its authority not from persuasive explanation, but from repeated empirical validation across organizations, industries, and market cycles.',
+    definition: 'Validation Science™ is the discipline within Transformation Intelligence™ that reconstructs historical organizational states, generates historical Lens Analyses™, compares predicted outcomes with observed results, and continuously refines Transformation Intelligence™ using accumulated evidence. The purpose of validation is not merely to prove correctness, but to strengthen the reliability, transparency, and learning capacity of Transformation Intelligence™ over time.',
+    operatingLaw: 'Constitutional Law: Every analysis is a hypothesis. Every hypothesis is measurable. Every measurement strengthens the collective intelligence of the system. Organizations should not ask whether a framework is persuasive; they should ask whether it consistently identifies future enterprise value before it becomes widely recognized.',
+    implications: [
+      'Historical Replay Principle™: Every enterprise can be reconstructed as it existed at a specific moment in time. Historical analysis shall rely exclusively on information that was publicly or operationally available on the selected observation date. Future information shall never influence historical analysis. This preserves scientific integrity and prevents hindsight bias.',
+      'Prediction Principle™: Every Lens Analysis™ constitutes an explicit prediction regarding future organizational behavior. Predictions may concern: enterprise value creation, transformation success, governance effectiveness, capital allocation, execution quality, organizational adaptability, rerating probability, catalyst realization, operational improvement, strategic resilience. Predictions must be sufficiently specific to permit future empirical evaluation.',
+      'Outcome Principle™: Validation evaluates outcomes across four dimensions — Enterprise Outcomes (enterprise value, revenue growth, profitability, ROIC), Market Outcomes (relative performance, multiple expansion, volatility), Organizational Outcomes (leadership effectiveness, strategic execution, transformation completion), Governance Outcomes (board effectiveness, capital allocation discipline, shareholder value creation). No single metric fully represents transformation success.',
+      'Attribution Principle™: Validation identifies not only whether predictions proved correct, but why. Transformation Intelligence™ continuously evaluates the relative contribution of organizational variables to observed enterprise outcomes. Understanding causal contribution is more valuable than measuring directional accuracy alone.',
+      'Validation Objects™: Every completed validation creates a permanent Validation Object™ containing: historical organizational state, original Lens Analysis™, predicted outcomes, realized outcomes, confidence assessment, attribution analysis, lessons learned, model refinements. Validation Objects become permanent research assets within the TI™ knowledge architecture.',
+      'Continuous Validation Principle™: Transformation Intelligence™ is never considered complete. Every new filing, earnings call, strategic action, governance event, or operational milestone represents additional evidence. Validation becomes a continuous organizational capability rather than a periodic exercise.',
+      'Validation Hierarchy™ — Five Levels: Level I Historical Replay™ (reconstruct enterprise as it existed). Level II Outcome Validation™ (compare predicted vs realized outcomes). Level III Attribution Analysis™ (determine which transformation variables produced outcomes). Level IV Model Learning™ (refine TI™ using accumulated evidence). Level V Continuous Validation™ (continuously validate every organization as new evidence emerges).',
+      'Relationship to Unlock Science™ (TI-012 through TI-016): Unlock Science™ establishes the scientific method for identifying and quantifying unrealized value. Validation Science™ closes the loop — it determines whether the science actually worked by comparing predictions against realized outcomes. Together they make TI™ a self-correcting empirical discipline.',
+    ],
+    typedRelationships: [
+      { type: 'extends', targetId: 'TI-012', description: 'Extends Unlock Science™ — Validation Science™ closes the empirical loop by measuring whether Unlock Science™ predictions proved correct' },
+      { type: 'implements', targetId: 'TI-016', description: 'Implements Continuous Learning Law™ at the discipline level — every validated analysis improves future Lens Analyses™' },
+      { type: 'implements', targetId: 'TI-015', description: 'Implements Evidence Sufficiency Law™ — Validation Science™ is the empirical test of whether evidence was actually sufficient to predict outcomes' },
+      { type: 'extends', targetId: 'TI-044', description: 'Extends Divergence Acceleration Law™ — Validation Science™ measures whether The Lens™ actually identifies divergence before the market recognizes it' },
+      { type: 'enables', targetId: 'TI-062', description: 'Enables Lens Validation Engine™ as the technical implementation system' },
+    ],
+    relatedIds: ['TI-012', 'TI-016', 'TI-015', 'TI-044', 'TI-062', 'TI-010', 'TI-202', 'TI-058', 'TI-103'],
+  },
+
+  {
+    id: 'TI-062',
+    slug: 'ti-062',
+    name: 'Lens Validation Engine™ (LVE™)',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-27',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book XV — Validation Science™',
+    oid: 'OID-2026-TI-LVE-001',
+    lensUri: 'lens://constitution/ti-062',
+    principle: 'The Lens Validation Engine™ transforms The Lens™ from a static analytical framework into a continuously improving system of organizational learning. It is the empirical research and continuous learning system of Transformation Intelligence™.',
+    definition: 'LVE™ is the technical and research infrastructure that operationalizes Validation Science™. It reconstructs historical organizational states, generates historical Lens Analyses™ using only contemporaneously available information, compares predicted outcomes with observed results, conducts attribution analysis, and continuously refines TI™ scoring models using accumulated validation evidence. LVE™ sits alongside Decision Visibility Infrastructure™, Transformation Memory Architecture™, and Transformation Graph™ as a foundational system of the platform.',
+    operatingLaw: 'Validation Metrics™ maintained by LVE™: Predictive Transformation Accuracy™ (PTA™) — proportion of transformation predictions subsequently validated. Enterprise Value Prediction Accuracy™ (EVPA™) — degree to which predicted enterprise value creation aligns with realized value. Catalyst Prediction Rate™ (CPR™) — percentage of predicted strategic catalysts materializing within the observation window. Transformation Lead Time™ (TLT™) — average time between Lens identification and observable market recognition (represents the informational advantage generated by TI™). Enterprise Signal Strength™ (ESS™) — statistical relationship between Lens scores and subsequent enterprise outcomes. Validation Confidence Index™ (VCI™) — confidence in each validation based on data completeness, prediction specificity, observation period, outcome clarity, and evidence quality.',
+    implications: [
+      'LVE™ completes the constitutional architecture by creating a self-reinforcing learning system: organizations become observable (DVI™) → their knowledge becomes persistent (TMA™) → their transformations become measurable (Transformation Graph™) → the intelligence guiding them becomes increasingly reliable (LVE™). This is what differentiates TI™ from a static scoring model — it becomes a continuously learning science of enterprise transformation.',
+      'Transformation Lead Time™ (TLT™) is the most commercially significant LVE™ metric for investment-oriented buyers. TLT™ measures the informational advantage The Lens™ generates — the average time between when The Lens™ identifies transformation capacity and when markets price it in. A documented TLT™ of 12-18 months across a validated dataset is the most defensible commercial claim The Lens™ can make to PE firms and institutional investors.',
+      'Learning Principle™: Every validated analysis becomes part of the permanent TI™ knowledge base. Validation continuously improves: scoring models, industry calibrations, transformation indicators, governance signals, catalyst recognition, enterprise pattern recognition. Transformation Intelligence™ evolves through evidence rather than opinion.',
+      'LVE™ is Phase 3 infrastructure — constitutionally ratified now, built when the platform has sufficient Lens Analysis™ history to make backtesting statistically meaningful. The minimum viable LVE™ requires approximately 50-100 completed analyses with 18+ month outcome histories. The first LVE™ outputs are therefore 12-24 months away from the platform\'s current state.',
+      'LVE™ generates the empirical foundation for Transformation Alpha™ (TI-044 Corollary V) — superior investment returns from identifying organizations capable of accelerating transformation before market recognition. Without LVE™, Transformation Alpha™ is a thesis. With LVE™, it is a documented, backtested claim.',
+    ],
+    typedRelationships: [
+      { type: 'derived_from', targetId: 'TI-061', description: 'Technical implementation system derived from Validation Science™ Principle' },
+      { type: 'implements', targetId: 'TI-011', description: 'Implements Knowledge Compounding Principle™ at the discipline level — each validated analysis makes all future analyses more accurate' },
+      { type: 'implements', targetId: 'TI-016', description: 'Implements Continuous Learning Law™ — LVE™ is the constitutional mechanism for continuous improvement of the TI™ scoring system' },
+      { type: 'extends', targetId: 'TI-202', description: 'Extends Transformation Memory Architecture™ — Validation Objects™ are a specialized category of organizational memory that preserves prediction and outcome pairs' },
+      { type: 'enables', targetId: 'TI-044', description: 'Enables empirical proof of Divergence Acceleration Law™ — LVE™ produces the documented evidence that TI™ identifies divergence before market recognition' },
+    ],
+    relatedIds: ['TI-061', 'TI-011', 'TI-016', 'TI-202', 'TI-044', 'TI-012', 'TI-058', 'TI-010', 'TI-103'],
+  },
+
+  // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================
 
