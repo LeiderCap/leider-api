@@ -408,6 +408,15 @@ Canonical: https://lensanalysis.com/constitution/ti-054
 
 https://lensanalysis.com/constitution/ti-054
 
+## Intellectual Property Naming Principle™ (TI-063)
+Core Rule: Trademark the frameworks. Describe the tools.
+Decision Test: Does this represent a fundamentally new concept that could exist independently as a framework and define a new category? If yes — trademark. If no — descriptive product name.
+Four Layers: IP Layer (trademark — enduring frameworks: The Lens™, Transformation Intelligence™, AROI™, etc.), Product Layer (descriptive — implementations: Lens Analysis, Historical Value Analysis), Reporting Layer (descriptive — purpose-communicating: Enterprise Value Assessment, Board Briefing), Dashboard Layer (descriptive — intuitive: Portfolio Dashboard, Transformation Dashboard).
+Naming Governance Chain: TI-063 (framework or tool?) → TI-048 (trademark?) → TI-054 (how to write it?).
+Canonical: https://lensanalysis.com/constitution/ti-063
+
+https://lensanalysis.com/constitution/ti-063
+
 ## Book XIV — Evidence Intelligence Pipeline™ (EIP™)
 EIP™ (TI-055): The 12-stage operational architecture through which reality becomes trusted organizational action.
 Stages: Reality → Signal → Evidence → Memory → Identity → Knowledge → Understanding → Decision → Blueprint → Execution → Measurement → Learning ↺

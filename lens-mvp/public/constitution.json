@@ -3293,6 +3293,37 @@
           "targetId": "TI-044"
         }
       ]
+    },
+    {
+      "id": "TI-063",
+      "slug": "ti-063",
+      "name": "Intellectual Property Naming Principle\u2122 (IPNP\u2122)",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-06-27",
+      "category": "Foundational Constitution",
+      "book": "Book I \u2014 Constitutional Governance",
+      "oid": "OID-2026-TI-IPNP-001",
+      "lensUri": "lens://constitution/ti-063",
+      "principle": "Trademark the frameworks. Describe the tools.",
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-048"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-054"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-050"
+        },
+        {
+          "type": "applies_to",
+          "targetId": "TI-052"
+        }
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -3300,7 +3331,7 @@
   "addressingSystem": "LKAS\u2122",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 115,
+  "totalPrinciples": 116,
   "lastUpdated": "2026-06-25",
   "constitutionalArchitecture": {
     "name": "Opportunity Hierarchy\u2122",
@@ -3426,7 +3457,8 @@
       "Transformation",
       "Enterprise Value"
     ],
-    "draftingStandard": "TI-054"
+    "draftingStandard": "TI-054",
+    "namingPrinciple": "TI-063"
   },
   "constitutionalCanon": {
     "version": "1.0",

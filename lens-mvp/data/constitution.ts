@@ -2197,6 +2197,39 @@ export const principles: Principle[] = [
     relatedIds: ['TI-061', 'TI-011', 'TI-016', 'TI-202', 'TI-044', 'TI-012', 'TI-058', 'TI-010', 'TI-103'],
   },
 
+  {
+    id: 'TI-063',
+    slug: 'ti-063',
+    name: 'Intellectual Property Naming Principle™ (IPNP™)',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-06-27',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book I — Constitutional Governance',
+    oid: 'OID-2026-TI-IPNP-001',
+    lensUri: 'lens://constitution/ti-063',
+    principle: 'Trademark the frameworks. Describe the tools. Frameworks create categories. Tools deliver value within those categories. Unique names and trademarks should be reserved for concepts, frameworks, methodologies, and measurement systems that represent lasting strategic differentiation. Reports, dashboards, workflows, analyses, modules, and product features should generally use descriptive language that communicates their purpose immediately.',
+    definition: 'The Intellectual Property Naming Principle™ distinguishes between enduring intellectual property and product implementation. Every new capability should first answer: Is this a new intellectual property framework, or is it an implementation of an existing framework? If it represents a new way of thinking that can stand independently across industries and over time, it may warrant a unique name and trademark. If it is simply a way of applying an existing framework, it should normally receive a descriptive product name. The objective is to maximize clarity, adoption, and discoverability while concentrating legal protection and brand equity around the platform\'s core intellectual property.',
+    operatingLaw: 'Constitutional Statement: Transformation Intelligence™ creates enduring value not by assigning proprietary names to every feature, but by establishing clear intellectual frameworks that others can understand, adopt, and build upon. The platform\'s competitive advantage comes from the originality, rigor, and measurable impact of its foundational concepts — not from the quantity of branded terminology surrounding them.',
+    implications: [
+      'Four Naming Layers: Intellectual Property Layer (trademark — enduring frameworks: The Lens™, Transformation Intelligence™, Transformation Efficiency™, Equity Reclamation™, Decision Visibility Infrastructure™, Opportunity Atlas™, Cashless Buyback™, Explainability Agent™, AROI™). Product Layer (descriptive — implementations: Lens Analysis, Lens Backtesting Module, Historical Value Analysis, Portfolio Analysis, Sector Ranking Analysis, Transformation Blueprint, Opportunity Assessment). Reporting Layer (descriptive — purpose-communicating: Historical Value Analysis, Enterprise Value Assessment, Portfolio Review, Capital Allocation Review, Board Briefing). Dashboard Layer (descriptive — intuitive: Historical Performance Dashboard, Portfolio Dashboard, Transformation Dashboard, Opportunity Dashboard).',
+      'Decision Test — five questions before introducing a new name: 1. Does this represent a fundamentally new concept? 2. Could it exist independently as a framework? 3. Will it still matter five or ten years from now? 4. Does it define a new category rather than a feature? 5. Would removing the name diminish the intellectual property of the platform? If most answers are yes — trademark. If most answers are no — descriptive product name.',
+      'Benefits of applying IPNP™: Concentrates brand equity around a smaller number of strategically important concepts. Reduces cognitive load for customers. Improves product usability through intuitive naming. Makes documentation, onboarding, and training simpler. Preserves flexibility to evolve product capabilities without renaming core IP. Creates a cleaner and more defensible brand architecture.',
+      'Relationship to TI-048 and TI-054: TI-048 establishes seven rules for when ™ applies to existing concepts. TI-054 provides the Editorial Test for applying those rules. TI-063 adds the upstream decision — before even reaching the trademark question, should this concept be named at all, or should it simply be described? Together they constitute a complete naming governance system: Is it a framework or a tool? (TI-063) → Does it qualify for trademark? (TI-048) → How should it be written? (TI-054).',
+      'Practical platform application: The Buyer Evidence Report™ correctly names the IP framework (Buyer Evidence Architecture™, BES™, UI™) while the report itself could be named descriptively as \'Buyer Evidence Report\' without the ™ on \'Report\'. The Lens™ is correctly trademarked as the core IP framework. \'Lens Analysis\' (the act of running it) could be descriptive. This distinction reduces trademark clutter while strengthening the protection on genuinely novel IP concepts.',
+    ],
+    typedRelationships: [
+      { type: 'extends', targetId: 'TI-048', description: 'Extends Trademark Convention Principle™ with the upstream naming decision — should this be named at all, before asking whether it should be trademarked' },
+      { type: 'extends', targetId: 'TI-054', description: 'Extends Constitutional Drafting Standard — IPNP™ provides the strategic naming architecture within which the drafting standard\'s Editorial Test operates' },
+      { type: 'implements', targetId: 'TI-050', description: 'Implements Constitutional Canon™ — the four naming layers (IP, Product, Reporting, Dashboard) map to Canon categories II through VI, clarifying which canon category warrants trademark' },
+      { type: 'applies_to', targetId: 'TI-052', description: 'Applies to TIBOK™ Level V Applications — all product features and reports must be evaluated against IPNP™ before naming' },
+    ],
+    relatedIds: ['TI-048', 'TI-054', 'TI-049', 'TI-050', 'TI-051', 'TI-052', 'TI-053'],
+  },
+
   // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================
