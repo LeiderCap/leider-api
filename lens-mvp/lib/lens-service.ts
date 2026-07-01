@@ -23,7 +23,7 @@
 // ============================================================
 import seed from '@/data/seed.json';
 import { LensSnapshot } from './types';
-import { getSupabaseClient } from './supabase';
+import { getSupabaseClient, getServiceSupabaseClient } from './supabase';
 import { slugify } from './ids';
 import { generateLensSnapshot } from './lens-ai';
 import { generateAnalysisOid } from './lens/oid';
@@ -352,7 +352,8 @@ export async function saveLensAnalysis(
   identityStatus: string | null,
 ): Promise<string | null> {
   try {
-    const supabase = getSupabaseClient();
+    // Use service role client to bypass RLS for server-side writes
+    const supabase = getServiceSupabaseClient();
     if (!supabase) {
       console.warn('[lens-service] Supabase not configured — skipping lens_analyses save');
       return null;
