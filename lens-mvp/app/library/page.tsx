@@ -56,9 +56,9 @@ const books = [
   {
     number: 'IV',
     name: 'Enterprise Value Blueprints™',
-    description: 'Company-specific applications of the Opportunity Science™ methodology. Each Blueprint is a permanent, evidence-based record of opportunity discovery and transformation design.',
-    status: 'coming',
-    href: null,
+    description: 'Company-specific applications of the Opportunity Science™ methodology. Each Blueprint is a permanent, evidence-based record of opportunity discovery and transformation design. View the Enterprise Value Blueprint™ Standard →',
+    status: 'live',
+    href: '/blueprint-standard',
     items: [
       'Blueprint No. 001 — Griffin Fluid Management (in preparation)',
       'Future blueprints: public companies, private enterprises, portfolio companies, family businesses, governments, healthcare organizations, universities',

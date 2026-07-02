@@ -2493,6 +2493,66 @@ export const principles: Principle[] = [
     ],
   },
 
+  // TI-068 — Enterprise Value Blueprint™ Standard
+  {
+    id: 'TI-068',
+    slug: 'ti-068',
+    name: 'Enterprise Value Blueprint™ Standard',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-07-02',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book I — Constitutional Governance',
+    oid: 'OID-2026-TI-EVB-001',
+    lensUri: 'lens://constitution/ti-068',
+    principle: 'The Enterprise Value Blueprint™ is the flagship executive deliverable of Opportunity Science™. Every Blueprint follows a standardized 10-part architecture to ensure consistency, comparability, and methodological integrity across companies, industries, and investment situations.',
+    definition: 'The Enterprise Value Blueprint™ integrates discovery, analysis, prioritization, valuation, governance, and execution into a single decision framework designed to maximize long-term enterprise value. Unlike traditional strategic plans, consulting reports, or investment memoranda, it answers five foundational questions: What is true? Why does it matter? What opportunity exists? Which opportunities should leadership pursue first? How should those opportunities be realized?',
+    operatingLaw: 'Every Enterprise Value Blueprint™ follows the Opportunity Science Standard: Evidence before opinion. Analysis before recommendation. Discovery before prescription. Consistency before creativity. Enterprise value before activity. Clarity before complexity. Every major conclusion must be supported by credible evidence. Every recommendation must trace directly back to research and analysis.',
+    implications: [
+      'Five Foundational Questions: 1. What is true? (objective reality through evidence, research, financial analysis — how does the organization create value, what capabilities and constraints exist). 2. Why does it matter? (strategic significance — why observations matter, how external trends amplify importance, which developments are structural vs temporary). 3. What opportunity exists? (every opportunity includes description, strategic rationale, evidence, market drivers, revenue/margin/capital implications, risks, dependencies, enterprise value implications). 4. Which opportunities should leadership pursue first? (Enterprise Value Frontier prioritization using enterprise value potential, strategic alignment, transformation capacity, capital intensity, execution complexity, time to impact). 5. How should those opportunities be realized? (Transformation Blueprint defining governance, sequencing, milestones, accountability, KPIs, financial objectives, decision checkpoints).',
+      'Standard 10-Part Architecture: Part I Executive Perspective (Executive Summary, Investment Thesis, Enterprise Value Opportunity, Executive Dashboard, Key Findings). Part II The Lens™ (Company Overview, Business Model, Strategic Assets, Competitive Position, Financial Characteristics, Transformation Capacity, Enterprise Value Capture). Part III Industry Context (Industry Structure, Market Dynamics, Regulatory Environment, Competitive Landscape, Technology Trends, Capital Flows, Macroeconomic Drivers). Part IV Opportunity Discovery (largest section — every identified opportunity receives its own chapter following the Standard Opportunity Framework). Part V Opportunity Science Analysis (each opportunity evaluated using common methodology including CEO Priority Score and Enterprise Value Potential). Part VI Enterprise Value Frontier (optimal sequence of opportunities — relative attractiveness, dependencies, capacity, timing, portfolio optimization). Part VII Equity Reclamation™ (enterprise value that exists but is underrecognized — positioning, business model, brand, capital allocation, governance, technology, AI, data, recurring revenue). Part VIII Financial Value Creation (valuation scenarios, multiple expansion, revenue composition, margin improvement, capital efficiency, enterprise value bridge, sensitivity analysis). Part IX Transformation Blueprint (First 30 Days, First 90 Days, Year One, Years Two-Three, governance, organizational design, transformation metrics, enterprise value milestones). Part X Appendices (industry research, company research, financial references, public filings, comparable transactions, academic research, methodology, citations).',
+      'Standard Opportunity Framework — 20-section structure for every opportunity chapter: 1. Executive Summary. 2. Current State. 3. Opportunity Description. 4. Supporting Evidence. 5. Strategic Rationale. 6. Market Drivers. 7. Competitive Advantage. 8. Revenue Opportunity. 9. Margin Opportunity. 10. Capital Requirements. 11. Organizational Requirements. 12. Risks. 13. Dependencies. 14. Transformation Capacity Assessment. 15. CEO Priority Score. 16. Enterprise Value Potential. 17. Recommended Actions. 18. Implementation Timeline. 19. Success Metrics. 20. Executive Recommendation.',
+      'Relationship to The Lens™: Part II of every Enterprise Value Blueprint™ is a full Lens Analysis™. The Lens™ is therefore the entry point into every Blueprint engagement — it provides the Transformation Capacity™ assessment, opportunity identification, and enterprise value estimate that anchors the Blueprint.',
+      'Blueprint No. 001 — Griffin Fluid Management: The first Enterprise Value Blueprint™ produced by Opportunity Science™. Establishes the precedent for all future Blueprints across public companies, private enterprises, portfolio companies, family businesses, governments, healthcare organizations, universities, and nonprofit institutions.',
+      'The Enterprise Value Blueprint™ is not a consulting report, investment memorandum, or strategic plan. It is the integration of the strongest elements of each into a unified framework focused on one objective: helping organizations systematically discover, prioritize, and realize their highest-value opportunities.',
+    ],
+    typedRelationships: [
+      {
+        type: 'extends',
+        targetId: 'TI-067',
+        description: 'Extends Editorial Charter™ — the Blueprint Standard is the primary publication standard within the Opportunity Science Library Book IV',
+      },
+      {
+        type: 'extends',
+        targetId: 'TI-066',
+        description: 'Extends Opportunity Method™ — the 10-part Blueprint architecture maps directly to the eight phases of the Opportunity Method',
+      },
+      {
+        type: 'implements',
+        targetId: 'TI-015',
+        description: 'Implements Evidence Sufficiency Law™ — every Blueprint section requires evidence-based conclusions with complete citation',
+      },
+      {
+        type: 'implements',
+        targetId: 'TI-014',
+        description: 'Implements Mechanism Traceability Law™ — every opportunity in Part IV maps to canonical value creation mechanisms',
+      },
+      {
+        type: 'depends_on',
+        targetId: 'TI-065',
+        description: 'Depends on Opportunity Science™ Ontology — the Blueprint workflow follows the nine-step ontology from observation to equity reclamation',
+      },
+    ],
+    relatedIds: [
+      'TI-067', 'TI-066', 'TI-065',
+      'TI-015', 'TI-014', 'TI-023',
+      'TI-801', 'TI-103',
+    ],
+  },
+
   // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================

@@ -3592,6 +3592,69 @@
         "TI-052",
         "TI-065"
       ]
+    },
+    {
+      "id": "TI-068",
+      "slug": "ti-068",
+      "name": "Enterprise Value Blueprint™ Standard",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-07-02",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book I — Constitutional Governance",
+      "oid": "OID-2026-TI-EVB-001",
+      "lensUri": "lens://constitution/ti-068",
+      "principle": "The Enterprise Value Blueprint™ is the flagship executive deliverable of Opportunity Science™. Every Blueprint follows a standardized 10-part architecture to ensure consistency, comparability, and methodological integrity across companies, industries, and investment situations.",
+      "definition": "The Enterprise Value Blueprint™ integrates discovery, analysis, prioritization, valuation, governance, and execution into a single decision framework designed to maximize long-term enterprise value. Unlike traditional strategic plans, consulting reports, or investment memoranda, it answers five foundational questions: What is true? Why does it matter? What opportunity exists? Which opportunities should leadership pursue first? How should those opportunities be realized?",
+      "operatingLaw": "Every Enterprise Value Blueprint™ follows the Opportunity Science Standard: Evidence before opinion. Analysis before recommendation. Discovery before prescription. Consistency before creativity. Enterprise value before activity. Clarity before complexity. Every major conclusion must be supported by credible evidence. Every recommendation must trace directly back to research and analysis.",
+      "implications": [
+        "Five Foundational Questions: 1. What is true? 2. Why does it matter? 3. What opportunity exists? 4. Which opportunities should leadership pursue first? 5. How should those opportunities be realized?",
+        "Standard 10-Part Architecture: Part I Executive Perspective. Part II The Lens™. Part III Industry Context. Part IV Opportunity Discovery. Part V Opportunity Science Analysis. Part VI Enterprise Value Frontier. Part VII Equity Reclamation™. Part VIII Financial Value Creation. Part IX Transformation Blueprint. Part X Appendices.",
+        "Standard Opportunity Framework — 20-section structure for every opportunity chapter.",
+        "Relationship to The Lens™: Part II of every Enterprise Value Blueprint™ is a full Lens Analysis™.",
+        "Blueprint No. 001 — Griffin Fluid Management: The first Enterprise Value Blueprint™ produced by Opportunity Science™.",
+        "The Enterprise Value Blueprint™ is not a consulting report, investment memorandum, or strategic plan."
+      ],
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-067",
+          "description": "Extends Editorial Charter™ — the Blueprint Standard is the primary publication standard within the Opportunity Science Library Book IV"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-066",
+          "description": "Extends Opportunity Method™ — the 10-part Blueprint architecture maps directly to the eight phases of the Opportunity Method"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-015",
+          "description": "Implements Evidence Sufficiency Law™ — every Blueprint section requires evidence-based conclusions with complete citation"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-014",
+          "description": "Implements Mechanism Traceability Law™ — every opportunity in Part IV maps to canonical value creation mechanisms"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-065",
+          "description": "Depends on Opportunity Science™ Ontology — the Blueprint workflow follows the nine-step ontology from observation to equity reclamation"
+        }
+      ],
+      "relatedIds": [
+        "TI-067",
+        "TI-066",
+        "TI-065",
+        "TI-015",
+        "TI-014",
+        "TI-023",
+        "TI-801",
+        "TI-103"
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -3599,7 +3662,7 @@
   "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 120,
+  "totalPrinciples": 121,
   "lastUpdated": "2026-07-02",
   "constitutionalArchitecture": {
     "name": "Opportunity Hierarchy™",

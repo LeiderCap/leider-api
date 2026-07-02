@@ -505,6 +505,14 @@ Canonical: https://lensanalysis.com/constitution/ti-067
 
 https://lensanalysis.com/constitution/ti-067
 
+## Enterprise Value Blueprint™ Standard (TI-068)
+The flagship executive deliverable of Opportunity Science™.
+10-part architecture: Executive Perspective → The Lens™ → Industry Context → Opportunity Discovery → OS Analysis → Enterprise Value Frontier → Equity Reclamation™ → Financial Value Creation → Transformation Blueprint → Appendices.
+Standard Opportunity Framework: 20-section structure for every opportunity chapter.
+Canonical: https://lensanalysis.com/constitution/ti-068
+
+https://lensanalysis.com/constitution/ti-068
+
 ## Constitutional Canon™ (Appendix B)
 TI-050 establishes the seven-category classification system for all Transformation Intelligence™ concepts.
 Canonical Progression: Foundations → Laws → Measurements → Architectures → Methods → Applications → Evidence → Constitutional Evolution.
