@@ -539,3 +539,30 @@ export async function getLensByIdOrCache(id: string, forceRefresh = false): Prom
     return null;
   }
 }
+
+/**
+ * Lightweight helper — returns only {oid, ticker} for a given ticker.
+ * Used by the resolve API to check if a cached analysis exists without
+ * fetching the full analysis_json payload.
+ */
+export async function getLatestAnalysisForTicker(
+  ticker: string
+): Promise<{ oid: string; ticker: string } | null> {
+  try {
+    const supabase = getServiceSupabaseClient();
+    if (!supabase) return null;
+    const { data, error } = await supabase
+      .from('lens_analyses')
+      .select('oid, ticker, generated_at')
+      .eq('ticker', ticker.toUpperCase())
+      .eq('is_latest', true)
+      .eq('is_public', true)
+      .order('generated_at', { ascending: false })
+      .limit(1)
+      .single();
+    if (error || !data) return null;
+    return { oid: data.oid, ticker: data.ticker };
+  } catch {
+    return null;
+  }
+}

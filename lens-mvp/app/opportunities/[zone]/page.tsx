@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, use } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ALL_ZONES, ZONE_META, TIER_LABELS, ZoneName } from '@/lib/opportunity-zones/classify';
 
@@ -56,6 +57,7 @@ function hasPremiumAccess(): boolean {
 
 export default function OpportunityZonePage({ params }: { params: Promise<{ zone: string }> }) {
   const { zone: zoneSlug } = use(params);
+  const router = useRouter();
 
   const zoneMeta = ALL_ZONES.map(z => ({ name: z, ...ZONE_META[z] })).find(z => z.slug === zoneSlug);
 
@@ -63,6 +65,8 @@ export default function OpportunityZonePage({ params }: { params: Promise<{ zone
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [isPremium, setIsPremium] = useState(false);
+  const [loadingTicker, setLoadingTicker] = useState<string | null>(null);
+  const [existingAnalyses, setExistingAnalyses] = useState<Record<string, string>>({});
 
   useEffect(() => {
     setIsPremium(hasPremiumAccess());
@@ -82,6 +86,50 @@ export default function OpportunityZonePage({ params }: { params: Promise<{ zone
       .catch(() => setError('Could not load companies'))
       .finally(() => setLoading(false));
   }, [zoneMeta?.name]);
+
+  // Option A: batch check for existing analyses on page load
+  useEffect(() => {
+    if (companies.length === 0) return;
+
+    fetch('/api/lens/resolve-batch', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        tickers: companies.map((c) => c.ticker)
+      })
+    })
+      .then(res => res.json())
+      .then(data => setExistingAnalyses(data.analyses || {}))
+      .catch(() => {});
+  }, [companies]);
+
+  const handleCompanyClick = async (
+    ticker: string,
+    companyName: string,
+    exchange: string
+  ) => {
+    if (zoneSlug === 'pilot-purgatory') {
+      window.location.href = `/reports/deployment-readiness?ticker=${encodeURIComponent(ticker)}&company=${encodeURIComponent(companyName ?? ticker)}&from=pilot-purgatory`;
+      return;
+    }
+
+    setLoadingTicker(ticker);
+
+    try {
+      const res = await fetch(
+        `/api/lens/resolve?ticker=${encodeURIComponent(ticker)}&company=${encodeURIComponent(companyName)}&exchange=${encodeURIComponent(exchange)}`
+      );
+      const data = await res.json();
+      router.push(data.url);
+    } catch {
+      // fallback to standard URL on error
+      router.push(
+        `/lens/${ticker.toLowerCase()}?company=${encodeURIComponent(companyName)}&exchange=${encodeURIComponent(exchange)}`
+      );
+    } finally {
+      setLoadingTicker(null);
+    }
+  };
 
   if (!zoneMeta) {
     return (
@@ -165,52 +213,58 @@ export default function OpportunityZonePage({ params }: { params: Promise<{ zone
               </tr>
             </thead>
             <tbody>
-              {companies.map((c, i) => (
-                <tr
-                  key={c.ticker}
-                  className={`border-b border-slate-100 hover:bg-orange-50 cursor-pointer transition-colors ${i % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'}`}
-                  onClick={() => {
-                    if (zoneSlug === 'pilot-purgatory') {
-                      window.location.href = `/reports/deployment-readiness?ticker=${encodeURIComponent(c.ticker)}&company=${encodeURIComponent(c.company_name ?? c.ticker)}&from=pilot-purgatory`;
-                    } else {
-                      window.location.href = `/lens/${encodeURIComponent(c.ticker)}`;
-                    }
-                  }}
-                >
-                  <td className="px-4 py-3 font-medium text-slate-900">
-                    {c.company_name ?? c.ticker}
-                  </td>
-                  <td className="px-4 py-3">
-                    <span className="rounded bg-slate-100 px-2 py-0.5 text-xs font-mono font-semibold text-slate-700">
-                      {c.ticker}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3"><PctCell val={c.price_change_3y} /></td>
-                  <td className="px-4 py-3"><PctCell val={c.price_change_1y} /></td>
-                  <td className="px-4 py-3">
-                    <span className="inline-flex items-center gap-1.5">
-                      <span className="font-bold text-orange-600">{c.opportunity_score ?? '—'}</span>
-                      <span className="text-xs text-slate-400">/ 100</span>
-                    </span>
-                  </td>
-                  <td className="px-4 py-3 text-xs text-slate-600">
-                    {c.tier_assigned
-                      ? TIER_LABELS[c.tier_assigned as keyof typeof TIER_LABELS] ?? `Tier ${c.tier_assigned}`
-                      : '—'}
-                  </td>
-                  <td className="px-4 py-3 max-w-xs">
-                    {isPremium ? (
-                      <div className="text-xs text-slate-600 leading-5">
-                        {c.narrative_tier_label
-                          ? <p className="italic">{c.narrative_tier_label}</p>
-                          : <span className="text-slate-400">Narrative pending</span>}
+              {companies.map((c, i) => {
+                const isLoading = loadingTicker === c.ticker;
+                const hasAnalysis = !!existingAnalyses[c.ticker.toUpperCase()];
+                return (
+                  <tr
+                    key={c.ticker}
+                    className={`border-b border-slate-100 hover:bg-orange-50 cursor-pointer transition-colors ${i % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'} ${isLoading ? 'opacity-60 pointer-events-none' : ''}`}
+                    onClick={() => !isLoading && handleCompanyClick(c.ticker, c.company_name ?? c.ticker, '')}
+                  >
+                    <td className="px-4 py-3 font-medium text-slate-900">
+                      <div className="flex items-center gap-2">
+                        <span>{c.company_name ?? c.ticker}</span>
+                        {hasAnalysis && (
+                          <span className="text-xs text-green-600 font-medium">Analysis available</span>
+                        )}
+                        {isLoading && (
+                          <span className="text-xs text-slate-400 animate-pulse">Retrieving analysis…</span>
+                        )}
                       </div>
-                    ) : (
-                      <PremiumLock />
-                    )}
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                    <td className="px-4 py-3">
+                      <span className="rounded bg-slate-100 px-2 py-0.5 text-xs font-mono font-semibold text-slate-700">
+                        {c.ticker}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3"><PctCell val={c.price_change_3y} /></td>
+                    <td className="px-4 py-3"><PctCell val={c.price_change_1y} /></td>
+                    <td className="px-4 py-3">
+                      <span className="inline-flex items-center gap-1.5">
+                        <span className="font-bold text-orange-600">{c.opportunity_score ?? '—'}</span>
+                        <span className="text-xs text-slate-400">/ 100</span>
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-xs text-slate-600">
+                      {c.tier_assigned
+                        ? TIER_LABELS[c.tier_assigned as keyof typeof TIER_LABELS] ?? `Tier ${c.tier_assigned}`
+                        : '—'}
+                    </td>
+                    <td className="px-4 py-3 max-w-xs">
+                      {isPremium ? (
+                        <div className="text-xs text-slate-600 leading-5">
+                          {c.narrative_tier_label
+                            ? <p className="italic">{c.narrative_tier_label}</p>
+                            : <span className="text-slate-400">Narrative pending</span>}
+                        </div>
+                      ) : (
+                        <PremiumLock />
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         )}
