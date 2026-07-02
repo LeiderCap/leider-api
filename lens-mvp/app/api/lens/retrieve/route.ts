@@ -343,11 +343,16 @@ export async function POST(req: NextRequest) {
 
     // ── Updated minimum source requirements ───────────────────────────────────
     // FAIL only for true identity failures, not retrieval limitations
-    // minimumSourcesMet = true if: profile + financial_data + (earnings OR transcript OR news)
-    const minimumSourcesMet =
-      company_profile_found &&
-      financial_data_found &&
-      (earnings_found || transcript_found || recent_news_found);
+    // minimumSourcesMet = true if ANY THREE of these five signals are present
+    // (more realistic given FMP plan limitations — previously required all three groups)
+    const sourceSignals = [
+      company_profile_found,
+      financial_data_found,
+      sec_filing_found || earnings_found,
+      business_description_found,
+      !!(outlookData?.profile),
+    ];
+    const minimumSourcesMet = sourceSignals.filter(Boolean).length >= 3;
 
     if (isDiag) {
       console.log(`[retrieve][${tickerUpper}] DIAG: minimumSourcesMet=${minimumSourcesMet} (profile=${company_profile_found}, financial=${financial_data_found}, earnings=${earnings_found}, transcript=${transcript_found}, news=${recent_news_found})`);

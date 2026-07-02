@@ -33,10 +33,23 @@ function buildUserPrompt(
 ): string {
   const docList = retrievedDocuments
     .map((d, i) => {
-      const content = d.content ? d.content.slice(0, 600) : '(no content)';
+      const content = d.content ? d.content.slice(0, 800) : '(no content)';
       return `[Source ${i + 1}] ${d.source_type.toUpperCase()}: ${d.title}\n${content}`;
     })
     .join('\n\n');
+
+  // Build additional context block from high-signal sources
+  const secDoc = retrievedDocuments.find(d => d.source_type === '10-K');
+  const earningsDoc = retrievedDocuments.find(d => d.source_type === 'earnings_release');
+  const outlookDoc = retrievedDocuments.find(d => d.source_type === 'comprehensive_profile');
+  const execDoc = retrievedDocuments.find(d => d.source_type === 'executives');
+  const additionalContext = [
+    secDoc ? `- SEC 10-K filing confirmed: ${secDoc.title}` : '',
+    earningsDoc ? `- Latest earnings data: ${earningsDoc.content?.split('\n').slice(0, 2).join(', ') ?? earningsDoc.title}` : '',
+    outlookDoc?.content ? `- Company description (FMP Outlook): ${outlookDoc.content.slice(0, 300)}` : '',
+    execDoc?.content ? `- Leadership: ${execDoc.content.split('\n')[0]}` : '',
+    fmpProfile.description ? `- FMP profile description: ${fmpProfile.description.slice(0, 400)}` : '',
+  ].filter(Boolean).join('\n');
 
   return `Company ticker: ${ticker}
 User-entered name: ${companyName}
@@ -44,7 +57,7 @@ FMP registered name: ${fmpProfile.companyName}
 Exchange: ${fmpProfile.exchange}
 Sector: ${fmpProfile.sector}
 Industry: ${fmpProfile.industry}
-
+${additionalContext ? `\nAdditional context retrieved:\n${additionalContext}\n` : ''}
 Source documents provided:
 ${docList}
 
@@ -130,8 +143,8 @@ function determineIdentityStatus(
     return { status: 'FAIL', reasons };
   }
 
-  // NEEDS_REVIEW thresholds
-  if (sourceConf < 0.85 || descConf < 0.90 || answeredCount < 7) {
+  // NEEDS_REVIEW thresholds — relaxed: require 0.80 source confidence, 0.85 desc confidence, 6/7 questions
+  if (sourceConf < 0.80 || descConf < 0.85 || answeredCount < 6) {
     return { status: 'NEEDS_REVIEW', reasons: [] };
   }
 
