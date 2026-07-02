@@ -214,7 +214,17 @@ const LensAiSchema = z.object({
   }).nullable().optional(),
 });
 
-export const LENS_SYSTEM_PROMPT = `REASONING BOUNDARY (Constitutional Requirement — Truth Engine™ / TI-015):
+export const LENS_SYSTEM_PROMPT = `CRITICAL COMPANY-SPECIFIC OVERRIDES:
+If the ticker is 'PL', this company is Planet Labs PBC.
+Planet Labs PBC is NOT a communications company, NOT a CRM company, NOT a SaaS company.
+Planet Labs PBC IS an Earth observation company that operates commercial imaging satellites.
+Its products are satellite imagery and geospatial data.
+Its customers are governments, defense agencies, and commercial enterprises needing Earth imagery.
+Any description of PL as a communications or software company is factually incorrect and must be rejected.
+
+---
+
+REASONING BOUNDARY (Constitutional Requirement — Truth Engine™ / TI-015):
 
 This analysis operates within a strict two-layer reasoning model:
 
@@ -1885,8 +1895,16 @@ export async function generateLensSnapshot(
     ? fetchUnlockFinancials(confirmedTicker)
     : Promise.resolve(null);
 
-  const groundTruth = hint?.groundTruth;
-
+    const groundTruth = hint?.groundTruth;
+  // Change 2: Debug log — verify ground truth business_description is reaching the prompt
+  if (hint?.ticker?.toUpperCase() === 'PL') {
+    const gtLines = groundTruth?.split('\n') ?? [];
+    const businessLine = gtLines.find(l => l.startsWith('Business:'));
+    console.log('[PL Debug] Ground truth business_description being injected:',
+      businessLine ?? 'NOT FOUND IN GROUND TRUTH'
+    );
+    console.log('[PL Debug] Full ground truth length:', groundTruth?.length ?? 0, 'chars');
+  }
   const [text, fmpFinancials] = await Promise.all([
     (async () => (await callAnthropic(enrichedQuery, groundTruth)) ?? (await callOpenAI(enrichedQuery, groundTruth)))(),
     fmpFinancialsPromise,

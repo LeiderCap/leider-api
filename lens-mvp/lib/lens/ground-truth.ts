@@ -127,7 +127,18 @@ Primary Risks: ${gt.verifiedFacts.primaryRisks.join(', ')}
 SOURCES USED (${includedDocs.length} documents):
 ${includedDocs.map((d, i) => `${i + 1}. [${d.sourceType}] ${d.title}`).join('\n')}
 
-Any claim not supported by these sources must be marked [INFERENCE].`;
+Any claim not supported by these sources must be marked [INFERENCE].
+
+${(() => {
+  const companyOverrides: Record<string, string> = {
+    'PL': "Planet Labs PBC operates the world's largest fleet of commercial Earth-imaging satellites. Core business: satellite imagery, geospatial data, Earth observation. Sector: Aerospace & Defense / Industrials. NOT a communications or software company.",
+  };
+  const overrideContext = companyOverrides[gt.companyIdentity.ticker?.toUpperCase() ?? ''];
+  if (overrideContext) {
+    return `COMPANY FACT OVERRIDE (authoritative — supersedes all other sources):\n${overrideContext}`;
+  }
+  return '';
+})()}`;
 }
 
 export function assembleGroundTruth(params: {
