@@ -492,7 +492,7 @@ export default async function LensDetailPage({ params, searchParams }: { params:
 
           {item.what_lens_sees && (
             <div className="rounded-xl bg-slate-900 p-6 text-white">
-              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-teal-400">What The Lens Sees</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-teal-400">Opportunity Discovery</p>
               <p className="mt-3 text-base leading-8 text-slate-100"><CitedText text={item.what_lens_sees} /></p>
             </div>
           )}
@@ -525,25 +525,25 @@ export default async function LensDetailPage({ params, searchParams }: { params:
           <div className="grid gap-4 sm:grid-cols-2">
             {item.value_creation_model && (
               <div className="rounded-xl border border-slate-200 bg-white p-5">
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">How Value Is Created</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">How Value Is Unlocked</p>
                 <p className="mt-2 text-sm leading-7 text-slate-700"><CitedText text={item.value_creation_model} /></p>
               </div>
             )}
             {item.hidden_assets && (
               <div className="rounded-xl border border-teal-200 bg-teal-50 p-5">
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Hidden Assets</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Hidden Opportunity</p>
                 <p className="mt-2 text-sm leading-7 text-slate-700"><CitedText text={item.hidden_assets} /></p>
               </div>
             )}
             {item.hidden_constraints && (
               <div className="rounded-xl border border-slate-200 bg-white p-5">
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Hidden Constraints</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">What Is Constraining Value</p>
                 <p className="mt-2 text-sm leading-7 text-slate-700"><CitedText text={item.hidden_constraints} /></p>
               </div>
             )}
             {item.transformation_opportunities && (
               <div className="rounded-xl border border-teal-200 bg-teal-50 p-5">
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Transformation Opportunities</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Catalyst Discovery</p>
                 <p className="mt-2 text-sm leading-7 text-slate-700"><CitedText text={item.transformation_opportunities} /></p>
               </div>
             )}
@@ -603,7 +603,7 @@ export default async function LensDetailPage({ params, searchParams }: { params:
       <div className={hasAnalysis ? 'mt-10' : 'mt-8'}>
         {hasAnalysis && (
           <div className="mb-3 flex items-center gap-3">
-            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">TCS™ Scorecard</p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Transformation Capacity Assessment</p>
             <div className="h-px flex-1 bg-slate-200" />
           </div>
         )}
@@ -757,7 +757,7 @@ export default async function LensDetailPage({ params, searchParams }: { params:
           )}
           {/* v2.1 FMP-anchored Unlock Potential™ */}
           <div className="relative rounded-xl border border-slate-200 p-4">
-            <p className="text-xs font-medium text-slate-400">Unlock Potential™</p>
+            <p className="text-xs font-medium text-slate-400">Equity Reclamation Estimate</p>
             <div className="mt-2 flex items-center gap-1.5 text-emerald-600">
               <UnlockPotentialInfoBubble item={item} showRange />
             </div>
@@ -915,7 +915,7 @@ export default async function LensDetailPage({ params, searchParams }: { params:
       {/* ── 10a. Expression Gap Analysis™ ─────────────────────────────────── */}
       {item.expression_gap_analysis && (
         <section className="card mt-6 p-6">
-          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-orange-500">Expression Architecture™</p>
+          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-orange-500">Value Expression Gap</p>
           <h2 className="mt-1 text-lg font-bold mb-4">Expression Gap Analysis™</h2>
           <div className="space-y-4">
             {/* Block 1 — Potential Layer™ */}
@@ -995,7 +995,7 @@ export default async function LensDetailPage({ params, searchParams }: { params:
       {/* ── 10b. Intermediary Systems Analysis™ ─────────────────────────────── */}
       {item.intermediary_systems_analysis && (
         <section className="card mt-6 p-6">
-          <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-1" style={{ color: '#E05A00' }}>Intermediary Systems Analysis™</p>
+          <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-1" style={{ color: '#E05A00' }}>Execution Pathway</p>
           <h2 className="mt-1 text-lg font-bold mb-4">Intermediary Systems Analysis™</h2>
 
           {/* Transformation Conversion Stack */}
@@ -1126,7 +1126,7 @@ export default async function LensDetailPage({ params, searchParams }: { params:
       {/* ── 10c. Mechanism Recommendations™ (TI-014) ─────────────────────── */}
       {item.expression_gap_analysis?.reclamation_layer && (
         <section className="card mt-6 p-6">
-          <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-1" style={{ color: '#E05A00' }}>Mechanism Recommendations™</p>
+          <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-1" style={{ color: '#E05A00' }}>Catalyst Fit</p>
           <h2 className="mt-1 text-lg font-bold mb-1">Value Creation Mechanisms</h2>
           <p className="mb-5 text-sm text-slate-500">Ranked by estimated value contribution for this company. All mechanisms drawn from the 12 canonical mechanisms of Unlock Science™.</p>
 
