@@ -2373,6 +2373,69 @@ export const principles: Principle[] = [
     ],
   },
 
+  // BOOK XVII — Opportunity Science™ (continued)
+  {
+    id: 'TI-066',
+    slug: 'ti-066',
+    name: 'Opportunity Method™',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-07-02',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book XVII — Opportunity Science™',
+    oid: 'OID-2026-TI-OM-001',
+    lensUri: 'lens://constitution/ti-066',
+    principle: 'The Opportunity Method™ is the foundational process through which Opportunity Science™ discovers, evaluates, prioritizes, and realizes opportunities that create long-term enterprise value. It establishes a common language, a repeatable methodology, and a consistent standard for analysis across organizations, industries, and investment situations.',
+    definition: 'The Opportunity Method™ consists of eight sequential phases, each answering a distinct question, forming a continuous learning system rather than a one-time analytical exercise: Phase I Observe (What is true?), Phase II Understand (Why is it true?), Phase III Discover (What opportunities exist?), Phase IV Evaluate (Which opportunities create the greatest enterprise value?), Phase V Prioritize (What should leadership pursue first?), Phase VI Architect (How should the enterprise be designed to realize these opportunities?), Phase VII Execute (How do we convert opportunity into outcomes?), Phase VIII Measure (What have we learned, and what should change next?).',
+    operatingLaw: 'The Opportunity Method™ is not linear — it is a continuous operating system: Observe → Understand → Discover → Evaluate → Prioritize → Architect → Execute → Measure → Observe Again. Each cycle increases organizational knowledge, strengthens decision quality, improves transformation capability, and expands enterprise value creation. Foundational Principle: Opportunity exists before it is recognized.',
+    implications: [
+      'Phase I — Observe (What is true?): Establish objective understanding before interpretation. Activities: Enterprise Examination, Lens Analysis™, financial analysis, market analysis, competitive assessment. Outputs: Enterprise Snapshot, Enterprise Health Score, Evidence Repository, Baseline Metrics. Principle: Evidence precedes opinion.',
+      'Phase II — Understand (Why is it true?): Transform observations into insight by identifying causal relationships, structural constraints, and systemic patterns. Activities: root cause analysis, systems thinking, competitive positioning. Outputs: Strategic Insights, Constraint Analysis, Enterprise Narrative. Principle: Explanation creates understanding.',
+      'Phase III — Discover (What opportunities exist?): Generate comprehensive opportunity inventory without premature elimination. Activities: Opportunity Discovery, Opportunity Mapping, Opportunity Zones, AI-assisted exploration. Outputs: Opportunity Inventory, Opportunity Portfolio. Principle: Discovery precedes selection.',
+      'Phase IV — Evaluate (Which opportunities create the greatest enterprise value?): Assess every opportunity using consistent methodology considering value potential, strategic alignment, Transformation Capacity™, and execution complexity. Outputs: Opportunity Scores, Enterprise Value Estimates, Opportunity Rankings. Principle: Every opportunity should be evaluated objectively before it is prioritized.',
+      'Phase V — Prioritize (What should leadership pursue first?): Apply Enterprise Value Frontier to determine optimal portfolio and sequence given finite leadership attention, capital, and transformation capacity. Outputs: Enterprise Value Frontier, Opportunity Sequence, Investment Roadmap. Principle: The best opportunity is not always the first opportunity.',
+      'Phase VI — Architect (How should the enterprise be designed?): Convert prioritized opportunities into integrated strategic architecture covering capital, operating model, governance, and technology. Outputs: Enterprise Value Blueprint™, Capital Architecture, Governance Framework. Principle: Enterprise architecture enables enterprise value.',
+      'Phase VII — Execute (How do we convert opportunity into outcomes?): Translate strategy into disciplined execution with sequencing, governance, milestones, and accountability. Outputs: Transformation Blueprint™, Execution Roadmap, Governance Calendar. Principle: Execution transforms opportunity into value.',
+      'Phase VIII — Measure (What have we learned?): Create continuous learning system that improves enterprise performance over time through Transformation Intelligence™, KPI tracking, and strategic recalibration. Outputs: Transformation Scorecard, Opportunity Realization Report, Next Enterprise Value Blueprint™. Principle: Learning compounds enterprise value.',
+      'Platform alignment: Enterprise Examination™ and The Lens™ serve Phase I-II. Lens Opportunities™ serves Phase III. Lens Analysis™ serves Phase IV. Enterprise Value Frontier serves Phase V. Enterprise Value Blueprint™ serves Phase VI. Transformation Blueprint™ serves Phase VII. Transformation Intelligence™ serves Phase VIII.',
+    ],
+    typedRelationships: [
+      {
+        type: 'extends',
+        targetId: 'TI-065',
+        description: 'Extends Opportunity Science™ Ontology — the Method provides the complete eight-phase engagement lifecycle within which the nine-step ontology operates for individual analyses',
+      },
+      {
+        type: 'implements',
+        targetId: 'TI-012',
+        description: 'Implements Unlock Science™ — the Opportunity Method is the operational process through which Unlock Science™ principles are applied',
+      },
+      {
+        type: 'implements',
+        targetId: 'TI-016',
+        description: 'Implements Continuous Learning Law™ — Phase VIII Measure closes the loop and initiates the next cycle',
+      },
+      {
+        type: 'depends_on',
+        targetId: 'TI-004',
+        description: 'Depends on Transformation Capacity Principle™ — Phase IV Evaluate and Phase V Prioritize require TC™ assessment',
+      },
+      {
+        type: 'enables',
+        targetId: 'TI-044',
+        description: 'Enables Divergence Acceleration Law™ — organizations that follow the Opportunity Method compound advantage faster than those that treat transformation episodically',
+      },
+    ],
+    relatedIds: [
+      'TI-065', 'TI-012', 'TI-016',
+      'TI-004', 'TI-044', 'TI-055',
+      'TI-103', 'TI-064',
+    ],
+  },
+
   // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================

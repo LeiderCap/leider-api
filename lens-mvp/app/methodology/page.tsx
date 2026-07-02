@@ -1,631 +1,406 @@
-import Link from 'next/link';
-import type { Metadata } from 'next';
+import Link from 'next/link'
+import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Lens Ratings Methodology™ v1.1 — Transformation Intelligence Standards Board',
-  description:
-    'The official measurement standard for Transformation Capacity — the ability to convert intelligence into realized outcomes.',
-};
+  title: 'The Opportunity Method™ | Opportunity Science™',
+  description: 'The eight-phase methodology for discovering, evaluating, prioritizing, and realizing opportunities that create long-term enterprise value.',
+}
 
-const DOMAINS = [
+const phases = [
   {
-    id: 'intelligence',
-    name: 'Intelligence Capacity™',
-    weight: 10,
-    question: 'Can the organization generate intelligence?',
-    measures: [
-      'Information availability',
-      'Analytical capability',
-      'AI utilization',
-      'Decision support systems',
-      'Knowledge accessibility',
+    number: 'I',
+    name: 'Observe',
+    question: 'What is true?',
+    purpose: 'Establish an objective understanding of the enterprise. Observation precedes interpretation.',
+    activities: [
+      'Enterprise Examination',
+      'Lens Analysis™',
+      'Financial analysis',
+      'Market analysis',
+      'Competitive assessment',
+      'Leadership assessment',
+      'Capital structure review',
+      'Technology assessment',
     ],
-    color: 'border-slate-300 bg-slate-50',
-    bar: 'bg-slate-400',
-  },
-  {
-    id: 'absorbability',
-    name: 'Transformation Absorbability',
-    weight: 20,
-    question: 'Can the organization absorb intelligence?',
-    measures: [
-      'Change tolerance',
-      'Adoption velocity',
-      'Workforce readiness',
-      'Organizational flexibility',
-      'Implementation capacity',
+    outputs: [
+      'Enterprise Snapshot',
+      'Enterprise Health Score',
+      'Evidence Repository',
+      'Baseline Metrics',
     ],
-    color: 'border-blue-200 bg-blue-50',
-    bar: 'bg-blue-500',
+    principle: 'Evidence precedes opinion.',
+    platform: 'The Lens™',
+    platformHref: '/',
   },
   {
-    id: 'trust',
-    name: 'Trust Infrastructure™',
-    weight: 15,
-    question: 'Can the organization coordinate around intelligence?',
-    measures: [
-      'Transparency',
-      'Accountability',
-      'Credibility',
-      'Stakeholder alignment',
-      'Decision confidence',
+    number: 'II',
+    name: 'Understand',
+    question: 'Why is it true?',
+    purpose: 'Transform observations into insight. Understanding identifies causal relationships, structural constraints, and systemic patterns that explain current performance.',
+    activities: [
+      'Root cause analysis',
+      'Systems thinking',
+      'Trend interpretation',
+      'Competitive positioning',
+      'Strategic analysis',
+      'Value chain analysis',
     ],
-    color: 'border-teal-200 bg-teal-50',
-    bar: 'bg-teal-500',
-  },
-  {
-    id: 'governance',
-    name: 'Transformation Governance',
-    weight: 20,
-    question: 'Can the organization authorize transformation?',
-    measures: [
-      'Decision rights',
-      'Escalation structures',
-      'Authority clarity',
-      'Transformation oversight',
-      'Governance responsiveness',
+    outputs: [
+      'Strategic Insights',
+      'Constraint Analysis',
+      'Competitive Assessment',
+      'Enterprise Narrative',
     ],
-    color: 'border-indigo-200 bg-indigo-50',
-    bar: 'bg-indigo-500',
+    principle: 'Explanation creates understanding.',
+    platform: 'The Lens™',
+    platformHref: '/',
   },
   {
-    id: 'courage',
-    name: 'Structural Courage',
-    weight: 15,
-    question: 'Can the organization act upon intelligence?',
-    measures: [
-      'Willingness to redesign',
-      'Decentralization capacity',
-      'Incentive flexibility',
-      'Hierarchy reduction',
-      'Decision velocity',
+    number: 'III',
+    name: 'Discover',
+    question: 'What opportunities exist?',
+    purpose: 'Generate a comprehensive inventory of opportunities without prematurely eliminating possibilities. Discovery seeks both incremental and transformational opportunities.',
+    activities: [
+      'Opportunity Discovery',
+      'Opportunity Mapping',
+      'Opportunity Zones',
+      'Cross-industry analogs',
+      'AI-assisted exploration',
+      'Scenario generation',
     ],
-    color: 'border-amber-200 bg-amber-50',
-    bar: 'bg-amber-500',
-  },
-  {
-    id: 'execution',
-    name: 'Execution Capacity™',
-    weight: 20,
-    question: 'Can the organization convert change into outcomes?',
-    measures: [
-      'Implementation success',
-      'Transformation completion',
-      'Operational follow-through',
-      'Value realization',
-      'Learning integration',
+    outputs: [
+      'Opportunity Inventory',
+      'Opportunity Map',
+      'Opportunity Portfolio',
     ],
-    color: 'border-emerald-200 bg-emerald-50',
-    bar: 'bg-emerald-500',
-  },
-];
-
-const SCORING_WEIGHTS = [
-  { label: 'Absorbability', weight: 20, bar: 'bg-blue-500' },
-  { label: 'Governance', weight: 20, bar: 'bg-indigo-500' },
-  { label: 'Execution', weight: 20, bar: 'bg-emerald-500' },
-  { label: 'Trust', weight: 15, bar: 'bg-teal-500' },
-  { label: 'Courage', weight: 15, bar: 'bg-amber-500' },
-  { label: 'Intelligence', weight: 10, bar: 'bg-slate-400' },
-];
-
-const TIERS = [
-  {
-    tier: 'Leading™',
-    subtitle: 'Exceptional Transformation Capacity',
-    traits: ['Rapid adaptation', 'Strong governance', 'High trust', 'Strong execution', 'Continuous learning'],
-    color: 'rating-leading',
+    principle: 'Discovery precedes selection.',
+    platform: 'Lens Opportunities™',
+    platformHref: '/opportunities',
   },
   {
-    tier: 'Transforming™',
-    subtitle: 'Above-average Transformation Capacity',
-    traits: ['Proactive change', 'Strong implementation', 'Moderate friction'],
-    color: 'rating-transforming',
+    number: 'IV',
+    name: 'Evaluate',
+    question: 'Which opportunities create the greatest enterprise value?',
+    purpose: 'Assess every opportunity using a consistent methodology that considers value potential, strategic alignment, organizational readiness, and execution complexity.',
+    activities: [
+      'Enterprise value estimation',
+      'Strategic alignment assessment',
+      'Transformation Capacity™ assessment',
+      'Risk evaluation',
+      'Capital intensity analysis',
+      'Time horizon assessment',
+    ],
+    outputs: [
+      'Opportunity Scores',
+      'Comparative Analysis',
+      'Enterprise Value Estimates',
+      'Opportunity Rankings',
+    ],
+    principle: 'Every opportunity should be evaluated objectively before it is prioritized.',
+    platform: 'Lens Analysis™',
+    platformHref: '/',
   },
   {
-    tier: 'Advanced™',
-    subtitle: 'Moderate Transformation Capacity',
-    traits: ['Successful transformations occur', 'Uneven execution', 'Some bottlenecks'],
-    color: 'rating-advanced',
+    number: 'V',
+    name: 'Prioritize',
+    question: 'What should leadership pursue first?',
+    purpose: 'Recognize that organizations possess finite leadership attention, capital, and transformation capacity. Determine the optimal portfolio and sequence of opportunities.',
+    activities: [
+      'Enterprise Value Frontier analysis',
+      'Portfolio optimization',
+      'Sequence planning',
+      'Capital allocation',
+      'Capacity matching',
+    ],
+    outputs: [
+      'Enterprise Value Frontier',
+      'Opportunity Sequence',
+      'Portfolio Prioritization',
+      'Investment Roadmap',
+    ],
+    principle: 'The best opportunity is not always the first opportunity.',
+    platform: 'Enterprise Value Frontier',
+    platformHref: null,
   },
   {
-    tier: 'Developing™',
-    subtitle: 'Limited Transformation Capacity',
-    traits: ['Frequent delays', 'Fragmented execution', 'Adoption challenges'],
-    color: 'rating-developing',
+    number: 'VI',
+    name: 'Architect',
+    question: 'How should the enterprise be designed to realize these opportunities?',
+    purpose: 'Convert prioritized opportunities into an integrated strategic architecture covering capital, operating model, governance, and technology.',
+    activities: [
+      'Enterprise Value Blueprint development',
+      'Capital architecture',
+      'Operating model design',
+      'Governance design',
+      'Organizational design',
+      'Technology architecture',
+    ],
+    outputs: [
+      'Enterprise Value Blueprint™',
+      'Capital Architecture',
+      'Governance Framework',
+      'Strategic Roadmap',
+    ],
+    principle: 'Enterprise architecture enables enterprise value.',
+    platform: 'Transformation Blueprint™',
+    platformHref: '/blueprint',
   },
   {
-    tier: 'Emerging™',
-    subtitle: 'Material Transformation Constraints™',
-    traits: ['Low adoption', 'Governance friction', 'Organizational resistance', 'Transformation failures'],
-    color: 'rating-emerging',
-  },
-];
-
-const STAGES = [
-  {
-    stage: 'Stage I',
-    name: 'Substitution™',
-    description: 'Technology inserted into existing workflows.',
-    note: 'Risk',
-    noteText: 'Deployment Without Transformation™ (DWT™)',
-    noteColor: 'text-red-600',
-    bg: 'bg-slate-50 border-slate-200',
-  },
-  {
-    stage: 'Stage II',
-    name: 'Reorganization™',
-    description: 'Workflows redesigned around technology.',
-    note: 'Benefit',
-    noteText: 'Accelerated productivity.',
-    noteColor: 'text-amber-700',
-    bg: 'bg-amber-50 border-amber-200',
+    number: 'VII',
+    name: 'Execute',
+    question: 'How do we convert opportunity into outcomes?',
+    purpose: 'Translate strategy into disciplined execution with clear sequencing, governance, milestones, and accountability.',
+    activities: [
+      'Transformation Blueprint',
+      'Initiative sequencing',
+      'Governance cadence',
+      'Milestone setting',
+      'Resource allocation',
+      'Change management',
+    ],
+    outputs: [
+      'Transformation Blueprint™',
+      'Execution Roadmap',
+      'Governance Calendar',
+      'Performance Milestones',
+    ],
+    principle: 'Execution transforms opportunity into value.',
+    platform: 'Transformation Blueprint™',
+    platformHref: '/blueprint',
   },
   {
-    stage: 'Stage III',
-    name: 'Transformation™',
-    description: 'Operating models redesigned around technology.',
-    note: 'Benefit',
-    noteText: 'Structural advantage.',
-    noteColor: 'text-emerald-700',
-    bg: 'bg-emerald-50 border-emerald-200',
+    number: 'VIII',
+    name: 'Measure',
+    question: 'What have we learned, and what should change next?',
+    purpose: 'Create a continuous learning system that improves enterprise performance over time. Every cycle increases organizational knowledge and expands value creation.',
+    activities: [
+      'Transformation Intelligence™',
+      'KPI tracking',
+      'Enterprise Health reassessment',
+      'Opportunity realization measurement',
+      'Equity Reclamation assessment',
+      'Strategic recalibration',
+    ],
+    outputs: [
+      'Enterprise Health Trend',
+      'Transformation Scorecard',
+      'Opportunity Realization Report',
+      'Next Enterprise Value Blueprint™',
+    ],
+    principle: 'Learning compounds enterprise value.',
+    platform: 'Transformation Intelligence™',
+    platformHref: '/constitution/ti-001',
   },
-];
+]
 
 export default function MethodologyPage() {
   return (
-    <main className="min-h-screen">
+    <main className='min-h-screen bg-white'>
+
       {/* Hero */}
-      <section className="border-b border-slate-100 bg-white px-6 py-16 text-center">
-        <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
-          Transformation Intelligence Standards Board
+      <section className='py-20 px-6 max-w-5xl mx-auto'>
+        <p className='text-xs font-semibold uppercase tracking-widest text-orange-600 mb-4'>
+          Opportunity Science™
         </p>
-        <h1 className="mt-4 text-4xl font-bold text-slate-900 sm:text-5xl">
-          Lens Ratings Methodology™ v1.1
+        <h1 className='text-5xl font-bold text-gray-900 mb-6'>
+          The Opportunity Method™
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-600">
-          The official measurement standard for Transformation Capacity — the ability to convert
-          intelligence into realized outcomes.
+        <p className='text-xl text-gray-500 max-w-2xl mb-4'>
+          The scientific method for enterprise value creation.
         </p>
-        <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5">
-          <span className="h-2 w-2 rounded-full bg-emerald-500" />
-          <span className="text-sm font-semibold text-emerald-700">Version 1.1 · Ratified</span>
-        </div>
+        <p className='text-gray-400 max-w-2xl mb-8'>
+          Every scientific discipline is built upon a repeatable method.
+          The Opportunity Method is the foundational process through which
+          Opportunity Science™ discovers, evaluates, prioritizes, and realizes
+          opportunities that create long-term enterprise value.
+        </p>
+        <p className='text-sm text-gray-400 italic'>
+          Every Enterprise Value Blueprint™ produced by Opportunity Science™
+          follows this method.
+        </p>
       </section>
 
-      {/* ── Constitutional Foundation ─────────────────────────────── */}
-      <section className="border-b border-slate-100 bg-slate-900 px-6 py-16">
-        <div className="mx-auto max-w-3xl">
-          <div className="text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-teal-400">
-              The Constitutional Foundation
-            </p>
-            <h2 className="mt-4 text-3xl font-bold text-white sm:text-4xl">
-              Why The Lens™ exists in an age of AI abundance.
-            </h2>
-          </div>
+      {/* Foundational principle */}
+      <section className='bg-gray-950 py-16 px-6 text-center'>
+        <p className='text-xs font-semibold uppercase tracking-widest text-orange-500 mb-4'>
+          Foundational Principle
+        </p>
+        <p className='text-2xl font-bold text-white max-w-3xl mx-auto mb-4'>
+          Opportunity exists before it is recognized.
+        </p>
+        <p className='text-gray-400 max-w-2xl mx-auto'>
+          Enterprise value is created when organizations systematically discover,
+          prioritize, and realize the opportunities that matter most.
+          The role of Opportunity Science™ is to make that process observable,
+          measurable, and repeatable.
+        </p>
+      </section>
 
-          <div className="mt-14 flex flex-col items-center gap-0">
-            {[
-              {
-                abbr: 'IAP',
-                title: 'Intelligence Abundance Principle',
-                body: 'AI makes intelligence abundant. The historical advantage of knowing more dissolves.',
-                color: 'border-slate-600 bg-slate-800',
-                labelColor: 'text-slate-400',
-              },
-              {
-                abbr: 'QSP',
-                title: 'Question Scarcity Principle',
-                body: 'As answers are commoditized, questions become the scarce resource. Organizations that discover superior questions outperform those that merely generate superior answers.',
-                color: 'border-teal-700 bg-teal-900/40',
-                labelColor: 'text-teal-400',
-              },
-              {
-                abbr: 'ODC',
-                title: 'Opportunity Discovery Corollary',
-                body: 'Opportunity discovery becomes a primary source of economic value. The Lens™ is a Question Discovery Engine.',
-                color: 'border-slate-600 bg-slate-800',
-                labelColor: 'text-slate-400',
-              },
-              {
-                abbr: 'TCP',
-                title: 'Transformation Capacity Principle',
-                body: 'Discovering the opportunity is only the beginning. Transformation Capacity determines who can act on what they discover.',
-                color: 'border-slate-600 bg-slate-800',
-                labelColor: 'text-slate-400',
-              },
-              {
-                abbr: 'TE',
-                title: 'Transformation Efficiency',
-                body: 'The organizations that win combine superior question discovery with superior transformation capacity.',
-                color: 'border-emerald-700 bg-emerald-900/30',
-                labelColor: 'text-emerald-400',
-              },
-            ].map(({ abbr, title, body, color, labelColor }, i, arr) => (
-              <div key={abbr} className="flex flex-col items-center w-full max-w-xl">
-                <div className={`w-full rounded-xl border p-5 ${color}`}>
-                  <p className={`text-[10px] font-bold uppercase tracking-[0.2em] ${labelColor}`}>{abbr}</p>
-                  <p className="mt-1 text-sm font-bold text-white">{title}</p>
-                  <p className="mt-2 text-sm leading-6 text-slate-300">{body}</p>
+      {/* Eight phases */}
+      <section className='py-20 px-6 max-w-5xl mx-auto'>
+        <p className='text-xs font-semibold uppercase tracking-widest text-orange-600 mb-4'>
+          The Method
+        </p>
+        <h2 className='text-3xl font-bold text-gray-900 mb-4'>
+          Eight sequential phases.
+        </h2>
+        <p className='text-gray-500 mb-16 max-w-2xl'>
+          Each phase answers a distinct question. Together they form a
+          continuous learning system rather than a one-time analytical exercise.
+        </p>
+
+        <div className='space-y-16'>
+          {phases.map((phase) => (
+            <div
+              key={phase.number}
+              className='grid grid-cols-1 md:grid-cols-3 gap-8 pb-16 border-b border-gray-100 last:border-0'
+            >
+              {/* Left — phase identity */}
+              <div>
+                <div className='flex items-baseline gap-3 mb-2'>
+                  <span className='text-4xl font-bold text-orange-100'>
+                    {phase.number}
+                  </span>
+                  <h3 className='text-2xl font-bold text-gray-900'>
+                    {phase.name}
+                  </h3>
                 </div>
-                {i < arr.length - 1 && (
-                  <div className="flex flex-col items-center py-2">
-                    <div className="h-4 w-px bg-slate-600" />
-                    <span className="text-slate-500 text-lg leading-none">↓</span>
+                <p className='text-orange-600 font-semibold text-sm mb-4'>
+                  {phase.question}
+                </p>
+                <p className='text-gray-500 text-sm mb-6'>
+                  {phase.purpose}
+                </p>
+                <p className='text-xs text-gray-400 italic border-l-2 border-orange-200 pl-3'>
+                  {phase.principle}
+                </p>
+                {phase.platform && (
+                  <div className='mt-6'>
+                    <p className='text-xs text-gray-400 uppercase tracking-wide mb-1'>
+                      Platform
+                    </p>
+                    {phase.platformHref ? (
+                      <Link
+                        href={phase.platformHref}
+                        className='text-sm text-orange-600 hover:underline font-medium'
+                      >
+                        {phase.platform} →
+                      </Link>
+                    ) : (
+                      <span className='text-sm text-gray-400'>
+                        {phase.platform}
+                        <span className='ml-2 text-xs border border-gray-200 rounded px-1.5 py-0.5'>
+                          Coming soon
+                        </span>
+                      </span>
+                    )}
                   </div>
                 )}
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* ── Question Hierarchy™ ───────────────────────────────────── */}
-      <section className="border-b border-slate-100 bg-white px-6 py-16">
-        <div className="mx-auto max-w-4xl">
-          <div className="text-center">
-            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
-              Question Hierarchy™
-            </p>
-            <h2 className="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">
-              Not all questions possess equal value.
-            </h2>
-          </div>
-
-          <div className="mt-12 grid gap-4 sm:grid-cols-2">
-            {[
-              {
-                cls: 'Class I',
-                name: 'Informational Questions™',
-                body: 'Questions designed to retrieve facts: What happened? What is the data? What does the report say? These questions are becoming fully automated by AI.',
-                label: 'Increasingly automated',
-                border: 'border-slate-200',
-                bg: 'bg-slate-50',
-                badge: 'bg-slate-100 text-slate-500',
-                heading: 'text-slate-700',
-              },
-              {
-                cls: 'Class II',
-                name: 'Analytical Questions™',
-                body: 'Questions designed to generate explanations: Why did this occur? What caused this result? What are the tradeoffs? These questions are being rapidly augmented by AI.',
-                label: 'Increasingly augmented',
-                border: 'border-amber-200',
-                bg: 'bg-amber-50',
-                badge: 'bg-amber-100 text-amber-700',
-                heading: 'text-amber-900',
-              },
-              {
-                cls: 'Class III',
-                name: 'Strategic Questions™',
-                body: 'Questions designed to reveal opportunities: What are we missing? What assumptions are constraining us? Where is value trapped? These questions are becoming more valuable as AI handles Classes I and II.',
-                label: 'Increasingly valuable',
-                border: 'border-blue-200',
-                bg: 'bg-blue-50',
-                badge: 'bg-blue-100 text-blue-700',
-                heading: 'text-blue-900',
-              },
-              {
-                cls: 'Class IV',
-                name: 'Transformational Questions™',
-                body: 'Questions designed to expand possibility space: What becomes possible if this constraint disappears? What transformation would create disproportionate value? What future can now be created that was previously impossible? These are the highest-value questions in the Transformation Economy.',
-                label: 'The highest value',
-                border: 'border-emerald-200',
-                bg: 'bg-emerald-50',
-                badge: 'bg-emerald-100 text-emerald-700',
-                heading: 'text-emerald-900',
-              },
-            ].map(({ cls, name, body, label, border, bg, badge, heading }) => (
-              <div key={cls} className={`rounded-xl border p-5 ${border} ${bg}`}>
-                <div className="flex items-start justify-between gap-2">
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">{cls}</p>
-                    <p className={`mt-1 text-sm font-bold ${heading}`}>{name}</p>
-                  </div>
-                  <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold ${badge}`}>{label}</span>
-                </div>
-                <p className="mt-3 text-sm leading-6 text-slate-600">{body}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-8 rounded-xl border border-teal-200 bg-teal-50 p-5 text-center">
-            <p className="text-sm font-semibold text-teal-800">
-              The Lens™ is designed to help organizations reach Class III and Class IV questions faster —
-              before competitors recognize them.
-            </p>
-          </div>
-        </div>
-      </section>
-
-
-      {/* ── Two Transformation Tracks ────────────────────────────────── */}
-      <section className="border-b border-slate-100 bg-slate-50 px-6 py-16">
-        <div className="mx-auto max-w-4xl">
-          <div className="text-center">
-            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
-              Two Transformation Tracks
-            </p>
-            <h2 className="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">
-              Two Transformation Tracks.
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-slate-600">
-              One constitutional framework. Two expressions.
-            </p>
-          </div>
-
-          <div className="mt-12 grid gap-6 sm:grid-cols-2">
-            {/* Enterprise Track */}
-            <div className="rounded-xl border border-slate-200 bg-white p-6">
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Enterprise Track</p>
-              <p className="mt-1 text-base font-bold text-slate-900">Transformation Intelligence</p>
-              <div className="mt-5 flex flex-col gap-2">
-                {[
-                  'Lens Analysis™',
-                  'TCS™',
-                  'Blueprint™',
-                  'Guided Transformation™',
-                  'Partner™',
-                ].map((step, i, arr) => (
-                  <div key={step} className="flex flex-col items-start">
-                    <span className="rounded-lg bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700">{step}</span>
-                    {i < arr.length - 1 && <span className="ml-3 mt-0.5 text-slate-300 text-sm">↓</span>}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Consumer Track */}
-            <div className="rounded-xl border border-teal-200 bg-teal-50 p-6">
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-teal-600">Consumer Track</p>
-              <p className="mt-1 text-base font-bold text-slate-900">Human Transformation Intelligence (HTI™)</p>
-              <div className="mt-5 flex flex-col gap-2">
-                {[
-                  'My Lens™',
-                  'HTC™',
-                  'Learn It™',
-                  'Stack the Deck™',
-                  'Personal Blueprint™',
-                ].map((step, i, arr) => (
-                  <div key={step} className="flex flex-col items-start">
-                    <span className="rounded-lg bg-teal-100 px-3 py-1.5 text-xs font-semibold text-teal-800">{step}</span>
-                    {i < arr.length - 1 && <span className="ml-3 mt-0.5 text-teal-300 text-sm">↓</span>}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-8 rounded-xl border border-slate-200 bg-white p-5 text-center">
-            <p className="text-sm text-slate-600 leading-7">
-              The same constitutional principles apply to both. Organizations and individuals face the same
-              fundamental challenge: converting intelligence into realized outcomes.{' '}
-              <strong>The pathways are personalized. The framework is universal.</strong>
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Section 1: Core Principle */}
-      <section className="mx-auto max-w-4xl px-6 py-14">
-        <div className="card p-8 text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Core Principle</p>
-          <h2 className="mt-4 text-2xl font-bold text-slate-900 sm:text-3xl">
-            Organizations do not outperform because they possess more intelligence.
-          </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-lg text-slate-600 leading-8">
-            Organizations outperform because they possess greater{' '}
-            <strong>Transformation Capacity</strong>. As intelligence becomes abundant, sustainable
-            advantage accrues to organizations capable of converting intelligence into transformation
-            and transformation into value.
-          </p>
-        </div>
-      </section>
-
-      {/* Section 2: Scoring Weights */}
-      <section className="border-t border-slate-100 bg-slate-50 px-6 py-14">
-        <div className="mx-auto max-w-4xl">
-          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Architecture</p>
-          <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">TCS™ Scoring Architecture</h2>
-          <p className="mt-2 text-slate-500">
-            Intelligence is weighted lowest because intelligence is abundant.{' '}
-            <strong>Transformation Capacity is scarce.</strong>
-          </p>
-
-          <div className="mt-8 space-y-4">
-            {SCORING_WEIGHTS.map(({ label, weight, bar }) => (
-              <div key={label} className="flex items-center gap-4">
-                <p className="w-44 shrink-0 text-sm font-semibold text-slate-700">{label}</p>
-                <div className="flex-1 rounded-full bg-slate-200 h-4">
-                  <div
-                    className={`${bar} h-4 rounded-full transition-all`}
-                    style={{ width: `${weight * 5}%` }}
-                  />
-                </div>
-                <p className="w-10 shrink-0 text-right text-sm font-bold text-slate-700">{weight}%</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-8 rounded-xl border border-amber-200 bg-amber-50 p-5">
-            <p className="text-sm font-semibold text-amber-800">
-              Critical Insight: Deployment Without Transformation™ (DWT™)
-            </p>
-            <p className="mt-1 text-sm text-amber-700 leading-6">
-              Organizations that deploy intelligence without transformation capacity experience
-              DWT™ — the condition of possessing intelligence without the capacity to realize its
-              value. This is why Intelligence is weighted at only 10%: having intelligence is no
-              longer the constraint.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Section 3: Six Domains */}
-      <section className="mx-auto max-w-4xl px-6 py-14">
-        <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Domains</p>
-        <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">The Six Scoring Domains</h2>
-        <p className="mt-2 text-slate-500">
-          Each domain answers a fundamental question about transformation capacity.
-        </p>
-
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
-          {DOMAINS.map(({ id, name, weight, question, measures, color, bar }) => (
-            <div key={name} id={id} className={`rounded-xl border p-5 ${color} scroll-mt-20`}>
-              <div className="flex items-start justify-between gap-2">
-                <p className="text-sm font-bold text-slate-900">{name}</p>
-                <span className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-bold text-white ${bar}`}>
-                  {weight}%
-                </span>
-              </div>
-              <p className="mt-2 text-xs font-semibold text-slate-500 italic">{question}</p>
-              <ul className="mt-3 space-y-1">
-                {measures.map((m) => (
-                  <li key={m} className="flex items-center gap-2 text-xs text-slate-600">
-                    <span className={`inline-block h-1.5 w-1.5 shrink-0 rounded-full ${bar}`} />
-                    {m}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Section 4: Rating Scale */}
-      <section className="border-t border-slate-100 bg-slate-50 px-6 py-14">
-        <div className="mx-auto max-w-4xl">
-          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Rating Scale</p>
-          <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">Five-Tier Rating Scale</h2>
-          <p className="mt-2 text-slate-500">
-            Each tier represents a distinct level of Transformation Capacity.
-          </p>
-
-          <div className="mt-8 space-y-3">
-            {TIERS.map(({ tier, subtitle, traits, color }) => (
-              <div key={tier} className={`rounded-xl border p-5 ${color}`}>
-                <div className="flex flex-wrap items-baseline gap-2">
-                  <p className="text-base font-bold">{tier}</p>
-                  <p className="text-sm font-medium opacity-70">{subtitle}</p>
-                </div>
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {traits.map((t) => (
-                    <span key={t} className="rounded-full border border-current border-opacity-20 bg-white bg-opacity-40 px-2 py-0.5 text-xs font-medium">
-                      {t}
-                    </span>
+              {/* Middle — activities */}
+              <div>
+                <p className='text-xs font-semibold uppercase tracking-wide text-gray-400 mb-4'>
+                  Activities
+                </p>
+                <ul className='space-y-2'>
+                  {phase.activities.map((a) => (
+                    <li key={a} className='text-sm text-gray-600 flex gap-2'>
+                      <span className='text-orange-300 mt-0.5'>·</span>
+                      {a}
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Section 5: GPT Stages */}
-      <section className="mx-auto max-w-4xl px-6 py-14">
-        <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
-          Classification Framework
-        </p>
-        <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
-          General-Purpose Technology Transformation Stages™
-        </h2>
-        <p className="mt-2 text-slate-500">
-          Every organization occupies one of three stages of technology adoption.
-        </p>
-
-        <div className="mt-8 grid gap-4 sm:grid-cols-3">
-          {STAGES.map(({ stage, name, description, note, noteText, noteColor, bg }) => (
-            <div key={stage} className={`rounded-xl border p-5 ${bg}`}>
-              <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">{stage}</p>
-              <p className="mt-1 text-base font-bold text-slate-900">{name}</p>
-              <p className="mt-2 text-sm text-slate-600 leading-5">{description}</p>
-              <p className={`mt-3 text-xs font-semibold ${noteColor}`}>
-                {note}: {noteText}
-              </p>
+              {/* Right — outputs */}
+              <div>
+                <p className='text-xs font-semibold uppercase tracking-wide text-gray-400 mb-4'>
+                  Outputs
+                </p>
+                <ul className='space-y-2'>
+                  {phase.outputs.map((o) => (
+                    <li key={o} className='text-sm text-gray-600 flex gap-2'>
+                      <span className='text-green-400 mt-0.5'>✓</span>
+                      {o}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Section 5b: v1.1 Additions */}
-      <section className="mx-auto max-w-4xl px-6 py-14">
-        <div className="card p-8">
-          <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3 py-1 mb-4">
-            <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
-            <span className="text-xs font-semibold text-blue-700">New in v1.1</span>
-          </div>
-          <h2 className="text-2xl font-bold text-slate-900">Version 1.1 Additions</h2>
-          <p className="mt-2 text-slate-500">Three new measurement capabilities added in this version.</p>
-
-          <div className="mt-8 space-y-6">
-            <div className="rounded-xl border border-slate-200 p-5">
-              <p className="text-sm font-bold text-slate-800">1. Numerical 0–100 Scoring</p>
-              <p className="mt-1 text-sm text-slate-600 leading-6">
-                Each determinant now produces a precise numerical score (0–100) in addition to the tier label.
-                The TCS™ Composite Score is the weighted average of all six determinant scores.
-                This enables trend tracking, benchmarking, and more precise gap analysis.
-              </p>
-            </div>
-            <div className="rounded-xl border border-amber-200 bg-amber-50 p-5">
-              <p className="text-sm font-bold text-amber-800">2. Constraint Diagnostics™</p>
-              <p className="mt-1 text-sm text-amber-700 leading-6">
-                Every Lens Card™ now identifies the Primary Constraint™, Secondary Constraint™, and
-                System Constraint™ — the specific domains most limiting transformation capacity.
-                Constraint Diagnostics™ enable targeted intervention rather than broad transformation programs.
-              </p>
-            </div>
-            <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-5">
-              <p className="text-sm font-bold text-emerald-800">3. GPTP™ Stage Classification</p>
-              <p className="mt-1 text-sm text-emerald-700 leading-6">
-                Each organization is now classified into one of three General-Purpose Technology
-                Transformation Principle™ (GPTP™) stages: Substitution™, Reorganization™, or
-                Transformation™. Stage classification determines the type of intervention required
-                and the risk of Deployment Without Transformation™ (DWT™).
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Section 6: Constitutional Declaration */}
-      <section className="px-6 py-16" style={{ backgroundColor: '#0f172a' }}>
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
-            Constitutional Declaration
-          </p>
-          <blockquote className="mt-6 text-xl font-semibold leading-9 text-white sm:text-2xl">
-            "The Transformation Capacity Score™ is the foundational measurement of the
-            Transformation Economy™. As intelligence becomes abundant, sustainable advantage
-            increasingly accrues to organizations capable of converting intelligence into
-            transformation and transformation into value."
-          </blockquote>
-          <p className="mt-6 text-sm text-slate-400">
-            Transformation Intelligence Standards Board · Lens Ratings Methodology™ v1.1
-          </p>
-          <p className="mt-8 text-sm leading-7 text-slate-400 max-w-2xl mx-auto">
-            The Lens™ is the discovery layer of the Transformation Grid™ — an enterprise architecture
-            for making transformation observable at scale. As transformation events accumulate, they form
-            the Transformation Graph™: organizational memory that compounds over time. The Lens™ is where
-            that journey begins.
-          </p>
+      {/* Continuous cycle */}
+      <section className='bg-gray-50 py-16 px-6 text-center'>
+        <p className='text-xs font-semibold uppercase tracking-widest text-orange-600 mb-4'>
+          The Cycle
+        </p>
+        <h2 className='text-2xl font-bold text-gray-900 mb-4'>
+          Not a process. A continuous operating system.
+        </h2>
+        <p className='text-gray-500 max-w-xl mx-auto mb-10'>
+          Each cycle increases organizational knowledge, strengthens decision
+          quality, improves transformation capability, and expands enterprise
+          value creation.
+        </p>
+        <div className='flex flex-wrap justify-center gap-3 max-w-2xl mx-auto'>
+          {['Observe', 'Understand', 'Discover', 'Evaluate',
+            'Prioritize', 'Architect', 'Execute', 'Measure'].map(
+            (phase, i, arr) => (
+              <div key={phase} className='flex items-center gap-3'>
+                <span className='text-sm font-semibold text-gray-700'>
+                  {phase}
+                </span>
+                {i < arr.length - 1 && (
+                  <span className='text-orange-300'>→</span>
+                )}
+              </div>
+            )
+          )}
+          <span className='text-orange-300 w-full text-center mt-1'>↺</span>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="border-t border-slate-100 bg-white px-6 py-14 text-center">
-        <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
-          See It In Action
+      <section className='py-20 px-6 max-w-3xl mx-auto text-center'>
+        <p className='text-xs font-semibold uppercase tracking-widest text-orange-600 mb-4'>
+          Start With Phase I
         </p>
-        <h2 className="mt-3 text-2xl font-bold text-slate-900">
-          See The Methodology In Action
+        <h2 className='text-3xl font-bold text-gray-900 mb-4'>
+          Begin with observation.
         </h2>
-        <p className="mx-auto mt-3 max-w-md text-slate-500">
-          Run a Lens Analysis™ on any organization and see how the methodology scores it in real time.
+        <p className='text-gray-500 mb-8'>
+          The Lens™ is the entry point into the Opportunity Method.
+          Run a Lens Analysis™ to establish your evidence baseline
+          before interpretation begins.
         </p>
-        <Link href="/search" className="btn btn-primary mt-6 inline-flex">
-          Run Lens Analysis™ →
+        <Link
+          href='/'
+          className='inline-block rounded-lg bg-orange-600 px-6 py-3 font-semibold text-white hover:bg-orange-700 transition-colors'
+        >
+          Run The Lens™ →
         </Link>
+        <p className='mt-6 text-xs text-gray-400'>
+          Governed by{' '}
+          <Link
+            href='/constitution/ti-066'
+            className='text-orange-500 hover:underline'
+          >
+            TI-066
+          </Link>
+          {' '}Opportunity Method™ ·{' '}
+          <Link
+            href='/constitution/ti-065'
+            className='text-orange-500 hover:underline'
+          >
+            TI-065
+          </Link>
+          {' '}Opportunity Science™ Ontology
+        </p>
       </section>
+
     </main>
-  );
+  )
 }
