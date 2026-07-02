@@ -2295,6 +2295,85 @@ export const principles: Principle[] = [
   },
 
   // ============================================
+  // BOOK XVII — OPPORTUNITY SCIENCE™
+  // ============================================
+
+  {
+    id: 'TI-065',
+    slug: 'ti-065',
+    name: 'Opportunity Science™ Ontology',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-07-01',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book XVII — Opportunity Science™',
+    oid: 'OID-2026-TI-OSO-001',
+    lensUri: 'lens://constitution/ti-065',
+    principle: 'Opportunity Science™ is the systematic study of unrealized enterprise value — where it exists, why it remains unrealized, and which mechanism would most efficiently unlock it. Every Lens Analysis™ constitutes a traversal of the nine-step Opportunity Science™ ontology from observation to equity reclamation.',
+    definition: "Opportunity Science™ is the organizing discipline of The Lens™. It defines the complete workflow from initial observation of organizational signals through to estimation of equity reclamation potential. The nine-step ontology establishes the canonical sequence that every Lens Analysis™ follows: Observe → Discover Opportunity → Classify Opportunity Type → Discover Candidate Catalysts → Evaluate Catalyst Fit → Assess Transformation Capacity → Estimate Execution Probability → Estimate Value Realization → Estimate Equity Reclamation. Naming convention: The Lens™ and Opportunity Science™ are trademarked. The nine steps and their component concepts are the vocabulary of the discipline — not trademarked — consistent with how enduring disciplines (economics, finance, accounting) establish common language.",
+    operatingLaw: "The Lens™ currently delivers Steps 2, 3, 6, and 9. Blueprint™ delivers Steps 4 and 5. Steps 7 and 8 are in development. Reserve trademarks for the brand and the discipline, not for every construct. That makes the architecture feel more like economics, finance, or accounting rather than a collection of branded features. The discipline creates a common language. The institution owns the credibility.",
+    implications: [
+      'Step 1 — Observe: The Lens™ identifies signals of unrealized value. Output: opportunity landscape, opportunity visibility, opportunity visibility gap.',
+      'Step 2 — Discover Opportunity: Where does meaningful opportunity exist? Output: ranked opportunity landscape by sector, zone, and signal strength. Platform: Lens Opportunities™.',
+      'Step 3 — Classify Opportunity Type: What kind of opportunity is this? Six types: Repair (structural issues constraining performance), Unlock (performance improvement available), Protect (resilience and defensibility), Transform (fundamental business model change), Search (catalyst identification required), Compound (compounding advantage reinforcement). Platform: Opportunity Zone classification.',
+      "Step 4 — Discover Candidate Catalysts: Which mechanisms could unlock this value? Output: ranked catalysts, catalyst hypotheses, alternative pathways. Platform: Blueprint™ (in development).",
+      "Step 5 — Evaluate Catalyst Fit: Which catalyst best fits this organization's context? Evaluates: strategic fit, organizational fit, capital fit, governance fit, timing fit. Platform: Blueprint™ (in development).",
+      'Step 6 — Assess Transformation Capacity: Can this organization successfully execute the chosen catalyst? Measures: transformation capacity, transformation readiness, governance, decision quality, organizational absorbability, leadership alignment. Platform: Lens Analysis™ TCS™ scorecard.',
+      'Step 7 — Estimate Execution Probability: What is the probability of successful execution? Measures: transformation probability, fulfillment probability, execution match quality. Platform: in development.',
+      'Step 8 — Estimate Value Realization: How much value is converted into measurable outcomes? Measures: transformation efficiency, value realization, adoption, execution performance, time to value. Platform: in development.',
+      'Step 9 — Estimate Equity Reclamation: How much enterprise value could reasonably be unlocked if execution succeeds? This is the economic outcome. Platform: Unlock Potential™ / Equity Reclamation Estimate on Lens Analysis™.',
+      "Relationship to Transformation Intelligence™: Transformation Intelligence™ is the answer to Step 6 — given the chosen catalyst, what is the organization's probability of successful execution? TI™ is the execution layer of Opportunity Science™. The Lens™ is the observation and decision application.",
+      'Naming philosophy per TI-063 IPNP™: Trademarked: The Lens™, Opportunity Science™. Not trademarked (vocabulary of the discipline): Opportunity Discovery, Opportunity Types, Catalyst Discovery, Catalyst Fit, Transformation Intelligence, Transformation Capacity, Transformation Readiness, Value Realization, Equity Reclamation, Transformation Efficiency, Opportunity Visibility, Opportunity Visibility Gap. This mirrors how economics does not trademark Supply, Demand, or Opportunity Cost.',
+      'Relationship to EVA (TI-064): Opportunity Science™ extends the EVA intellectual lineage. Where EVA asked “Did capital create value?”, Opportunity Science™ asks “Which opportunities should receive scarce capital before investment begins?” — completing the upstream analytical chain.',
+    ],
+    typedRelationships: [
+      {
+        type: 'extends',
+        targetId: 'TI-001',
+        description: 'Extends Transformation Intelligence™ — Opportunity Science™ is the organizing discipline within which TI™ operates as the execution assessment layer (Step 6)',
+      },
+      {
+        type: 'extends',
+        targetId: 'TI-012',
+        description: 'Extends Unlock Science™ — Opportunity Science™ is the complete nine-step workflow within which Unlock Science™ provides the measurement standards',
+      },
+      {
+        type: 'extends',
+        targetId: 'TI-064',
+        description: 'Extends Economic Value Validation Principle™ — Opportunity Science™ completes the upstream analytical chain that EVA began',
+      },
+      {
+        type: 'implements',
+        targetId: 'TI-063',
+        description: 'Implements IP Naming Principle™ — Opportunity Science™ ontology applies IPNP™ by trademarking only the discipline and brand, not the nine workflow steps',
+      },
+      {
+        type: 'implements',
+        targetId: 'TI-044',
+        description: 'Implements Divergence Acceleration Law™ — Opportunity Science™ is the systematic methodology for identifying which organizations are diverging before markets recognize it',
+      },
+      {
+        type: 'depends_on',
+        targetId: 'TI-004',
+        description: 'Depends on Transformation Capacity Principle™ — Step 6 of the ontology is the TCS™ assessment',
+      },
+      {
+        type: 'enables',
+        targetId: 'TI-801',
+        description: 'Enables Equity Reclamation™ — Step 9 of the ontology is the Equity Reclamation estimate',
+      },
+    ],
+    relatedIds: [
+      'TI-001', 'TI-012', 'TI-064',
+      'TI-063', 'TI-044', 'TI-004',
+      'TI-801', 'TI-103', 'TI-046',
+    ],
+  },
+
+  // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================
 

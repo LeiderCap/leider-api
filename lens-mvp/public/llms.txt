@@ -472,6 +472,15 @@ Canonical: https://lensanalysis.com/constitution/ti-064
 
 https://lensanalysis.com/constitution/ti-064
 
+## Book XVII — Opportunity Science™
+Opportunity Science™ Ontology (TI-065): The systematic study of unrealized enterprise value.
+Nine-step ontology: Observe → Discover Opportunity → Classify Opportunity Type → Discover Candidate Catalysts → Evaluate Catalyst Fit → Assess Transformation Capacity → Estimate Execution Probability → Estimate Value Realization → Estimate Equity Reclamation.
+The Lens™ currently delivers Steps 2, 3, 6, and 9. Blueprint™ delivers Steps 4 and 5. Steps 7 and 8 are in development.
+Naming: The Lens™ and Opportunity Science™ are trademarked. The nine steps are the vocabulary of the discipline — not trademarked.
+Canonical: https://lensanalysis.com/constitution/ti-065
+
+https://lensanalysis.com/constitution/ti-065
+
 ## Constitutional Canon™ (Appendix B)
 TI-050 establishes the seven-category classification system for all Transformation Intelligence™ concepts.
 Canonical Progression: Foundations → Laws → Measurements → Architectures → Methods → Applications → Evidence → Constitutional Evolution.
