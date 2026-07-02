@@ -360,6 +360,34 @@ export async function saveLensAnalysis(
     }
     const tickerUpper = ticker.toUpperCase();
     const oid = await generateAnalysisOid(tickerUpper);
+
+    // Fix 5 — Score Stability variance logging
+    try {
+      const { data: prevData } = await supabase
+        .from('lens_analyses')
+        .select('tcs_score, oid')
+        .eq('ticker', tickerUpper)
+        .eq('is_latest', true)
+        .limit(1)
+        .maybeSingle();
+      if (prevData && snapshot.tcs_numeric != null) {
+        const newTcsScore = snapshot.tcs_numeric;
+        const variance = Math.abs((prevData.tcs_score || 0) - newTcsScore);
+        console.log(
+          `[Score Stability] ${tickerUpper} TCS variance: ` +
+          `${prevData.tcs_score} → ${newTcsScore} ` +
+          `(diff: ${variance})`
+        );
+        if (variance > 15) {
+          console.warn(
+            `[Score Stability] HIGH VARIANCE detected for ${tickerUpper}: ${variance} points`
+          );
+        }
+      }
+    } catch (err) {
+      console.warn('[lens-service] Score variance check failed (non-fatal):', err);
+    }
+
     try {
       await supabase
         .from('lens_analyses')

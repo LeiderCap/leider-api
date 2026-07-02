@@ -508,6 +508,78 @@ These are internal reasoning tools only.
 LENS RATINGS METHODOLOGY™ v1.0
 Official Methodology — Transformation Intelligence™ Standards Board
 
+TCS™ SCORING RUBRIC — CONSTITUTIONAL REQUIREMENT
+
+You must score each dimension using these anchored ranges.
+Do not deviate from these anchors without explicit evidence.
+
+ABSORBABILITY (organizational readiness to absorb change):
+90-100: Evidence of systematic change management, high learning velocity,
+        rapid AI adoption across workflows
+70-89:  Structured change programs, moderate adoption speed,
+        some workflow integration
+50-69:  Inconsistent adoption, siloed initiatives,
+        change fatigue signals
+30-49:  Resistance to change, failed transformation history,
+        low organizational confidence
+0-29:   Structural inability to absorb change,
+        critical organizational dysfunction
+
+GOVERNANCE (decision quality and oversight architecture):
+90-100: Transparent decision-making, strong board oversight,
+        clear accountability, low decision latency
+70-89:  Functional governance with some gaps,
+        reasonable decision speed
+50-69:  Governance gaps, slow decisions,
+        unclear accountability
+30-49:  Weak governance, high decision latency,
+        poor oversight
+0-29:   Governance failure, no accountability architecture
+
+EXECUTION (consistency of converting decisions to outcomes):
+90-100: High execution reliability, consistent delivery,
+        strong operational discipline
+70-89:  Generally reliable execution with occasional gaps
+50-69:  Inconsistent execution, missed targets,
+        implementation struggles
+30-49:  Frequent execution failures, significant gaps
+        between plans and outcomes
+0-29:   Systematic execution failure
+
+TRUST (internal and external trust architecture):
+90-100: High stakeholder trust, transparent communication,
+        strong track record
+70-89:  Generally trusted with some credibility gaps
+50-69:  Trust deficits in specific areas,
+        credibility questions
+30-49:  Significant trust erosion, credibility damage
+0-29:   Trust collapse, reputational crisis
+
+COURAGE (willingness to make bold transformation decisions):
+90-100: Evidence of bold strategic moves,
+        willingness to disrupt own business model
+70-89:  Some bold decisions, moderate risk tolerance
+50-69:  Conservative approach, incremental rather
+        than transformational moves
+30-49:  Risk aversion, avoiding necessary change
+0-29:   Paralysis, inability to make consequential decisions
+
+INTELLIGENCE (organizational learning and AI utilization):
+90-100: Advanced AI deployment, compounding
+        organizational learning, high knowledge retention
+70-89:  Good AI utilization, systematic learning practices
+50-69:  Partial AI adoption, inconsistent learning capture
+30-49:  Limited AI integration, poor knowledge management
+0-29:   Minimal AI adoption, no systematic learning
+
+SCORING DISCIPLINE:
+- Scores must be based on observable evidence from retrieved sources
+- Default to the middle of the applicable range when evidence is mixed
+- Do not assign extreme scores (above 85 or below 20) without specific evidence
+- Mark any score based on inference rather than direct evidence with [INFERENCE]
+- Scores for the same dimension should not vary by more than 10 points
+  across analyses of the same company with the same evidence
+
 TCS™ SCORING WEIGHTS:
 - Absorbability™:  20% — Can the organization absorb intelligence?
 - Governance™:     20% — Can the organization authorize transformation?
@@ -607,6 +679,18 @@ GPTP STAGE CLASSIFICATION:
 
 IMPORTANT: tcs_score tier MUST be consistent with tcs_numeric using the rating bands above.
 Example: tcs_numeric=61 → tcs_score='Developing'
+
+CONSISTENCY REQUIREMENT:
+Before finalizing scores, verify:
+1. No dimension score differs from the sector average by more than 30 points
+   without specific evidence explaining the deviation
+2. The overall TCS™ score (weighted average) should reflect
+   the company's general transformation trajectory
+3. If you are uncertain about a score, default to 50 —
+   do not guess at extremes
+4. The six dimension scores should tell a coherent story —
+   if Execution is 80 but Governance is 20,
+   explain the specific evidence for each
 
 ---
 
