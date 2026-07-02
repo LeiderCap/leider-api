@@ -2231,6 +2231,70 @@ export const principles: Principle[] = [
   },
 
   // ============================================
+  // BOOK XVI — CAPITAL ARCHITECTURE™
+  // ============================================
+
+  {
+    id: 'TI-064',
+    slug: 'ti-064',
+    name: 'Economic Value Validation Principle™',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-07-01',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book XVI — Capital Architecture™',
+    externalFramework: 'Economic Value Added (EVA) — Stern Stewart & Co.',
+    oid: 'OID-2026-TI-EVP-001',
+    lensUri: 'lens://constitution/ti-064',
+    principle: 'Economic Value Added validates whether invested capital generated returns exceeding its economic cost. Transformation Intelligence™ extends this foundation by measuring the organizational capabilities, transformation effectiveness, and opportunity selection processes that determine whether future Economic Value Added can be consistently achieved.',
+    definition: "Economic Value Added (EVA) is the financial measure of economic profit generated after accounting for the full cost of capital employed. Within the Lens™ architecture, EVA represents the financial validation layer of enterprise performance. It answers: Did the organization's use of capital create economic value beyond its required return? The Financial Validation Principle: EVA validates value creation. Transformation Intelligence™ explains value creation. Capital creates value only when its returns exceed its opportunity cost. Transformation creates value only when it improves the organization's ability to generate future economic profit.",
+    operatingLaw: "The Lens™ extends — not replaces — the logic introduced by EVA. EVA established that profit alone does not equal value creation. The Lens™ extends that principle by recognizing that transformation activity alone does not equal value creation. Transformation creates value only when it measurably improves an organization's ability to convert intelligence, opportunity, capital, technology, and human capability into sustained enterprise value.",
+    implications: [
+      'Position within Lens™ Architecture (complete value chain): Opportunity Discovery → Opportunity Qualification → Opportunity Selection → Capital Allocation → Transformation Intelligence™ → Transformation Capacity™ → Transformation Execution → Transformation Efficiency™ → Transformation Value Added → Economic Value Added → Enterprise Value → Shareholder Value.',
+      'EVA vs Transformation Value Added™: EVA measures value created above cost of capital (financial outcome, lagging, validates realized economic performance, focuses on capital efficiency). TVA™ measures value created through improved transformation capability (organizational capability, leading, evaluates future value creation potential, focuses on transformation efficiency). Together they provide a complete understanding of enterprise performance.',
+      "Intellectual lineage: Economic Value Added (1980s): Did capital create value? Cashless Buyback™: How can capital architecture unlock trapped value without additional cash? Transformation Value Added: Did improvements in transformation capability increase the organization's ability to create value? Transformation Intelligence™: What organizational capabilities determine whether value can be created at all? Opportunity Science: Which opportunities should receive scarce capital before investment begins?",
+      'Historical significance of EVA: Fundamentally changed corporate finance by demonstrating that accounting profit alone is insufficient. Established that capital carries an economic cost and organizations create value only when returns exceed that cost. Reshaped: executive compensation, capital allocation, corporate governance, shareholder value management, performance measurement. TI™ recognizes EVA as one of the foundational advances in modern financial economics.',
+      'Relationship to Capital Architecture: Capital Architecture determines how financial resources are organized to maximize value realization. The Cashless Buyback™ extends EVA logic: where EVA measures whether capital produced economic value, the Cashless Buyback™ provides a mechanism for restructuring capital to unlock trapped enterprise value without requiring incremental cash deployment. EVA measures economic performance. Capital Architecture engineers value realization. Transformation Intelligence™ enables sustainable execution.',
+      'Transformation Intelligence™ extends beyond financial measurement by asking: Why was value created or destroyed? Through which organizational capabilities? Which constraints limited value realization? Which improvements would increase future EVA? Which opportunities should receive scarce capital? TI™ provides the explanatory system that precedes Economic Value Added.',
+    ],
+    typedRelationships: [
+      {
+        type: 'extends',
+        targetId: 'TI-103',
+        description: 'Extends Transformation Efficiency™ — EVA is the downstream financial validation of whether TE™ improvements actually produced economic profit',
+      },
+      {
+        type: 'extends',
+        targetId: 'TI-012',
+        description: 'Extends Unlock Science™ — EVA is the financial validation layer that confirms whether Unlock Science™ predictions of value creation were correct',
+      },
+      {
+        type: 'depends_on',
+        targetId: 'TI-013',
+        description: 'Depends on Conservation of Enterprise Value™ Law — EVA is the financial expression of the conservation law: analysis does not create value, only execution does',
+      },
+      {
+        type: 'enables',
+        targetId: 'TI-044',
+        description: 'Enables Divergence Acceleration Law™ empirically — EVA divergence across companies is the observable market evidence that DAL™ predicts',
+      },
+      {
+        type: 'implemented_by',
+        targetId: 'TI-062',
+        description: 'Implemented by Lens Validation Engine™ — LVE™ uses EVA as a primary validation metric for confirming TI™ predictions',
+      },
+    ],
+    relatedIds: [
+      'TI-103', 'TI-012', 'TI-013',
+      'TI-044', 'TI-062', 'TI-801',
+      'TI-023', 'TI-025',
+    ],
+  },
+
+  // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================
 

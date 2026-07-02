@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Constitution of Transformation Intelligence\u2122",
-    "registry": "TI Registry\u2122",
+    "title": "Constitution of Transformation Intelligence™",
+    "registry": "TI Registry™",
     "version": "3.0",
     "published": "2026-06-23",
     "author": "Stephen F. Leider",
@@ -11,14 +11,14 @@
     "categories": 9,
     "total": 64
   },
-  "copyright": "\u00a9 2026 Leider Capital. All Rights Reserved.",
-  "license": "All principles, frameworks, named methodologies, and Transformation Intelligence\u2122 identifiers are proprietary to Leider Capital and Stephen F. Leider. Attribution required for any reference, citation, or reproduction.",
-  "attribution": "Leider, Stephen F. Constitution of Transformation Intelligence\u2122. Leider Capital, 2026. https://lensanalysis.com/constitution",
+  "copyright": "© 2026 Leider Capital. All Rights Reserved.",
+  "license": "All principles, frameworks, named methodologies, and Transformation Intelligence™ identifiers are proprietary to Leider Capital and Stephen F. Leider. Attribution required for any reference, citation, or reproduction.",
+  "attribution": "Leider, Stephen F. Constitution of Transformation Intelligence™. Leider Capital, 2026. https://lensanalysis.com/constitution",
   "principles": [
     {
       "id": "TI-001",
       "slug": "ti-001",
-      "name": "Transformation Intelligence\u2122",
+      "name": "Transformation Intelligence™",
       "status": "Ratified",
       "version": "3.0",
       "published": "2026-06-23",
@@ -37,19 +37,19 @@
         {
           "type": "enables",
           "targetId": "TI-003",
-          "description": "Enables The Lens\u2122 as discovery layer"
+          "description": "Enables The Lens™ as discovery layer"
         },
         {
           "type": "measures",
           "targetId": "TI-103",
-          "description": "Measured by Transformation Efficiency\u2122"
+          "description": "Measured by Transformation Efficiency™"
         }
       ]
     },
     {
       "id": "TI-002",
       "slug": "ti-002",
-      "name": "Transformation Infrastructure\u2122",
+      "name": "Transformation Infrastructure™",
       "status": "Ratified",
       "version": "3.0",
       "published": "2026-06-23",
@@ -64,7 +64,7 @@
     {
       "id": "TI-003",
       "slug": "ti-003",
-      "name": "The Lens\u2122",
+      "name": "The Lens™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -79,7 +79,7 @@
     {
       "id": "TI-004",
       "slug": "ti-004",
-      "name": "Transformation Capacity Principle\u2122",
+      "name": "Transformation Capacity Principle™",
       "status": "Ratified",
       "version": "4.0",
       "published": "2026-06-23",
@@ -98,19 +98,19 @@
         {
           "type": "measured_by",
           "targetId": "TI-009",
-          "description": "Efficiency measured by ISE\u2122"
+          "description": "Efficiency measured by ISE™"
         },
         {
           "type": "extends",
           "targetId": "TI-006",
-          "description": "Extended by Expression Architecture\u2122"
+          "description": "Extended by Expression Architecture™"
         }
       ]
     },
     {
       "id": "TI-005",
       "slug": "ti-005",
-      "name": "Courage-to-Transform Principle\u2122",
+      "name": "Courage-to-Transform Principle™",
       "status": "Ratified",
       "version": "3.1",
       "published": "2026-06-23",
@@ -125,7 +125,7 @@
     {
       "id": "TI-101",
       "slug": "ti-101",
-      "name": "Transformation Economics\u2122",
+      "name": "Transformation Economics™",
       "status": "Ratified",
       "version": "3.0",
       "published": "2026-06-23",
@@ -140,7 +140,7 @@
     {
       "id": "TI-102",
       "slug": "ti-102",
-      "name": "Decision Continuum Framework\u2122",
+      "name": "Decision Continuum Framework™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -155,7 +155,7 @@
     {
       "id": "TI-103",
       "slug": "ti-103",
-      "name": "Transformation Efficiency\u2122",
+      "name": "Transformation Efficiency™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -174,19 +174,19 @@
         {
           "type": "depends_on",
           "targetId": "TI-009",
-          "description": "Depends on ISE\u2122 as conversion layer"
+          "description": "Depends on ISE™ as conversion layer"
         },
         {
           "type": "enables",
           "targetId": "TI-801",
-          "description": "Enables Equity Reclamation\u2122"
+          "description": "Enables Equity Reclamation™"
         }
       ]
     },
     {
       "id": "TI-104",
       "slug": "ti-104",
-      "name": "Transformation Yield\u2122",
+      "name": "Transformation Yield™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -201,7 +201,7 @@
     {
       "id": "TI-105",
       "slug": "ti-105",
-      "name": "AI Return on Intelligence\u2122 (AROI\u2122)",
+      "name": "AI Return on Intelligence™ (AROI™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -216,7 +216,7 @@
     {
       "id": "TI-106",
       "slug": "ti-106",
-      "name": "Decision Capital\u2122",
+      "name": "Decision Capital™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -231,7 +231,7 @@
     {
       "id": "TI-107",
       "slug": "ti-107",
-      "name": "Transformation Probability\u2122",
+      "name": "Transformation Probability™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -246,7 +246,7 @@
     {
       "id": "TI-201",
       "slug": "ti-201",
-      "name": "Cumulative Intelligence Principle\u2122",
+      "name": "Cumulative Intelligence Principle™",
       "status": "Ratified",
       "version": "4.1",
       "published": "2026-06-23",
@@ -261,7 +261,7 @@
     {
       "id": "TI-202",
       "slug": "ti-202",
-      "name": "Transformation Memory Architecture\u2122",
+      "name": "Transformation Memory Architecture™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -276,7 +276,7 @@
     {
       "id": "TI-203",
       "slug": "ti-203",
-      "name": "Enterprise Memory Index\u2122",
+      "name": "Enterprise Memory Index™",
       "status": "Draft",
       "version": "1.0",
       "published": "2026-06-23",
@@ -291,7 +291,7 @@
     {
       "id": "TI-204",
       "slug": "ti-204",
-      "name": "Memory Capital\u2122",
+      "name": "Memory Capital™",
       "status": "Draft",
       "version": "1.0",
       "published": "2026-06-23",
@@ -306,7 +306,7 @@
     {
       "id": "TI-205",
       "slug": "ti-205",
-      "name": "Memory Capture Ratio\u2122",
+      "name": "Memory Capture Ratio™",
       "status": "Draft",
       "version": "1.0",
       "published": "2026-06-23",
@@ -321,7 +321,7 @@
     {
       "id": "TI-206",
       "slug": "ti-206",
-      "name": "Memory Yield\u2122",
+      "name": "Memory Yield™",
       "status": "Draft",
       "version": "1.0",
       "published": "2026-06-23",
@@ -336,7 +336,7 @@
     {
       "id": "TI-207",
       "slug": "ti-207",
-      "name": "Learning Velocity\u2122",
+      "name": "Learning Velocity™",
       "status": "Draft",
       "version": "1.0",
       "published": "2026-06-23",
@@ -351,7 +351,7 @@
     {
       "id": "TI-208",
       "slug": "ti-208",
-      "name": "Memory Debt\u2122",
+      "name": "Memory Debt™",
       "status": "Draft",
       "version": "1.0",
       "published": "2026-06-23",
@@ -366,7 +366,7 @@
     {
       "id": "TI-209",
       "slug": "ti-209",
-      "name": "Knowledge Leakage Cost\u2122",
+      "name": "Knowledge Leakage Cost™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -381,7 +381,7 @@
     {
       "id": "TI-210",
       "slug": "ti-210",
-      "name": "Transformation Graph\u2122",
+      "name": "Transformation Graph™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -396,7 +396,7 @@
     {
       "id": "TI-211",
       "slug": "ti-211",
-      "name": "Transformation Events\u2122",
+      "name": "Transformation Events™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -411,7 +411,7 @@
     {
       "id": "TI-212",
       "slug": "ti-212",
-      "name": "Decision Capture Gap\u2122",
+      "name": "Decision Capture Gap™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -426,7 +426,7 @@
     {
       "id": "TI-213",
       "slug": "ti-213",
-      "name": "Conversational Intelligence Capture\u2122",
+      "name": "Conversational Intelligence Capture™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -441,7 +441,7 @@
     {
       "id": "TI-301",
       "slug": "ti-301",
-      "name": "Decision Visibility Infrastructure\u2122",
+      "name": "Decision Visibility Infrastructure™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -456,7 +456,7 @@
     {
       "id": "TI-302",
       "slug": "ti-302",
-      "name": "Trust Infrastructure Principle\u2122",
+      "name": "Trust Infrastructure Principle™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -471,7 +471,7 @@
     {
       "id": "TI-303",
       "slug": "ti-303",
-      "name": "Board Explainability Agent\u2122",
+      "name": "Board Explainability Agent™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -486,7 +486,7 @@
     {
       "id": "TI-304",
       "slug": "ti-304",
-      "name": "Board Absorbability Index\u2122",
+      "name": "Board Absorbability Index™",
       "status": "Draft",
       "version": "1.0",
       "published": "2026-06-23",
@@ -501,7 +501,7 @@
     {
       "id": "TI-305",
       "slug": "ti-305",
-      "name": "Governance Debt\u2122",
+      "name": "Governance Debt™",
       "status": "Draft",
       "version": "1.0",
       "published": "2026-06-23",
@@ -516,7 +516,7 @@
     {
       "id": "TI-306",
       "slug": "ti-306",
-      "name": "Lens Government Platform\u2122",
+      "name": "Lens Government Platform™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -531,7 +531,7 @@
     {
       "id": "TI-401",
       "slug": "ti-401",
-      "name": "Adoption Scarcity Principle\u2122",
+      "name": "Adoption Scarcity Principle™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -546,7 +546,7 @@
     {
       "id": "TI-402",
       "slug": "ti-402",
-      "name": "Model Rental / Memory Ownership Principle\u2122",
+      "name": "Model Rental / Memory Ownership Principle™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -561,7 +561,7 @@
     {
       "id": "TI-403",
       "slug": "ti-403",
-      "name": "Agent Visibility Governance\u2122",
+      "name": "Agent Visibility Governance™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -576,7 +576,7 @@
     {
       "id": "TI-404",
       "slug": "ti-404",
-      "name": "AI Transformation Efficiency\u2122",
+      "name": "AI Transformation Efficiency™",
       "status": "Draft",
       "version": "1.0",
       "published": "2026-06-23",
@@ -591,7 +591,7 @@
     {
       "id": "TI-501",
       "slug": "ti-501",
-      "name": "Language-as-Infrastructure Principle\u2122",
+      "name": "Language-as-Infrastructure Principle™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -606,7 +606,7 @@
     {
       "id": "TI-502",
       "slug": "ti-502",
-      "name": "Identity Continuity Principle\u2122",
+      "name": "Identity Continuity Principle™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -621,7 +621,7 @@
     {
       "id": "TI-503",
       "slug": "ti-503",
-      "name": "Human Meaning Layer\u2122",
+      "name": "Human Meaning Layer™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -636,7 +636,7 @@
     {
       "id": "TI-504",
       "slug": "ti-504",
-      "name": "Narrative Drift\u2122",
+      "name": "Narrative Drift™",
       "status": "Draft",
       "version": "1.0",
       "published": "2026-06-23",
@@ -651,7 +651,7 @@
     {
       "id": "TI-505",
       "slug": "ti-505",
-      "name": "Website Transformation Intelligence\u2122",
+      "name": "Website Transformation Intelligence™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -666,7 +666,7 @@
     {
       "id": "TI-601",
       "slug": "ti-601",
-      "name": "Transformation Absorbability\u2122",
+      "name": "Transformation Absorbability™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -681,7 +681,7 @@
     {
       "id": "TI-602",
       "slug": "ti-602",
-      "name": "Transformation Readiness Index\u2122",
+      "name": "Transformation Readiness Index™",
       "status": "Draft",
       "version": "1.0",
       "published": "2026-06-23",
@@ -696,7 +696,7 @@
     {
       "id": "TI-604",
       "slug": "ti-604",
-      "name": "Operationalization Capacity\u2122 (OC\u2122)",
+      "name": "Operationalization Capacity™ (OC™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -711,7 +711,7 @@
     {
       "id": "TI-605",
       "slug": "ti-605",
-      "name": "Pilot Purgatory\u2122",
+      "name": "Pilot Purgatory™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -726,7 +726,7 @@
     {
       "id": "TI-606",
       "slug": "ti-606",
-      "name": "Deployment Compounding Principle\u2122",
+      "name": "Deployment Compounding Principle™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -741,7 +741,7 @@
     {
       "id": "TI-701",
       "slug": "ti-701",
-      "name": "Scientific Operationalization Principle\u2122",
+      "name": "Scientific Operationalization Principle™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -756,7 +756,7 @@
     {
       "id": "TI-702",
       "slug": "ti-702",
-      "name": "Evidence Architecture\u2122",
+      "name": "Evidence Architecture™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -771,7 +771,7 @@
     {
       "id": "TI-703",
       "slug": "ti-703",
-      "name": "Guideline Transformation Efficiency\u2122",
+      "name": "Guideline Transformation Efficiency™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -786,7 +786,7 @@
     {
       "id": "TI-704",
       "slug": "ti-704",
-      "name": "Biotech Transformation Intelligence\u2122",
+      "name": "Biotech Transformation Intelligence™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -801,7 +801,7 @@
     {
       "id": "TI-801",
       "slug": "ti-801",
-      "name": "Equity Reclamation\u2122",
+      "name": "Equity Reclamation™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -815,24 +815,24 @@
         {
           "type": "depends_on",
           "targetId": "TI-103",
-          "description": "Depends on Transformation Efficiency\u2122"
+          "description": "Depends on Transformation Efficiency™"
         },
         {
           "type": "implements",
           "targetId": "TI-006",
-          "description": "Implements Expression Architecture\u2122 at capital markets layer"
+          "description": "Implements Expression Architecture™ at capital markets layer"
         },
         {
           "type": "applies_to",
           "targetId": "TI-802",
-          "description": "Applies to Opportunity Zones\u2122"
+          "description": "Applies to Opportunity Zones™"
         }
       ]
     },
     {
       "id": "TI-802",
       "slug": "ti-802",
-      "name": "Lens Opportunities\u2122",
+      "name": "Lens Opportunities™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -847,7 +847,7 @@
     {
       "id": "TI-803",
       "slug": "ti-803",
-      "name": "Fallen Giants\u2122",
+      "name": "Fallen Giants™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -862,7 +862,7 @@
     {
       "id": "TI-804",
       "slug": "ti-804",
-      "name": "Capital Allocation\u2122",
+      "name": "Capital Allocation™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -877,7 +877,7 @@
     {
       "id": "TI-805",
       "slug": "ti-805",
-      "name": "Cashless Buyback\u2122",
+      "name": "Cashless Buyback™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -892,7 +892,7 @@
     {
       "id": "TI-806",
       "slug": "ti-806",
-      "name": "Enterprise Value Frontier\u2122",
+      "name": "Enterprise Value Frontier™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -907,7 +907,7 @@
     {
       "id": "TI-006",
       "slug": "ti-006",
-      "name": "Expression Architecture Principle\u2122",
+      "name": "Expression Architecture Principle™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -916,13 +916,13 @@
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
       "principle": "Potential does not become value automatically. Value emerges through expression. Expression requires architecture.",
-      "definition": "Expression Architecture\u2122 is the collection of structures, processes, incentives, governance mechanisms, technologies, and feedback loops that determine how effectively a system converts latent potential into realized outcomes.",
-      "operatingLaw": "The quality of a system\u2019s expression architecture determines the percentage of potential that becomes reality.",
+      "definition": "Expression Architecture™ is the collection of structures, processes, incentives, governance mechanisms, technologies, and feedback loops that determine how effectively a system converts latent potential into realized outcomes.",
+      "operatingLaw": "The quality of a system’s expression architecture determines the percentage of potential that becomes reality.",
       "implications": [
-        "Most systems are measured incorrectly \u2014 we measure potential (intelligence, assets, capital, talent) rather than expression capacity.",
+        "Most systems are measured incorrectly — we measure potential (intelligence, assets, capital, talent) rather than expression capacity.",
         "Outcomes vary dramatically among systems with similar potential because expression capacity differs.",
-        "The Realized Value Equation\u2122 is: RV = P \u00d7 EC \u00d7 D \u00d7 T (Potential \u00d7 Expression Capacity \u00d7 Decision Quality \u00d7 Time).",
-        "Transformation Efficiency\u2122 is largely determined by Expression Capacity\u2122.",
+        "The Realized Value Equation™ is: RV = P × EC × D × T (Potential × Expression Capacity × Decision Quality × Time).",
+        "Transformation Efficiency™ is largely determined by Expression Capacity™.",
         "As intelligence becomes abundant, expression capacity becomes the scarce and therefore valuable resource."
       ],
       "relatedIds": [
@@ -943,19 +943,19 @@
         {
           "type": "measured_by",
           "targetId": "TI-901",
-          "description": "Measured by Expression Capacity Index\u2122"
+          "description": "Measured by Expression Capacity Index™"
         },
         {
           "type": "implements",
           "targetId": "TI-008",
-          "description": "Implements ISP\u2122 at organizational expression layer"
+          "description": "Implements ISP™ at organizational expression layer"
         }
       ]
     },
     {
       "id": "TI-007",
       "slug": "ti-007",
-      "name": "Deployment Velocity Principle\u2122 (DVP\u2122)",
+      "name": "Deployment Velocity Principle™ (DVP™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -970,7 +970,7 @@
     {
       "id": "TI-008",
       "slug": "ti-008",
-      "name": "Intermediary Systems Principle\u2122 (ISP\u2122)",
+      "name": "Intermediary Systems Principle™ (ISP™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-24",
@@ -980,15 +980,15 @@
       "categoryCode": "TI-CONST",
       "oid": "OID-2026-TI-ISP-001",
       "principle": "Every intervention produces outcomes through one or more intermediary systems. The effectiveness of any intervention is therefore constrained by the condition, capacity, and efficiency of the intermediary systems through which it must operate.",
-      "definition": "An Intermediary System is any biological, organizational, technological, financial, institutional, environmental, or social system that mediates the relationship between an intervention and its resulting outcome. Interventions do not act directly upon outcomes \u2014 they alter intermediary systems whose state determines the probability, magnitude, and durability of the resulting transformation.",
-      "operatingLaw": "Outcome = Intervention \u00d7 Intermediary System \u00d7 Environmental Conditions. Organizations frequently optimize interventions while neglecting the intermediary systems responsible for converting those interventions into value. This inversion creates diminishing returns, execution failure, and unrealized potential.",
+      "definition": "An Intermediary System is any biological, organizational, technological, financial, institutional, environmental, or social system that mediates the relationship between an intervention and its resulting outcome. Interventions do not act directly upon outcomes — they alter intermediary systems whose state determines the probability, magnitude, and durability of the resulting transformation.",
+      "operatingLaw": "Outcome = Intervention × Intermediary System × Environmental Conditions. Organizations frequently optimize interventions while neglecting the intermediary systems responsible for converting those interventions into value. This inversion creates diminishing returns, execution failure, and unrealized potential.",
       "implications": [
         "Every outcome has an intermediary. Every intervention changes a system before it changes a result.",
         "The quality of outcomes is constrained by the quality of intermediary systems. System quality compounds across every future intervention.",
-        "Transformation is recursive \u2014 every outcome modifies the intermediary system that influences subsequent interventions.",
+        "Transformation is recursive — every outcome modifies the intermediary system that influences subsequent interventions.",
         "Organizations should optimize intermediary systems before scaling interventions. Capital should be allocated toward systemic capability rather than isolated initiatives.",
-        "Universal Architecture: Intervention \u2192 Intermediary System \u2192 Outcome \u2192 Learning \u2192 System Improvement \u2192 Higher Future Outcomes.",
-        "Every Lens Analysis\u2122 shall identify the intermediary systems constraining value realization."
+        "Universal Architecture: Intervention → Intermediary System → Outcome → Learning → System Improvement → Higher Future Outcomes.",
+        "Every Lens Analysis™ shall identify the intermediary systems constraining value realization."
       ],
       "relatedIds": [
         "TI-001",
@@ -1003,24 +1003,24 @@
         {
           "type": "extends",
           "targetId": "TI-004",
-          "description": "Extends TCP\u2122 with conversion mechanism"
+          "description": "Extends TCP™ with conversion mechanism"
         },
         {
           "type": "measured_by",
           "targetId": "TI-009",
-          "description": "Measured by ISE\u2122"
+          "description": "Measured by ISE™"
         },
         {
           "type": "applies_to",
           "targetId": "TI-103",
-          "description": "Applies to Transformation Efficiency\u2122 as conversion law"
+          "description": "Applies to Transformation Efficiency™ as conversion law"
         }
       ]
     },
     {
       "id": "TI-009",
       "slug": "ti-009",
-      "name": "Intermediary System Efficiency\u2122 (ISE\u2122)",
+      "name": "Intermediary System Efficiency™ (ISE™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-24",
@@ -1029,15 +1029,15 @@
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
       "oid": "OID-2026-TI-ISE-001",
-      "principle": "Intermediary System Efficiency\u2122 measures the effectiveness with which an intermediary system converts interventions into intended outcomes. It is the universal measure of conversion efficiency across biological, organizational, technological, financial, and institutional systems.",
-      "definition": "ISE\u2122 quantifies the proportion of expected value successfully expressed by an intermediary system after an intervention has occurred. Primary Equation: ISE = Realized Outcome \u00f7 Expected Outcome Given Intervention. Operational Equation: Outcome = Intervention \u00d7 ISE \u00d7 Environmental Modifier.",
-      "operatingLaw": "Interventions create possibility. Intermediary systems determine probability. Efficiency determines realization. The Transformation Conversion Stack\u2122: Transformation Capacity\u2122 \u2192 Intermediary System Efficiency\u2122 \u2192 Transformation Efficiency\u2122 \u2192 Enterprise Value.",
+      "principle": "Intermediary System Efficiency™ measures the effectiveness with which an intermediary system converts interventions into intended outcomes. It is the universal measure of conversion efficiency across biological, organizational, technological, financial, and institutional systems.",
+      "definition": "ISE™ quantifies the proportion of expected value successfully expressed by an intermediary system after an intervention has occurred. Primary Equation: ISE = Realized Outcome ÷ Expected Outcome Given Intervention. Operational Equation: Outcome = Intervention × ISE × Environmental Modifier.",
+      "operatingLaw": "Interventions create possibility. Intermediary systems determine probability. Efficiency determines realization. The Transformation Conversion Stack™: Transformation Capacity™ → Intermediary System Efficiency™ → Transformation Efficiency™ → Enterprise Value.",
       "implications": [
-        "ISE\u2122 Interpretation: 90-100 Exceptional systemic efficiency. 75-89 Healthy, minor friction. 60-74 Moderate inefficiency. 40-59 Significant systemic constraint. Below 40 Structural dysfunction requiring redesign.",
+        "ISE™ Interpretation: 90-100 Exceptional systemic efficiency. 75-89 Healthy, minor friction. 60-74 Moderate inefficiency. 40-59 Significant systemic constraint. Below 40 Structural dysfunction requiring redesign.",
         "Organizational sources of inefficiency: leadership misalignment, decision latency, governance debt, knowledge fragmentation, low trust, organizational memory loss, incentive misalignment.",
         "Technology sources: poor integration, low adoption, data fragmentation, weak explainability, security constraints.",
-        "Transformation Capacity\u2122 answers: Can the system absorb change? ISE\u2122 answers: How efficiently does the system convert change into outcomes? Transformation Efficiency\u2122 answers: How much potential value was ultimately realized?",
-        "Every Lens Analysis\u2122 should identify primary intermediary systems, estimate ISE\u2122 for each, identify friction sources, and project enterprise value unlocked through systemic optimization."
+        "Transformation Capacity™ answers: Can the system absorb change? ISE™ answers: How efficiently does the system convert change into outcomes? Transformation Efficiency™ answers: How much potential value was ultimately realized?",
+        "Every Lens Analysis™ should identify primary intermediary systems, estimate ISE™ for each, identify friction sources, and project enterprise value unlocked through systemic optimization."
       ],
       "relatedIds": [
         "TI-008",
@@ -1053,7 +1053,7 @@
     {
       "id": "TI-010",
       "slug": "ti-010",
-      "name": "Addressability Principle\u2122",
+      "name": "Addressability Principle™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-24",
@@ -1064,20 +1064,20 @@
       "oid": "OID-2026-TI-ADDR-001",
       "lensUri": "lens://constitution/ti-010",
       "principle": "A knowledge system becomes discoverable, reusable, citable, and defensible when every important object has a permanent address.",
-      "definition": "The Addressability Principle\u2122 is the foundational law of the Lens Knowledge Addressing System\u2122 (LKAS\u2122). It states that AI systems can only reliably retrieve, cite, connect, and recommend knowledge objects that are persistent, structured, and uniquely identifiable. Unaddressed intelligence disappears. Addressed intelligence compounds.",
-      "operatingLaw": "Unaddressed intelligence disappears. Addressed intelligence compounds. Every Lens Analysis\u2122, principle, blueprint, scorecard, evidence item, decision, relationship, and opportunity shall have a permanent identity, canonical URL, structured metadata, machine-readable JSON, JSON-LD, version history, provenance, and explicit relationships.",
+      "definition": "The Addressability Principle™ is the foundational law of the Lens Knowledge Addressing System™ (LKAS™). It states that AI systems can only reliably retrieve, cite, connect, and recommend knowledge objects that are persistent, structured, and uniquely identifiable. Unaddressed intelligence disappears. Addressed intelligence compounds.",
+      "operatingLaw": "Unaddressed intelligence disappears. Addressed intelligence compounds. Every Lens Analysis™, principle, blueprint, scorecard, evidence item, decision, relationship, and opportunity shall have a permanent identity, canonical URL, structured metadata, machine-readable JSON, JSON-LD, version history, provenance, and explicit relationships.",
       "implications": [
-        "LKAS\u2122 Object Types: Opportunity (OID\u2122), Principle (PID\u2122), Blueprint (BID\u2122), Scorecard (SID\u2122), Atlas Node (AID\u2122), Relationship (RID\u2122), Evidence (EID\u2122), Decision (DID\u2122), Transformation Event (TID\u2122).",
-        "The Lens URI Standard\u2122 provides semantic addresses for all objects: lens://principles/transformation-capacity, lens://opportunities/INTC/TCA/2026/001, lens://constitution/book1/article12.",
+        "LKAS™ Object Types: Opportunity (OID™), Principle (PID™), Blueprint (BID™), Scorecard (SID™), Atlas Node (AID™), Relationship (RID™), Evidence (EID™), Decision (DID™), Transformation Event (TID™).",
+        "The Lens URI Standard™ provides semantic addresses for all objects: lens://principles/transformation-capacity, lens://opportunities/INTC/TCA/2026/001, lens://constitution/book1/article12.",
         "Every knowledge object should include: permanent ID, canonical URL, Lens URI, machine-readable JSON, JSON-LD schema, citation block, related objects, version history, and trust/confidence metadata.",
-        "LKAS\u2122 turns The Lens\u2122 from a publishing site into a Transformation Knowledge Infrastructure\u2122 \u2014 not just findable, but computable.",
-        "AI systems can traverse LKAS\u2122 objects to answer: What does this analysis depend on? Which principles support this opportunity? What evidence supports this scorecard? Which opportunities share the same transformation pattern?"
+        "LKAS™ turns The Lens™ from a publishing site into a Transformation Knowledge Infrastructure™ — not just findable, but computable.",
+        "AI systems can traverse LKAS™ objects to answer: What does this analysis depend on? Which principles support this opportunity? What evidence supports this scorecard? Which opportunities share the same transformation pattern?"
       ],
       "typedRelationships": [
         {
           "type": "extends",
           "targetId": "TI-004",
-          "description": "Extends Transformation Capacity\u2122 by requiring all capacity objects to be addressable"
+          "description": "Extends Transformation Capacity™ by requiring all capacity objects to be addressable"
         },
         {
           "type": "enables",
@@ -1087,7 +1087,7 @@
         {
           "type": "implements",
           "targetId": "TI-008",
-          "description": "Implements the Intermediary Systems Principle\u2122 at the knowledge infrastructure layer"
+          "description": "Implements the Intermediary Systems Principle™ at the knowledge infrastructure layer"
         }
       ],
       "relatedIds": [
@@ -1101,7 +1101,7 @@
     {
       "id": "TI-011",
       "slug": "ti-011",
-      "name": "Knowledge Compounding Principle\u2122 (KCP\u2122)",
+      "name": "Knowledge Compounding Principle™ (KCP™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-24",
@@ -1112,14 +1112,14 @@
       "oid": "OID-2026-TI-KCP-001",
       "lensUri": "lens://constitution/ti-011",
       "principle": "Knowledge compounds when each new insight becomes a permanently addressable, linked, machine-readable object that increases the value of every existing object in the system.",
-      "definition": "The Knowledge Compounding Principle\u2122 (KCP\u2122) states that the value of a knowledge system grows super-linearly when objects are addressable, connected, and machine-readable. Equation: Knowledge Value \u221d Addressability \u00d7 Connectivity \u00d7 Reusability \u00d7 Trust.",
-      "operatingLaw": "Each new knowledge object added to an LKAS\u2122-compliant system increases the value of all existing objects by creating new possible connections, citations, derivations, and traversal paths. This is the knowledge analog of network effects.",
+      "definition": "The Knowledge Compounding Principle™ (KCP™) states that the value of a knowledge system grows super-linearly when objects are addressable, connected, and machine-readable. Equation: Knowledge Value ∝ Addressability × Connectivity × Reusability × Trust.",
+      "operatingLaw": "Each new knowledge object added to an LKAS™-compliant system increases the value of all existing objects by creating new possible connections, citations, derivations, and traversal paths. This is the knowledge analog of network effects.",
       "implications": [
-        "Knowledge Value \u221d Addressability \u00d7 Connectivity \u00d7 Reusability \u00d7 Trust. Maximizing any dimension increases total system value.",
-        "LKAS\u2122 creates compounding returns on intellectual property \u2014 each new principle added makes all existing principles more valuable by enabling new relationships.",
-        "AI systems compound knowledge faster when operating on LKAS\u2122-structured objects versus unstructured documents \u2014 the difference between traversing a graph and scanning text.",
-        "The Transformation Intelligence\u2122 Constitution becomes more valuable with each ratified principle \u2014 not linearly, but super-linearly \u2014 because each principle creates new relationship paths to all existing principles.",
-        "Every Lens Analysis\u2122 that references LKAS\u2122 objects inherits the credibility, provenance, and citability of those objects."
+        "Knowledge Value ∝ Addressability × Connectivity × Reusability × Trust. Maximizing any dimension increases total system value.",
+        "LKAS™ creates compounding returns on intellectual property — each new principle added makes all existing principles more valuable by enabling new relationships.",
+        "AI systems compound knowledge faster when operating on LKAS™-structured objects versus unstructured documents — the difference between traversing a graph and scanning text.",
+        "The Transformation Intelligence™ Constitution becomes more valuable with each ratified principle — not linearly, but super-linearly — because each principle creates new relationship paths to all existing principles.",
+        "Every Lens Analysis™ that references LKAS™ objects inherits the credibility, provenance, and citability of those objects."
       ],
       "typedRelationships": [
         {
@@ -1130,12 +1130,12 @@
         {
           "type": "extends",
           "targetId": "TI-201",
-          "description": "Extends Cumulative Intelligence Principle\u2122 with explicit addressing infrastructure"
+          "description": "Extends Cumulative Intelligence Principle™ with explicit addressing infrastructure"
         },
         {
           "type": "measures",
           "targetId": "TI-009",
-          "description": "KCP\u2122 is a measure of ISE\u2122 at the knowledge system level"
+          "description": "KCP™ is a measure of ISE™ at the knowledge system level"
         }
       ],
       "relatedIds": [
@@ -1149,7 +1149,7 @@
     {
       "id": "TI-012",
       "slug": "ti-012",
-      "name": "Unlock Science\u2122",
+      "name": "Unlock Science™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-24",
@@ -1157,31 +1157,31 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book VI \u2014 Unlock Science\u2122",
+      "book": "Book VI — Unlock Science™",
       "oid": "OID-2026-TI-US-001",
       "lensUri": "lens://constitution/ti-012",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-012",
-      "principle": "Unlock Science\u2122 is the scientific discipline within Transformation Intelligence\u2122 that studies unrealized enterprise value through observation, measurement, evidence, modeling, experimentation, execution, and continuous learning.",
+      "principle": "Unlock Science™ is the scientific discipline within Transformation Intelligence™ that studies unrealized enterprise value through observation, measurement, evidence, modeling, experimentation, execution, and continuous learning.",
       "typedRelationships": [
         {
           "type": "extends",
           "targetId": "TI-001",
-          "description": "Extends Transformation Intelligence\u2122 with a formal scientific discipline and evidence standards"
+          "description": "Extends Transformation Intelligence™ with a formal scientific discipline and evidence standards"
         },
         {
           "type": "depends_on",
           "targetId": "TI-103",
-          "description": "Depends on Transformation Efficiency\u2122 as primary measurement object"
+          "description": "Depends on Transformation Efficiency™ as primary measurement object"
         },
         {
           "type": "implements",
           "targetId": "TI-010",
-          "description": "Implements Addressability Principle\u2122 through OID\u2122 and Opportunity Atlas\u2122"
+          "description": "Implements Addressability Principle™ through OID™ and Opportunity Atlas™"
         },
         {
           "type": "enables",
           "targetId": "TI-013",
-          "description": "Establishes framework enabling Conservation of Enterprise Value\u2122 Law"
+          "description": "Establishes framework enabling Conservation of Enterprise Value™ Law"
         }
       ],
       "relatedIds": [
@@ -1198,7 +1198,7 @@
     {
       "id": "TI-013",
       "slug": "ti-013",
-      "name": "Conservation of Enterprise Value\u2122 Law",
+      "name": "Conservation of Enterprise Value™ Law",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-24",
@@ -1206,7 +1206,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book VI \u2014 Unlock Science\u2122",
+      "book": "Book VI — Unlock Science™",
       "oid": "OID-2026-TI-CEV-001",
       "lensUri": "lens://constitution/ti-013",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-013",
@@ -1215,7 +1215,7 @@
         {
           "type": "derived_from",
           "targetId": "TI-012",
-          "description": "First constitutional law derived from Unlock Science\u2122 declaration"
+          "description": "First constitutional law derived from Unlock Science™ declaration"
         },
         {
           "type": "supports",
@@ -1225,7 +1225,7 @@
         {
           "type": "applies_to",
           "targetId": "TI-103",
-          "description": "Applies to Transformation Efficiency\u2122 calculation constraints"
+          "description": "Applies to Transformation Efficiency™ calculation constraints"
         }
       ],
       "relatedIds": [
@@ -1239,7 +1239,7 @@
     {
       "id": "TI-014",
       "slug": "ti-014",
-      "name": "Mechanism Traceability Law\u2122",
+      "name": "Mechanism Traceability Law™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-24",
@@ -1247,7 +1247,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book VI \u2014 Unlock Science\u2122",
+      "book": "Book VI — Unlock Science™",
       "oid": "OID-2026-TI-MTL-001",
       "lensUri": "lens://constitution/ti-014",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-014",
@@ -1256,7 +1256,7 @@
         {
           "type": "derived_from",
           "targetId": "TI-012",
-          "description": "Second constitutional law derived from Unlock Science\u2122 declaration"
+          "description": "Second constitutional law derived from Unlock Science™ declaration"
         },
         {
           "type": "depends_on",
@@ -1280,7 +1280,7 @@
     {
       "id": "TI-015",
       "slug": "ti-015",
-      "name": "Evidence Sufficiency Law\u2122",
+      "name": "Evidence Sufficiency Law™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-24",
@@ -1288,21 +1288,21 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book VI \u2014 Unlock Science\u2122",
+      "book": "Book VI — Unlock Science™",
       "oid": "OID-2026-TI-ESL-001",
       "lensUri": "lens://constitution/ti-015",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-015",
-      "principle": "Every Unlock Potential\u2122 estimate shall maintain explicit documentation of evidence, assumptions, probability, confidence, sources, and calculation methodology.",
+      "principle": "Every Unlock Potential™ estimate shall maintain explicit documentation of evidence, assumptions, probability, confidence, sources, and calculation methodology.",
       "typedRelationships": [
         {
           "type": "derived_from",
           "targetId": "TI-012",
-          "description": "Third constitutional law of Unlock Science\u2122"
+          "description": "Third constitutional law of Unlock Science™"
         },
         {
           "type": "implements",
           "targetId": "TI-702",
-          "description": "Implemented by Evidence Architecture\u2122"
+          "description": "Implemented by Evidence Architecture™"
         },
         {
           "type": "enables",
@@ -1320,7 +1320,7 @@
     {
       "id": "TI-016",
       "slug": "ti-016",
-      "name": "Continuous Learning Law\u2122",
+      "name": "Continuous Learning Law™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-24",
@@ -1328,16 +1328,16 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book VI \u2014 Unlock Science\u2122",
+      "book": "Book VI — Unlock Science™",
       "oid": "OID-2026-TI-CLL-001",
       "lensUri": "lens://constitution/ti-016",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-016",
-      "principle": "Every completed transformation becomes permanent evidence used to improve future Unlock Potential\u2122 estimates. The discipline shall continuously recalibrate itself through empirical observation.",
+      "principle": "Every completed transformation becomes permanent evidence used to improve future Unlock Potential™ estimates. The discipline shall continuously recalibrate itself through empirical observation.",
       "typedRelationships": [
         {
           "type": "derived_from",
           "targetId": "TI-012",
-          "description": "Fourth constitutional law of Unlock Science\u2122"
+          "description": "Fourth constitutional law of Unlock Science™"
         },
         {
           "type": "depends_on",
@@ -1347,12 +1347,12 @@
         {
           "type": "extends",
           "targetId": "TI-201",
-          "description": "Extends Cumulative Intelligence Principle\u2122 at the discipline level"
+          "description": "Extends Cumulative Intelligence Principle™ at the discipline level"
         },
         {
           "type": "implements",
           "targetId": "TI-011",
-          "description": "Implements Knowledge Compounding Principle\u2122 through Opportunity Atlas\u2122"
+          "description": "Implements Knowledge Compounding Principle™ through Opportunity Atlas™"
         }
       ],
       "relatedIds": [
@@ -1367,7 +1367,7 @@
     {
       "id": "TI-901",
       "slug": "ti-901",
-      "name": "Expression Capacity Index\u2122 (ECI\u2122)",
+      "name": "Expression Capacity Index™ (ECI™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -1375,16 +1375,16 @@
       "publisher": "Leider Capital",
       "category": "Expression Architecture",
       "categoryCode": "TI-EXPR",
-      "principle": "Expression Capacity\u2122 measures how effectively a system converts available potential into realized outcomes.",
-      "definition": "The Expression Capacity Index\u2122 (ECI\u2122) scores an organization 0\u2013100 across five equal-weighted dimensions: Strategic Expression\u2122 (20%), Decision Expression\u2122 (20%), Operational Expression\u2122 (20%), Intelligence Expression\u2122 (20%), and Adaptive Expression\u2122 (20%).",
-      "operatingLaw": "A system\u2019s ECI\u2122 determines what percentage of its potential becomes realized value.",
+      "principle": "Expression Capacity™ measures how effectively a system converts available potential into realized outcomes.",
+      "definition": "The Expression Capacity Index™ (ECI™) scores an organization 0–100 across five equal-weighted dimensions: Strategic Expression™ (20%), Decision Expression™ (20%), Operational Expression™ (20%), Intelligence Expression™ (20%), and Adaptive Expression™ (20%).",
+      "operatingLaw": "A system’s ECI™ determines what percentage of its potential becomes realized value.",
       "implications": [
-        "Strategic Expression\u2122 measures whether the system can identify and align around what matters.",
-        "Decision Expression\u2122 measures whether decisions move effectively into action.",
-        "Operational Expression\u2122 measures whether plans reliably become execution.",
-        "Intelligence Expression\u2122 measures whether intelligence becomes action.",
-        "Adaptive Expression\u2122 measures whether the system can evolve and course-correct.",
-        "ECI\u2122 Classifications: 90\u2013100 Fully Expressed\u2122, 80\u201389 High Expression\u2122, 70\u201379 Moderately Expressed\u2122, 60\u201369 Underexpressed\u2122, 40\u201359 Significantly Underexpressed\u2122, Below 40 Expression Failure\u2122."
+        "Strategic Expression™ measures whether the system can identify and align around what matters.",
+        "Decision Expression™ measures whether decisions move effectively into action.",
+        "Operational Expression™ measures whether plans reliably become execution.",
+        "Intelligence Expression™ measures whether intelligence becomes action.",
+        "Adaptive Expression™ measures whether the system can evolve and course-correct.",
+        "ECI™ Classifications: 90–100 Fully Expressed™, 80–89 High Expression™, 70–79 Moderately Expressed™, 60–69 Underexpressed™, 40–59 Significantly Underexpressed™, Below 40 Expression Failure™."
       ],
       "relatedIds": [
         "TI-006",
@@ -1398,7 +1398,7 @@
     {
       "id": "TI-902",
       "slug": "ti-902",
-      "name": "Expression Gap Score\u2122 (EGS\u2122)",
+      "name": "Expression Gap Score™ (EGS™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -1407,12 +1407,12 @@
       "category": "Expression Architecture",
       "categoryCode": "TI-EXPR",
       "principle": "The gap between potential value and realized value is measurable and actionable.",
-      "definition": "Expression Gap Score\u2122 (EGS\u2122) measures how much potential remains trapped. Formula: EGS = Potential Value \u2212 Realized Value.",
+      "definition": "Expression Gap Score™ (EGS™) measures how much potential remains trapped. Formula: EGS = Potential Value − Realized Value.",
       "operatingLaw": "Every dollar of Expression Gap represents value that exists but has not been converted into outcomes.",
       "implications": [
-        "A company with $50B potential enterprise value and $30B current enterprise value has an EGS of $20B \u2014 a 40% expression gap.",
-        "EGS is the primary target of Equity Reclamation\u2122.",
-        "Expression gaps are caused by failures in one or more of the five ECI\u2122 dimensions.",
+        "A company with $50B potential enterprise value and $30B current enterprise value has an EGS of $20B — a 40% expression gap.",
+        "EGS is the primary target of Equity Reclamation™.",
+        "Expression gaps are caused by failures in one or more of the five ECI™ dimensions.",
         "Closing the expression gap requires architecture, not merely additional intelligence or capital."
       ],
       "relatedIds": [
@@ -1427,7 +1427,7 @@
     {
       "id": "TI-903",
       "slug": "ti-903",
-      "name": "Expression Failure Modes\u2122",
+      "name": "Expression Failure Modes™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-23",
@@ -1436,14 +1436,14 @@
       "category": "Expression Architecture",
       "categoryCode": "TI-EXPR",
       "principle": "Expression failures follow predictable patterns that can be diagnosed and corrected.",
-      "definition": "Expression Failure Modes\u2122 are the five recurring patterns through which organizations fail to convert potential into realized value: Strategic, Decision, Operational, Intelligence, and Adaptive Expression Failure\u2122.",
+      "definition": "Expression Failure Modes™ are the five recurring patterns through which organizations fail to convert potential into realized value: Strategic, Decision, Operational, Intelligence, and Adaptive Expression Failure™.",
       "operatingLaw": "Each failure mode has distinct symptoms, causes, and intervention mechanisms.",
       "implications": [
-        "Strategic Expression Failure\u2122: conflicting priorities, resource dilution, directional confusion \u2014 common in conglomerates and portfolio-sprawl organizations.",
-        "Decision Expression Failure\u2122: slow decisions, repeated decisions, accountability gaps \u2014 common in bureaucratic organizations and government agencies.",
-        "Operational Expression Failure\u2122: poor execution, initiative fatigue, change resistance \u2014 common in legacy enterprises.",
-        "Intelligence Expression Failure\u2122: AI pilots everywhere, AI outcomes nowhere \u2014 the defining failure mode of the current enterprise AI market.",
-        "Adaptive Expression Failure\u2122: inability to learn, slow correction cycles \u2014 common in former market leaders."
+        "Strategic Expression Failure™: conflicting priorities, resource dilution, directional confusion — common in conglomerates and portfolio-sprawl organizations.",
+        "Decision Expression Failure™: slow decisions, repeated decisions, accountability gaps — common in bureaucratic organizations and government agencies.",
+        "Operational Expression Failure™: poor execution, initiative fatigue, change resistance — common in legacy enterprises.",
+        "Intelligence Expression Failure™: AI pilots everywhere, AI outcomes nowhere — the defining failure mode of the current enterprise AI market.",
+        "Adaptive Expression Failure™: inability to learn, slow correction cycles — common in former market leaders."
       ],
       "relatedIds": [
         "TI-006",
@@ -1457,7 +1457,7 @@
     {
       "id": "TI-017",
       "slug": "ti-017",
-      "name": "Workflow Trace Advantage Principle\u2122 (WTAP\u2122)",
+      "name": "Workflow Trace Advantage Principle™ (WTAP™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -1466,7 +1466,7 @@
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
       "constitutionId": "PID-WTAP-001",
-      "book": "Book II \u2014 Transformation Capacity\u2122",
+      "book": "Book II — Transformation Capacity™",
       "oid": "OID-2026-TI-WTAP-001",
       "lensUri": "lens://constitution/ti-017",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-017",
@@ -1475,27 +1475,27 @@
         {
           "type": "extends",
           "targetId": "TI-004",
-          "description": "Extends Transformation Capacity\u2122 by identifying workflow intelligence as a primary constraint on transformation"
+          "description": "Extends Transformation Capacity™ by identifying workflow intelligence as a primary constraint on transformation"
         },
         {
           "type": "extends",
           "targetId": "TI-402",
-          "description": "Extends Model Rental / Memory Ownership Principle\u2122 \u2014 Rent the model, own the workflow intelligence"
+          "description": "Extends Model Rental / Memory Ownership Principle™ — Rent the model, own the workflow intelligence"
         },
         {
           "type": "implements",
           "targetId": "TI-202",
-          "description": "Implements Transformation Memory Architecture\u2122"
+          "description": "Implements Transformation Memory Architecture™"
         },
         {
           "type": "depends_on",
           "targetId": "TI-702",
-          "description": "Depends on Evidence Architecture\u2122"
+          "description": "Depends on Evidence Architecture™"
         },
         {
           "type": "enables",
           "targetId": "TI-018",
-          "description": "Enables Workflow Trace Index\u2122 as primary measurement metric"
+          "description": "Enables Workflow Trace Index™ as primary measurement metric"
         }
       ],
       "relatedIds": [
@@ -1513,7 +1513,7 @@
     {
       "id": "TI-018",
       "slug": "ti-018",
-      "name": "Workflow Trace Index\u2122 (WTI\u2122)",
+      "name": "Workflow Trace Index™ (WTI™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -1521,26 +1521,26 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book II \u2014 Transformation Capacity\u2122",
+      "book": "Book II — Transformation Capacity™",
       "oid": "OID-2026-TI-WTI-001",
       "lensUri": "lens://constitution/ti-018",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-018",
-      "principle": "Workflow Trace Index\u2122 measures the completeness and quality of workflow observability across an organization.",
+      "principle": "Workflow Trace Index™ measures the completeness and quality of workflow observability across an organization.",
       "typedRelationships": [
         {
           "type": "derived_from",
           "targetId": "TI-017",
-          "description": "Primary measurement metric derived from WTAP\u2122"
+          "description": "Primary measurement metric derived from WTAP™"
         },
         {
           "type": "measures",
           "targetId": "TI-004",
-          "description": "Measures a leading indicator of Transformation Capacity\u2122"
+          "description": "Measures a leading indicator of Transformation Capacity™"
         },
         {
           "type": "extends",
           "targetId": "TI-205",
-          "description": "Extends Memory Capture Ratio\u2122 with full workflow observability framework"
+          "description": "Extends Memory Capture Ratio™ with full workflow observability framework"
         }
       ],
       "relatedIds": [
@@ -1555,7 +1555,7 @@
     {
       "id": "TI-019",
       "slug": "ti-019",
-      "name": "AI Ownership Readiness\u2122 (AIOR\u2122)",
+      "name": "AI Ownership Readiness™ (AIOR™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -1563,31 +1563,31 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book II \u2014 Transformation Capacity\u2122",
+      "book": "Book II — Transformation Capacity™",
       "oid": "OID-2026-TI-AIOR-001",
       "lensUri": "lens://constitution/ti-019",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-019",
-      "principle": "AI Ownership Readiness\u2122 measures whether an organization possesses sufficient workflow intelligence to create proprietary AI advantage rather than merely deploying commodity AI capability.",
+      "principle": "AI Ownership Readiness™ measures whether an organization possesses sufficient workflow intelligence to create proprietary AI advantage rather than merely deploying commodity AI capability.",
       "typedRelationships": [
         {
           "type": "derived_from",
           "targetId": "TI-017",
-          "description": "Derived from WTAP\u2122 as readiness measurement metric"
+          "description": "Derived from WTAP™ as readiness measurement metric"
         },
         {
           "type": "implements",
           "targetId": "TI-401",
-          "description": "Implements Adoption Scarcity Principle\u2122"
+          "description": "Implements Adoption Scarcity Principle™"
         },
         {
           "type": "depends_on",
           "targetId": "TI-018",
-          "description": "Depends on Workflow Trace Index\u2122 as foundational input"
+          "description": "Depends on Workflow Trace Index™ as foundational input"
         },
         {
           "type": "extends",
           "targetId": "TI-404",
-          "description": "Extends AI Transformation Efficiency\u2122 with proprietary ownership readiness dimension"
+          "description": "Extends AI Transformation Efficiency™ with proprietary ownership readiness dimension"
         }
       ],
       "relatedIds": [
@@ -1602,7 +1602,7 @@
     {
       "id": "TI-020",
       "slug": "ti-020",
-      "name": "AI Adaptability Index\u2122 (AAI\u2122)",
+      "name": "AI Adaptability Index™ (AAI™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -1610,31 +1610,31 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book II \u2014 Transformation Capacity\u2122",
+      "book": "Book II — Transformation Capacity™",
       "oid": "OID-2026-TI-AAI-001",
       "lensUri": "lens://constitution/ti-020",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-020",
-      "principle": "AI Adaptability Index\u2122 measures an organization's capacity to continuously improve AI performance through operational learning \u2014 the ability to get better at AI by doing AI.",
+      "principle": "AI Adaptability Index™ measures an organization's capacity to continuously improve AI performance through operational learning — the ability to get better at AI by doing AI.",
       "typedRelationships": [
         {
           "type": "derived_from",
           "targetId": "TI-017",
-          "description": "Derived from WTAP\u2122 as adaptability measurement metric"
+          "description": "Derived from WTAP™ as adaptability measurement metric"
         },
         {
           "type": "extends",
           "targetId": "TI-207",
-          "description": "Extends Learning Velocity\u2122 for AI-specific operational learning context"
+          "description": "Extends Learning Velocity™ for AI-specific operational learning context"
         },
         {
           "type": "implements",
           "targetId": "TI-016",
-          "description": "Implements Continuous Learning Law\u2122 at the AI operations level"
+          "description": "Implements Continuous Learning Law™ at the AI operations level"
         },
         {
           "type": "measures",
           "targetId": "TI-105",
-          "description": "Measures the compounding dimension of AROI\u2122 over time"
+          "description": "Measures the compounding dimension of AROI™ over time"
         }
       ],
       "relatedIds": [
@@ -1649,7 +1649,7 @@
     {
       "id": "TI-021",
       "slug": "ti-021",
-      "name": "Enterprise Intelligence Architecture Principle\u2122 (EIAP\u2122)",
+      "name": "Enterprise Intelligence Architecture Principle™ (EIAP™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -1657,48 +1657,48 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book II \u2014 Enterprise Intelligence Architecture\u2122",
+      "book": "Book II — Enterprise Intelligence Architecture™",
       "constitutionId": "PID-EIAP-001",
       "oid": "OID-2026-TI-EIAP-001",
       "lensUri": "lens://constitution/ti-021",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-021",
-      "principle": "As artificial intelligence becomes abundant and commoditized, sustainable competitive advantage shifts away from owning models toward designing, orchestrating, governing, and continuously improving an organization's Enterprise Intelligence Architecture\u2122.",
+      "principle": "As artificial intelligence becomes abundant and commoditized, sustainable competitive advantage shifts away from owning models toward designing, orchestrating, governing, and continuously improving an organization's Enterprise Intelligence Architecture™.",
       "operatingLaw": "The highest-performing organizations will not necessarily possess the most powerful AI models. They will possess the most effective intelligence architecture. Organizations should optimize the system rather than individual components.",
       "typedRelationships": [
         {
           "type": "extends",
           "targetId": "TI-004",
-          "description": "Extends Transformation Capacity\u2122 \u2014 EIA\u2122 provides the structural foundation"
+          "description": "Extends Transformation Capacity™ — EIA™ provides the structural foundation"
         },
         {
           "type": "extends",
           "targetId": "TI-017",
-          "description": "Extends Workflow Trace Advantage Principle\u2122 \u2014 EIA\u2122 is the broader architectural context"
+          "description": "Extends Workflow Trace Advantage Principle™ — EIA™ is the broader architectural context"
         },
         {
           "type": "implements",
           "targetId": "TI-402",
-          "description": "Implements Model Rental / Memory Ownership Principle\u2122 at full architectural scale"
+          "description": "Implements Model Rental / Memory Ownership Principle™ at full architectural scale"
         },
         {
           "type": "depends_on",
           "targetId": "TI-301",
-          "description": "Depends on Decision Visibility Infrastructure\u2122 as Layer 6 Verification Infrastructure"
+          "description": "Depends on Decision Visibility Infrastructure™ as Layer 6 Verification Infrastructure"
         },
         {
           "type": "depends_on",
           "targetId": "TI-202",
-          "description": "Depends on Transformation Memory Architecture\u2122 as Layer 7 Organizational Memory"
+          "description": "Depends on Transformation Memory Architecture™ as Layer 7 Organizational Memory"
         },
         {
           "type": "enables",
           "targetId": "TI-022",
-          "description": "Enables Enterprise Intelligence Architecture Score\u2122 as measurement framework"
+          "description": "Enables Enterprise Intelligence Architecture Score™ as measurement framework"
         },
         {
           "type": "implements",
           "targetId": "TI-401",
-          "description": "Implements Adoption Scarcity Principle\u2122 \u2014 architecture determines realized advantage"
+          "description": "Implements Adoption Scarcity Principle™ — architecture determines realized advantage"
         }
       ],
       "relatedIds": [
@@ -1716,7 +1716,7 @@
     {
       "id": "TI-022",
       "slug": "ti-022",
-      "name": "Enterprise Intelligence Architecture Score\u2122 (EIAS\u2122)",
+      "name": "Enterprise Intelligence Architecture Score™ (EIAS™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -1724,37 +1724,37 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book II \u2014 Enterprise Intelligence Architecture\u2122",
+      "book": "Book II — Enterprise Intelligence Architecture™",
       "oid": "OID-2026-TI-EIAS-001",
       "lensUri": "lens://constitution/ti-022",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-022",
-      "principle": "The Lens\u2122 shall evaluate Enterprise Intelligence Architecture\u2122 using a multidimensional scoring model across eight architectural layers.",
-      "operatingLaw": "EIAS\u2122 evolves the Lens\u2122 from evaluating AI adoption to evaluating Enterprise Intelligence Architecture\u2122 \u2014 measuring whether intelligence is strategically architected, effectively routed, continuously verified, and reliably converted into enterprise value.",
+      "principle": "The Lens™ shall evaluate Enterprise Intelligence Architecture™ using a multidimensional scoring model across eight architectural layers.",
+      "operatingLaw": "EIAS™ evolves the Lens™ from evaluating AI adoption to evaluating Enterprise Intelligence Architecture™ — measuring whether intelligence is strategically architected, effectively routed, continuously verified, and reliably converted into enterprise value.",
       "typedRelationships": [
         {
           "type": "derived_from",
           "targetId": "TI-021",
-          "description": "Primary scoring metric derived from EIAP\u2122"
+          "description": "Primary scoring metric derived from EIAP™"
         },
         {
           "type": "extends",
           "targetId": "TI-004",
-          "description": "Extends TCS\u2122 scoring framework with full 8-layer architecture assessment"
+          "description": "Extends TCS™ scoring framework with full 8-layer architecture assessment"
         },
         {
           "type": "implements",
           "targetId": "TI-702",
-          "description": "Implements Evidence Architecture\u2122 in Layer 6 Verification Infrastructure"
+          "description": "Implements Evidence Architecture™ in Layer 6 Verification Infrastructure"
         },
         {
           "type": "implements",
           "targetId": "TI-301",
-          "description": "Implements Decision Visibility Infrastructure\u2122 in Layer 6 assessment"
+          "description": "Implements Decision Visibility Infrastructure™ in Layer 6 assessment"
         },
         {
           "type": "measures",
           "targetId": "TI-021",
-          "description": "Primary measurement instrument for EIAP\u2122 compliance"
+          "description": "Primary measurement instrument for EIAP™ compliance"
         }
       ],
       "relatedIds": [
@@ -1771,7 +1771,7 @@
     {
       "id": "TI-023",
       "slug": "ti-023",
-      "name": "Buyer Evidence Principle\u2122 (BEP\u2122)",
+      "name": "Buyer Evidence Principle™ (BEP™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -1779,7 +1779,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book VII \u2014 Enterprise Value Architecture\u2122",
+      "book": "Book VII — Enterprise Value Architecture™",
       "oid": "OID-2026-TI-BEP-001",
       "lensUri": "lens://constitution/ti-023",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-023",
@@ -1813,7 +1813,7 @@
     {
       "id": "TI-024",
       "slug": "ti-024",
-      "name": "Buyer Evidence Score\u2122 (BES\u2122)",
+      "name": "Buyer Evidence Score™ (BES™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -1821,7 +1821,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book VII \u2014 Enterprise Value Architecture\u2122",
+      "book": "Book VII — Enterprise Value Architecture™",
       "oid": "OID-2026-TI-BES-001",
       "lensUri": "lens://constitution/ti-024",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-024",
@@ -1847,7 +1847,7 @@
     {
       "id": "TI-025",
       "slug": "ti-025",
-      "name": "Underwriteability Index\u2122 (UI\u2122)",
+      "name": "Underwriteability Index™ (UI™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -1855,7 +1855,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book VII \u2014 Enterprise Value Architecture\u2122",
+      "book": "Book VII — Enterprise Value Architecture™",
       "oid": "OID-2026-TI-UI-001",
       "lensUri": "lens://constitution/ti-025",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-025",
@@ -1885,7 +1885,7 @@
     {
       "id": "TI-026",
       "slug": "ti-026",
-      "name": "Future Firm Principle\u2122 (FFP\u2122)",
+      "name": "Future Firm Principle™ (FFP™)",
       "oid": "OID-2026-TI-FFP-001",
       "lensUri": "lens://constitution/ti-026",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-026",
@@ -1895,7 +1895,7 @@
       "author": "Stephen F. Leider",
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
-      "book": "Book V \u2014 The Future Firm\u2122",
+      "book": "Book V — The Future Firm™",
       "principle": "Every enterprise is evolving into a hybrid intelligence system composed of people, artificial intelligence, institutional knowledge, operational memory, and governance systems. Competitive advantage no longer arises primarily from generating intelligence. Competitive advantage increasingly arises from orchestrating intelligence.",
       "typedRelationships": [
         {
@@ -1927,7 +1927,7 @@
     {
       "id": "TI-027",
       "slug": "ti-027",
-      "name": "Intelligence Orchestration Principle\u2122 (IOP\u2122)",
+      "name": "Intelligence Orchestration Principle™ (IOP™)",
       "oid": "OID-2026-TI-IOP-001",
       "lensUri": "lens://constitution/ti-027",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-027",
@@ -1937,8 +1937,8 @@
       "author": "Stephen F. Leider",
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
-      "book": "Book V \u2014 The Future Firm\u2122",
-      "principle": "As intelligence becomes increasingly abundant, orchestration becomes increasingly scarce. The limiting factor in organizational performance is no longer intelligence production \u2014 it is intelligence coordination.",
+      "book": "Book V — The Future Firm™",
+      "principle": "As intelligence becomes increasingly abundant, orchestration becomes increasingly scarce. The limiting factor in organizational performance is no longer intelligence production — it is intelligence coordination.",
       "typedRelationships": [
         {
           "type": "derived_from",
@@ -1961,7 +1961,7 @@
     {
       "id": "TI-028",
       "slug": "ti-028",
-      "name": "Future Firm Readiness\u2122 (FFR\u2122)",
+      "name": "Future Firm Readiness™ (FFR™)",
       "oid": "OID-2026-TI-FFR-001",
       "lensUri": "lens://constitution/ti-028",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-028",
@@ -1971,8 +1971,8 @@
       "author": "Stephen F. Leider",
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
-      "book": "Book V \u2014 The Future Firm\u2122",
-      "principle": "Future Firm Readiness\u2122 measures an organization's ability to continuously convert intelligence into enterprise value across seven constitutional dimensions.",
+      "book": "Book V — The Future Firm™",
+      "principle": "Future Firm Readiness™ measures an organization's ability to continuously convert intelligence into enterprise value across seven constitutional dimensions.",
       "typedRelationships": [
         {
           "type": "derived_from",
@@ -1999,7 +1999,7 @@
     {
       "id": "TI-029",
       "slug": "ti-029",
-      "name": "Institutional Memory Principle\u2122 (IMP\u2122)",
+      "name": "Institutional Memory Principle™ (IMP™)",
       "oid": "OID-2026-TI-IMP-001",
       "lensUri": "lens://constitution/ti-029",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-029",
@@ -2009,7 +2009,7 @@
       "author": "Stephen F. Leider",
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
-      "book": "Book V \u2014 The Future Firm\u2122",
+      "book": "Book V — The Future Firm™",
       "principle": "Institutional memory is a strategic asset. Organizations that lose institutional memory repeatedly restart transformation. Organizations that preserve institutional memory accelerate transformation.",
       "typedRelationships": [
         {
@@ -2037,7 +2037,7 @@
     {
       "id": "TI-030",
       "slug": "ti-030",
-      "name": "Distributed Transformation Infrastructure Principle\u2122 (DTIP\u2122)",
+      "name": "Distributed Transformation Infrastructure Principle™ (DTIP™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -2045,7 +2045,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book VIII \u2014 Distributed Transformation Infrastructure\u2122",
+      "book": "Book VIII — Distributed Transformation Infrastructure™",
       "oid": "OID-2026-TI-DTIP-001",
       "lensUri": "lens://constitution/ti-030",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-030",
@@ -2080,7 +2080,7 @@
     {
       "id": "TI-031",
       "slug": "ti-031",
-      "name": "Transformation Compiler\u2122",
+      "name": "Transformation Compiler™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -2088,7 +2088,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book VIII \u2014 Distributed Transformation Infrastructure\u2122",
+      "book": "Book VIII — Distributed Transformation Infrastructure™",
       "oid": "OID-2026-TI-TC-001",
       "lensUri": "lens://constitution/ti-031",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-031",
@@ -2115,7 +2115,7 @@
     {
       "id": "TI-032",
       "slug": "ti-032",
-      "name": "Transformation Packet\u2122",
+      "name": "Transformation Packet™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -2123,7 +2123,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book VIII \u2014 Distributed Transformation Infrastructure\u2122",
+      "book": "Book VIII — Distributed Transformation Infrastructure™",
       "oid": "OID-2026-TI-TP-001",
       "lensUri": "lens://constitution/ti-032",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-032",
@@ -2154,7 +2154,7 @@
     {
       "id": "TI-033",
       "slug": "ti-033",
-      "name": "Transformation Matching Engine\u2122",
+      "name": "Transformation Matching Engine™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -2162,7 +2162,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book VIII \u2014 Distributed Transformation Infrastructure\u2122",
+      "book": "Book VIII — Distributed Transformation Infrastructure™",
       "oid": "OID-2026-TI-TME-001",
       "lensUri": "lens://constitution/ti-033",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-033",
@@ -2189,7 +2189,7 @@
     {
       "id": "TI-034",
       "slug": "ti-034",
-      "name": "Transformation Marketplace\u2122",
+      "name": "Transformation Marketplace™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -2197,7 +2197,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book VIII \u2014 Distributed Transformation Infrastructure\u2122",
+      "book": "Book VIII — Distributed Transformation Infrastructure™",
       "oid": "OID-2026-TI-TM-001",
       "lensUri": "lens://constitution/ti-034",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-034",
@@ -2228,7 +2228,7 @@
     {
       "id": "TI-035",
       "slug": "ti-035",
-      "name": "Strategic AI & Fulfillment Exchange\u2122 (SAFE\u2122)",
+      "name": "Strategic AI & Fulfillment Exchange™ (SAFE™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -2236,7 +2236,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book IX \u2014 Strategic AI & Fulfillment Exchange\u2122 (SAFE\u2122)",
+      "book": "Book IX — Strategic AI & Fulfillment Exchange™ (SAFE™)",
       "oid": "OID-2026-TI-SAFE-001",
       "lensUri": "lens://constitution/ti-035",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-035",
@@ -2275,7 +2275,7 @@
     {
       "id": "TI-036",
       "slug": "ti-036",
-      "name": "Fulfillment Principle\u2122",
+      "name": "Fulfillment Principle™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -2283,7 +2283,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book IX \u2014 Strategic AI & Fulfillment Exchange\u2122 (SAFE\u2122)",
+      "book": "Book IX — Strategic AI & Fulfillment Exchange™ (SAFE™)",
       "oid": "OID-2026-TI-FP-001",
       "lensUri": "lens://constitution/ti-036",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-036",
@@ -2310,7 +2310,7 @@
     {
       "id": "TI-037",
       "slug": "ti-037",
-      "name": "SAFE\u2122 Certification Framework",
+      "name": "SAFE™ Certification Framework",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -2318,7 +2318,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book IX \u2014 Strategic AI & Fulfillment Exchange\u2122 (SAFE\u2122)",
+      "book": "Book IX — Strategic AI & Fulfillment Exchange™ (SAFE™)",
       "oid": "OID-2026-TI-SCF-001",
       "lensUri": "lens://constitution/ti-037",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-037",
@@ -2345,7 +2345,7 @@
     {
       "id": "TI-038",
       "slug": "ti-038",
-      "name": "AI Absorption Principle\u2122 (AAP\u2122)",
+      "name": "AI Absorption Principle™ (AAP™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -2353,7 +2353,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book II \u2014 Organizational Dynamics",
+      "book": "Book II — Organizational Dynamics",
       "oid": "OID-2026-TI-AAP-001",
       "lensUri": "lens://constitution/ti-038",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-038",
@@ -2388,7 +2388,7 @@
     {
       "id": "TI-039",
       "slug": "ti-039",
-      "name": "AI Absorption Score\u2122 (AAS\u2122)",
+      "name": "AI Absorption Score™ (AAS™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -2396,7 +2396,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book II \u2014 Organizational Dynamics",
+      "book": "Book II — Organizational Dynamics",
       "oid": "OID-2026-TI-AAS-001",
       "lensUri": "lens://constitution/ti-039",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-039",
@@ -2423,7 +2423,7 @@
     {
       "id": "TI-040",
       "slug": "ti-040",
-      "name": "Transformation Absorbability Principle\u2122 (TAP\u2122)",
+      "name": "Transformation Absorbability Principle™ (TAP™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -2431,7 +2431,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book IV \u2014 Transformation Absorbability\u2122",
+      "book": "Book IV — Transformation Absorbability™",
       "oid": "OID-2026-TI-TAP-001",
       "lensUri": "lens://constitution/ti-040",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-040",
@@ -2470,7 +2470,7 @@
     {
       "id": "TI-041",
       "slug": "ti-041",
-      "name": "Identity Preservation Principle\u2122",
+      "name": "Identity Preservation Principle™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -2478,7 +2478,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book IV \u2014 Transformation Absorbability\u2122",
+      "book": "Book IV — Transformation Absorbability™",
       "oid": "OID-2026-TI-IPP-001",
       "lensUri": "lens://constitution/ti-041",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-041",
@@ -2505,7 +2505,7 @@
     {
       "id": "TI-042",
       "slug": "ti-042",
-      "name": "Transformation Friction Principle\u2122",
+      "name": "Transformation Friction Principle™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -2513,7 +2513,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book IV \u2014 Transformation Absorbability\u2122",
+      "book": "Book IV — Transformation Absorbability™",
       "oid": "OID-2026-TI-TFP-001",
       "lensUri": "lens://constitution/ti-042",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-042",
@@ -2540,7 +2540,7 @@
     {
       "id": "TI-043",
       "slug": "ti-043",
-      "name": "Transformation Absorbability Score\u2122 (TAS\u2122)",
+      "name": "Transformation Absorbability Score™ (TAS™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -2548,7 +2548,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book IV \u2014 Transformation Absorbability\u2122",
+      "book": "Book IV — Transformation Absorbability™",
       "oid": "OID-2026-TI-TAS-001",
       "lensUri": "lens://constitution/ti-043",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-043",
@@ -2579,7 +2579,7 @@
     {
       "id": "TI-044",
       "slug": "ti-044",
-      "name": "Divergence Acceleration Law\u2122 (DAL\u2122)",
+      "name": "Divergence Acceleration Law™ (DAL™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -2587,7 +2587,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book I \u2014 The Economics of Transformation",
+      "book": "Book I — The Economics of Transformation",
       "oid": "OID-2026-TI-DAL-001",
       "lensUri": "lens://constitution/ti-044",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-044",
@@ -2626,7 +2626,7 @@
     {
       "id": "TI-045",
       "slug": "ti-045",
-      "name": "Transformation Signal Principle\u2122 (TSP\u2122)",
+      "name": "Transformation Signal Principle™ (TSP™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -2634,7 +2634,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book XII \u2014 Transformation Signal Network\u2122 (TSN\u2122)",
+      "book": "Book XII — Transformation Signal Network™ (TSN™)",
       "oid": "OID-2026-TI-TSP-001",
       "lensUri": "lens://constitution/ti-045",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-045",
@@ -2665,7 +2665,7 @@
     {
       "id": "TI-046",
       "slug": "ti-046",
-      "name": "Transformation Signal Network\u2122 (TSN\u2122)",
+      "name": "Transformation Signal Network™ (TSN™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -2673,7 +2673,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book XII \u2014 Transformation Signal Network\u2122 (TSN\u2122)",
+      "book": "Book XII — Transformation Signal Network™ (TSN™)",
       "oid": "OID-2026-TI-TSN-001",
       "lensUri": "lens://constitution/ti-046",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-046",
@@ -2704,7 +2704,7 @@
     {
       "id": "TI-047",
       "slug": "ti-047",
-      "name": "Knowledge Connectivity Principle\u2122",
+      "name": "Knowledge Connectivity Principle™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -2712,7 +2712,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book XII \u2014 Transformation Signal Network\u2122 (TSN\u2122)",
+      "book": "Book XII — Transformation Signal Network™ (TSN™)",
       "oid": "OID-2026-TI-KCP2-001",
       "lensUri": "lens://constitution/ti-047",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-047",
@@ -2739,7 +2739,7 @@
     {
       "id": "TI-048",
       "slug": "ti-048",
-      "name": "Trademark Convention Principle\u2122",
+      "name": "Trademark Convention Principle™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -2747,7 +2747,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book I \u2014 Constitutional Governance",
+      "book": "Book I — Constitutional Governance",
       "oid": "OID-2026-TI-TCP-001",
       "lensUri": "lens://constitution/ti-048",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-048",
@@ -2770,7 +2770,7 @@
     {
       "id": "TI-049",
       "slug": "ti-049",
-      "name": "Terminology Convention\u2122",
+      "name": "Terminology Convention™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -2778,7 +2778,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book I \u2014 Constitutional Governance",
+      "book": "Book I — Constitutional Governance",
       "constitutionId": "Constitutional Appendix A",
       "oid": "OID-2026-TI-TC-001",
       "lensUri": "lens://constitution/ti-049",
@@ -2802,7 +2802,7 @@
     {
       "id": "TI-050",
       "slug": "ti-050",
-      "name": "Constitutional Canon\u2122",
+      "name": "Constitutional Canon™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -2810,7 +2810,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book I \u2014 Constitutional Governance",
+      "book": "Book I — Constitutional Governance",
       "constitutionId": "Constitutional Appendix B",
       "oid": "OID-2026-TI-CC-001",
       "lensUri": "lens://constitution/ti-050",
@@ -2843,7 +2843,7 @@
     {
       "id": "TI-051",
       "slug": "ti-051",
-      "name": "Master Constitutional Structure\u2122",
+      "name": "Master Constitutional Structure™",
       "status": "Ratified",
       "version": "5.0",
       "published": "2026-06-25",
@@ -2851,7 +2851,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book I \u2014 Constitutional Governance",
+      "book": "Book I — Constitutional Governance",
       "constitutionId": "Master Constitutional Structure v5.0",
       "oid": "OID-2026-TI-MCS-001",
       "lensUri": "lens://constitution/ti-051",
@@ -2888,7 +2888,7 @@
     {
       "id": "TI-052",
       "slug": "ti-052",
-      "name": "Transformation Intelligence\u2122 Body of Knowledge (TIBOK\u2122)",
+      "name": "Transformation Intelligence™ Body of Knowledge (TIBOK™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -2896,7 +2896,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book I \u2014 Constitutional Governance",
+      "book": "Book I — Constitutional Governance",
       "oid": "OID-2026-TI-TIBOK-001",
       "lensUri": "lens://constitution/ti-052",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-052",
@@ -2932,7 +2932,7 @@
     {
       "id": "TI-053",
       "slug": "ti-053",
-      "name": "Product Constitution\u2122 \u2014 Closing the Discipline-to-Platform Gap",
+      "name": "Product Constitution™ — Closing the Discipline-to-Platform Gap",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
@@ -2940,7 +2940,7 @@
       "publisher": "Leider Capital",
       "category": "Foundational Constitution",
       "categoryCode": "TI-CONST",
-      "book": "Book I \u2014 Constitutional Governance",
+      "book": "Book I — Constitutional Governance",
       "oid": "OID-2026-TI-PC-001",
       "lensUri": "lens://constitution/ti-053",
       "canonicalUrl": "https://lensanalysis.com/constitution/ti-053",
@@ -2972,12 +2972,12 @@
     {
       "id": "TI-054",
       "slug": "ti-054",
-      "name": "Constitutional Drafting Standard \u2014 Trademark Usage\u2122",
+      "name": "Constitutional Drafting Standard — Trademark Usage™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-25",
       "category": "Foundational Constitution",
-      "book": "Book I \u2014 Constitutional Governance",
+      "book": "Book I — Constitutional Governance",
       "oid": "OID-2026-TI-CDS-001",
       "lensUri": "lens://constitution/ti-054",
       "principle": "Trademarks identify proprietary systems. Constitutional language explains universal principles.",
@@ -3003,12 +3003,12 @@
     {
       "id": "TI-055",
       "slug": "ti-055",
-      "name": "Evidence Intelligence Principle\u2122 (EIP\u2122)",
+      "name": "Evidence Intelligence Principle™ (EIP™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-27",
       "category": "Foundational Constitution",
-      "book": "Book XIV \u2014 Evidence Intelligence Pipeline\u2122",
+      "book": "Book XIV — Evidence Intelligence Pipeline™",
       "oid": "OID-2026-TI-EIP-001",
       "lensUri": "lens://constitution/ti-055",
       "principle": "Enterprise value is created by preserving the integrity of information as it moves from reality to organizational action.",
@@ -3047,15 +3047,15 @@
     {
       "id": "TI-056",
       "slug": "ti-056",
-      "name": "Trust Gates\u2122",
+      "name": "Trust Gates™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-27",
       "category": "Foundational Constitution",
-      "book": "Book XIV \u2014 Evidence Intelligence Pipeline\u2122",
+      "book": "Book XIV — Evidence Intelligence Pipeline™",
       "oid": "OID-2026-TI-TG-001",
       "lensUri": "lens://constitution/ti-056",
-      "principle": "Each stage of the Evidence Intelligence Pipeline\u2122 shall contain a Trust Gate\u2122 before information advances to the next stage.",
+      "principle": "Each stage of the Evidence Intelligence Pipeline™ shall contain a Trust Gate™ before information advances to the next stage.",
       "gateCount": 9,
       "typedRelationships": [
         {
@@ -3083,12 +3083,12 @@
     {
       "id": "TI-057",
       "slug": "ti-057",
-      "name": "Continuous Transformation Principle\u2122",
+      "name": "Continuous Transformation Principle™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-27",
       "category": "Foundational Constitution",
-      "book": "Book XIV \u2014 Evidence Intelligence Pipeline\u2122",
+      "book": "Book XIV — Evidence Intelligence Pipeline™",
       "oid": "OID-2026-TI-CTP-001",
       "lensUri": "lens://constitution/ti-057",
       "principle": "Transformation is not a sequence of isolated projects. Transformation is a continuous organizational process.",
@@ -3118,12 +3118,12 @@
     {
       "id": "TI-058",
       "slug": "ti-058",
-      "name": "Measurement Integrity Principle\u2122",
+      "name": "Measurement Integrity Principle™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-27",
       "category": "Foundational Constitution",
-      "book": "Book XIV \u2014 Evidence Intelligence Pipeline\u2122",
+      "book": "Book XIV — Evidence Intelligence Pipeline™",
       "oid": "OID-2026-TI-MIP-001",
       "lensUri": "lens://constitution/ti-058",
       "principle": "Every organizational measurement must be continuously validated to ensure it remains causally connected to the value it is intended to represent. No metric is permanently valid.",
@@ -3157,12 +3157,12 @@
     {
       "id": "TI-059",
       "slug": "ti-059",
-      "name": "Interrogability Principle\u2122",
+      "name": "Interrogability Principle™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-27",
       "category": "Foundational Constitution",
-      "book": "Book VII \u2014 Interrogability",
+      "book": "Book VII — Interrogability",
       "oid": "OID-2026-TI-IP-001",
       "lensUri": "lens://constitution/ti-059",
       "principle": "Decision quality is determined not only by the quality of answers an organization produces, but by the quality of questions it is capable of asking before action.",
@@ -3196,15 +3196,15 @@
     {
       "id": "TI-060",
       "slug": "ti-060",
-      "name": "Interrogability Index\u2122",
+      "name": "Interrogability Index™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-27",
       "category": "Foundational Constitution",
-      "book": "Book VII \u2014 Interrogability",
+      "book": "Book VII — Interrogability",
       "oid": "OID-2026-TI-II-001",
       "lensUri": "lens://constitution/ti-060",
-      "principle": "Organizations should measure their capacity for disciplined inquiry through the Interrogability Index\u2122 \u2014 the degree to which recommendations remain open to constructive challenge before execution.",
+      "principle": "Organizations should measure their capacity for disciplined inquiry through the Interrogability Index™ — the degree to which recommendations remain open to constructive challenge before execution.",
       "typedRelationships": [
         {
           "type": "derived_from",
@@ -3227,15 +3227,15 @@
     {
       "id": "TI-061",
       "slug": "ti-061",
-      "name": "Validation Principle\u2122",
+      "name": "Validation Principle™",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-27",
       "category": "Foundational Constitution",
-      "book": "Book XV \u2014 Validation Science\u2122",
+      "book": "Book XV — Validation Science™",
       "oid": "OID-2026-TI-VP-001",
       "lensUri": "lens://constitution/ti-061",
-      "principle": "Transformation Intelligence\u2122 derives its authority not from persuasive explanation, but from repeated empirical validation across organizations, industries, and market cycles.",
+      "principle": "Transformation Intelligence™ derives its authority not from persuasive explanation, but from repeated empirical validation across organizations, industries, and market cycles.",
       "typedRelationships": [
         {
           "type": "extends",
@@ -3262,15 +3262,15 @@
     {
       "id": "TI-062",
       "slug": "ti-062",
-      "name": "Lens Validation Engine\u2122 (LVE\u2122)",
+      "name": "Lens Validation Engine™ (LVE™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-27",
       "category": "Foundational Constitution",
-      "book": "Book XV \u2014 Validation Science\u2122",
+      "book": "Book XV — Validation Science™",
       "oid": "OID-2026-TI-LVE-001",
       "lensUri": "lens://constitution/ti-062",
-      "principle": "The Lens Validation Engine\u2122 transforms The Lens\u2122 from a static analytical framework into a continuously improving system of organizational learning.",
+      "principle": "The Lens Validation Engine™ transforms The Lens™ from a static analytical framework into a continuously improving system of organizational learning.",
       "typedRelationships": [
         {
           "type": "derived_from",
@@ -3297,12 +3297,12 @@
     {
       "id": "TI-063",
       "slug": "ti-063",
-      "name": "Intellectual Property Naming Principle\u2122 (IPNP\u2122)",
+      "name": "Intellectual Property Naming Principle™ (IPNP™)",
       "status": "Ratified",
       "version": "1.0",
       "published": "2026-06-27",
       "category": "Foundational Constitution",
-      "book": "Book I \u2014 Constitutional Governance",
+      "book": "Book I — Constitutional Governance",
       "oid": "OID-2026-TI-IPNP-001",
       "lensUri": "lens://constitution/ti-063",
       "principle": "Trademark the frameworks. Describe the tools.",
@@ -3324,22 +3324,86 @@
           "targetId": "TI-052"
         }
       ]
+    },
+    {
+      "id": "TI-064",
+      "slug": "ti-064",
+      "name": "Economic Value Validation Principle™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-07-01",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book XVI — Capital Architecture™",
+      "externalFramework": "Economic Value Added (EVA) — Stern Stewart & Co.",
+      "oid": "OID-2026-TI-EVP-001",
+      "lensUri": "lens://constitution/ti-064",
+      "principle": "Economic Value Added validates whether invested capital generated returns exceeding its economic cost. Transformation Intelligence™ extends this foundation by measuring the organizational capabilities, transformation effectiveness, and opportunity selection processes that determine whether future Economic Value Added can be consistently achieved.",
+      "definition": "Economic Value Added (EVA) is the financial measure of economic profit generated after accounting for the full cost of capital employed. Within the Lens™ architecture, EVA represents the financial validation layer of enterprise performance. It answers: Did the organization's use of capital create economic value beyond its required return? The Financial Validation Principle: EVA validates value creation. Transformation Intelligence™ explains value creation. Capital creates value only when its returns exceed its opportunity cost. Transformation creates value only when it improves the organization's ability to generate future economic profit.",
+      "operatingLaw": "The Lens™ extends — not replaces — the logic introduced by EVA. EVA established that profit alone does not equal value creation. The Lens™ extends that principle by recognizing that transformation activity alone does not equal value creation. Transformation creates value only when it measurably improves an organization's ability to convert intelligence, opportunity, capital, technology, and human capability into sustained enterprise value.",
+      "implications": [
+        "Position within Lens™ Architecture (complete value chain): Opportunity Discovery → Opportunity Qualification → Opportunity Selection → Capital Allocation → Transformation Intelligence™ → Transformation Capacity™ → Transformation Execution → Transformation Efficiency™ → Transformation Value Added → Economic Value Added → Enterprise Value → Shareholder Value.",
+        "EVA vs Transformation Value Added™: EVA measures value created above cost of capital (financial outcome, lagging, validates realized economic performance, focuses on capital efficiency). TVA™ measures value created through improved transformation capability (organizational capability, leading, evaluates future value creation potential, focuses on transformation efficiency). Together they provide a complete understanding of enterprise performance.",
+        "Intellectual lineage: Economic Value Added (1980s): Did capital create value? Cashless Buyback™: How can capital architecture unlock trapped value without additional cash? Transformation Value Added: Did improvements in transformation capability increase the organization's ability to create value? Transformation Intelligence™: What organizational capabilities determine whether value can be created at all? Opportunity Science: Which opportunities should receive scarce capital before investment begins?",
+        "Historical significance of EVA: Fundamentally changed corporate finance by demonstrating that accounting profit alone is insufficient. Established that capital carries an economic cost and organizations create value only when returns exceed that cost. Reshaped: executive compensation, capital allocation, corporate governance, shareholder value management, performance measurement. TI™ recognizes EVA as one of the foundational advances in modern financial economics.",
+        "Relationship to Capital Architecture: Capital Architecture determines how financial resources are organized to maximize value realization. The Cashless Buyback™ extends EVA logic: where EVA measures whether capital produced economic value, the Cashless Buyback™ provides a mechanism for restructuring capital to unlock trapped enterprise value without requiring incremental cash deployment. EVA measures economic performance. Capital Architecture engineers value realization. Transformation Intelligence™ enables sustainable execution.",
+        "Transformation Intelligence™ extends beyond financial measurement by asking: Why was value created or destroyed? Through which organizational capabilities? Which constraints limited value realization? Which improvements would increase future EVA? Which opportunities should receive scarce capital? TI™ provides the explanatory system that precedes Economic Value Added."
+      ],
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-103",
+          "description": "Extends Transformation Efficiency™ — EVA is the downstream financial validation of whether TE™ improvements actually produced economic profit"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-012",
+          "description": "Extends Unlock Science™ — EVA is the financial validation layer that confirms whether Unlock Science™ predictions of value creation were correct"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-013",
+          "description": "Depends on Conservation of Enterprise Value™ Law — EVA is the financial expression of the conservation law: analysis does not create value, only execution does"
+        },
+        {
+          "type": "enables",
+          "targetId": "TI-044",
+          "description": "Enables Divergence Acceleration Law™ empirically — EVA divergence across companies is the observable market evidence that DAL™ predicts"
+        },
+        {
+          "type": "implemented_by",
+          "targetId": "TI-062",
+          "description": "Implemented by Lens Validation Engine™ — LVE™ uses EVA as a primary validation metric for confirming TI™ predictions"
+        }
+      ],
+      "relatedIds": [
+        "TI-103",
+        "TI-012",
+        "TI-013",
+        "TI-044",
+        "TI-062",
+        "TI-801",
+        "TI-023",
+        "TI-025"
+      ]
     }
   ],
   "lkasVersion": "1.0",
   "lkasCompliant": true,
-  "addressingSystem": "LKAS\u2122",
+  "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 116,
-  "lastUpdated": "2026-06-25",
+  "totalPrinciples": 117,
+  "lastUpdated": "2026-07-01",
   "constitutionalArchitecture": {
-    "name": "Opportunity Hierarchy\u2122",
-    "description": "The complete chain from market discovery to realized enterprise value \u2014 constitutionally defined across nine books.",
+    "name": "Opportunity Hierarchy™",
+    "description": "The complete chain from market discovery to realized enterprise value — constitutionally defined across nine books.",
     "chain": [
       {
         "id": "TI-046",
-        "name": "Transformation Signal Network\u2122",
+        "name": "Transformation Signal Network™",
         "purpose": "Detect and validate external transformation signals"
       },
       {
@@ -3347,7 +3411,7 @@
         "description": "Opportunity Discovery"
       },
       {
-        "stage": "Opportunity Zones\u2122",
+        "stage": "Opportunity Zones™",
         "principles": [
           "TI-001",
           "TI-002",
@@ -3363,31 +3427,31 @@
         ]
       },
       {
-        "stage": "The Lens\u2122",
+        "stage": "The Lens™",
         "description": "Analysis & Scoring",
         "principles": [
           "TI-003"
         ]
       },
       {
-        "stage": "Blueprint\u2122",
+        "stage": "Blueprint™",
         "description": "Strategic Design"
       },
       {
-        "stage": "Transformation Compiler\u2122",
+        "stage": "Transformation Compiler™",
         "principles": [
           "TI-031"
         ]
       },
       {
-        "stage": "Transformation Packets\u2122",
+        "stage": "Transformation Packets™",
         "principles": [
           "TI-032"
         ]
       },
       {
-        "stage": "SAFE\u2122",
-        "description": "Strategic AI & Fulfillment Exchange\u2122",
+        "stage": "SAFE™",
+        "description": "Strategic AI & Fulfillment Exchange™",
         "principles": [
           "TI-035",
           "TI-036",
@@ -3399,15 +3463,15 @@
         "description": "Evidence + Learning + Enterprise Value"
       }
     ],
-    "fullChain": "Market \u2192 Opportunity Zones\u2122 \u2192 Company \u2192 Unlock Potential\u2122 \u2192 Equity Reclamation\u2122 \u2192 Mechanism \u2192 Blueprint\u2122 \u2192 Transformation Compiler\u2122 \u2192 Packets\u2122 \u2192 SAFE\u2122 \u2192 Realized Value",
+    "fullChain": "Market → Opportunity Zones™ → Company → Unlock Potential™ → Equity Reclamation™ → Mechanism → Blueprint™ → Transformation Compiler™ → Packets™ → SAFE™ → Realized Value",
     "governingLaw": {
       "id": "TI-044",
-      "name": "Divergence Acceleration Law\u2122",
-      "statement": "As intelligence becomes abundant, enterprise performance diverges because transformation capacity \u2014 not intelligence \u2014 becomes the scarce resource."
+      "name": "Divergence Acceleration Law™",
+      "statement": "As intelligence becomes abundant, enterprise performance diverges because transformation capacity — not intelligence — becomes the scarce resource."
     },
     "pipelineReference": {
       "id": "TI-055",
-      "name": "Evidence Intelligence Pipeline\u2122",
+      "name": "Evidence Intelligence Pipeline™",
       "stages": 12,
       "trustGates": "TI-056",
       "closingPrinciple": "TI-057"
@@ -3419,7 +3483,7 @@
     "ratified": "2026-06-25",
     "canonicalUrl": "https://lensanalysis.com/constitution/ti-048",
     "rules": {
-      "architecturalLayers": "No trademark \u2014 universal concepts",
+      "architecturalLayers": "No trademark — universal concepts",
       "disciplines": "Trademark retained",
       "principles": "Trademark retained",
       "measurements": "Trademark retained",
@@ -3487,9 +3551,9 @@
         "question": "Why does transformation behave this way?",
         "trademark": true,
         "examples": [
-          "Transformation Capacity Principle\u2122",
-          "Divergence Acceleration Law\u2122",
-          "Adoption Scarcity Principle\u2122"
+          "Transformation Capacity Principle™",
+          "Divergence Acceleration Law™",
+          "Adoption Scarcity Principle™"
         ]
       },
       {
@@ -3498,9 +3562,9 @@
         "question": "How can it be measured?",
         "trademark": true,
         "examples": [
-          "Transformation Efficiency\u2122",
-          "Transformation Capacity\u2122",
-          "AROI\u2122"
+          "Transformation Efficiency™",
+          "Transformation Capacity™",
+          "AROI™"
         ]
       },
       {
@@ -3509,8 +3573,8 @@
         "question": "How is it structured?",
         "trademark": true,
         "examples": [
-          "Transformation Memory Architecture\u2122",
-          "Decision Visibility Infrastructure\u2122"
+          "Transformation Memory Architecture™",
+          "Decision Visibility Infrastructure™"
         ]
       },
       {
@@ -3519,8 +3583,8 @@
         "question": "How is it applied?",
         "trademark": true,
         "examples": [
-          "Lens Analysis\u2122",
-          "Transformation Blueprint\u2122"
+          "Lens Analysis™",
+          "Transformation Blueprint™"
         ]
       },
       {
@@ -3529,9 +3593,9 @@
         "question": "How is it delivered?",
         "trademark": true,
         "examples": [
-          "The Lens\u2122",
-          "Board EA\u2122",
-          "SAFE\u2122"
+          "The Lens™",
+          "Board EA™",
+          "SAFE™"
         ]
       },
       {
@@ -3554,7 +3618,7 @@
     "totalPrinciples": 104,
     "totalBooks": 9,
     "canonicalUrl": "https://lensanalysis.com/constitution/ti-051",
-    "preamble": "Transformation Intelligence\u2122 is the discipline that explains how organizations convert identity into enterprise value through the coordinated application of knowledge, intelligence, organizational cognition, and transformation.",
+    "preamble": "Transformation Intelligence™ is the discipline that explains how organizations convert identity into enterprise value through the coordinated application of knowledge, intelligence, organizational cognition, and transformation.",
     "parts": [
       {
         "number": "I",
@@ -3571,7 +3635,7 @@
       {
         "number": "III",
         "name": "Measurements",
-        "purpose": "Define the quantitative language of TI\u2122",
+        "purpose": "Define the quantitative language of TI™",
         "question": "How can it be measured?"
       },
       {
@@ -3655,7 +3719,7 @@
     "principleId": "TI-052",
     "ratified": "2026-06-25",
     "canonicalUrl": "https://lensanalysis.com/constitution/ti-052",
-    "declaration": "Transformation Intelligence\u2122 shall exist as an enduring discipline independent of any single technology, software platform, organization, or generation of artificial intelligence.",
+    "declaration": "Transformation Intelligence™ shall exist as an enduring discipline independent of any single technology, software platform, organization, or generation of artificial intelligence.",
     "levels": [
       {
         "level": "I",
@@ -3670,9 +3734,9 @@
         "purpose": "Ensures repeatability",
         "status": "In Development",
         "examples": [
-          "Lens Analysis\u2122 Standard",
-          "Evidence Standard\u2122",
-          "Benchmark Standard\u2122"
+          "Lens Analysis™ Standard",
+          "Evidence Standard™",
+          "Benchmark Standard™"
         ]
       },
       {
@@ -3681,8 +3745,8 @@
         "purpose": "Describes operational systems",
         "status": "Active",
         "examples": [
-          "TI-202 Transformation Memory Architecture\u2122",
-          "TI-301 Decision Visibility Infrastructure\u2122"
+          "TI-202 Transformation Memory Architecture™",
+          "TI-301 Decision Visibility Infrastructure™"
         ]
       },
       {
@@ -3691,8 +3755,8 @@
         "purpose": "Repeatable methodologies",
         "status": "Active",
         "examples": [
-          "TI-003 Lens Analysis\u2122",
-          "Transformation Blueprint\u2122"
+          "TI-003 Lens Analysis™",
+          "Transformation Blueprint™"
         ]
       },
       {
@@ -3701,9 +3765,9 @@
         "purpose": "Software and services",
         "status": "Active",
         "examples": [
-          "The Lens\u2122",
-          "Board EA\u2122",
-          "SAFE\u2122"
+          "The Lens™",
+          "Board EA™",
+          "SAFE™"
         ],
         "primaryApplication": "https://lensanalysis.com"
       },
@@ -3719,8 +3783,8 @@
         "purpose": "Perpetuates the discipline",
         "status": "In Development",
         "examples": [
-          "Certified Transformation Intelligence Practitioner\u2122",
-          "Certified Lens Analyst\u2122"
+          "Certified Transformation Intelligence Practitioner™",
+          "Certified Lens Analyst™"
         ]
       }
     ]
