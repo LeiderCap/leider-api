@@ -24,6 +24,7 @@ export interface Principle {
     description: string
   }>
   canon?: 'I-Foundations' | 'II-Laws' | 'III-Measurements' | 'IV-Architectures' | 'V-Methods' | 'VI-Applications' | 'VII-Evidence'
+  externalFramework?: string
 }
 
 export const principles: Principle[] = [
