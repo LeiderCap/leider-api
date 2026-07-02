@@ -268,12 +268,38 @@ export async function POST(req: NextRequest) {
     parsed.failure_reasons = failureReasons.length > 0 ? failureReasons : (parsed.failure_reasons ?? []);
 
     // ── Ticker override safety net ──────────────────────────────────────────
-    // Hard block: if a known non-CRM company gets a CRM description, force FAIL
+    // Hard block: if a known company gets a wrong-category description, force correct description
     const descLower = (parsed.business_description ?? '').toLowerCase();
+
+    // Wrong-description terms that indicate FMP data contamination for PL
+    const wrongDescriptionTerms = [
+      'crm',
+      'customer relationship',
+      'communications platform',
+      'cloud-based communications',
+      'unified communications',
+      'contact center',
+    ];
+    const hasWrongDescription = wrongDescriptionTerms.some(term => descLower.includes(term));
+
+    if (tickerUpper === 'PL' && hasWrongDescription) {
+      // Force the correct description — do NOT fail, just correct the ground truth
+      parsed.business_description =
+        'Planet Labs PBC is an Earth observation company that operates the world\'s largest fleet of commercial Earth-imaging satellites. It provides satellite imagery and geospatial data solutions to government, commercial, and civil society customers worldwide.';
+      parsed.markets_served = [
+        'Earth observation',
+        'satellite imagery',
+        'geospatial intelligence',
+        'remote sensing',
+      ];
+      console.warn(`[PL Override] Wrong business description detected and corrected (terms: ${wrongDescriptionTerms.filter(t => descLower.includes(t)).join(', ')})`);
+    }
+
+    // Legacy CRM check for other known non-CRM tickers
     const knownNonCrm: Record<string, string> = {
       'PL': 'Planet Labs PBC is an Earth observation and satellite imagery company, not a CRM provider.',
     };
-    if (knownNonCrm[tickerUpper] && (descLower.includes('crm') || descLower.includes('customer relationship management'))) {
+    if (knownNonCrm[tickerUpper] && !hasWrongDescription && (descLower.includes('crm') || descLower.includes('customer relationship management'))) {
       parsed.identity_status = 'FAIL';
       parsed.failure_reasons = [
         ...(parsed.failure_reasons ?? []),
@@ -284,15 +310,22 @@ export async function POST(req: NextRequest) {
 
     // ── Sector mismatch validation ──────────────────────────────────────────
     // If FMP sector is Aerospace/Defense/Industrial/Hardware but AI describes software/SaaS/CRM, flag NEEDS_REVIEW
+    // Also catches 'communications platform' and 'cloud-based communications' misclassifications
     const fmpSectorLower = (fmpProfile.sector ?? '').toLowerCase();
     const fmpIndustryLower = (fmpProfile.industry ?? '').toLowerCase();
     const hardwareSectors = ['aerospace', 'defense', 'industrial', 'energy', 'materials', 'utilities', 'real estate'];
-    const softwareTerms = ['software', 'saas', 'crm', 'cloud software', 'platform-as-a-service', 'paas'];
+    const softwareTerms = [
+      'software', 'saas', 'crm', 'cloud software', 'platform-as-a-service', 'paas',
+      'communications platform', 'cloud-based communications', 'unified communications', 'contact center',
+    ];
     const isFmpHardwareSector = hardwareSectors.some(s => fmpSectorLower.includes(s) || fmpIndustryLower.includes(s));
-    const aiDescribesSoftware = softwareTerms.some(t => descLower.includes(t));
+    // Re-read descLower after potential PL override above
+    const descLowerFinal = (parsed.business_description ?? '').toLowerCase();
+    const aiDescribesSoftware = softwareTerms.some(t => descLowerFinal.includes(t));
     if (isFmpHardwareSector && aiDescribesSoftware && parsed.identity_status === 'PASS') {
       parsed.identity_status = 'NEEDS_REVIEW';
-      console.warn(`[identity][${tickerUpper}] SECTOR MISMATCH: FMP sector="${fmpProfile.sector}" but AI described software/SaaS. Flagging NEEDS_REVIEW.`);
+      const matchedTerms = softwareTerms.filter(t => descLowerFinal.includes(t)).join(', ');
+      console.warn(`[identity][${tickerUpper}] SECTOR MISMATCH: FMP sector="${fmpProfile.sector}" but AI described software/SaaS/comms (terms: ${matchedTerms}). Flagging NEEDS_REVIEW.`);
     }
 
     const identityCard = {
