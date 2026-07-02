@@ -2553,6 +2553,67 @@ export const principles: Principle[] = [
     ],
   },
 
+  // TI-069 — Case-Building Standard™
+  {
+    id: 'TI-069',
+    slug: 'ti-069',
+    name: 'Case-Building Standard™',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-07-02',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book I — Constitutional Governance',
+    oid: 'OID-2026-TI-CBS-001',
+    lensUri: 'lens://constitution/ti-069',
+    principle: 'Every Enterprise Value Blueprint™ shall be constructed as a disciplined case for enterprise value creation — a transparent chain of reasoning through which evidence is transformed into executive understanding, strategic judgment, and measurable action. The strength of the conclusion shall always be proportional to the strength of the case that precedes it.',
+    definition: 'The Case-Building Standard™ governs how reasoning is constructed within every Enterprise Value Blueprint™. It defines the Opportunity Science Chain of Reasoning — the micro-structure governing every individual argument: Proposition → Observation → Analysis → Finding → Opportunity Statement → Executive Recommendation → Transformation Initiative → Measurement Framework. An Enterprise Value Blueprint™ should not ask the reader to trust the conclusions. It should enable the reader to arrive at those conclusions through disciplined analysis.',
+    operatingLaw: 'Opportunity Science builds conviction through evidence rather than persuasion through rhetoric. Enterprise value decisions deserve the same rigor as financial decisions. Just as financial statements are supported by accounting records, every strategic recommendation should be supported by observable evidence, disciplined reasoning, and explicit assumptions. A Blueprint is complete only when: every recommendation is traceable to evidence, every finding is supported by analysis, every opportunity is grounded in realistic capability, every initiative includes a pathway to execution, and every major conclusion strengthens the overall case.',
+    implications: [
+      'The Opportunity Science Chain of Reasoning — eight sequential elements: Proposition (general principle framing the analysis), Observation (verifiable evidence describing reality without interpretation — supported by credible sources), Analysis (interpretation explaining why evidence matters — answers “Therefore what?”), Finding (evidence-based conclusion grounded in evidence not speculation), Opportunity Statement (realistic pathway through which the enterprise could create additional long-term value — describes potential not guaranteed outcomes), Executive Recommendation (professional judgment regarding actions leadership should consider — distinguishes immediate actions, medium-term initiatives, long-term strategic considerations), Transformation Initiative (structured program bridging strategy and execution — identifies governance, sequencing, ownership, capabilities), Measurement Framework (indicators for evaluating progress — measures realized enterprise value not completed activity, includes leading and outcome indicators).',
+      'Principle of Progressive Understanding: Every Blueprint shall increase reader understanding one layer at a time. Each section answers the natural question created by the previous section. The reader should never be asked to accept an unsupported conclusion or make an unexplained conceptual leap. The document should feel less like a report and more like a carefully constructed investigation.',
+      'The Reader\'s Journey — six stages: Stage 1 Understanding (What is happening?). Stage 2 Explanation (Why is it happening?). Stage 3 Recognition (What does this mean for the enterprise?). Stage 4 Opportunity (What value could be created?). Stage 5 Decision (What should leadership do?). Stage 6 Execution (How should success be measured?). Each stage prepares the reader for the next.',
+      'Principle of Intellectual Integrity: Opportunity Science distinguishes carefully between Facts, Interpretation, Judgment, and Recommendation. Readers should always understand whether they are reading an observation, an analytical conclusion, a strategic hypothesis, or a professional recommendation. Transparency strengthens confidence.',
+      'Principle of Narrative Momentum: Every finding should make the next finding easier to understand. The Blueprint should build intellectual momentum throughout. The Executive Opinion should never introduce a new argument — it should articulate the conclusion that the accumulated evidence already supports.',
+      'Principle of Cumulative Evidence: Every finding contributes to a larger case. No finding should duplicate another. No recommendation should appear before the evidence required to support it. The Blueprint should progressively reduce uncertainty while increasing confidence.',
+      'The purpose of Opportunity Science is not to produce more strategic recommendations. Its purpose is to improve the quality of strategic judgment.',
+    ],
+    typedRelationships: [
+      {
+        type: 'extends',
+        targetId: 'TI-068',
+        description: 'Extends Enterprise Value Blueprint™ Standard — Case-Building Standard™ governs the micro-structure of reasoning within each of the 10 Blueprint parts',
+      },
+      {
+        type: 'extends',
+        targetId: 'TI-067',
+        description: 'Extends Editorial Charter™ — Case-Building Standard™ is the epistemological expression of the Editorial Principle: Evidence Before Interpretation',
+      },
+      {
+        type: 'implements',
+        targetId: 'TI-015',
+        description: 'Implements Evidence Sufficiency Law™ — the Chain of Reasoning enforces evidence requirements at the argument level, not just the document level',
+      },
+      {
+        type: 'implements',
+        targetId: 'TI-059',
+        description: 'Implements Interrogability Principle™ — the Chain of Reasoning makes every conclusion interrogable by separating observation from analysis from recommendation',
+      },
+      {
+        type: 'implements',
+        targetId: 'TI-055',
+        description: 'Implements Evidence Intelligence Pipeline™ — the Chain of Reasoning is the document-level expression of the 12-stage pipeline from reality to organizational action',
+      },
+    ],
+    relatedIds: [
+      'TI-068', 'TI-067', 'TI-066',
+      'TI-015', 'TI-059', 'TI-055',
+      'TI-012', 'TI-058',
+    ],
+  },
+
   // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================

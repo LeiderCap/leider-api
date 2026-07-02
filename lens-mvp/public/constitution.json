@@ -3655,6 +3655,70 @@
         "TI-801",
         "TI-103"
       ]
+    },
+    {
+      "id": "TI-069",
+      "slug": "ti-069",
+      "name": "Case-Building Standard™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-07-02",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book I — Constitutional Governance",
+      "oid": "OID-2026-TI-CBS-001",
+      "lensUri": "lens://constitution/ti-069",
+      "principle": "Every Enterprise Value Blueprint™ shall be constructed as a disciplined case for enterprise value creation — a transparent chain of reasoning through which evidence is transformed into executive understanding, strategic judgment, and measurable action. The strength of the conclusion shall always be proportional to the strength of the case that precedes it.",
+      "definition": "The Case-Building Standard™ governs how reasoning is constructed within every Enterprise Value Blueprint™. It defines the Opportunity Science Chain of Reasoning — the micro-structure governing every individual argument: Proposition → Observation → Analysis → Finding → Opportunity Statement → Executive Recommendation → Transformation Initiative → Measurement Framework.",
+      "operatingLaw": "Opportunity Science builds conviction through evidence rather than persuasion through rhetoric. A Blueprint is complete only when: every recommendation is traceable to evidence, every finding is supported by analysis, every opportunity is grounded in realistic capability, every initiative includes a pathway to execution, and every major conclusion strengthens the overall case.",
+      "implications": [
+        "The Opportunity Science Chain of Reasoning — eight sequential elements: Proposition, Observation, Analysis, Finding, Opportunity Statement, Executive Recommendation, Transformation Initiative, Measurement Framework.",
+        "Principle of Progressive Understanding: Every Blueprint shall increase reader understanding one layer at a time.",
+        "The Reader's Journey — six stages: Understanding, Explanation, Recognition, Opportunity, Decision, Execution.",
+        "Principle of Intellectual Integrity: Opportunity Science distinguishes carefully between Facts, Interpretation, Judgment, and Recommendation.",
+        "Principle of Narrative Momentum: Every finding should make the next finding easier to understand.",
+        "Principle of Cumulative Evidence: Every finding contributes to a larger case.",
+        "The purpose of Opportunity Science is not to produce more strategic recommendations. Its purpose is to improve the quality of strategic judgment."
+      ],
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-068",
+          "description": "Extends Enterprise Value Blueprint™ Standard — Case-Building Standard™ governs the micro-structure of reasoning within each of the 10 Blueprint parts"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-067",
+          "description": "Extends Editorial Charter™ — Case-Building Standard™ is the epistemological expression of the Editorial Principle: Evidence Before Interpretation"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-015",
+          "description": "Implements Evidence Sufficiency Law™ — the Chain of Reasoning enforces evidence requirements at the argument level"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-059",
+          "description": "Implements Interrogability Principle™ — the Chain of Reasoning makes every conclusion interrogable"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-055",
+          "description": "Implements Evidence Intelligence Pipeline™ — the Chain of Reasoning is the document-level expression of the 12-stage pipeline"
+        }
+      ],
+      "relatedIds": [
+        "TI-068",
+        "TI-067",
+        "TI-066",
+        "TI-015",
+        "TI-059",
+        "TI-055",
+        "TI-012",
+        "TI-058"
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -3662,7 +3726,7 @@
   "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 121,
+  "totalPrinciples": 122,
   "lastUpdated": "2026-07-02",
   "constitutionalArchitecture": {
     "name": "Opportunity Hierarchy™",

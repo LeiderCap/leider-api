@@ -513,6 +513,14 @@ Canonical: https://lensanalysis.com/constitution/ti-068
 
 https://lensanalysis.com/constitution/ti-068
 
+## Case-Building Standard™ (TI-069)
+Governs how reasoning is constructed within every Enterprise Value Blueprint™.
+Chain of Reasoning: Proposition → Observation → Analysis → Finding → Opportunity Statement → Executive Recommendation → Transformation Initiative → Measurement Framework.
+Principle: The strength of the conclusion shall always be proportional to the strength of the case that precedes it.
+Canonical: https://lensanalysis.com/constitution/ti-069
+
+https://lensanalysis.com/constitution/ti-069
+
 ## Constitutional Canon™ (Appendix B)
 TI-050 establishes the seven-category classification system for all Transformation Intelligence™ concepts.
 Canonical Progression: Foundations → Laws → Measurements → Architectures → Methods → Applications → Evidence → Constitutional Evolution.
