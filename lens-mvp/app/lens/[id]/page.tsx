@@ -19,6 +19,7 @@ import { BlueprintGate } from '@/components/BlueprintGate';
 import { CitedText } from '@/components/CitedText';
 import { OpportunityZonesSection } from '@/components/OpportunityZonesSection';
 import { UnlockPotentialInfoBubble } from '@/components/UnlockPotentialInfoBubble';
+import { NextStepSection } from '@/components/lens/NextStepSection';
 
 const ratingClass: Record<string, string> = {
   Leading:      'rating-leading',
@@ -1313,6 +1314,16 @@ export default async function LensDetailPage({ params, searchParams }: { params:
 
       {/* ── 12. Lens Opportunities™ ───────────────────────────────────────── */}
       <OpportunityZonesSection />
+
+      {/* ── 13. Next Step Section ────────────────────────────────────────── */}
+      <NextStepSection
+        ticker={item.ticker ?? id.toUpperCase()}
+        companyName={item.name}
+        tcsScore={item.tcs_numeric ?? 50}
+        opportunityZone={null}
+        unlockPotentialLow={null}
+        identityStatus={identityStatus ?? null}
+      />
 
       {/* ── JSON-LD Structured Data ───────────────────────────────────────── */}
       <script
