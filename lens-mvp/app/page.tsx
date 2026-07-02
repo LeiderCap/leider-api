@@ -87,6 +87,18 @@ export default function HomePage() {
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-300">
             Opportunity Science™ is the systematic study of unrealized enterprise value — where it exists, why it remains unrealized, and which mechanism would most efficiently unlock it.
           </p>
+          <div className='mt-6 flex flex-wrap justify-center gap-3 text-xs text-gray-400'>
+            <span>Not a consulting firm.</span>
+            <span>·</span>
+            <span>Not an AI company.</span>
+            <span>·</span>
+            <span>Not an investment bank.</span>
+            <span>·</span>
+            <span>Not a software platform.</span>
+          </div>
+          <p className='mt-2 text-sm text-gray-500'>
+            A management discipline focused on the science of enterprise value creation.
+          </p>
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <a
               href="#search"
@@ -119,6 +131,9 @@ export default function HomePage() {
           <div className="mt-8 space-y-6">
             <p className="text-2xl font-light leading-relaxed text-white sm:text-3xl">
               Opportunity Science™ is the discipline that studies what financial markets systematically misprice.
+            </p>
+            <p className='text-lg text-gray-300 mb-8 max-w-2xl mx-auto'>
+              Mission: Advance the science of enterprise value creation by helping organizations systematically identify, prioritize, and realize their highest-value opportunities.
             </p>
             <p className="text-2xl font-light leading-relaxed text-white sm:text-3xl">
               As intelligence becomes abundant, markets increasingly misprice scarcity.
@@ -184,6 +199,100 @@ export default function HomePage() {
         </p>
       </section>
 
+      {/* ── Platform Components ───────────────────────────────── */}
+      <section className='py-16 px-6 max-w-5xl mx-auto'>
+        <p className='text-xs font-semibold uppercase tracking-widest text-orange-600 mb-3'>
+          The Platform
+        </p>
+        <h2 className='text-3xl font-bold text-gray-900 mb-4'>
+          Six integrated components.
+        </h2>
+        <p className='text-gray-500 mb-12 max-w-2xl'>
+          Opportunity Science™ is not a single tool. It is a complete operating system for enterprise value creation.
+        </p>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+          {[
+            {
+              number: '01',
+              name: 'The Lens™',
+              purpose: 'The flagship diagnostic platform.',
+              description: 'Reveal how an organization creates value, where value is constrained, and where hidden opportunities exist.',
+              status: 'live',
+              href: '/lens',
+            },
+            {
+              number: '02',
+              name: 'Opportunity Science Methodology',
+              purpose: 'The core decision framework.',
+              description: 'A repeatable system for discovering, evaluating, comparing, prioritizing, and sequencing opportunities.',
+              status: 'live',
+              href: '/methodology',
+            },
+            {
+              number: '03',
+              name: 'Enterprise Value Frontier',
+              purpose: 'The prioritization framework.',
+              description: 'Determine which combination of opportunities is expected to maximize long-term enterprise value within available capacity.',
+              status: 'coming',
+              href: null,
+            },
+            {
+              number: '04',
+              name: 'Equity Reclamation™',
+              purpose: 'The value realization discipline.',
+              description: 'Convert hidden strategic assets into measurable enterprise value through improved positioning, capital allocation, and execution.',
+              status: 'live',
+              href: '/lens',
+            },
+            {
+              number: '05',
+              name: 'Transformation Blueprint',
+              purpose: 'The execution architecture.',
+              description: 'Translate strategic insight into an executable roadmap with sequencing, governance, milestones, and accountability.',
+              status: 'live',
+              href: '/blueprint',
+            },
+            {
+              number: '06',
+              name: 'Transformation Intelligence™',
+              purpose: 'The operating system.',
+              description: 'Continuously observe, coordinate, measure, and improve organizational transformation over time.',
+              status: 'live',
+              href: '/methodology',
+            },
+          ].map((component) => (
+            <div key={component.number} className='border border-gray-100 rounded-xl p-6'>
+              <div className='flex items-center justify-between mb-3'>
+                <span className='text-2xl font-bold text-orange-100'>
+                  {component.number}
+                </span>
+                {component.status === 'coming' && (
+                  <span className='text-xs text-gray-400 border border-gray-200 rounded px-2 py-0.5'>
+                    Coming soon
+                  </span>
+                )}
+              </div>
+              <h3 className='font-bold text-gray-900 mb-1'>
+                {component.name}
+              </h3>
+              <p className='text-xs text-orange-600 font-medium mb-3'>
+                {component.purpose}
+              </p>
+              <p className='text-sm text-gray-500'>
+                {component.description}
+              </p>
+              {component.href && (
+                <a
+                  href={component.href}
+                  className='mt-4 inline-block text-xs text-orange-600 hover:underline'
+                >
+                  Explore →
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
       {/* ── What Would You Like To Do? ───────────────────────── */}
       <section className="border-b border-slate-100 bg-white px-6 py-20">
         <div className="mx-auto max-w-5xl">

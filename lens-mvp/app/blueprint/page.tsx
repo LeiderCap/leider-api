@@ -492,6 +492,27 @@ function BlueprintPageInner() {
         <p className="mt-2 text-base text-slate-600">
           Generate a complete AI-powered strategic document for any company, organization, government, or industry.
         </p>
+        <div className='mt-12 border-t border-gray-100 pt-10'>
+          <p className='text-xs font-semibold uppercase tracking-widest text-orange-600 mb-6'>
+            Five Fundamental Questions
+          </p>
+          <div className='space-y-4'>
+            {[
+              'Where does enterprise value exist today?',
+              'Which opportunities have the greatest long-term potential?',
+              'What prevents those opportunities from being realized?',
+              'What sequence of actions maximizes enterprise value?',
+              'How should leadership govern execution to achieve those outcomes?',
+            ].map((q, i) => (
+              <div key={i} className='flex gap-4'>
+                <span className='text-orange-200 font-bold text-lg w-6 shrink-0'>
+                  {i + 1}
+                </span>
+                <p className='text-gray-700'>{q}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Input Form */}

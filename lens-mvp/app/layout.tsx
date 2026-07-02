@@ -5,10 +5,10 @@ import NavRunButton from '@/components/NavRunButton';
 
 export const metadata: Metadata = {
   title: 'The Lens™ — Opportunity Science™ for Unrealized Enterprise Value',
-  description: 'Opportunity Science™ identifies where enterprise value is trapped, why it remains unrealized, and which mechanism would most efficiently unlock it. Powered by The Lens™.',
+  description: 'Opportunity Science™ — the management discipline dedicated to discovering, evaluating, prioritizing, and realizing opportunities that create long-term enterprise value. Powered by The Lens™.',
   openGraph: {
     title: 'The Lens™ — Opportunity Science™ for Unrealized Enterprise Value',
-    description: 'Opportunity Science™ identifies where enterprise value is trapped, why it remains unrealized, and which mechanism would most efficiently unlock it. Powered by The Lens™.',
+    description: 'Opportunity Science™ — the management discipline dedicated to discovering, evaluating, prioritizing, and realizing opportunities that create long-term enterprise value. Powered by The Lens™.',
     type: 'website',
   }
 };
