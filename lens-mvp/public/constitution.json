@@ -3534,6 +3534,64 @@
         "TI-103",
         "TI-064"
       ]
+    },
+    {
+      "id": "TI-067",
+      "slug": "ti-067",
+      "name": "Editorial Charter™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-07-02",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book I — Constitutional Governance",
+      "oid": "OID-2026-TI-EC-001",
+      "lensUri": "lens://constitution/ti-067",
+      "principle": "Every publication produced by Opportunity Science™ shall contribute to a coherent, cumulative, and enduring body of knowledge. The objective is not to publish reports. The objective is to advance the discipline.",
+      "definition": "The Editorial Charter™ governs all intellectual property produced under Opportunity Science™. It establishes the Opportunity Science Library — a six-book structure organizing all knowledge: Book I Constitution of Opportunity Science™, Book II The Opportunity Method™, Book III Enterprise Standards, Book IV Enterprise Value Blueprints™, Book V Transformation Intelligence™, Book VI Opportunity Intelligence™. Every Enterprise Value Blueprint™ shall distinguish clearly between: Principles, Propositions, Observations, Findings, Opportunity Statements, Executive Recommendations, Transformation Initiatives, and Measurement Frameworks.",
+      "operatingLaw": "Every foundational document shall include: version number, revision history, date of publication, editorial owner, methodology version, and research standard version. Individual reports may become outdated. The discipline should continue to improve. That is the purpose of the Opportunity Science Library.",
+      "implications": [
+        "Six Editorial Principles: Evidence Before Interpretation (assertions grounded in credible evidence). Interpretation Before Recommendation (recommendations follow disciplined analysis, not intuition). Discovery Before Prescription (discover opportunity before prescribing action). Enterprise Value Before Activity (evaluate by contribution to long-term enterprise value, not volume of work). Clarity Before Complexity (communicate with precision, simplicity, and intellectual honesty). Durability Before Novelty (write to remain valuable over time, not to follow short-term trends).",
+        "The Opportunity Science Library — Book I: Constitution of Opportunity Science™ — defines the governing philosophy, principles, and architecture of the discipline.",
+        "Book II: The Opportunity Method™ — defines the scientific method for enterprise value creation (TI-066).",
+        "Book III: Enterprise Standards — defines Enterprise Examination™, Enterprise Health™, Enterprise Value Genome™, Enterprise Value Blueprint™ Standard, Research Standard, Editorial Standard, and Measurement Standard.",
+        "Book IV: Enterprise Value Blueprints™ — company-specific applications of the Opportunity Science™ methodology. Blueprint No. 001: Griffin Fluid Management. Future blueprints may include public companies, private enterprises, portfolio companies, family businesses, governments, healthcare organizations, universities, and nonprofit institutions.",
+        "Book V: Transformation Intelligence™ — defines the continuous measurement system governing enterprise transformation, organizational learning, and realized enterprise value.",
+        "Book VI: Opportunity Intelligence™ — the accumulated body of knowledge generated through Enterprise Value Blueprints™, implementation outcomes, comparative research, and longitudinal analysis.",
+        "Publication Standard: Every Enterprise Value Blueprint™ shall distinguish between Principles (governing laws), Propositions (testable hypotheses), Observations (evidence-based findings), Findings (validated conclusions), Opportunity Statements (identified value creation possibilities), Executive Recommendations (prioritized actions), Transformation Initiatives (executable programs), and Measurement Frameworks (performance tracking systems). This preserves methodological rigor and enables traceability from recommendation to evidence."
+      ],
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-054",
+          "description": "Extends Constitutional Drafting Standard — Editorial Charter™ governs publication standards across all Opportunity Science™ outputs, not just constitutional documents"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-066",
+          "description": "Extends Opportunity Method™ — Editorial Charter™ governs how Method outputs are documented, published, and accumulated into the knowledge library"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-016",
+          "description": "Implements Continuous Learning Law™ — the six-book library structure is the institutional mechanism for compounding knowledge over time"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-011",
+          "description": "Implements Knowledge Compounding Principle™ — the Opportunity Science Library compounds knowledge across publications, practitioners, and cycles"
+        }
+      ],
+      "relatedIds": [
+        "TI-054",
+        "TI-066",
+        "TI-016",
+        "TI-011",
+        "TI-052",
+        "TI-065"
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -3541,7 +3599,7 @@
   "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 119,
+  "totalPrinciples": 120,
   "lastUpdated": "2026-07-02",
   "constitutionalArchitecture": {
     "name": "Opportunity Hierarchy™",

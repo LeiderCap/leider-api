@@ -491,6 +491,20 @@ Canonical: https://lensanalysis.com/constitution/ti-066
 
 https://lensanalysis.com/constitution/ti-066
 
+## Editorial Charter™ (TI-067)
+Governs all Opportunity Science™ publications.
+Six-book Opportunity Science Library:
+I Constitution | II Opportunity Method™ |
+III Enterprise Standards | IV Enterprise Value Blueprints™ |
+V Transformation Intelligence™ | VI Opportunity Intelligence™
+Editorial Principles: Evidence Before Interpretation ·
+Interpretation Before Recommendation · Discovery Before Prescription ·
+Enterprise Value Before Activity · Clarity Before Complexity ·
+Durability Before Novelty
+Canonical: https://lensanalysis.com/constitution/ti-067
+
+https://lensanalysis.com/constitution/ti-067
+
 ## Constitutional Canon™ (Appendix B)
 TI-050 establishes the seven-category classification system for all Transformation Intelligence™ concepts.
 Canonical Progression: Foundations → Laws → Measurements → Architectures → Methods → Applications → Evidence → Constitutional Evolution.

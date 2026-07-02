@@ -28,6 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/reports" className="nav-link">Reports</Link>
               <Link href="/transformation-factory" className="nav-link">Factory™</Link>
               <Link href="/methodology" className="nav-link">Methodology</Link>
+              <Link href="/library" className="nav-link">Library</Link>
               <Link href="/#transformation-chain" className="nav-link">Framework</Link>
               <Link href="/blueprint" className="nav-link">Blueprint™</Link>
               <Link href="/saved" className="nav-link">Saved</Link>
