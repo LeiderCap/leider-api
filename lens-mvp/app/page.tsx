@@ -78,14 +78,14 @@ export default function HomePage() {
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-slate-900 px-6 py-24 text-center text-white">
         <div className="mx-auto max-w-4xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
-            Defensibility Arbitrage Intelligence™
+          <p className='text-xs font-semibold uppercase tracking-widest text-orange-600 mb-3'>
+            Opportunity Science™
           </p>
           <h1 className="mt-4 text-4xl font-bold leading-tight tracking-tight text-white sm:text-6xl">
             Unlock Hidden Enterprise Value
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-300">
-            Measure where value is trapped and discover how to close the gap between potential and realized performance — for any publicly traded company.
+            Opportunity Science™ is the systematic study of unrealized enterprise value — where it exists, why it remains unrealized, and which mechanism would most efficiently unlock it.
           </p>
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <a
@@ -118,6 +118,9 @@ export default function HomePage() {
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Why This Exists</p>
           <div className="mt-8 space-y-6">
             <p className="text-2xl font-light leading-relaxed text-white sm:text-3xl">
+              Opportunity Science™ is the discipline that studies what financial markets systematically misprice.
+            </p>
+            <p className="text-2xl font-light leading-relaxed text-white sm:text-3xl">
               As intelligence becomes abundant, markets increasingly misprice scarcity.
             </p>
             <p className="text-2xl font-light leading-relaxed text-slate-300 sm:text-3xl">
@@ -142,6 +145,43 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* ── 9-Step Workflow ───────────────────────────────────── */}
+      <section className='py-16 px-6 max-w-5xl mx-auto'>
+        <p className='text-xs font-semibold uppercase tracking-widest text-orange-600 mb-3'>
+          The Workflow
+        </p>
+        <h2 className='text-3xl font-bold text-gray-900 mb-12'>
+          From observation to equity reclamation — nine steps.
+        </h2>
+        <div className='space-y-8'>
+          {[
+            { n: '01', name: 'Observe', desc: 'The Lens™ identifies signals of unrealized value.', tag: null },
+            { n: '02', name: 'Discover Opportunity', desc: 'Where does meaningful opportunity exist?', tag: 'Lens Opportunities™' },
+            { n: '03', name: 'Classify Opportunity Type', desc: 'Repair, Unlock, Protect, Transform, Search, or Compound?', tag: null },
+            { n: '04', name: 'Discover Candidate Catalysts', desc: 'Which mechanisms could unlock this value?', tag: null },
+            { n: '05', name: 'Evaluate Catalyst Fit', desc: "Which catalyst fits this organization's strategic, capital, and governance context?", tag: null },
+            { n: '06', name: 'Assess Transformation Capacity', desc: 'Can this organization successfully execute the chosen catalyst?', tag: 'Lens Analysis™' },
+            { n: '07', name: 'Estimate Execution Probability', desc: 'What is the probability of successful execution?', tag: null },
+            { n: '08', name: 'Estimate Value Realization', desc: 'How much value is converted into measurable outcomes?', tag: null },
+            { n: '09', name: 'Estimate Equity Reclamation', desc: 'How much enterprise value could reasonably be unlocked if execution succeeds?', tag: 'Unlock Potential™' },
+          ].map((step) => (
+            <div key={step.n} className='flex gap-6 items-start'>
+              <span className='text-3xl font-bold text-orange-200 w-12 shrink-0'>{step.n}</span>
+              <div>
+                <h3 className='font-bold text-gray-900'>{step.name}</h3>
+                <p className='text-sm text-gray-500 mt-1'>{step.desc}</p>
+                {step.tag && (
+                  <p className='text-xs text-orange-600 mt-1'>→ {step.tag}</p>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+        <p className='mt-10 text-xs text-gray-400'>
+          The Lens™ currently delivers Steps 2, 3, 6, and 9. Blueprint™ delivers Steps 4 and 5. Steps 7 and 8 are in development.
+        </p>
       </section>
 
       {/* ── What Would You Like To Do? ───────────────────────── */}
@@ -623,6 +663,9 @@ export default function HomePage() {
       <section className="section bg-white">
         <div className="section-inner">
           <div className="mx-auto max-w-2xl text-center">
+            <p className='text-xs font-semibold uppercase tracking-widest text-gray-400 mb-6'>
+              What The Lens™ Delivers Today
+            </p>
             <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">What The Lens™ Reveals</p>
             <h2 className="mt-4 text-4xl font-bold">Discover what is possible.</h2>
             <p className="mt-4 text-slate-600">
