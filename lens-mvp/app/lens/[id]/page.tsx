@@ -493,6 +493,11 @@ export default async function LensDetailPage({ params, searchParams }: { params:
           {item.what_lens_sees && (
             <div className="rounded-xl bg-slate-900 p-6 text-white">
               <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-teal-400">Opportunity Discovery</p>
+              <p className='text-xs text-gray-400 mb-2'>
+                Governed by{' '}
+                <a href='/constitution/ti-065' target='_blank' rel='noopener noreferrer' className='text-orange-500 hover:underline'>TI-065</a>
+                {' '}Opportunity Science™ Ontology
+              </p>
               <p className="mt-3 text-base leading-8 text-slate-100"><CitedText text={item.what_lens_sees} /></p>
             </div>
           )}
@@ -602,10 +607,17 @@ export default async function LensDetailPage({ params, searchParams }: { params:
       {/* ── 7. TCS™ Scorecard ─────────────────────────────────────────────── */}
       <div className={hasAnalysis ? 'mt-10' : 'mt-8'}>
         {hasAnalysis && (
-          <div className="mb-3 flex items-center gap-3">
-            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Transformation Capacity Assessment</p>
-            <div className="h-px flex-1 bg-slate-200" />
-          </div>
+          <>
+            <div className="mb-3 flex items-center gap-3">
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">Transformation Capacity Assessment</p>
+              <div className="h-px flex-1 bg-slate-200" />
+            </div>
+            <p className='text-xs text-gray-400 mb-4'>
+              Governed by{' '}
+              <a href='/constitution/ti-004' target='_blank' rel='noopener noreferrer' className='text-orange-500 hover:underline'>TI-004</a>
+              {' '}Transformation Capacity Principle™
+            </p>
+          </>
         )}
 
         {/* Scorecard Explainer — collapsible client component */}
@@ -638,17 +650,21 @@ export default async function LensDetailPage({ params, searchParams }: { params:
           <p className="mt-1 text-sm text-slate-500">Weighted composite score — Lens Ratings Methodology v1.1</p>
           <div className="mt-4 space-y-3">
             {[
-              { label: 'Absorbability',  weight: 20, val: item.absorbability_numeric },
-              { label: 'Governance',     weight: 20, val: item.governance_numeric },
-              { label: 'Execution',      weight: 20, val: item.execution_numeric },
-              { label: 'Trust',          weight: 15, val: item.trust_numeric },
-              { label: 'Courage',        weight: 15, val: item.courage_numeric },
-              { label: 'Intelligence',   weight: 10, val: item.intelligence_numeric },
-            ].map(({ label, weight, val }) => (
+              { label: 'Absorbability',  weight: 20, val: item.absorbability_numeric,  tiId: 'ti-040', tiName: 'Transformation Absorbability Principle™' },
+              { label: 'Governance',     weight: 20, val: item.governance_numeric,     tiId: 'ti-301', tiName: 'Decision Visibility Infrastructure™' },
+              { label: 'Execution',      weight: 20, val: item.execution_numeric,      tiId: 'ti-007', tiName: 'Deployment Velocity Principle™' },
+              { label: 'Trust',          weight: 15, val: item.trust_numeric,          tiId: 'ti-302', tiName: 'Trust Infrastructure Principle™' },
+              { label: 'Courage',        weight: 15, val: item.courage_numeric,        tiId: 'ti-005', tiName: 'Courage-to-Transform Principle™' },
+              { label: 'Intelligence',   weight: 10, val: item.intelligence_numeric,   tiId: 'ti-038', tiName: 'AI Absorption Principle™' },
+            ].map(({ label, weight, val, tiId, tiName }) => (
               <div key={label} className="flex items-center gap-3">
                 <div className="w-32 shrink-0">
                   <p className="text-xs font-semibold text-slate-700">{label}</p>
                   <p className="text-xs text-slate-400">{weight}% weight</p>
+                  <div className="flex items-center gap-1 mt-0.5">
+                    <a href={`/constitution/${tiId}`} target='_blank' rel='noopener noreferrer' className='text-xs text-orange-500 hover:underline'>[{tiId.toUpperCase()}]</a>
+                    <span className='text-xs text-gray-400'>{tiName}</span>
+                  </div>
                 </div>
                 <div className="flex-1">
                   <div className="w-full rounded-full bg-slate-100 h-2">
@@ -758,6 +774,13 @@ export default async function LensDetailPage({ params, searchParams }: { params:
           {/* v2.1 FMP-anchored Unlock Potential™ */}
           <div className="relative rounded-xl border border-slate-200 p-4">
             <p className="text-xs font-medium text-slate-400">Equity Reclamation Estimate</p>
+            <p className='text-xs text-gray-400 mb-2'>
+              Governed by{' '}
+              <a href='/constitution/ti-013' target='_blank' rel='noopener noreferrer' className='text-orange-500 hover:underline'>TI-013</a>
+              {' '}Conservation of Enterprise Value™ Law ·{' '}
+              <a href='/constitution/ti-015' target='_blank' rel='noopener noreferrer' className='text-orange-500 hover:underline'>TI-015</a>
+              {' '}Evidence Sufficiency Law™
+            </p>
             <div className="mt-2 flex items-center gap-1.5 text-emerald-600">
               <UnlockPotentialInfoBubble item={item} showRange />
             </div>
