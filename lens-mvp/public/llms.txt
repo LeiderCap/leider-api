@@ -528,6 +528,12 @@ First Law of Enterprise Intelligence: Meaning without authority creates ambiguit
 Enterprise Decision Graph™: connects all Enterprise Decision Objects representing relationships between decisions, responsibility, evidence, and realized value over time.
 Canonical: https://lensanalysis.com/constitution/ti-070
 
+## Narrative Architecture Standard™ (TI-071)
+Four-stage Blueprint structure: Stage I The Facts → Stage II The Case → Stage III The Decision → Stage IV The Verdict.
+Founding Principle: Facts establish reality. Analysis creates understanding. Understanding reveals opportunity. Opportunity informs decisions. Decisions guide transformation. Transformation creates enterprise value.
+The Verdict should introduce no new evidence — it articulates the conclusion the preceding analysis has already established.
+Canonical: https://lensanalysis.com/constitution/ti-071
+
 ## Constitutional Canon™ (Appendix B)
 TI-050 establishes the seven-category classification system for all Transformation Intelligence™ concepts.
 Canonical Progression: Foundations → Laws → Measurements → Architectures → Methods → Applications → Evidence → Constitutional Evolution.

@@ -2679,6 +2679,61 @@ export const principles: Principle[] = [
     ],
   },
 
+  // TI-071 — Narrative Architecture Standard™
+  {
+    id: 'TI-071',
+    slug: 'ti-071',
+    name: 'Narrative Architecture Standard™',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-07-02',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book I — Constitutional Governance',
+    oid: 'OID-2026-TI-NAS-001',
+    lensUri: 'lens://constitution/ti-071',
+    principle: 'Every Enterprise Value Blueprint™ shall be constructed as a progressive argument rather than a sequential report. Its purpose is not to present information. Its purpose is to develop understanding. Enterprise understanding should deepen progressively: Facts establish reality. Analysis creates understanding. Understanding reveals opportunity. Opportunity informs decisions. Decisions guide transformation. Transformation creates enterprise value.',
+    definition: 'The Narrative Architecture Standard™ governs how every Enterprise Value Blueprint™ reads from beginning to end. It establishes four narrative stages that convert evidence into executive judgment through progressive understanding: Stage I The Facts (establish objective reality), Stage II The Case (interpret the evidence), Stage III The Decision (convert understanding into disciplined executive judgment), Stage IV The Verdict (state professional opinion). Understanding develops through evidence. Evidence develops through structure.',
+    operatingLaw: 'Founding Principle: Facts establish reality. Analysis creates understanding. Understanding reveals opportunity. Opportunity informs decisions. Decisions guide transformation. Transformation creates enterprise value. That progression defines the Narrative Architecture Standard and shall govern every Enterprise Value Blueprint™ prepared under the Opportunity Science Standard. When properly written, the Verdict should feel inevitable — the conclusion that the preceding analysis has already established.',
+    implications: [
+      'Stage I — The Facts (establish objective reality): Includes Enterprise Profile, Industry Context, Enterprise Examination™. No strategic conclusions should be introduced during this stage. The reader should first understand the enterprise and its environment before any interpretation begins.',
+      'Stage II — The Case (interpret the evidence): Includes Propositions, Observations, Analysis, Findings, Opportunity Statements. Each Finding should strengthen the overall case. No Finding should stand alone. Every Finding should make the next Finding easier to understand. This is the Principle of Cumulative Evidence (TI-069) applied at the document level.',
+      'Stage III — The Decision (convert understanding into disciplined executive judgment): Includes Enterprise Value Frontier™, Equity Reclamation™, Executive Recommendations, Transformation Blueprint™. This stage answers: What should leadership do? It is the product of Stages I and II — it should feel earned, not asserted.',
+      'Stage IV — The Verdict (state professional opinion): The Executive Opinion should introduce no new evidence. It should simply articulate the conclusion that the preceding analysis has already established. When properly written, the Verdict should feel inevitable. This is the Principle of Narrative Momentum (TI-069) applied at the document level.',
+      'Relationship to Case-Building Standard™ (TI-069): The Narrative Architecture Standard™ governs the macro-structure of a Blueprint (four stages). The Case-Building Standard™ governs the micro-structure of each argument within those stages (eight Chain of Reasoning elements). Together they govern how a Blueprint reads at every level of resolution.',
+      'Relationship to Enterprise Value Blueprint™ Standard (TI-068): The 10-part architecture (TI-068) defines what goes into a Blueprint. The Narrative Architecture Standard™ (TI-071) defines how those parts are sequenced to build progressive understanding. Parts I-III of TI-068 map to Stage I. Parts IV-V map to Stage II. Parts VI-IX map to Stage III. Part I Executive Summary maps to Stage IV.',
+    ],
+    typedRelationships: [
+      {
+        type: 'extends',
+        targetId: 'TI-069',
+        description: 'Extends Case-Building Standard™ — NAS™ governs macro narrative structure (four stages) while CBS™ governs micro argument structure (eight Chain of Reasoning elements)',
+      },
+      {
+        type: 'extends',
+        targetId: 'TI-068',
+        description: 'Extends Enterprise Value Blueprint™ Standard — NAS™ defines how the 10-part architecture is sequenced to build progressive understanding',
+      },
+      {
+        type: 'implements',
+        targetId: 'TI-015',
+        description: 'Implements Evidence Sufficiency Law™ — Stage I establishes the evidence foundation before any interpretation proceeds in Stage II',
+      },
+      {
+        type: 'implements',
+        targetId: 'TI-066',
+        description: 'Implements Opportunity Method™ — the four narrative stages map to the eight phases of the Method: Stages I-II (Phases I-IV), Stage III (Phases V-VII), Stage IV (Phase VIII)',
+      },
+    ],
+    relatedIds: [
+      'TI-069', 'TI-068', 'TI-067',
+      'TI-066', 'TI-015', 'TI-059',
+      'TI-055', 'TI-012',
+    ],
+  },
+
   // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================

@@ -3747,6 +3747,34 @@
         "TI-021",
         "TI-044"
       ]
+    },
+    {
+      "id": "TI-071",
+      "slug": "ti-071",
+      "name": "Narrative Architecture Standard™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-07-02",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book I — Constitutional Governance",
+      "oid": "OID-2026-TI-NAS-001",
+      "lensUri": "lens://constitution/ti-071",
+      "principle": "Every Enterprise Value Blueprint™ shall be constructed as a progressive argument rather than a sequential report. Its purpose is not to present information. Its purpose is to develop understanding. Enterprise understanding should deepen progressively: Facts establish reality. Analysis creates understanding. Understanding reveals opportunity. Opportunity informs decisions. Decisions guide transformation. Transformation creates enterprise value.",
+      "definition": "The Narrative Architecture Standard™ governs how every Enterprise Value Blueprint™ reads from beginning to end. It establishes four narrative stages that convert evidence into executive judgment through progressive understanding.",
+      "operatingLaw": "Founding Principle: Facts establish reality. Analysis creates understanding. Understanding reveals opportunity. Opportunity informs decisions. Decisions guide transformation. Transformation creates enterprise value.",
+      "relatedIds": [
+        "TI-069",
+        "TI-068",
+        "TI-067",
+        "TI-066",
+        "TI-015",
+        "TI-059",
+        "TI-055",
+        "TI-012"
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -3754,7 +3782,7 @@
   "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 123,
+  "totalPrinciples": 124,
   "lastUpdated": "2026-07-02",
   "constitutionalArchitecture": {
     "name": "Opportunity Hierarchy™",
