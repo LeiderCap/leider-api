@@ -3821,6 +3821,43 @@
         "TI-066",
         "TI-065"
       ]
+    },
+    {
+      "id": "TI-073",
+      "slug": "ti-073",
+      "name": "Enterprise Finding Standard™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-07-02",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book I — Constitutional Governance",
+      "oid": "OID-2026-TI-EFS-001",
+      "lensUri": "lens://constitution/ti-073",
+      "principle": "Every Enterprise Value Blueprint™ is built one Finding at a time. The quality of the Blueprint is determined by the quality, rigor, and consistency of each Finding. Every Finding exists to answer one question: Why should this enterprise become more valuable? The purpose is not merely to identify opportunities — it is to demonstrate why those opportunities matter economically and how leadership can systematically realize them.",
+      "definition": "The Enterprise Finding Standard™ establishes the required structure for every Finding prepared under the Opportunity Science Standard. Every Finding shall answer Four Executive Questions™ in sequence: Question 1 — What Changed? (establish objective reality through company developments, industry trends, customer behavior, technology, regulation, capital markets, competitive dynamics, macroeconomic conditions). Question 2 — Why Does It Matter? (explain the economic mechanism — cause-and-effect relationships, strategic implications, changes in customer economics, competitive consequences, enterprise value implications). Question 3 — What Opportunity Does It Create? (translate understanding into enterprise value — strategic positioning, revenue quality, customer relationships, capital efficiency, competitive advantage, enterprise resilience, long-term value creation). Question 4 — What Should Leadership Do? (convert understanding into disciplined executive judgment — Executive Recommendation, Transformation Initiative, Measurement Framework).",
+      "operatingLaw": "Enterprise Value Test — before publication every Finding must answer: Are primary observations supported by credible evidence? Have we explained why the evidence matters? Does the Finding explain how enterprise value could be created, protected, or expanded? Would this analysis improve the judgment of a CEO, board member, investor, or operating executive? Does leadership understand what should be done differently? Can progress be evaluated objectively over time? If any answer is negative, the Finding is incomplete. No recommendation should appear without supporting evidence. No conclusion should appear without analysis. Every stage should strengthen the next.",
+      "implications": [
+        "Four Executive Questions™ — the operational template for every Finding: Q1 What Changed? (observations supported by credible evidence — external sources include industry research, macroeconomic trends, academic research, government publications, regulatory developments, market data). Q2 Why Does It Matter? (economic mechanisms — switching costs, customer lifetime value, risk reduction, pricing power, cross-selling, platform economics, capital efficiency, knowledge accumulation, network effects). Q3 What Opportunity Does It Create? (opportunity statements describe potential not certainty — realistic pathways through which the enterprise may strengthen strategic positioning, revenue quality, customer relationships, capital efficiency, competitive advantage, enterprise resilience). Q4 What Should Leadership Do? (Executive Recommendation + Transformation Initiative + Measurement Framework — prioritized by expected enterprise value contribution not organizational activity).",
+        "Evidence Hierarchy — four categories: External Evidence (industry research, macroeconomic trends, academic research, government publications, regulatory developments, market data — establishes the external environment). Enterprise Evidence (public company information, management communications, operating characteristics, products, services, capabilities, customer relationships — describes the enterprise objectively). Economic Mechanism (explains why combined evidence changes enterprise economics — demonstrates how observations create enterprise value). Executive Implication (states what leadership should understand and why it matters — bridges analysis and action).",
+        "Opportunity Science Chain of Reasoning applied at Finding level: Proposition → Observation → Analysis → Finding → Opportunity Statement → Executive Recommendation → Transformation Initiative → Measurement Framework. This is the micro-structure (TI-069) applied operationally to every individual Finding in the Blueprint.",
+        "Principle of Progressive Conviction: Every Finding contributes to a larger enterprise case. Each Finding should strengthen previous conclusions, introduce the next logical question, increase confidence, and reduce uncertainty. By the final Executive Opinion, the accumulated evidence should make the overall conclusion feel inevitable.",
+        "Editorial Principles for every Finding: Lead with the central insight. Build understanding progressively. Explain mechanisms before introducing frameworks. Show observable reality before naming Opportunity Science concepts. Differentiate facts from interpretation. Position Opportunity Science as an extension of existing management knowledge rather than a replacement. Maintain a tone that is clear, disciplined, evidence-based, and intellectually honest. Avoid unnecessary certainty — allow confidence to emerge from transparent reasoning.",
+        "Research Standard: Every material observation intended for publication should be supported by authoritative evidence whenever practical. Preferred sources: company filings and official publications, annual reports, investor presentations, industry associations, government agencies, engineering organizations, academic research, independent market research, regulatory publications. Evidence quality directly influences the credibility of enterprise judgment.",
+        "Constitutional note: TI-073 is ratified after TI-072 (Founding Resolution™) closed the framework expansion phase. It is ratified because it is operationally necessary for Griffin Blueprint No. 001 — it is the micro-specification that makes TI-069 Chain of Reasoning actionable. Without it, every Griffin Finding lacks a concrete governing checklist. This is operational specification, not architectural expansion."
+      ],
+      "relatedIds": [
+        "TI-069",
+        "TI-071",
+        "TI-072",
+        "TI-068",
+        "TI-015",
+        "TI-059",
+        "TI-067",
+        "TI-066"
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -3828,7 +3865,7 @@
   "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 125,
+  "totalPrinciples": 126,
   "lastUpdated": "2026-07-02",
   "constitutionalArchitecture": {
     "name": "Opportunity Hierarchy™",

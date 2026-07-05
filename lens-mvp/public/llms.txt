@@ -542,6 +542,13 @@ Founding Question: Does Opportunity Science consistently improve enterprise judg
 From this point forward, the discipline advances through application.
 Canonical: https://lensanalysis.com/constitution/ti-072
 
+## Enterprise Finding Standard™ (TI-073)
+The operational specification for every Finding in an Enterprise Value Blueprint™.
+Four Executive Questions™: What Changed? → Why Does It Matter? → What Opportunity Does It Create? → What Should Leadership Do?
+Enterprise Value Test: six questions every Finding must answer before publication.
+Evidence Hierarchy: External Evidence → Enterprise Evidence → Economic Mechanism → Executive Implication.
+Canonical: https://lensanalysis.com/constitution/ti-073
+
 ## Constitutional Canon™ (Appendix B)
 TI-050 establishes the seven-category classification system for all Transformation Intelligence™ concepts.
 Canonical Progression: Foundations → Laws → Measurements → Architectures → Methods → Applications → Evidence → Constitutional Evolution.
