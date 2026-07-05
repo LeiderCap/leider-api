@@ -534,6 +534,14 @@ Founding Principle: Facts establish reality. Analysis creates understanding. Und
 The Verdict should introduce no new evidence — it articulates the conclusion the preceding analysis has already established.
 Canonical: https://lensanalysis.com/constitution/ti-071
 
+## Founding Resolution™ (TI-072)
+Closes the framework expansion phase. Version 1.0 of the Opportunity Science Standard is adopted.
+Principle of Stability: architecture remains stable throughout Enterprise Value Blueprint™ No. 001 development.
+The Griffin Commitment: Blueprint No. 001 is the founding application of the Opportunity Science Standard.
+Founding Question: Does Opportunity Science consistently improve enterprise judgment?
+From this point forward, the discipline advances through application.
+Canonical: https://lensanalysis.com/constitution/ti-072
+
 ## Constitutional Canon™ (Appendix B)
 TI-050 establishes the seven-category classification system for all Transformation Intelligence™ concepts.
 Canonical Progression: Foundations → Laws → Measurements → Architectures → Methods → Applications → Evidence → Constitutional Evolution.

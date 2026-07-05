@@ -3784,6 +3784,43 @@
         "Standard of Completion — five criteria: 1. Every recommendation can be traced to evidence. 2. Every Finding strengthens the cumulative case. 3. Every section advances the reader's understanding. 4. The Executive Opinion introduces no new arguments. 5. The complete document demonstrates a coherent path from observation to enterprise value creation.",
         "Relationship to TI-068 and TI-069: TI-068 defines what goes in a Blueprint (10-part architecture). TI-069 defines how each argument is built (8-element Chain of Reasoning). TI-071 defines how the whole Blueprint reads (4-stage narrative). Together they govern every level of Blueprint construction."
       ]
+    },
+    {
+      "id": "TI-072",
+      "slug": "ti-072",
+      "name": "Founding Resolution™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-07-02",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book I — Constitutional Governance",
+      "oid": "OID-2026-TI-FR-001",
+      "lensUri": "lens://constitution/ti-072",
+      "principle": "Every new discipline reaches a point at which further refinement of its architecture yields diminishing returns. Future credibility no longer depends upon additional concepts — it depends upon disciplined application. Opportunity Science has reached that point. Version 1.0 of the Opportunity Science Standard is hereby adopted as the founding architecture of the discipline. Future credibility shall be established through research, publication, implementation, and measured outcomes rather than continual expansion of the underlying framework.",
+      "definition": "The Founding Resolution™ closes the framework expansion phase of Opportunity Science™ and commits the discipline to application. Opportunity Science exists to improve enterprise judgment through disciplined observation, transparent reasoning, and evidence-based decision-making. Enterprise value is the outcome. Improved judgment is the mission. Everything produced under the Opportunity Science Standard shall contribute to that purpose. The architecture shall remain stable throughout the development of Enterprise Value Blueprint™ No. 001.",
+      "operatingLaw": "Principle of Stability: The architecture shall remain stable throughout the development of Enterprise Value Blueprint™ No. 001. New ideas may emerge. New evidence may challenge assumptions. New opportunities may be discovered. These should strengthen future versions of the discipline through documented revision rather than ad hoc modification of Version 1.0. Version 2.0 Candidate Log: Any concept proposed after adoption of Version 1.0 shall be recorded separately as a Version 2.0 candidate and shall not alter the current standard unless clearly defined, supported by evidence, evaluated against the Opportunity Method, reviewed for conceptual overlap, and demonstrated to improve enterprise judgment.",
+      "implications": [
+        "Version 1.0 Standard — canonical components: Constitution of Opportunity Science™, Opportunity Science Standard (OSS)™, Opportunity Method™, Enterprise Examination™, Enterprise Health™, Enterprise Value Genome™, Enterprise Value Blueprint™ Standard, Research Standard™, Editorial Philosophy™, Editorial Charter™, Narrative Architecture Standard™, Case-Building Standard™, Enterprise Value Frontier™, Equity Reclamation™, Transformation Blueprint™, Transformation Intelligence™, Opportunity Intelligence™, Opportunity Atlas™. Together these define the founding architecture of Opportunity Science.",
+        "The Work Ahead — four primary objectives: Research (build increasingly rigorous evidence base, strengthen observations, validate propositions, refine enterprise understanding). Publication (produce enduring works that advance the discipline — Enterprise Value Blueprints as reference documents for executive decision-making). Application (apply the Opportunity Science Standard across industries, enterprises, and institutions — demonstrate methodology through measurable outcomes). Learning (capture observations, implementation experience, and realized results — expand Opportunity Intelligence, enrich Opportunity Atlas, strengthen future enterprise judgment).",
+        "The Griffin Commitment: Enterprise Value Blueprint™ No. 001 shall serve as the founding application of the Opportunity Science Standard. Its purpose extends beyond evaluating Griffin Fluid Management — it demonstrates how Opportunity Science is practiced. Every proposition, observation, finding, opportunity statement, recommendation, and measurement framework shall be prepared to the highest professional standard. The Blueprint shall be judged by the clarity of its reasoning, the quality of its evidence, and the usefulness of its judgment.",
+        "Founding Question: Opportunity Science will ultimately be judged by one question: Does it consistently improve enterprise judgment? If yes, better decisions follow. If better decisions follow, stronger enterprises emerge. If stronger enterprises emerge, greater enterprise value is created. That is the purpose of Opportunity Science. That is the commitment of Version 1.0.",
+        "Relationship to TI-053 (Product Constitution™): TI-053 closed the constitutional expansion phase for the platform. TI-072 closes the framework expansion phase for the discipline. Both establish the same principle: credibility is established through application, not further architectural elaboration.",
+        "From this point forward, the discipline advances through application."
+      ],
+      "relatedIds": [
+        "TI-053",
+        "TI-067",
+        "TI-016",
+        "TI-071",
+        "TI-061",
+        "TI-068",
+        "TI-069",
+        "TI-066",
+        "TI-065"
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -3791,7 +3828,7 @@
   "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 124,
+  "totalPrinciples": 125,
   "lastUpdated": "2026-07-02",
   "constitutionalArchitecture": {
     "name": "Opportunity Hierarchy™",

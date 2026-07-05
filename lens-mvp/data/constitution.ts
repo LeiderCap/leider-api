@@ -2735,6 +2735,65 @@ export const principles: Principle[] = [
     ],
   },
 
+  {
+    id: 'TI-072',
+    slug: 'ti-072',
+    name: 'Founding Resolution™',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-07-02',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book I — Constitutional Governance',
+    oid: 'OID-2026-TI-FR-001',
+    lensUri: 'lens://constitution/ti-072',
+    principle: 'Every new discipline reaches a point at which further refinement of its architecture yields diminishing returns. Future credibility no longer depends upon additional concepts — it depends upon disciplined application. Opportunity Science has reached that point. Version 1.0 of the Opportunity Science Standard is hereby adopted as the founding architecture of the discipline. Future credibility shall be established through research, publication, implementation, and measured outcomes rather than continual expansion of the underlying framework.',
+    definition: 'The Founding Resolution™ closes the framework expansion phase of Opportunity Science™ and commits the discipline to application. Opportunity Science exists to improve enterprise judgment through disciplined observation, transparent reasoning, and evidence-based decision-making. Enterprise value is the outcome. Improved judgment is the mission. Everything produced under the Opportunity Science Standard shall contribute to that purpose. The architecture shall remain stable throughout the development of Enterprise Value Blueprint™ No. 001.',
+    operatingLaw: 'Principle of Stability: The architecture shall remain stable throughout the development of Enterprise Value Blueprint™ No. 001. New ideas may emerge. New evidence may challenge assumptions. New opportunities may be discovered. These should strengthen future versions of the discipline through documented revision rather than ad hoc modification of Version 1.0. Version 2.0 Candidate Log: Any concept proposed after adoption of Version 1.0 shall be recorded separately as a Version 2.0 candidate and shall not alter the current standard unless clearly defined, supported by evidence, evaluated against the Opportunity Method, reviewed for conceptual overlap, and demonstrated to improve enterprise judgment.',
+    implications: [
+      'Version 1.0 Standard — canonical components: Constitution of Opportunity Science™, Opportunity Science Standard (OSS)™, Opportunity Method™, Enterprise Examination™, Enterprise Health™, Enterprise Value Genome™, Enterprise Value Blueprint™ Standard, Research Standard™, Editorial Philosophy™, Editorial Charter™, Narrative Architecture Standard™, Case-Building Standard™, Enterprise Value Frontier™, Equity Reclamation™, Transformation Blueprint™, Transformation Intelligence™, Opportunity Intelligence™, Opportunity Atlas™. Together these define the founding architecture of Opportunity Science.',
+      'The Work Ahead — four primary objectives: Research (build increasingly rigorous evidence base, strengthen observations, validate propositions, refine enterprise understanding). Publication (produce enduring works that advance the discipline — Enterprise Value Blueprints as reference documents for executive decision-making). Application (apply the Opportunity Science Standard across industries, enterprises, and institutions — demonstrate methodology through measurable outcomes). Learning (capture observations, implementation experience, and realized results — expand Opportunity Intelligence, enrich Opportunity Atlas, strengthen future enterprise judgment).',
+      'The Griffin Commitment: Enterprise Value Blueprint™ No. 001 shall serve as the founding application of the Opportunity Science Standard. Its purpose extends beyond evaluating Griffin Fluid Management — it demonstrates how Opportunity Science is practiced. Every proposition, observation, finding, opportunity statement, recommendation, and measurement framework shall be prepared to the highest professional standard. The Blueprint shall be judged by the clarity of its reasoning, the quality of its evidence, and the usefulness of its judgment.',
+      'Founding Question: Opportunity Science will ultimately be judged by one question: Does it consistently improve enterprise judgment? If yes, better decisions follow. If better decisions follow, stronger enterprises emerge. If stronger enterprises emerge, greater enterprise value is created. That is the purpose of Opportunity Science. That is the commitment of Version 1.0.',
+      'Relationship to TI-053 (Product Constitution™): TI-053 closed the constitutional expansion phase for the platform. TI-072 closes the framework expansion phase for the discipline. Both establish the same principle: credibility is established through application, not further architectural elaboration.',
+      'From this point forward, the discipline advances through application.',
+    ],
+    typedRelationships: [
+      {
+        type: 'extends',
+        targetId: 'TI-053',
+        description: 'Extends Product Constitution™ — TI-072 closes framework expansion at the discipline level as TI-053 closed it at the platform level',
+      },
+      {
+        type: 'extends',
+        targetId: 'TI-067',
+        description: 'Extends Editorial Charter™ — Founding Resolution™ activates the Charter by committing to publication and application',
+      },
+      {
+        type: 'implements',
+        targetId: 'TI-016',
+        description: 'Implements Continuous Learning Law™ — the four objectives (Research, Publication, Application, Learning) are the constitutional mechanism for discipline-level continuous learning',
+      },
+      {
+        type: 'depends_on',
+        targetId: 'TI-071',
+        description: 'Depends on Narrative Architecture Standard™ — the Griffin Blueprint must follow NAS™ as its governing document standard',
+      },
+      {
+        type: 'enables',
+        targetId: 'TI-061',
+        description: 'Enables Validation Principle™ — application of the Opportunity Science Standard generates the empirical evidence that Validation Science™ requires',
+      },
+    ],
+    relatedIds: [
+      'TI-053', 'TI-067', 'TI-016',
+      'TI-071', 'TI-061', 'TI-068',
+      'TI-069', 'TI-066', 'TI-065',
+    ],
+  },
+
   // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================
