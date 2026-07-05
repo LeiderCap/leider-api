@@ -2615,6 +2615,71 @@ export const principles: Principle[] = [
   },
 
   // ============================================
+  // BOOK XVIII — Enterprise Decision Intelligence™
+  // ============================================
+
+  // TI-070 — Lens Ontology Principle™
+  {
+    id: 'TI-070',
+    slug: 'ti-070',
+    name: 'Lens Ontology Principle™',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-07-02',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book XVIII — Enterprise Decision Intelligence™',
+    oid: 'OID-2026-TI-LOP-001',
+    lensUri: 'lens://constitution/ti-070',
+    principle: 'Every enterprise concept shall be represented by six inseparable dimensions: Semantic Meaning, Authority, Evidence, Accountability, Decision Rights, and Value. No enterprise object shall be considered fully represented until all six dimensions have been defined. A decision shall not be considered organizationally complete unless it can answer: What does it mean? Who defines it? What evidence supports it? Who owns the outcome? Who may decide? How is value measured?',
+    definition: 'The Lens Ontology™ organizes organizational intelligence — not merely knowledge. Its purpose is to ensure that enterprise intelligence remains explainable, measurable, governable, and continuously connected to value creation. Every enterprise object represented within The Lens™ shall contain six connected components: Semantic Definition (what is this?), Authority (who has the authority to define reality?), Evidence (why should this be trusted?), Accountability (who owns the outcome?), Decision Rights (who may decide?), and Value (why does this matter?). These components form the minimum viable representation of enterprise intelligence.',
+    operatingLaw: 'The First Law of Enterprise Intelligence: Meaning without authority creates ambiguity. Authority without evidence creates opinion. Evidence without accountability creates inaction. Accountability without decision rights creates paralysis. Decision rights without value create bureaucracy. Only when meaning, authority, evidence, accountability, decision rights, and value are unified does organizational intelligence become measurable, explainable, and capable of compounding over time.',
+    implications: [
+      'Six Semantic Layers: Layer 1 Semantic (establishes common enterprise language — concepts, entities, relationships, business terminology, process definitions — answers: What is this?). Layer 2 Authority (determines who has legitimate power to define, modify, approve, or retire a concept — Board, Executive Leadership, Functional Leadership, Regulatory Bodies, Domain Experts — answers: Who has the authority to define reality?). Layer 3 Evidence (every assertion supported by regulatory filings, financial statements, operational metrics, scientific literature, customer observations, system telemetry, transformation recordings — answers: Why should this be trusted?). Layer 4 Accountability (governs outcomes, not decisions — the accountable owner is responsible for execution, monitoring, learning, continuous improvement — answers: Who owns the outcome?). Layer 5 Decision Rights (defines recommendation authority, approval authority, review authority, escalation authority, override authority, notification requirements — answers: Who may decide?). Layer 6 Value (every concept possesses measurable value — enterprise value, Transformation Efficiency™, AROI™, Transformation Yield™, risk reduction, time savings, revenue creation, cost reduction — answers: Why does this matter?).',
+      'The Enterprise Decision Object: Every enterprise object contains six connected components — Semantic Definition, Authority, Evidence, Accountability, Decision Rights, Value. These form the minimum viable representation of enterprise intelligence.',
+      'The Enterprise Decision Graph™: Connects all Enterprise Decision Objects into a continuously evolving graph representing organizational knowledge, authority, evidence, accountability, governance, and value creation. Unlike traditional knowledge graphs, the Enterprise Decision Graph™ represents relationships between decisions, responsibility, evidence, and realized value over time — not merely relationships between information.',
+      'Principle of Decision Completeness: A decision is not organizationally complete unless it can answer all six questions. Incomplete answers produce incomplete intelligence.',
+      'Principle of Continuous Learning: Every decision produces new evidence. Every new piece of evidence updates organizational understanding. The Lens Ontology™ functions as a living system that continuously evolves through new observations, evidence, decisions, outcomes, and measurements.',
+      'Hierarchy within the Lens™ architecture: Knowledge Graph (what is connected?) → Ontology (what does it mean?) → Lens Ontology™ (who decides, based on what evidence, with what authority, under whose accountability, and how will value be measured?) → Opportunity Science™ (which decisions are most likely to create measurable enterprise value?). This progression differentiates The Lens™ from conventional knowledge management and AI governance platforms.',
+      'The Lens Ontology™ frames enterprise intelligence as the foundation of a Decision Intelligence Infrastructure™ where semantics become actionable through governance, evidence, and value realization.',
+    ],
+    typedRelationships: [
+      {
+        type: 'extends',
+        targetId: 'TI-301',
+        description: 'Extends Decision Visibility Infrastructure™ — Lens Ontology™ adds the full six-dimension governance layer to DVI™ including authority, accountability, and decision rights',
+      },
+      {
+        type: 'extends',
+        targetId: 'TI-010',
+        description: 'Extends Addressability Principle™ — every Enterprise Decision Object requires permanent addressing per LKAS™ to be fully governable',
+      },
+      {
+        type: 'implements',
+        targetId: 'TI-055',
+        description: 'Implements Evidence Intelligence Pipeline™ — the six layers of the Lens Ontology™ map to the 12-stage pipeline: semantic to reality, authority to identity gate, evidence to evidence boundary, accountability to outcome measurement',
+      },
+      {
+        type: 'implements',
+        targetId: 'TI-059',
+        description: 'Implements Interrogability Principle™ — the six questions of Decision Completeness are the constitutional interrogation framework applied at the ontology level',
+      },
+      {
+        type: 'enables',
+        targetId: 'TI-065',
+        description: 'Enables Opportunity Science™ Ontology — the Lens Ontology™ provides the governance foundation within which Opportunity Science™ identifies which decisions create enterprise value',
+      },
+    ],
+    relatedIds: [
+      'TI-301', 'TI-010', 'TI-055',
+      'TI-059', 'TI-065', 'TI-202',
+      'TI-021', 'TI-044',
+    ],
+  },
+
+  // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================
 

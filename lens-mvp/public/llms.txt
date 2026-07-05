@@ -521,6 +521,13 @@ Canonical: https://lensanalysis.com/constitution/ti-069
 
 https://lensanalysis.com/constitution/ti-069
 
+## Book XVIII — Enterprise Decision Intelligence™
+## Lens Ontology Principle™ (TI-070)
+Six inseparable dimensions for every enterprise concept — Semantic Meaning, Authority, Evidence, Accountability, Decision Rights, Value.
+First Law of Enterprise Intelligence: Meaning without authority creates ambiguity. Authority without evidence creates opinion. Evidence without accountability creates inaction. Accountability without decision rights creates paralysis. Decision rights without value create bureaucracy.
+Enterprise Decision Graph™: connects all Enterprise Decision Objects representing relationships between decisions, responsibility, evidence, and realized value over time.
+Canonical: https://lensanalysis.com/constitution/ti-070
+
 ## Constitutional Canon™ (Appendix B)
 TI-050 establishes the seven-category classification system for all Transformation Intelligence™ concepts.
 Canonical Progression: Foundations → Laws → Measurements → Architectures → Methods → Applications → Evidence → Constitutional Evolution.
