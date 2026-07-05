@@ -549,6 +549,13 @@ Enterprise Value Test: six questions every Finding must answer before publicatio
 Evidence Hierarchy: External Evidence → Enterprise Evidence → Economic Mechanism → Executive Implication.
 Canonical: https://lensanalysis.com/constitution/ti-073
 
+## Enterprise Trust Architecture™ (TI-074)
+Applied analytical framework for evaluating trust as a strategic enterprise asset in Enterprise Value Blueprints™.
+The Trust Equation: Demonstrated Competence + Consistent Execution + Reliable Outcomes + Responsible Stewardship = Enterprise Trust.
+Six Economic Mechanisms: Reduced Transaction Costs → Lower Perceived Risk → Increased Customer Lifetime Value → Pricing Resilience → Strategic Relevance → Knowledge Accumulation.
+Operationalizes TI-302 Trust Infrastructure Principle™ for Blueprint-level enterprise judgment.
+Canonical: https://lensanalysis.com/constitution/ti-074
+
 ## Constitutional Canon™ (Appendix B)
 TI-050 establishes the seven-category classification system for all Transformation Intelligence™ concepts.
 Canonical Progression: Foundations → Laws → Measurements → Architectures → Methods → Applications → Evidence → Constitutional Evolution.

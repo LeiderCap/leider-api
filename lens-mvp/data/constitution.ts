@@ -2854,6 +2854,66 @@ export const principles: Principle[] = [
     ],
   },
 
+  {
+    id: 'TI-074',
+    slug: 'ti-074',
+    name: 'Enterprise Trust Architecture™',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-07-02',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book I — Constitutional Governance',
+    oid: 'OID-2026-TI-ETA-001',
+    lensUri: 'lens://constitution/ti-074',
+    principle: 'Trust is an operational capability, not merely an interpersonal characteristic. Organizations earn trust by consistently reducing uncertainty for customers, partners, employees, regulators, investors, and other stakeholders. As uncertainty decreases, decision-making accelerates, coordination improves, transaction costs decline, strategic opportunities expand, and enterprise value increases. Enterprise Trust Architecture™ operationalizes the Trust Infrastructure Principle™ (TI-302) by answering how trust is created, how it compounds, and through what economic mechanisms it creates enterprise value.',
+    definition: 'Enterprise Trust Architecture™ is the applied analytical framework for evaluating trust as a strategic enterprise asset within Enterprise Value Blueprints™. It applies specifically to organizations operating in mission-critical environments where customers purchase confidence rather than products. The Trust Equation: Demonstrated Competence + Consistent Execution + Reliable Outcomes + Responsible Stewardship = Enterprise Trust. Trust performs the same function as physical infrastructure in infrastructure-intensive industries — it enables activity that would otherwise become slower, more expensive, or more uncertain. Classification: Level II Applied Framework within the Opportunity Science Standard.',
+    operatingLaw: 'Physical assets enable operations. Knowledge enables better decisions. Trust enables greater responsibility. Organizations entrusted with greater responsibility occupy more strategically important positions within their customers\' operating systems. Over time, that responsibility compounds into stronger relationships, broader strategic relevance, improved enterprise economics, and greater enterprise value. Trust is not simply earned — it is built, maintained, and compounded. Central analytical question for every Blueprint: How does this organization\'s accumulated trust reduce uncertainty, improve decision-making, strengthen customer relationships, and increase long-term enterprise value?',
+    implications: [
+      'Six Economic Mechanisms through which trust creates enterprise value: 1. Reduced Transaction Costs (customers require fewer controls, approvals, and oversight when confidence in execution is high). 2. Lower Perceived Risk (trusted organizations participate in mission-critical projects where operational failure carries significant consequences). 3. Increased Customer Lifetime Value (confidence from successful execution strengthens long-term relationships and repeat engagement). 4. Pricing Resilience (trusted organizations compete on value delivered rather than lowest price alone). 5. Strategic Relevance (trusted partners invited into planning, design, and executive discussions earlier in the decision process). 6. Knowledge Accumulation (repeated successful execution deepens organizational knowledge, reinforces customer confidence, and strengthens future opportunities — trust therefore compounds over time).',
+      'Trust as Infrastructure — five capability indicators: Faster procurement decisions. Greater customer confidence. Earlier project engagement. Reduced supervision. Lower coordination costs. Expanded executive relationships. Increased willingness to outsource mission-critical work. Higher probability of repeat engagement.',
+      'Enterprise Observation for mission-critical environments: Organizations rarely purchase equipment or services for their own sake. They purchase confidence that essential operations will continue safely, reliably, and in compliance with regulatory and operational requirements. The provider becomes responsible for protecting continuity rather than merely delivering services. This transfer of operational responsibility is evidence of enterprise trust.',
+      'Measurement Framework — indicators to be interpreted collectively: Repeat customer percentage. Multi-year customer retention. Sole-source or preferred-provider engagements. Executive-level customer relationships. Share of revenue from repeat clients. Win rate on mission-critical projects. Customer reference quality. Net promoter and satisfaction measures where available. Average relationship duration. Share of projects involving early-stage planning participation.',
+      'Six analytical questions for every Blueprint applying ETA™: Where does enterprise trust originate? What evidence demonstrates trust? What economic mechanisms convert trust into enterprise value? Is trust compounding or eroding? Which strategic decisions strengthen or weaken the enterprise trust architecture? How should trust be measured over time?',
+      'Constitutional architecture: TI-302 Trust Infrastructure Principle™ (foundational — universal, industry-agnostic, explains what trust is constitutionally). TI-074 Enterprise Trust Architecture™ (applied — operationalizes TI-302 for Blueprint use, explains how trust creates enterprise value). Applied hierarchy: TI-302 → TI-074 → Enterprise Value Blueprint™ → Transformation Intelligence™ → Opportunity Atlas™.',
+      'Griffin Blueprint application: Enterprise Trust Architecture™ is directly applicable to Griffin Fluid Management as an infrastructure-intensive, mission-critical services organization. The framework provides the analytical structure for evaluating how Griffin\'s accumulated trust reduces customer uncertainty, strengthens competitive positioning, and creates enterprise value.',
+    ],
+    typedRelationships: [
+      {
+        type: 'extends',
+        targetId: 'TI-302',
+        description: 'Operationalizes Trust Infrastructure Principle™ — ETA™ is the applied analytical framework that converts TI-302\'s constitutional principle into Blueprint-level enterprise judgment',
+      },
+      {
+        type: 'extends',
+        targetId: 'TI-073',
+        description: 'Extends Enterprise Finding Standard™ — ETA™ provides the trust-specific analytical framework applied within individual Findings in a Blueprint',
+      },
+      {
+        type: 'implements',
+        targetId: 'TI-068',
+        description: 'Implements Enterprise Value Blueprint™ Standard — ETA™ is a Level II Applied Framework used within Part IV Opportunity Discovery and Part VII Equity Reclamation™',
+      },
+      {
+        type: 'implements',
+        targetId: 'TI-058',
+        description: 'Implements Measurement Integrity Principle™ — the ETA™ Measurement Framework applies MI™ specifically to trust indicators',
+      },
+      {
+        type: 'depends_on',
+        targetId: 'TI-072',
+        description: 'Depends on Founding Resolution™ — ratified as operational specification for Griffin Blueprint No. 001 under the Version 1.0 Standard',
+      },
+    ],
+    relatedIds: [
+      'TI-302', 'TI-073', 'TI-068',
+      'TI-058', 'TI-072', 'TI-071',
+      'TI-069', 'TI-023',
+    ],
+  },
+
   // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================
