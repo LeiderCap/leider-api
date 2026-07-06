@@ -556,6 +556,12 @@ Six Economic Mechanisms: Reduced Transaction Costs → Lower Perceived Risk → 
 Operationalizes TI-302 Trust Infrastructure Principle™ for Blueprint-level enterprise judgment.
 Canonical: https://lensanalysis.com/constitution/ti-074
 
+## Book XIX — Enterprise Value Architecture™
+Enterprise Value Architecture™ (TI-075): Five constitutional layers — Opportunity Science™ → The Lens™ → Opportunity Types → Enterprise Value Engine™ → Value Realization.
+Constitutional Laws: Opportunity is not value. Discovery is not execution. Execution is not realization. Value must be demonstrated through measurable evidence. Intelligence creates potential; coordinated execution creates value.
+Constitutional Order: Discover → Reveal → Classify → Coordinate → Realize → Measure → Learn.
+Canonical: https://lensanalysis.com/constitution/ti-075
+
 ## Constitutional Canon™ (Appendix B)
 TI-050 establishes the seven-category classification system for all Transformation Intelligence™ concepts.
 Canonical Progression: Foundations → Laws → Measurements → Architectures → Methods → Applications → Evidence → Constitutional Evolution.

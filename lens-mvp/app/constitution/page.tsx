@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Constitution of Transformation Intelligence™ | TI Registry™',
   description:
-    'The governing principles behind The Lens™ and Transformation Intelligence™. 127 principles across 9 categories — each versioned, citable, and machine-readable. Includes TI-053 Product Constitution™ (seven-phase development roadmap), TI-052 TIBOK™ (Body of Knowledge), TI-051 Master Constitutional Structure™ v5.0 (self-governing constitution), TI-050 Constitutional Canon™ (Appendix B), TI-049 Terminology Convention™ (Appendix A), TI-048 Constitutional Style Guide, Book XII — Transformation Signal Network™ (TSN™), Book I — The Economics of Transformation (DAL™), Book IV — Transformation Absorbability™, Book IX — SAFE™, Book VIII — Distributed Transformation Infrastructure™, Book V — The Future Firm™, Book VI — Unlock Science™, Book II — Organizational Dynamics, and Book VII — Enterprise Value Architecture™.',
+    'The governing principles behind The Lens™ and Transformation Intelligence™. 128 principles across 9 categories — each versioned, citable, and machine-readable. Includes TI-053 Product Constitution™ (seven-phase development roadmap), TI-052 TIBOK™ (Body of Knowledge), TI-051 Master Constitutional Structure™ v5.0 (self-governing constitution), TI-050 Constitutional Canon™ (Appendix B), TI-049 Terminology Convention™ (Appendix A), TI-048 Constitutional Style Guide, Book XII — Transformation Signal Network™ (TSN™), Book I — The Economics of Transformation (DAL™), Book IV — Transformation Absorbability™, Book IX — SAFE™, Book VIII — Distributed Transformation Infrastructure™, Book V — The Future Firm™, Book VI — Unlock Science™, Book II — Organizational Dynamics, and Book VII — Enterprise Value Architecture™.',
 };
 
 const statusColors: Record<string, string> = {
@@ -106,7 +106,7 @@ export default function ConstitutionPage() {
           &nbsp;|&nbsp; Published June 23, 2026
         </p>
         <p className="mt-3 mx-auto max-w-xl text-sm italic text-slate-400">
-          Now includes TI-063 — Intellectual Property Naming Principle™ (IPNP™): Trademark the frameworks. Describe the tools. Constitutional naming governance is now complete: TI-063 (framework vs. tool?) → TI-048 (trademark?) → TI-054 (how to write it?). 127 principles, 9 books, self-governing constitution.
+          Now includes TI-063 — Intellectual Property Naming Principle™ (IPNP™): Trademark the frameworks. Describe the tools. Constitutional naming governance is now complete: TI-063 (framework vs. tool?) → TI-048 (trademark?) → TI-054 (how to write it?). 128 principles, 9 books, self-governing constitution.
         </p>
         <p className="mt-2 text-xs text-slate-400">
           © 2026 Leider Capital. All Rights Reserved. All principles and named methodologies are proprietary to Leider Capital.
@@ -124,7 +124,7 @@ export default function ConstitutionPage() {
               This Constitution establishes the foundational concepts, governing laws, measurement systems, architectures, methods, applications, and evidentiary standards of the discipline.
             </p>
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <p className="text-xs font-semibold text-slate-500">Version 5.0 &nbsp;|&nbsp; 127 Principles &nbsp;|&nbsp; 9 Books &nbsp;|&nbsp; Self-Governing Constitution</p>
+              <p className="text-xs font-semibold text-slate-500">Version 5.0 &nbsp;|&nbsp; 128 Principles &nbsp;|&nbsp; 9 Books &nbsp;|&nbsp; Self-Governing Constitution</p>
               <Link href="/constitution/ti-051" className="text-xs font-medium text-slate-500 hover:text-slate-700 hover:underline whitespace-nowrap">View Master Constitutional Structure™ →</Link>
             </div>
           </div>
@@ -616,6 +616,37 @@ export default function ConstitutionPage() {
           </p>
           <div className="space-y-3">
             {principles.filter(p => p.id === 'TI-070').map((p) => (
+              <div key={p.id} className="flex items-center justify-between rounded-lg border border-slate-200 bg-white px-5 py-3">
+                <div className="flex items-center gap-3">
+                  <span className="font-mono text-sm font-bold text-slate-700">{p.id}</span>
+                  <span className="text-sm font-semibold text-slate-800">{p.name}</span>
+                </div>
+                <Link href={`/constitution/${p.slug}`} className="text-xs font-medium text-slate-600 hover:underline">Read →</Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Book XIX — Enterprise Value Architecture™ */}
+      <section className="mx-auto max-w-4xl px-6 pt-12 pb-0">
+        <div className='mb-10'>
+          <div className='flex items-center gap-3 mb-2'>
+            <h3 className='text-lg font-bold text-gray-900'>
+              Book XIX — Enterprise Value Architecture™
+            </h3>
+            <span className='text-xs font-semibold uppercase tracking-wide text-green-600 bg-green-50 px-2 py-0.5 rounded'>
+              Ratified
+            </span>
+          </div>
+          <p className='text-sm text-gray-500 mb-1'>
+            The constitutional structure through which Opportunity Science™ discovers, evaluates, coordinates, and measures enterprise opportunity.
+          </p>
+          <p className='text-xs text-gray-400 italic mb-4'>
+            Opportunity is not value. Discovery is not execution. Execution is not realization. Value must be demonstrated through measurable evidence.
+          </p>
+          <div className="space-y-3">
+            {principles.filter(p => p.id === 'TI-075').map((p) => (
               <div key={p.id} className="flex items-center justify-between rounded-lg border border-slate-200 bg-white px-5 py-3">
                 <div className="flex items-center gap-3">
                   <span className="font-mono text-sm font-bold text-slate-700">{p.id}</span>

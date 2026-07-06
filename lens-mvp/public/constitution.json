@@ -3895,6 +3895,43 @@
         "TI-069",
         "TI-023"
       ]
+    },
+    {
+      "id": "TI-075",
+      "slug": "ti-075",
+      "name": "Enterprise Value Architecture™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-07-02",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book XIX — Enterprise Value Architecture™",
+      "oid": "OID-2026-TI-EVA-001",
+      "lensUri": "lens://constitution/ti-075",
+      "principle": "The Enterprise Value Architecture establishes the constitutional structure through which Opportunity Science™ discovers, evaluates, coordinates, and measures enterprise opportunity. It defines the distinct layers required to translate intelligence into measurable enterprise value. No constitutional layer may be omitted without reducing the integrity of the system.",
+      "definition": "The Enterprise Value Architecture consists of five constitutional layers: Layer I Opportunity Science™ (the governing scientific discipline responsible for discovering, evaluating, and validating enterprise opportunity). Layer II The Lens™ (the enterprise intelligence engine responsible for revealing opportunity through evidence, analysis, and structured reasoning). Layer III Opportunity Types (the classification framework that categorizes enterprise opportunity according to its primary mechanism of value creation). Layer IV Enterprise Value Engine™ (the execution architecture responsible for coordinating decisions, resources, systems, and transformation activities required to convert opportunity into enterprise outcomes). Layer V Value Realization (the measurement layer responsible for determining whether enterprise value has been successfully created through observable evidence).",
+      "operatingLaw": "Constitutional Laws governing the Enterprise Value Architecture: 1. Opportunity is not value. 2. Discovery is not execution. 3. Execution is not realization. 4. Value must be demonstrated through measurable evidence. 5. Intelligence creates potential; coordinated execution creates value. 6. Every enterprise outcome shall be traceable to the decisions and evidence that produced it.",
+      "implications": [
+        "Constitutional Order — seven sequential stages: 1. Opportunity is discovered. 2. Opportunity is revealed. 3. Opportunity is classified. 4. Opportunity is coordinated. 5. Opportunity is realized. 6. Outcomes are measured. 7. Learning becomes future intelligence. No constitutional layer may be omitted without reducing the integrity of the system.",
+        "Constitutional Relationships — six permanent relationships: Opportunity Science™ governs the discipline. The Lens™ discovers and explains opportunity. Opportunity Types organize opportunity into measurable categories. Enterprise Value Engine™ coordinates enterprise execution. Value Realization measures enterprise outcomes. Transformation Intelligence™ provides continuous feedback across every constitutional layer.",
+        "Equity Reclamation™ (Article IV): Recognized as a specialized application of the Enterprise Value Architecture. Purpose: identify and unlock trapped shareholder value through capital allocation, governance improvement, operational transformation, strategic execution, and other coordinated mechanisms of enterprise change. Equity Reclamation™ operates within the Value Realization layer and does not replace the constitutional architecture.",
+        "Five-Layer Architecture mapped to existing platform: Layer I Opportunity Science™ → TI-065 Opportunity Science™ Ontology. Layer II The Lens™ → TI-003 The Lens™. Layer III Opportunity Types → 7 Opportunity Zones™ on the platform. Layer IV Enterprise Value Engine™ → TI-066 Opportunity Method™ Phases V-VII. Layer V Value Realization → TI-103 Transformation Efficiency™, TI-025 Underwriteability Index™.",
+        "Relationship to Opportunity Science™ Ontology (TI-065): The nine-step Ontology describes the analytical workflow for a single company analysis. The Enterprise Value Architecture describes the five constitutional layers through which that workflow operates institutionally. They are complementary — the Ontology is the method, the Architecture is the structure.",
+        "Constitutional significance: This principle establishes governing rules, defines relationships, and creates a stable framework that future books and principles can extend without changing the core structure. It is foundational rather than descriptive."
+      ],
+      "relatedIds": [
+        "TI-065",
+        "TI-021",
+        "TI-044",
+        "TI-013",
+        "TI-801",
+        "TI-072",
+        "TI-066",
+        "TI-103",
+        "TI-025"
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -3902,7 +3939,7 @@
   "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 127,
+  "totalPrinciples": 128,
   "lastUpdated": "2026-07-02",
   "constitutionalArchitecture": {
     "name": "Opportunity Hierarchy™",
