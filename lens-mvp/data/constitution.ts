@@ -3041,6 +3041,70 @@ export const principles: Principle[] = [
     ],
   },
 
+  {
+    id: 'TI-077',
+    slug: 'ti-077',
+    name: 'Enterprise Record™',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-07-02',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book XIX — Enterprise Value Architecture™',
+    oid: 'OID-2026-TI-ER-001',
+    lensUri: 'lens://constitution/ti-077',
+    principle: 'The Enterprise Record™ is the permanent institutional record through which enterprise knowledge accumulates, enterprise judgment compounds, and Value Realization is continuously evaluated. It is not a report — it is the living record of the enterprise. Organizations rarely fail because they lack intelligence. They fail because intelligence is fragmented, forgotten, or disconnected from future decisions. The Enterprise Record preserves the continuity of enterprise judgment.',
+    definition: 'The Enterprise Record™ is the persistent, evidence-based institutional memory of an enterprise. It preserves the complete chain of enterprise judgment from discovery through Value Realization. Unlike traditional reports, which describe an enterprise at a moment in time, the Enterprise Record evolves continuously as new evidence, decisions, outcomes, and learning become available. It preserves: enterprise evidence, enterprise examinations, enterprise Findings, opportunity classifications, Enterprise Value Engines, Enterprise Value Frontiers, Executive Transformation Blueprints, executive decisions, Enterprise Instruments, Value Realization outcomes, lessons learned, future hypotheses, and subsequent revisions. The Enterprise Record is the enduring enterprise asset created by the Opportunity Science process.',
+    operatingLaw: 'Principle of Enterprise Memory: Organizations routinely lose enterprise value when critical knowledge leaves with individuals. The Enterprise Record converts individual knowledge into institutional knowledge — preserving not only what decisions were made, but why, what evidence supported them, what assumptions were accepted, what outcomes occurred, and what was subsequently learned. Principle of Continuous Judgment: Every Enterprise Value Blueprint™ represents a snapshot within a continuously evolving Enterprise Record. Future evidence refines prior conclusions. Earlier assumptions are re-evaluated. Enterprise Instruments continuously contribute new observations. Value Realization strengthens future Enterprise Examinations. Opportunity Science therefore becomes a continuously learning discipline rather than a sequence of isolated engagements.',
+    implications: [
+      'Complete constitutional sequence with Enterprise Record™: Opportunity Science™ (discovers) → The Lens™ (reveals evidence) → Opportunity Types (classify) → Enterprise Value Engine™ (explains value creation) → Enterprise Value Frontier™ (prioritizes) → Executive Transformation Blueprint™ (coordinates action) → Enterprise Instruments™ (measure performance) → Value Realization™ (determines outcomes) → Enterprise Record™ (preserves and compounds). This is the complete constitutional architecture from discovery through institutional learning.',
+      'Four constitutional relationships: Evidence Continuity™ (maintains traceability from evidence to Value Realization). Enterprise Judgment (documents reasoning supporting executive decisions). Institutional Learning (records outcomes and subsequent refinements). Enterprise Evolution (documents how the Enterprise Value Engine changes over time).',
+      'Governance: The Enterprise Record should be maintained as a living executive asset, reviewed periodically by executive leadership and the Board of Directors. Major strategic decisions, Enterprise Instruments, Value Realization assessments, and revisions to the Enterprise Value Engine become permanent additions. Objective: cumulative enterprise intelligence, not archival storage.',
+      'Founding chain: Evidence → Institutional Memory → Better Decisions → Measurable Value Realization → Continuously Stronger Enterprise Judgment. The Enterprise Record is the mechanism through which enterprise knowledge compounds across years, leadership teams, strategic cycles, and generations of decision-makers.',
+      'Griffin Blueprint application: The Enterprise Record for Griffin Fluid Management begins with Blueprint No. 001. Every subsequent Enterprise Examination, Enterprise Finding, strategic decision, and Value Realization outcome becomes a permanent addition — transforming the Blueprint from a one-time engagement into a continuously evolving enterprise asset.',
+      'Relationship to Transformation Memory Architecture™ (TI-202) and TIBOK™ (TI-052): The Enterprise Record is the client-facing implementation of the same institutional memory principles established constitutionally in TI-202. Where TI-202 governs organizational memory within TI™, the Enterprise Record governs enterprise memory within Opportunity Science engagements.',
+    ],
+    typedRelationships: [
+      {
+        type: 'extends',
+        targetId: 'TI-076',
+        description: 'Extends Enterprise Instruments™ — the Enterprise Record is the persistence layer that accumulates all Instrument outputs into a continuously evolving institutional memory',
+      },
+      {
+        type: 'extends',
+        targetId: 'TI-075',
+        description: 'Extends Enterprise Value Architecture™ — Enterprise Record™ completes the constitutional sequence as the final layer after Value Realization',
+      },
+      {
+        type: 'implements',
+        targetId: 'TI-016',
+        description: 'Implements Continuous Learning Law™ — the Enterprise Record is the constitutional mechanism ensuring every completed engagement improves future enterprise judgment',
+      },
+      {
+        type: 'implements',
+        targetId: 'TI-029',
+        description: 'Implements Institutional Memory Principle™ — the Enterprise Record operationalizes TI-029 at the client engagement level',
+      },
+      {
+        type: 'implements',
+        targetId: 'TI-011',
+        description: 'Implements Knowledge Compounding Principle™ — the Enterprise Record compounds enterprise knowledge across years, leadership teams, and strategic cycles',
+      },
+      {
+        type: 'depends_on',
+        targetId: 'TI-072',
+        description: 'Depends on Founding Resolution™ — ratified as the final constitutional layer of the Version 1.0 Standard governing Griffin Blueprint No. 001',
+      },
+    ],
+    relatedIds: [
+      'TI-076', 'TI-075', 'TI-016',
+      'TI-029', 'TI-011', 'TI-072',
+      'TI-202', 'TI-052', 'TI-061',
+    ],
+  },
+
   // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================

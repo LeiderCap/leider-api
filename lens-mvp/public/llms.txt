@@ -568,6 +568,12 @@ Eight canonical instruments: Enterprise Value Dashboard™ (Board), Value Realiz
 Principle of Instrumentation: every significant Finding must correspond to one or more Enterprise Instruments.
 Canonical: https://lensanalysis.com/constitution/ti-076
 
+## Enterprise Record™ (TI-077)
+The permanent institutional record through which enterprise knowledge accumulates, enterprise judgment compounds, and Value Realization is continuously evaluated.
+Complete constitutional sequence: Opportunity Science™ → The Lens™ → Opportunity Types → Enterprise Value Engine™ → Enterprise Value Frontier™ → Executive Transformation Blueprint™ → Enterprise Instruments™ → Value Realization™ → Enterprise Record™.
+Principle: Organizations fail not from lack of intelligence but from intelligence fragmented, forgotten, or disconnected from future decisions.
+Canonical: https://lensanalysis.com/constitution/ti-077
+
 ## Constitutional Canon™ (Appendix B)
 TI-050 establishes the seven-category classification system for all Transformation Intelligence™ concepts.
 Canonical Progression: Foundations → Laws → Measurements → Architectures → Methods → Applications → Evidence → Constitutional Evolution.
