@@ -4128,6 +4128,70 @@
         "TI-016",
         "TI-004"
       ]
+    },
+    {
+      "id": "TI-079",
+      "slug": "ti-079",
+      "name": "Principle of Enterprise Capability™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-07-02",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book I — Constitutional Governance",
+      "oid": "OID-2026-TI-PEC-001",
+      "lensUri": "lens://constitution/ti-079",
+      "principle": "The ultimate output of the Opportunity Science process is not a recommendation, a report, or a transformation initiative. It is a stronger enterprise. Opportunities are discovered not for their own sake, but because they represent the potential to improve an enterprise's ability to create value over time. Every significant recommendation should contribute to at least one enduring enterprise capability.",
+      "definition": "Enterprise Capability is the organization's demonstrated ability to consistently convert knowledge, decisions, resources, relationships, and execution into sustainable value creation. Enterprise capability is cumulative — it develops over time through disciplined learning, coordinated action, and measurable improvement. Capabilities may include: engineering capability, decision capability, governance capability, operational capability, customer capability, innovation capability, capital allocation capability, learning capability, institutional memory capability. The purpose of transformation is capability development rather than activity completion.",
+      "operatingLaw": "Capability as the Unit of Progress: Projects begin and end. Technologies change. Strategies evolve. Markets shift. Capabilities endure. Opportunity Science evaluates long-term progress primarily through the strength of enterprise capabilities rather than the completion of individual initiatives. Constitutional distinction: Transformation Activity (the work performed) vs Capability Development (the strengthening of the enterprise) vs Value Realization (the measurable evidence that stronger capability has produced improved enterprise outcomes). This distinction preserves analytical clarity throughout the discipline.",
+      "implications": [
+        "Relationship to Enterprise Evolution (TI-078): Enterprise evolution occurs through continuous strengthening of enterprise capability. Each completed cycle of discovery, understanding, prioritization, transformation, measurement, and learning should increase the enterprise's capacity to create future value. Capability is both the product of successful evolution and the foundation for future evolution.",
+        "Relationship to Value Realization: Value Realization provides the observable evidence that enterprise capability has strengthened. Opportunity Science distinguishes: Transformation Activity (work performed), Capability Development (strengthening of the enterprise), Value Realization (measurable evidence that stronger capability produced improved outcomes).",
+        "Relationship to Enterprise Record™ (TI-077): The Enterprise Record preserves the longitudinal history of capability development — how capabilities were identified, how they were strengthened, what evidence supported improvement, what outcomes resulted, and what was learned.",
+        "Executive Evaluation Questions: Which enterprise capabilities became stronger? Which remained unchanged? Which weakened? What evidence supports that assessment? Which future opportunities are now possible because capability has improved? These questions shift executive attention from short-term activity toward long-term enterprise development.",
+        "Founding Principle: Organizations do not become extraordinary because they complete more initiatives. They become extraordinary because they continuously strengthen the capabilities that allow them to create greater value with every successive cycle of learning. The discipline should be judged not by the quantity of its analyses, but by the degree to which enterprises become measurably more capable over time.",
+        "Griffin Blueprint application: Every recommendation in the Griffin Blueprint should be evaluated against one question — which enterprise capability does this strengthen? Recommendations that strengthen no enduring capability should be deprioritized regardless of their short-term appeal. The Griffin Blueprint is successful when Griffin Fluid Management becomes measurably more capable, not merely when initiatives are completed."
+      ],
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-078",
+          "description": "Extends Principle of Enterprise Evolution™ — PEC™ defines enterprise capability as the primary unit of progress through which intentional evolution is measured"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-004",
+          "description": "Extends Transformation Capacity Principle™ — Enterprise Capability is the Opportunity Science expression of Transformation Capacity at the engagement level"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-077",
+          "description": "Implements Enterprise Record™ — the Record preserves the longitudinal history of capability development as its primary content"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-076",
+          "description": "Implements Enterprise Instruments™ — each canonical Instrument measures a specific dimension of enterprise capability development"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-073",
+          "description": "Implements Enterprise Finding Standard™ — every Finding must contribute to at least one enduring enterprise capability per constitutional law"
+        }
+      ],
+      "relatedIds": [
+        "TI-078",
+        "TI-004",
+        "TI-077",
+        "TI-076",
+        "TI-073",
+        "TI-072",
+        "TI-075",
+        "TI-011",
+        "TI-016"
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -4135,7 +4199,7 @@
   "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 131,
+  "totalPrinciples": 132,
   "lastUpdated": "2026-07-02",
   "constitutionalArchitecture": {
     "name": "Opportunity Hierarchy™",

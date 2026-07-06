@@ -581,6 +581,13 @@ Constitutional Law: every recommendation, decision, and instrument should be eva
 Enterprise Evolution Cycle: Observe → Discover → Understand → Prioritize → Transform → Measure → Learn → Strengthen → Observe Again.
 Canonical: https://lensanalysis.com/constitution/ti-078
 
+## Principle of Enterprise Capability™ (TI-079)
+The ultimate output of Opportunity Science is not a report or recommendation — it is a stronger enterprise.
+Enterprise Capability: the organization's demonstrated ability to consistently convert knowledge, decisions, resources, relationships, and execution into sustainable value creation.
+Constitutional Law: every significant recommendation must contribute to at least one enduring enterprise capability.
+Unit of Progress: capabilities endure when projects end, technologies change, and strategies evolve.
+Canonical: https://lensanalysis.com/constitution/ti-079
+
 ## Constitutional Canon™ (Appendix B)
 TI-050 establishes the seven-category classification system for all Transformation Intelligence™ concepts.
 Canonical Progression: Foundations → Laws → Measurements → Architectures → Methods → Applications → Evidence → Constitutional Evolution.
