@@ -562,6 +562,12 @@ Constitutional Laws: Opportunity is not value. Discovery is not execution. Execu
 Constitutional Order: Discover → Reveal → Classify → Coordinate → Realize → Measure → Learn.
 Canonical: https://lensanalysis.com/constitution/ti-075
 
+## Enterprise Instruments™ (TI-076)
+Two classes of Opportunity Science outputs: Knowledge Artifacts (What should leadership understand?) and Enterprise Instruments (How should leadership measure whether enterprise value is being created?).
+Eight canonical instruments: Enterprise Value Dashboard™ (Board), Value Realization Scorecard™ (ELT), Executive Decision Register™ (CEO), Enterprise Capability Index™ (CEO), Transformation Capacity Index™ (ELT), Enterprise Trust Index™ (CEO/Board), Operational Intelligence Index™ (Operations), Enterprise Judgment Index™ (ELT).
+Principle of Instrumentation: every significant Finding must correspond to one or more Enterprise Instruments.
+Canonical: https://lensanalysis.com/constitution/ti-076
+
 ## Constitutional Canon™ (Appendix B)
 TI-050 establishes the seven-category classification system for all Transformation Intelligence™ concepts.
 Canonical Progression: Foundations → Laws → Measurements → Architectures → Methods → Applications → Evidence → Constitutional Evolution.

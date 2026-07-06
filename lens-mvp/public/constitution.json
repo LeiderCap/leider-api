@@ -3933,6 +3933,68 @@
         "TI-103",
         "TI-025"
       ]
+    },
+    {
+      "id": "TI-076",
+      "slug": "ti-076",
+      "name": "Enterprise Instruments™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-07-02",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book XIX — Enterprise Value Architecture™",
+      "oid": "OID-2026-TI-EI-001",
+      "lensUri": "lens://constitution/ti-076",
+      "principle": "Opportunity Science produces two classes of outputs: Knowledge Artifacts (improve enterprise understanding) and Enterprise Instruments (improve enterprise governance). Understanding without measurement cannot reliably improve decision-making. Measurement without understanding lacks strategic meaning. Every Enterprise Value Blueprint™ shall produce both. Organizations rarely fail because they lack information — they fail because they lack disciplined instruments for governing what matters most.",
+      "definition": "Enterprise Instruments™ enable leadership to govern the enterprise by transforming enterprise judgment into observable management practice. They answer: How should leadership measure whether enterprise value is actually being created? Unlike reports, Enterprise Instruments are designed for continuous use. Knowledge Artifacts answer: What should leadership understand? Knowledge Artifacts include: Enterprise Examination™, Enterprise Findings™, Enterprise Value Engine™, Enterprise Value Frontier™, Executive Transformation Blueprint™, Executive Opinion™. Eight canonical Enterprise Instruments: Enterprise Value Dashboard™ (monitors Enterprise Value Engine health — primary user: Board of Directors), Value Realization Scorecard™ (measures whether expected enterprise value is becoming observable reality — primary user: Executive Leadership Team), Executive Decision Register™ (captures consequential strategic decisions with rationale, expected outcomes, assumptions, and results — primary user: CEO and Executive Committee), Enterprise Capability Index™ (measures maturity and strength of capabilities supporting the Enterprise Value Engine — primary user: CEO), Transformation Capacity Index™ (measures ability to absorb additional strategic change without degrading execution quality — primary user: Executive Leadership Team), Enterprise Trust Index™ (measures accumulated operational trust across customers, partners, employees, and stakeholders — primary user: CEO and Board), Operational Intelligence Index™ (measures how effectively operational knowledge is captured, reused, and converted into enterprise capability — primary user: Operations Leadership), Enterprise Judgment Index™ (measures quality, consistency, transparency, and learning effectiveness of significant enterprise decisions — primary user: Executive Leadership Team).",
+      "operatingLaw": "Principle of Instrumentation: Every significant Finding should eventually correspond to one or more Enterprise Instruments. If a conclusion cannot be monitored over time, leadership cannot determine whether enterprise value is improving. Instrumentation transforms Opportunity Science from periodic analysis into continuous enterprise stewardship. Principle of Evidence: Enterprise Instruments measure observable evidence — capability strength, customer outcomes, decision quality, knowledge reuse, trust accumulation, revenue quality, strategic relevance, value realization. Activity alone should never be interpreted as enterprise progress. Principle of Governance: Enterprise Instruments exist to improve executive judgment — not reporting. Each Instrument supports board oversight, executive prioritization, capital allocation, transformation governance, and long-term enterprise stewardship.",
+      "implications": [
+        "Complete constitutional architecture sequence: Opportunity Science™ → The Lens™ → Opportunity Types → Enterprise Value Engine™ → Enterprise Value Frontier™ → Executive Transformation Blueprint™ → Enterprise Instruments™ → Value Realization™. This establishes the complete constitutional architecture from discovery through governance and measurable outcomes.",
+        "Eight canonical Enterprise Instruments and primary users: Enterprise Value Dashboard™ (Board of Directors). Value Realization Scorecard™ (Executive Leadership Team). Executive Decision Register™ (CEO and Executive Committee). Enterprise Capability Index™ (CEO). Transformation Capacity Index™ (Executive Leadership Team). Enterprise Trust Index™ (CEO and Board). Operational Intelligence Index™ (Operations Leadership). Enterprise Judgment Index™ (Executive Leadership Team).",
+        "Relationship to Griffin Blueprint: Every significant Finding in the Griffin Enterprise Value Blueprint™ shall correspond to one or more Enterprise Instruments from this canonical set. This ensures that Griffin leadership receives not only enterprise understanding but also the governance tools required to measure whether value is actually being created over time.",
+        "Founding Principle: Enterprise Instruments translate enterprise judgment into observable evidence, disciplined governance, and measurable Value Realization. They represent the operational expression of Opportunity Science — the mechanism through which understanding becomes stewardship.",
+        "Instrumentation principle applied: Every Enterprise Finding Standard™ (TI-073) Finding that cannot be monitored over time through an Enterprise Instrument is constitutionally incomplete. The Finding identifies the opportunity; the Instrument measures whether it is being realized."
+      ],
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-075",
+          "description": "Extends Enterprise Value Architecture™ — Enterprise Instruments™ are the measurement layer completing the five-layer EVA™ constitutional architecture at Layer V Value Realization"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-058",
+          "description": "Implements Measurement Integrity Principle™ — each Enterprise Instrument applies MI™ to a specific dimension of enterprise performance"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-073",
+          "description": "Implements Enterprise Finding Standard™ — every Finding must correspond to one or more Enterprise Instruments per the Principle of Instrumentation"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-016",
+          "description": "Implements Continuous Learning Law™ — Enterprise Instruments transform Opportunity Science from periodic analysis into continuous enterprise stewardship"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-072",
+          "description": "Depends on Founding Resolution™ — ratified as operational specification for Griffin Blueprint No. 001 under the Version 1.0 Standard"
+        }
+      ],
+      "relatedIds": [
+        "TI-075",
+        "TI-058",
+        "TI-073",
+        "TI-016",
+        "TI-072",
+        "TI-068",
+        "TI-071",
+        "TI-069"
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -3940,7 +4002,7 @@
   "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 128,
+  "totalPrinciples": 129,
   "lastUpdated": "2026-07-02",
   "constitutionalArchitecture": {
     "name": "Opportunity Hierarchy™",
