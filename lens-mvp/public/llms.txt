@@ -574,6 +574,13 @@ Complete constitutional sequence: Opportunity Science™ → The Lens™ → Opp
 Principle: Organizations fail not from lack of intelligence but from intelligence fragmented, forgotten, or disconnected from future decisions.
 Canonical: https://lensanalysis.com/constitution/ti-077
 
+## Principle of Enterprise Evolution™ (TI-078)
+The foundational proposition of Opportunity Science™.
+Every enterprise is continuously evolving — the only question is whether evolution is intentional or accidental.
+Constitutional Law: every recommendation, decision, and instrument should be evaluated by one question: Does this strengthen the enterprise's long-term capacity to create value?
+Enterprise Evolution Cycle: Observe → Discover → Understand → Prioritize → Transform → Measure → Learn → Strengthen → Observe Again.
+Canonical: https://lensanalysis.com/constitution/ti-078
+
 ## Constitutional Canon™ (Appendix B)
 TI-050 establishes the seven-category classification system for all Transformation Intelligence™ concepts.
 Canonical Progression: Foundations → Laws → Measurements → Architectures → Methods → Applications → Evidence → Constitutional Evolution.

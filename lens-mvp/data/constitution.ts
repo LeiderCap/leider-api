@@ -3105,6 +3105,65 @@ export const principles: Principle[] = [
     ],
   },
 
+  {
+    id: 'TI-078',
+    slug: 'ti-078',
+    name: 'Principle of Enterprise Evolution™',
+    status: 'Ratified',
+    version: '1.0',
+    published: '2026-07-02',
+    author: 'Stephen F. Leider',
+    publisher: 'Leider Capital',
+    category: 'Foundational Constitution',
+    categoryCode: 'TI-CONST',
+    book: 'Book I — Constitutional Governance',
+    oid: 'OID-2026-TI-PEE-001',
+    lensUri: 'lens://constitution/ti-078',
+    principle: 'Every enterprise is continuously evolving. The only question is whether that evolution is intentional or accidental. Opportunity Science exists to make enterprise evolution intentional. The purpose of Opportunity Science is not merely to discover opportunity — its purpose is to improve the enterprise\'s capacity to evolve. Opportunity therefore has value only when it contributes to the long-term strengthening of the enterprise.',
+    definition: 'The Principle of Enterprise Evolution™ is the foundational proposition of Opportunity Science™. Organizations evolve through thousands of decisions, investments, relationships, capabilities, technologies, structures, and adaptations made over time. Some strengthen the enterprise. Others weaken it. Most occur without a coherent understanding of their cumulative effect. Opportunity Science exists to make enterprise evolution intentional by providing evidence-based discovery, disciplined prioritization, coordinated transformation, continuous measurement, institutional learning, and measurable Value Realization. Constitutional Law: every recommendation, transformation initiative, executive decision, Enterprise Instrument, and Value Realization assessment should ultimately be evaluated according to one question: Does this strengthen the enterprise\'s long-term capacity to create value?',
+    operatingLaw: 'Enterprise Evolution Cycle: Observe → Discover → Understand → Prioritize → Transform → Measure → Learn → Strengthen → Observe Again. Each cycle increases the enterprise\'s ability to create future value. Opportunity Science exists to improve every stage of that cycle. Principle of Compounding: the strongest enterprises accumulate capabilities, judgment, trust, knowledge, and institutional memory — forms of accumulation that reinforce one another, producing an enterprise that becomes progressively more capable of creating value. Enterprise evolution is therefore cumulative. Principle of Intentionality: Opportunity Science distinguishes intentional evolution (evidence-based discovery, disciplined prioritization, coordinated transformation, continuous measurement, institutional learning, measurable Value Realization) from accidental evolution.',
+    implications: [
+      'Constitutional Evaluation Standard: Enterprise evolution should not be measured by organizational activity or solely by financial performance. It should be evaluated according to whether the enterprise becomes more capable, more resilient, more trusted, more adaptive, better governed, better informed, and better able to create long-term value. These characteristics represent strengthening of the enterprise itself.',
+      'Relationship to complete Enterprise Value Architecture: Opportunity Science™ (establishes the discipline) → The Lens™ (discovers opportunity) → Opportunity Types (organize opportunity) → Enterprise Value Engine™ (explains value creation) → Enterprise Value Frontier™ (prioritizes transformation) → Executive Transformation Blueprint™ (coordinates enterprise action) → Enterprise Instruments™ (govern enterprise evolution) → Value Realization™ (measures observable strengthening) → Enterprise Record™ (preserves cumulative learning). Collectively these constitutional elements enable disciplined enterprise evolution.',
+      'Principle of Compounding applied: The strongest enterprises do not merely accumulate assets — they accumulate capabilities, judgment, trust, knowledge, and institutional memory. These forms of accumulation reinforce one another. The result is an enterprise that becomes progressively more capable of creating value.',
+      'Founding Principle: Opportunity Science is the disciplined practice of improving enterprise evolution. Its purpose is not simply to identify better opportunities — it is to help enterprises become progressively stronger through better judgment, better coordination, better governance, and better learning. An enterprise that consistently strengthens these capabilities becomes increasingly capable of creating enduring value. Enterprise evolution is not a consequence of the discipline — it is the discipline\'s central purpose.',
+      'Relationship to Divergence Acceleration Law™ (TI-044): The Principle of Enterprise Evolution™ is the Opportunity Science expression of DAL™. DAL™ explains why organizations diverge in performance as intelligence becomes abundant. PEE™ establishes that Opportunity Science exists to ensure that divergence is intentional — that the enterprise evolves toward greater capability rather than accumulating organizational inertia.',
+      'Griffin Blueprint application: Every section of the Griffin Enterprise Value Blueprint™ should ultimately answer the constitutional question: Does this strengthen Griffin\'s long-term capacity to create value? Opportunities, recommendations, and instruments that do not answer this question affirmatively should be deprioritized regardless of their short-term appeal.',
+    ],
+    typedRelationships: [
+      {
+        type: 'extends',
+        targetId: 'TI-001',
+        description: 'Extends Transformation Intelligence™ — PEE™ is the Opportunity Science expression of the same foundational mission: improving organizational capacity to create enterprise value through intentional evolution',
+      },
+      {
+        type: 'extends',
+        targetId: 'TI-044',
+        description: 'Extends Divergence Acceleration Law™ — PEE™ establishes that Opportunity Science exists to make divergence intentional, ensuring enterprises evolve toward greater capability',
+      },
+      {
+        type: 'implements',
+        targetId: 'TI-077',
+        description: 'Implements Enterprise Record™ — the Enterprise Record is the institutional mechanism through which intentional enterprise evolution is preserved and compounded',
+      },
+      {
+        type: 'implements',
+        targetId: 'TI-011',
+        description: 'Implements Knowledge Compounding Principle™ — enterprise evolution compounds when capabilities, judgment, trust, knowledge, and institutional memory reinforce one another',
+      },
+      {
+        type: 'governs',
+        targetId: 'TI-072',
+        description: 'Governs Founding Resolution™ — PEE™ is the first principle that gives the Founding Resolution its purpose: Version 1.0 exists to make Griffin\'s evolution intentional',
+      },
+    ],
+    relatedIds: [
+      'TI-001', 'TI-044', 'TI-077',
+      'TI-011', 'TI-072', 'TI-075',
+      'TI-065', 'TI-016', 'TI-004',
+    ],
+  },
+
   // ============================================
   // DECISION ECONOMICS (TI-101 to TI-107)
   // ============================================
