@@ -4192,6 +4192,79 @@
         "TI-011",
         "TI-016"
       ]
+    },
+    {
+      "id": "TI-080",
+      "slug": "ti-080",
+      "name": "Validation Science™",
+      "status": "Ratified",
+      "version": "1.0",
+      "published": "2026-07-02",
+      "author": "Stephen F. Leider",
+      "publisher": "Leider Capital",
+      "category": "Foundational Constitution",
+      "categoryCode": "TI-CONST",
+      "book": "Book XX — Validation Science™",
+      "oid": "OID-2026-TI-VS-001",
+      "lensUri": "lens://constitution/ti-080",
+      "principle": "Validation Science™ establishes the constitutional principles governing how organizations reduce uncertainty through evidence. Every enterprise begins as a collection of hypotheses. Long-term enterprise value is created by systematically replacing hypotheses with observable evidence. Activity shall never be treated as evidence. Opinion shall never be treated as validation. Validation occurs only when observable evidence reduces material uncertainty.",
+      "definition": "Validation Science™ provides the standards by which hypotheses are tested, learning is measured, and confidence is earned before resources, capital, or organizational commitment are deployed. Constitutional Statement: Validation is the disciplined reduction of uncertainty through observable evidence. Opportunity Science™ identifies where value may exist. Validation Science™ determines whether that value has been demonstrated through sufficient evidence. Transformation Intelligence™ coordinates how validated opportunities become measurable enterprise value. Together they establish a continuous constitutional cycle: Opportunity → Validation → Transformation → Measurement → Learning → New Opportunity.",
+      "operatingLaw": "Constitutional Law: Organizations create durable value by replacing uncertainty with evidence. Interest initiates discovery. Commitment validates demand. Measured outcomes validate value. Complete measurement lifecycle: Opportunity Science™ measures potential. Validation Science™ measures confidence. Transformation Intelligence™ measures execution. Transformation Efficiency™ measures realized value.",
+      "implications": [
+        "Article I — The Validation Principle™: Every enterprise begins as a collection of hypotheses. Long-term enterprise value is created by systematically replacing hypotheses with observable evidence. Activity shall never be treated as evidence. Opinion shall never be treated as validation. Validation occurs only when observable evidence reduces material uncertainty.",
+        "Article II — The Evidence Principle™: Evidence shall be evaluated according to its ability to reduce uncertainty rather than its ability to confirm prior beliefs. Observable behavior shall take precedence over stated intention. Repeatable results shall take precedence over isolated outcomes. Independent validation shall take precedence over self-assessment.",
+        "Article III — Domains of Validation™ (three complementary domains): Scientific Validation™ — determines whether an underlying hypothesis is technically or empirically valid. Methods: controlled experiments, historical backtesting, predictive testing, replication, statistical validation. Output: Scientific Credibility™. Commercial Validation™ — determines whether stakeholders change behavior because of the evidence produced. Observable evidence: methodology review, internal circulation, technical evaluation, shadow tracking, pilot engagement, commercial agreement, renewal. Output: Commercial Credibility™. Enterprise Validation™ — determines whether implementation creates measurable organizational value. Evidence: adoption, Transformation Efficiency™, decision quality, organizational learning, financial performance, value realization. Output: Enterprise Credibility™.",
+        "Article IV — Commitment Principle™: Interest is an opinion. Commitment is evidence. Observable commitments represent progressively stronger evidence that stakeholders believe expected value exceeds perceived risk. Organizations shall measure commitments rather than stated enthusiasm.",
+        "Article V — Commitment Ladder™: Operationalizes Commercial Validation. Each successive level represents increasing organizational investment and decreasing commercial uncertainty. Nine-stage progression: 1. Information Request. 2. Methodology Review. 3. Internal Circulation. 4. Technical Evaluation. 5. Prospective Evaluation. 6. Paid Pilot. 7. Internal Sponsorship. 8. Operational Adoption. 9. Expansion and Renewal. Organizations may adapt specific stages to their context while preserving the constitutional principle that each stage requires a greater observable commitment than the previous.",
+        "Article VI — Evidence Architecture™ (hierarchy from weakest to strongest): Opinion → Interest → Conversation → Information Request → Methodology Review → Internal Evaluation → Pilot → Commercial Agreement → Operational Adoption → Measured Value Creation. Organizations should make decisions using the strongest available evidence.",
+        "Article VII — Validation Metrics™: Evidence Velocity™ (rate at which meaningful uncertainty is reduced through observable evidence). Commitment Conversion™ (percentage of stakeholders progressing from one commitment stage to the next). Commitment Friction™ (organizational, technical, financial, or governance barriers preventing progression). Validation Cycle Time™ (elapsed time from hypothesis to validated evidence). Validation Coverage™ (proportion of material hypotheses supported by sufficient evidence).",
+        "Article VIII — The Validation Dashboard™: Organizations shall maintain a Validation Dashboard tracking: material hypotheses, evidence collected, commitment stage, validation metrics, friction points, outstanding uncertainties, next experiments. The dashboard exists to improve organizational learning rather than to measure activity alone.",
+        "Article IX — Evidence-Based Governance™: Leadership shall allocate resources according to validated evidence rather than assumptions. Material decisions should identify: the hypothesis being tested, the evidence currently available, the uncertainty remaining, the next experiment required, the decision threshold for action. Validation shall become an ongoing governance discipline rather than a one-time milestone.",
+        "Article X — Constitutional Relationship: Validation Science™ closes the gap between Opportunity Science™ (where value resides) and Transformation Intelligence™ (how value is realized). The complete constitutional cycle: Opportunity → Validation → Transformation → Measurement → Learning → New Opportunity. This is the missing bridge that completes the measurement philosophy of the discipline."
+      ],
+      "typedRelationships": [
+        {
+          "type": "extends",
+          "targetId": "TI-061",
+          "description": "Extends Validation Principle™ — TI-080 provides the complete ten-article constitutional framework of which TI-061 is the foundational principle"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-062",
+          "description": "Extends Lens Validation Engine™ — TI-080 governs the constitutional standards that LVE™ implements technically"
+        },
+        {
+          "type": "extends",
+          "targetId": "TI-065",
+          "description": "Extends Opportunity Science™ Ontology — Validation Science™ provides the confidence measurement layer between Opportunity Discovery and Transformation execution"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-015",
+          "description": "Implements Evidence Sufficiency Law™ — the Evidence Architecture™ hierarchy and Evidence-Based Governance™ are constitutional expressions of TI-015 at the discipline level"
+        },
+        {
+          "type": "implements",
+          "targetId": "TI-016",
+          "description": "Implements Continuous Learning Law™ — the Validation Dashboard™ and constitutional cycle (Opportunity → Validation → Transformation → Measurement → Learning) operationalize TI-016"
+        },
+        {
+          "type": "depends_on",
+          "targetId": "TI-078",
+          "description": "Depends on Principle of Enterprise Evolution™ — Validation Science™ is the mechanism through which intentional enterprise evolution is earned rather than assumed"
+        }
+      ],
+      "relatedIds": [
+        "TI-061",
+        "TI-062",
+        "TI-065",
+        "TI-015",
+        "TI-016",
+        "TI-078",
+        "TI-058",
+        "TI-073",
+        "TI-075"
+      ]
     }
   ],
   "lkasVersion": "1.0",
@@ -4199,7 +4272,7 @@
   "addressingSystem": "LKAS™",
   "lensUriBase": "lens://constitution/",
   "canonicalBase": "https://lensanalysis.com/constitution/",
-  "totalPrinciples": 132,
+  "totalPrinciples": 133,
   "lastUpdated": "2026-07-02",
   "constitutionalArchitecture": {
     "name": "Opportunity Hierarchy™",

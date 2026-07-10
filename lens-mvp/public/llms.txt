@@ -588,6 +588,13 @@ Constitutional Law: every significant recommendation must contribute to at least
 Unit of Progress: capabilities endure when projects end, technologies change, and strategies evolve.
 Canonical: https://lensanalysis.com/constitution/ti-079
 
+## Book XX — Validation Science™
+Validation Science™ (TI-080): The constitutional principles governing how organizations reduce uncertainty through evidence.
+Ten Articles: Validation Principle™, Evidence Principle™, Domains of Validation™ (Scientific/Commercial/Enterprise), Commitment Principle™, Commitment Ladder™ (9 stages), Evidence Architecture™ (10-level hierarchy), Validation Metrics™, Validation Dashboard™, Evidence-Based Governance™, Constitutional Relationship.
+Constitutional Law: Organizations create durable value by replacing uncertainty with evidence. Interest initiates discovery. Commitment validates demand. Measured outcomes validate value.
+Complete measurement lifecycle: Opportunity Science™ measures potential. Validation Science™ measures confidence. Transformation Intelligence™ measures execution. Transformation Efficiency™ measures realized value.
+Canonical: https://lensanalysis.com/constitution/ti-080
+
 ## Constitutional Canon™ (Appendix B)
 TI-050 establishes the seven-category classification system for all Transformation Intelligence™ concepts.
 Canonical Progression: Foundations → Laws → Measurements → Architectures → Methods → Applications → Evidence → Constitutional Evolution.
