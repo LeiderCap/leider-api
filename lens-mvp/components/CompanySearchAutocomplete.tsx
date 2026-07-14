@@ -7,6 +7,8 @@ interface CompanyResult {
   ticker: string;
   name: string;
   exchange: string;
+  type?: string;
+  adrNote?: string;
 }
 
 interface Props {
@@ -316,9 +318,19 @@ export function CompanySearchAutocomplete({
                 }`}>
                   {result.ticker}
                 </span>
-                {/* Company name */}
-                <span className="flex-1 truncate text-sm font-medium text-slate-900">
-                  {result.name}
+                {/* Company name + ADR note */}
+                <span className="flex min-w-0 flex-1 flex-col">
+                  <span className="flex items-center gap-1.5 truncate">
+                    <span className="truncate text-sm font-medium text-slate-900">{result.name}</span>
+                    {result.type === 'ADR' && (
+                      <span className="shrink-0 rounded bg-blue-50 px-1.5 py-0.5 text-xs font-semibold text-blue-600">
+                        ADR
+                      </span>
+                    )}
+                  </span>
+                  {result.adrNote && (
+                    <span className="truncate text-xs text-slate-400 mt-0.5">{result.adrNote}</span>
+                  )}
                 </span>
                 {/* Exchange */}
                 <span className="shrink-0 text-xs text-slate-400">{result.exchange}</span>
