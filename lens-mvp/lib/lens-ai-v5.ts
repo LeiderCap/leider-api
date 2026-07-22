@@ -289,7 +289,7 @@ export function computeWeightedTCS(
   dimensions?: LensSnapshot['dimensions']
 ): number | null {
   if (!dimensions || dimensions.length === 0) return null;
-  // Support both {score} and {value} field names from the model output
+  // Support {score}, {value}, or {score} from {dimension, score} format from the model output
   const getScore = (d: any): number | null => {
     const s = d.score ?? d.value ?? null;
     return typeof s === 'number' ? s : null;
@@ -330,17 +330,22 @@ export function deriveV5LegacyFields(snapshot: LensSnapshot): void {
     return typeof s === 'number' ? s : null;
   };
   for (const [slug, field] of Object.entries(LEGACY_FIELD_MAP)) {
-    // Support both {slug} and {name} field names from the model output.
-    // The model emits: {name: "intelligence_score", value: 75}
-    // The type definition uses: {slug: "intelligence", score: 75}
+    // Support multiple dimension key formats from the model output:
+    // - {slug: "intelligence", score: 75}  (type definition format)
+    // - {name: "intelligence_score", value: 75}  (model v5.0 format A)
+    // - {dimension: "intelligence", score: 75}  (model v5.0 format B)
     const dim = snapshot.dimensions.find((d) => {
       const dimSlug = d.slug ?? '';
       const dimName = (d as any).name ?? '';
+      const dimDimension = (d as any).dimension ?? '';
       return (
         dimSlug === slug ||
+        dimDimension === slug ||
         dimName === slug ||
         dimName === `${slug}_score` ||
-        dimName.replace(/_score$/, '') === slug
+        dimName.replace(/_score$/, '') === slug ||
+        dimDimension === `${slug}_score` ||
+        dimDimension.replace(/_score$/, '') === slug
       );
     });
     const score = dim ? getScore(dim) : null;
@@ -356,9 +361,9 @@ export function deriveV5LegacyFields(snapshot: LensSnapshot): void {
   const weightedTCS = computeWeightedTCS(snapshot.dimensions);
   if (weightedTCS !== null) {
     snapshot.tcs_numeric = weightedTCS;
-    // Also set the RatingTier label for backward compatibility with v4.0 UI consumers
-    if (!snapshot.tcs_score || snapshot.tcs_score === 0 || snapshot.tcs_score === ('0' as any)) {
-      (snapshot as any).tcs_score = numericToRatingTier(weightedTCS);
-    }
+    // Always override tcs_score with the canonical RatingTier label derived from tcs_numeric.
+    // The model may emit tcs_score as a number (e.g. 73) or '0' — neither is valid for the UI.
+    // The UI expects: 'Emerging' | 'Developing' | 'Advanced' | 'Transforming' | 'Leading'
+    (snapshot as any).tcs_score = numericToRatingTier(weightedTCS);
   }
 }
