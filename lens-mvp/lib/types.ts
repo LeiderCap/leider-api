@@ -234,4 +234,88 @@ export interface LensSnapshot {
       narrative?: string | null;
     } | null;
   } | null;
+
+  // ─── v5.0 Lens Synthesis Engine fields ─────────────────────────────────────
+  // All fields below are optional and unused by v4.0 code paths.
+  // Sprint: LSE-P1 — Phase 1: Foundation (additive only)
+
+  dimensions?: Array<{
+    name: string;
+    slug: string;
+    score: number;                    // 0–100
+    weight: number;                   // 0–1, must sum to 1.0 across array
+    confidence: 'HIGH' | 'MODERATE' | 'LOW' | 'NOT_ESTABLISHED';
+    tiPrincipleId: string;            // e.g. "TI-015"
+    evidence: Array<{
+      claim: string;
+      source: string;
+      confidence: string;
+    }>;
+  }>;
+
+  governingMechanism?: {
+    name: string;
+    whyItMatters: string;
+    whyUnrealized: string;
+    requiredStateChange: string;
+  };
+
+  coreStructuralProblem?: string;     // single sentence diagnostic
+
+  valueConversionChain?: {
+    nodes: Array<{
+      label: string;
+      measurable: boolean;
+    }>;
+    currentPosition: string;
+    brokenLink: string;
+    nextRequiredState: string;
+    evidenceTrigger: string;
+  };
+
+  adversarialDiagnosis?: {
+    hypotheses: Array<{
+      label: 'H1' | 'H2' | 'H3';
+      description: string;
+      evidenceCoverage: string;
+      unsupportedAssumptions: string;
+      status: 'LEADING' | 'PLAUSIBLE' | 'WEAKENING' | 'NOT_ESTABLISHED';
+    }>;
+  };
+
+  fiveNumbersThatMatter?: Array<{
+    metric: string;
+    evidenceState: 'OBSERVED' | 'PARTIAL' | 'UNAVAILABLE';
+    whyItMatters: string;
+  }>;
+
+  ontologyRetrieval?: Array<{
+    tiPrincipleId: string;
+    state:
+      | 'ACTIVE'
+      | 'SUPPORTING'
+      | 'CHALLENGER'
+      | 'NOT_ESTABLISHED'
+      | 'NOT_RELEVANT';
+    whyRelevant: string;
+  }>;
+
+  valueAttributionBridge?: Array<{
+    valueDriver: string;
+    baseline: string;
+    transformationEffect: string;
+    financialEffect: string;
+    valuationMethod: string;
+  }> | null;
+  // NOTE: null when no defensible bridge exists.
+  // Do NOT default to empty array — null is semantically distinct from [].
+
+  lensEngineVersion?: 'v4.0' | 'v5.0';
+  // Tags which architecture produced this snapshot.
+  // All existing analyses are implicitly v4.0.
+  // Do not backfill — leave existing records untagged.
+
+  // ─── v5.0 Lens Synthesis Engine fields above ───────────────────────────────
+  // All fields below this line were present in v4.0 and must not be modified.
+  // All fields above this line are optional and unused by v4.0 code paths.
 }

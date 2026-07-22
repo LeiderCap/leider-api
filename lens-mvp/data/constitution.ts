@@ -25,6 +25,22 @@ export interface Principle {
   }>
   canon?: 'I-Foundations' | 'II-Laws' | 'III-Measurements' | 'IV-Architectures' | 'V-Methods' | 'VI-Applications' | 'VII-Evidence'
   externalFramework?: string
+
+  // TI Causal Retrieval Schema fields — Sprint LSE-P1
+  // Optional, unpopulated in this phase. Population is a separate future task.
+  // Do not add values to any existing TI-001–TI-082+ entries.
+  explains?: string                    // what phenomenon this principle explains
+  observableSignatures?: string[]      // what you would observe if this principle is active
+  exclusionSignatures?: string[]       // what would indicate this principle is NOT active
+  causalMechanism?: string             // the mechanism by which this principle operates
+  diagnosticQuestions?: string[]       // questions to ask when diagnosing
+  evidenceRequirements?: string        // what evidence is required to invoke this principle
+  measurablePredictions?: string[]     // testable predictions if this principle is correct
+  typicalInterventions?: string[]      // common interventions when this principle fires
+  competingPrinciples?: string[]       // IDs of principles that compete or conflict
+  patternLibraryLinks?: string[]       // links to pattern library entries
+  knownFailureModes?: string           // how this principle is commonly misapplied
+  scoringEligibility?: string          // conditions under which this principle affects scoring
 }
 
 export const principles: Principle[] = [
