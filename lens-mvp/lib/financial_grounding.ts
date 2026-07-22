@@ -1,0 +1,392 @@
+/**
+ * Financial Grounding Module for Equity Reclamation™
+ * =====================================================
+ * Anchors the Equity Reclamation Estimate™ to real FMP financial data.
+ * This is an additive module — it does not modify any existing TCS™ scoring,
+ * Lens AI prompt, or report rendering logic.
+ *
+ * Components:
+ *   1. fetchFinancialGroundingData  — FMP data fetcher
+ *   2. calculatePeerFrontier        — Peer EV/EBITDA frontier calculator
+ *   3. calculateGroundedEquityReclamation — Core ER formula
+ *   4. runFinancialGrounding        — Top-level orchestrator
+ *
+ * Constitutional references:
+ *   TI-013 Conservation of Enterprise Value™ Law
+ *   TI-014 Mechanism Traceability Law™
+ *   TI-015 Evidence Sufficiency Law™
+ *
+ * FMP base: https://financialmodelingprep.com/stable  (consistent with retrieve/route.ts)
+ */
+
+// ── Typed Interfaces ─────────────────────────────────────────────────────────
+
+export interface FinancialGroundingInputs {
+  ticker: string;
+  mktCap: number | null;
+  currency: string | null;
+  sector: string | null;
+  industry: string | null;
+  ebitda: number | null;
+  revenue: number | null;
+  totalDebt: number | null;
+  cashAndCashEquivalents: number | null;
+  netDebt: number | null;
+  roic: number | null;
+  freeCashFlowPerShare: number | null;
+  peRatio: number | null;
+  evToEbitda: number | null;
+  enterprise_value: number | null;
+  ev_ebitda_current: number | null;
+  data_completeness: 'complete' | 'partial';
+}
+
+export interface PeerFrontierResult {
+  ticker: string;
+  sector: string | null;
+  peer_ev_ebitda_median: number | null;
+  peer_ev_ebitda_75th_percentile: number | null;
+  peer_count: number;
+  ev_frontier_base: number | null;
+  ev_frontier_upside: number | null;
+  ev_gap_base: number | null;
+  ev_gap_upside: number | null;
+  trades_at_premium: boolean;
+  data_completeness: 'complete' | 'partial';
+}
+
+export interface GroundedEquityReclamationResult {
+  er_base: number | null;
+  er_upside: number | null;
+  eri_base: number | null;
+  eri_upside: number | null;
+  p_realization: number;
+  mechanism_efficiency: number;
+  confidence: 'High' | 'Moderate-High' | 'Moderate' | 'Low';
+  ev_gap_base: number | null;
+  ev_gap_upside: number | null;
+  ev_frontier_base: number | null;
+  ev_frontier_upside: number | null;
+  peer_ev_ebitda_median: number | null;
+  trades_at_premium: boolean;
+  derivation_method: 'financial_grounding_v1';
+}
+
+export interface FinancialGroundingBundle {
+  inputs: FinancialGroundingInputs;
+  peer_frontier: PeerFrontierResult;
+  equity_reclamation: GroundedEquityReclamationResult;
+  generated_at: string;
+  fmp_data_completeness: 'complete' | 'partial';
+}
+
+// ── Internal Helpers ──────────────────────────────────────────────────────────
+
+const FMP_BASE = 'https://financialmodelingprep.com/stable';
+
+async function fmpGet(path: string): Promise<any> {
+  const apiKey = process.env.FMP_API_KEY;
+  if (!apiKey) throw new Error('FMP_API_KEY not configured');
+  const sep = path.includes('?') ? '&' : '?';
+  const url = `${FMP_BASE}${path}${sep}apikey=${apiKey}`;
+  const res = await fetch(url, { next: { revalidate: 3600 } });
+  if (!res.ok) return null;
+  const data = await res.json();
+  // FMP sometimes returns {"Error Message": "..."}
+  if (data && typeof data === 'object' && !Array.isArray(data) && data['Error Message']) return null;
+  if (Array.isArray(data) && data.length === 0) return null;
+  return data;
+}
+
+function safeNum(val: unknown): number | null {
+  if (val === null || val === undefined || val === '') return null;
+  const n = Number(val);
+  return isNaN(n) ? null : n;
+}
+
+function median(arr: number[]): number | null {
+  if (arr.length === 0) return null;
+  const sorted = [...arr].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 === 0
+    ? (sorted[mid - 1] + sorted[mid]) / 2
+    : sorted[mid];
+}
+
+function percentile75(arr: number[]): number | null {
+  if (arr.length === 0) return null;
+  const sorted = [...arr].sort((a, b) => a - b);
+  const idx = Math.ceil(sorted.length * 0.75) - 1;
+  return sorted[Math.max(0, idx)];
+}
+
+// ── Component 1: FMP Data Fetcher ─────────────────────────────────────────────
+
+export async function fetchFinancialGroundingData(ticker: string): Promise<FinancialGroundingInputs> {
+  const t = ticker.toUpperCase();
+
+  // Parallel FMP calls — /stable endpoint style (symbol= query param)
+  const [profileData, incomeData, balanceData, metricsData] = await Promise.allSettled([
+    fmpGet(`/profile?symbol=${t}`),
+    fmpGet(`/income-statement?symbol=${t}&limit=1`),
+    fmpGet(`/balance-sheet-statement?symbol=${t}&limit=1`),
+    fmpGet(`/key-metrics?symbol=${t}&limit=1`),
+  ]);
+
+  const profile = profileData.status === 'fulfilled'
+    ? (Array.isArray(profileData.value) ? profileData.value[0] : profileData.value) ?? {}
+    : {};
+  const income = incomeData.status === 'fulfilled'
+    ? (Array.isArray(incomeData.value) ? incomeData.value[0] : incomeData.value) ?? {}
+    : {};
+  const balance = balanceData.status === 'fulfilled'
+    ? (Array.isArray(balanceData.value) ? balanceData.value[0] : balanceData.value) ?? {}
+    : {};
+  const metrics = metricsData.status === 'fulfilled'
+    ? (Array.isArray(metricsData.value) ? metricsData.value[0] : metricsData.value) ?? {}
+    : {};
+
+  const mktCap = safeNum(profile.mktCap);
+  const totalDebt = safeNum(balance.totalDebt);
+  const cash = safeNum(balance.cashAndCashEquivalents);
+  const netDebt = (totalDebt !== null && cash !== null) ? totalDebt - cash : null;
+  const enterprise_value = (mktCap !== null && netDebt !== null) ? mktCap + netDebt : null;
+  const ebitda = safeNum(income.ebitda);
+  const evToEbitda = safeNum(metrics.evToEbitda);
+  const ev_ebitda_current =
+    enterprise_value !== null && ebitda !== null && ebitda !== 0
+      ? enterprise_value / ebitda
+      : evToEbitda;
+
+  // Completeness: all five core fields must be non-null
+  const coreFields = [mktCap, ebitda, totalDebt, cash, evToEbitda];
+  const data_completeness: 'complete' | 'partial' = coreFields.every(f => f !== null) ? 'complete' : 'partial';
+
+  return {
+    ticker: t,
+    mktCap,
+    currency: (profile.currency as string) ?? null,
+    sector: (profile.sector as string) ?? null,
+    industry: (profile.industry as string) ?? null,
+    ebitda,
+    revenue: safeNum(income.revenue),
+    totalDebt,
+    cashAndCashEquivalents: cash,
+    netDebt,
+    roic: safeNum(metrics.roic),
+    freeCashFlowPerShare: safeNum(metrics.freeCashFlowPerShare),
+    peRatio: safeNum(metrics.peRatio),
+    evToEbitda,
+    enterprise_value,
+    ev_ebitda_current,
+    data_completeness,
+  };
+}
+
+// ── Component 2: Peer Frontier Calculator ─────────────────────────────────────
+
+export async function calculatePeerFrontier(
+  ticker: string,
+  sector: string | null,
+  _ev_ebitda_current: number | null,
+  ebitda: number | null,
+  enterprise_value: number | null,
+): Promise<PeerFrontierResult> {
+  const t = ticker.toUpperCase();
+  let peerMultiples: number[] = [];
+  let peer_count = 0;
+
+  if (sector) {
+    try {
+      // Fetch peer list from stock screener (large-cap peers, exclude subject ticker)
+      const peers: any[] = await fmpGet(
+        `/stock-screener?sector=${encodeURIComponent(sector)}&marketCapMoreThan=10000000000&limit=25`
+      ) ?? [];
+
+      const peerTickers: string[] = peers
+        .map((p: any) => p.symbol as string)
+        .filter((s: string) => s && s !== t)
+        .slice(0, 20);
+
+      // Fetch key-metrics for each peer in parallel
+      const peerResults = await Promise.allSettled(
+        peerTickers.map(pt => fmpGet(`/key-metrics?symbol=${pt}&limit=1`))
+      );
+
+      for (const result of peerResults) {
+        if (result.status === 'fulfilled' && result.value) {
+          const row = Array.isArray(result.value) ? result.value[0] : result.value;
+          const val = safeNum(row?.evToEbitda);
+          // Sanity filter: positive and below 100× (exclude extreme outliers)
+          if (val !== null && val > 0 && val < 100) {
+            peerMultiples.push(val);
+          }
+        }
+      }
+      peer_count = peerMultiples.length;
+    } catch {
+      // Non-fatal — proceed with empty peer set
+    }
+  }
+
+  const peer_ev_ebitda_median = median(peerMultiples);
+  const peer_ev_ebitda_75th_percentile = percentile75(peerMultiples);
+
+  let ev_frontier_base: number | null = null;
+  let ev_frontier_upside: number | null = null;
+  let ev_gap_base: number | null = null;
+  let ev_gap_upside: number | null = null;
+  let trades_at_premium = false;
+
+  if (ebitda !== null && peer_ev_ebitda_median !== null) {
+    ev_frontier_base = ebitda * peer_ev_ebitda_median;
+    if (enterprise_value !== null) {
+      const rawBase = ev_frontier_base - enterprise_value;
+      if (rawBase <= 0) {
+        ev_gap_base = 0;
+        trades_at_premium = true;
+      } else {
+        ev_gap_base = rawBase;
+      }
+    }
+  }
+
+  if (ebitda !== null && peer_ev_ebitda_75th_percentile !== null) {
+    ev_frontier_upside = ebitda * peer_ev_ebitda_75th_percentile;
+    if (enterprise_value !== null) {
+      const rawUpside = ev_frontier_upside - enterprise_value;
+      ev_gap_upside = rawUpside > 0 ? rawUpside : 0;
+    }
+  }
+
+  const data_completeness: 'complete' | 'partial' = peer_count >= 5 ? 'complete' : 'partial';
+
+  return {
+    ticker: t,
+    sector,
+    peer_ev_ebitda_median,
+    peer_ev_ebitda_75th_percentile,
+    peer_count,
+    ev_frontier_base,
+    ev_frontier_upside,
+    ev_gap_base,
+    ev_gap_upside,
+    trades_at_premium,
+    data_completeness,
+  };
+}
+
+// ── Component 3: Grounded Equity Reclamation Calculator ───────────────────────
+
+export function calculateGroundedEquityReclamation(
+  ev_gap_base: number | null,
+  ev_gap_upside: number | null,
+  ev_frontier_base: number | null,
+  ev_frontier_upside: number | null,
+  peer_ev_ebitda_median: number | null,
+  trades_at_premium: boolean,
+  tcs_score: number,
+  data_completeness: 'complete' | 'partial',
+  peer_count: number,
+): GroundedEquityReclamationResult {
+  // P_realization from TCS™ score
+  let p_realization: number;
+  if (tcs_score >= 80)      p_realization = 0.75;
+  else if (tcs_score >= 65) p_realization = 0.60;
+  else if (tcs_score >= 50) p_realization = 0.45;
+  else if (tcs_score >= 35) p_realization = 0.30;
+  else                      p_realization = 0.18;
+
+  // Mechanism Efficiency — blended default for v1
+  // Becomes dynamic in v2 when mechanism selection is implemented
+  const mechanism_efficiency = 0.52;
+
+  // Equity Reclamation calculation
+  const er_base_raw = (ev_gap_base !== null && ev_gap_base > 0)
+    ? ev_gap_base * p_realization * mechanism_efficiency
+    : 0;
+  const er_upside_raw = (ev_gap_upside !== null && ev_gap_upside > 0)
+    ? ev_gap_upside * p_realization * mechanism_efficiency
+    : 0;
+
+  // ERI (Equity Reclamation Index™)
+  const eri_base = (ev_gap_base !== null && ev_gap_base > 0 && er_base_raw > 0)
+    ? er_base_raw / ev_gap_base
+    : null;
+  const eri_upside = (ev_gap_upside !== null && ev_gap_upside > 0 && er_upside_raw > 0)
+    ? er_upside_raw / ev_gap_upside
+    : null;
+
+  // Confidence tier determination
+  let confidence: 'High' | 'Moderate-High' | 'Moderate' | 'Low';
+  if (data_completeness === 'complete' && peer_count >= 10) {
+    confidence = 'High';
+  } else if (data_completeness === 'complete' && peer_count >= 5) {
+    confidence = 'Moderate-High';
+  } else if (data_completeness === 'partial') {
+    confidence = 'Moderate';
+  } else {
+    confidence = 'Low';
+  }
+
+  return {
+    er_base: er_base_raw > 0 ? er_base_raw : null,
+    er_upside: er_upside_raw > 0 ? er_upside_raw : null,
+    eri_base,
+    eri_upside,
+    p_realization,
+    mechanism_efficiency,
+    confidence,
+    ev_gap_base,
+    ev_gap_upside,
+    ev_frontier_base,
+    ev_frontier_upside,
+    peer_ev_ebitda_median,
+    trades_at_premium,
+    derivation_method: 'financial_grounding_v1',
+  };
+}
+
+// ── Top-level Orchestrator ────────────────────────────────────────────────────
+
+/**
+ * runFinancialGrounding — orchestrates all three components.
+ * Called after tcs_numeric is available, before Supabase write.
+ * Returns null on any failure — never throws.
+ */
+export async function runFinancialGrounding(
+  ticker: string,
+  tcs_score: number,
+): Promise<FinancialGroundingBundle | null> {
+  const t = ticker.toUpperCase();
+
+  const finData = await fetchFinancialGroundingData(t);
+
+  const peerData = await calculatePeerFrontier(
+    t,
+    finData.sector,
+    finData.ev_ebitda_current,
+    finData.ebitda,
+    finData.enterprise_value,
+  );
+
+  const erResult = calculateGroundedEquityReclamation(
+    peerData.ev_gap_base,
+    peerData.ev_gap_upside,
+    peerData.ev_frontier_base,
+    peerData.ev_frontier_upside,
+    peerData.peer_ev_ebitda_median,
+    peerData.trades_at_premium,
+    tcs_score,
+    finData.data_completeness,
+    peerData.peer_count,
+  );
+
+  return {
+    inputs: finData,
+    peer_frontier: peerData,
+    equity_reclamation: erResult,
+    generated_at: new Date().toISOString(),
+    fmp_data_completeness: finData.data_completeness,
+  };
+}

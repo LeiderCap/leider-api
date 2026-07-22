@@ -436,6 +436,34 @@ export async function saveLensAnalysis(
 }
 
 /**
+ * Update the financial_grounding JSONB column for an existing lens_analyses row.
+ * Identified by OID™. Non-fatal — errors are logged but do not block the caller.
+ */
+export async function updateLensAnalysisGrounding(
+  oid: string,
+  groundingData: Record<string, unknown>,
+): Promise<void> {
+  try {
+    const supabase = getServiceSupabaseClient();
+    if (!supabase) {
+      console.warn('[lens-service] Supabase not configured — skipping financial_grounding update');
+      return;
+    }
+    const { error } = await supabase
+      .from('lens_analyses')
+      .update({ financial_grounding: groundingData })
+      .eq('oid', oid);
+    if (error) {
+      console.warn('[lens-service] financial_grounding update failed:', error.message);
+    } else {
+      console.log('[lens-service] financial_grounding saved for OID:', oid);
+    }
+  } catch (err) {
+    console.warn('[lens-service] updateLensAnalysisGrounding failed (non-fatal):', err);
+  }
+}
+
+/**
  * Fetch the latest stored Lens Analysis™ from lens_analyses for a given ticker.
  * Returns null if not found or if the table doesn't exist yet.
  */

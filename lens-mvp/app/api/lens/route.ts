@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server';
-import { createLensSnapshot, saveLensAnalysis } from '@/lib/lens-service';
+import { createLensSnapshot, saveLensAnalysis, updateLensAnalysisGrounding } from '@/lib/lens-service';
 import { getSupabaseClient } from '@/lib/supabase';
 import { buildGroundTruthPromptContext } from '@/lib/lens/ground-truth';
 import type { GroundTruth } from '@/lib/lens/ground-truth';
+import { runFinancialGrounding } from '@/lib/financial_grounding';
+import type { FinancialGroundingBundle } from '@/lib/financial_grounding';
 
 export const maxDuration = 60;
 
@@ -180,7 +182,25 @@ export async function POST(request: Request) {
       }
     }
 
-    return NextResponse.json({
+    // ── Step 7: Financial Grounding Module (additive, non-fatal) ─────────────
+    // Runs after tcs_numeric is available and after the analysis is persisted.
+    // Failure never blocks report generation.
+    let groundingData: FinancialGroundingBundle | null = null;
+    if (looksLikeTicker && resolvedTicker && snapshot.tcs_numeric != null) {
+      try {
+        groundingData = await runFinancialGrounding(resolvedTicker, snapshot.tcs_numeric);
+        if (groundingData && persistedOid) {
+          // Update the stored row with the grounding data
+          await updateLensAnalysisGrounding(persistedOid, groundingData as unknown as Record<string, unknown>);
+        }
+      } catch (err) {
+        console.warn(`[lens/route] Financial grounding failed for ${resolvedTicker} (non-fatal):`, err);
+        groundingData = null;
+      }
+    }
+
+    // ── Step 8: Build response — include financial_grounding only if present ─
+    const responsePayload: Record<string, unknown> = {
       snapshot,
       status: 'SUCCESS',
       identityCard: identityResult?.identityCard ?? null,
@@ -188,9 +208,16 @@ export async function POST(request: Request) {
       retrievedDocuments: retrievalResult?.retrievedDocuments ?? [],
       groundTruthId,
       oid: persistedOid,
-      groundTruthObject: debug ? groundTruthObject : undefined,
-      groundTruth: debug ? groundTruth : undefined,
-    });
+    };
+    if (groundingData !== null) {
+      responsePayload.financial_grounding = groundingData;
+    }
+    if (debug) {
+      responsePayload.groundTruthObject = groundTruthObject;
+      responsePayload.groundTruth = groundTruth;
+    }
+
+    return NextResponse.json(responsePayload);
   } catch (error) {
     console.error('Lens generation failed:', error);
     return NextResponse.json(
