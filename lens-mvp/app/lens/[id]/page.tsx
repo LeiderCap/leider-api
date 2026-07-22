@@ -20,6 +20,13 @@ import { CitedText } from '@/components/CitedText';
 import { OpportunityZonesSection } from '@/components/OpportunityZonesSection';
 import { UnlockPotentialInfoBubble } from '@/components/UnlockPotentialInfoBubble';
 import { NextStepSection } from '@/components/lens/NextStepSection';
+// v5.0 Lens Synthesis Engine UI components — gated on lensEngineVersion === 'v5.0'
+import { DeterminantsSectionV5 } from './DeterminantsSectionV5';
+import { GoverningMechanismSection } from './GoverningMechanismSection';
+import { ValueConversionChain } from './ValueConversionChain';
+import { AdversarialDiagnosis } from './AdversarialDiagnosis';
+import { FiveNumbers } from './FiveNumbers';
+import { TransformationBlueprint } from './TransformationBlueprint';
 
 const ratingClass: Record<string, string> = {
   Leading:      'rating-leading',
@@ -497,7 +504,11 @@ export default async function LensDetailPage({ params, searchParams }: { params:
             <p className="text-xs text-slate-400">What is possible for this company.</p>
             {/* Version metadata block */}
             <div className="mt-2 flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-500">Lens v4.0</span>
+              {item.lensEngineVersion === 'v5.0' ? (
+                <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-500">Lens v5.0</span>
+              ) : (
+                <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-500">Lens v4.0</span>
+              )}
               <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-500">Truth Engine™ v1.0</span>
               {item.groundTruthId && (
                 <span className="rounded-full bg-emerald-50 border border-emerald-200 px-2 py-0.5 text-[10px] font-semibold text-emerald-700">GT•{item.groundTruthId.slice(-8)}</span>
@@ -651,15 +662,44 @@ export default async function LensDetailPage({ params, searchParams }: { params:
           tcsScore={item.tcs_score}
         />
 
-        {/* Six Determinants — client component with info modals + progress bars */}
-        <DeterminantsSection
-          determinants={determinantData}
-          primaryConstraint={item.primary_constraint}
-          secondaryConstraint={item.secondary_constraint}
-          detectedIndustry={item.detected_industry}
-          constraintTranslations={item.constraint_translations}
-          evidenceArchitecture={item.evidence_architecture as any}
-        />
+        {/* Six Determinants — v4.0 or v5.0 dynamic rendering */}
+        {item.lensEngineVersion === 'v5.0' && item.dimensions ? (
+          <DeterminantsSectionV5
+            dimensions={item.dimensions}
+            primaryConstraint={item.primary_constraint}
+            secondaryConstraint={item.secondary_constraint}
+          />
+        ) : (
+          <DeterminantsSection
+            determinants={determinantData}
+            primaryConstraint={item.primary_constraint}
+            secondaryConstraint={item.secondary_constraint}
+            detectedIndustry={item.detected_industry}
+            constraintTranslations={item.constraint_translations}
+            evidenceArchitecture={item.evidence_architecture as any}
+          />
+        )}
+
+        {/* v5.0 Synthesis Engine sections — additive, gated on lensEngineVersion */}
+        {item.lensEngineVersion === 'v5.0' && (
+          <div className="v5-sections space-y-6 mt-6">
+            {item.governingMechanism && (
+              <GoverningMechanismSection mechanism={item.governingMechanism} />
+            )}
+            {item.valueConversionChain && (
+              <ValueConversionChain chain={item.valueConversionChain} />
+            )}
+            {item.adversarialDiagnosis && (
+              <AdversarialDiagnosis diagnosis={item.adversarialDiagnosis} />
+            )}
+            {item.fiveNumbersThatMatter && (
+              <FiveNumbers numbers={item.fiveNumbersThatMatter} />
+            )}
+            {item.transformationBlueprint && (
+              <TransformationBlueprint blueprint={item.transformationBlueprint} />
+            )}
+          </div>
+        )}
       </div>
 
       {/* v1.1 Scoring Breakdown */}

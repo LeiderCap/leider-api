@@ -315,6 +315,18 @@ export interface LensSnapshot {
   // All existing analyses are implicitly v4.0.
   // Do not backfill — leave existing records untagged.
 
+  transformationBlueprint?: {
+    phases: Array<{
+      phase: string;
+      objective: string;
+      specificAction: string;
+      measurement: string;
+      enterpriseValueConsequence: string;
+    }>;
+  } | null;
+
+  transformationProbability?: number | null;  // Stage 16 — integer 0-100
+
   // ─── v5.0 Lens Synthesis Engine fields above ───────────────────────────────
   // All fields below this line were present in v4.0 and must not be modified.
   // All fields above this line are optional and unused by v4.0 code paths.

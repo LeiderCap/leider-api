@@ -83,8 +83,66 @@ STAGE 13 — SUPPORTING VALUE FRONTIERS
 For each: current constraint, value opportunity, required transformation, evidence that this frontier is accessible.
 
 STAGE 14 — TRANSFORMATION BLUEPRINT
-3–7 phases. For each phase: objective, specific action, measurement, enterprise value consequence.
-HARD RULE — Company Specificity Test: for every intervention, ask internally: "Could this be given to 20% or more of public companies with only the company name changed?" If yes, regenerate. Every intervention must reference a specific company asset, capability, acquisition, customer population, revenue stream, product line, or capital constraint that is unique to this company.
+
+Generate 3–7 phases. For each phase output: objective, specificAction,
+measurement, enterpriseValueConsequence.
+
+COMPANY SPECIFICITY REQUIREMENT — this is the most important constraint
+in this stage:
+
+Before outputting any phase, apply the 20% Test internally:
+"Could this exact specificAction be given to 20% or more of public
+companies with only the company name changed?"
+
+If yes: the action fails. Do not output it. Regenerate with a replacement
+that references one or more of the following from THIS company specifically:
+  - A named product, platform, or technology this company owns
+  - A named customer segment, vertical, or geography this company serves
+  - A named acquisition, partnership, or capital event from the trailing
+    36 months
+  - A specific metric or ratio that is distinctive to this company's
+    economic architecture (from Stage 2)
+  - A named constraint identified in the VCC broken link (from Stage 7)
+
+EXAMPLES OF FAILING ACTIONS (do not produce these):
+  ✗ "Implement automation and standardized platform modules using
+     cloud-based tools"
+  ✗ "Allocate capital to R&D for platform enhancements and third-party
+     integrations"
+  ✗ "Streamline operations to reduce costs and improve margins"
+  ✗ "Invest in technology to drive efficiency"
+
+EXAMPLES OF PASSING ACTIONS (this specificity level is required):
+  ✓ "Deploy SkyTab POS cross-sell motion into the 40,000 hospitality
+     merchants currently on legacy Shift4 terminal contracts, targeting
+     attach rate increase from [current] to [peer benchmark]"
+  ✓ "Accelerate Lighthouse business intelligence upsell to hotel
+     enterprise accounts acquired via the Hospitalitytech acquisition,
+     using demonstrated 34% RevPAR improvement as the conversion anchor"
+  ✓ "Redirect the $180M annual free cash flow currently allocated to
+     share repurchases toward acquiring ISO portfolios in the
+     stadium/entertainment vertical where Shift4 has demonstrated
+     unit economics advantage"
+
+The passing examples above are illustrative of specificity level —
+generate company-specific content, not these exact phrases.
+
+HARD RULE: if a passing action cannot be constructed for a given phase
+objective due to insufficient evidence, omit that phase entirely rather
+than outputting a generic action. Fewer specific phases are preferable
+to more generic ones.
+
+OUTPUT FORMAT for each phase:
+{
+  "phase": "Phase N — [Specific Objective Name]",
+  "objective": "[What changes and why it matters to this company's GEVM]",
+  "specificAction": "[Named asset/capability/constraint] + [specific
+                     action] + [expected mechanism]",
+  "measurement": "[Specific metric that validates this action worked,
+                  not a generic KPI]",
+  "enterpriseValueConsequence": "[How this phase advances the VCC and
+                                 what that means for enterprise value]"
+}
 
 STAGE 15 — VALUE ATTRIBUTION BRIDGE
 HARD RULE: no dollar enterprise value estimate is permitted unless each value driver connects: baseline → transformation effect → financial effect → valuation method.
@@ -109,21 +167,57 @@ Before producing output, internally verify all of the following. Do not output u
 If any check fails, regenerate the failing section before outputting.
 
 OUTPUT FORMAT
-Return JSON matching the extended LensSnapshot interface. Populate all v5.0 fields:
-- \`dimensions\` array
-- \`governingMechanism\`
-- \`coreStructuralProblem\`
-- \`valueConversionChain\`
-- \`adversarialDiagnosis\`
-- \`fiveNumbersThatMatter\`
-- \`ontologyRetrieval\`
-- \`valueAttributionBridge\` (null if bridge cannot be built)
-- \`lensEngineVersion: 'v5.0'\`
 
-Also populate the legacy scalar fields (\`tcs_score\`, \`intelligence_score\`, \`absorbability_score\`, \`trust_score\`, \`governance_score\`, \`courage_score\`, \`execution_score\`) by deriving them FROM the \`dimensions\` array for backward compatibility with v4.0 consumers.
-HARD RULE on legacy field derivation: if a clean mapping from the v5.0 dimensions array to the six legacy scalar fields cannot be constructed without fabricating scores, stop and report back rather than guessing. Do not silently produce numbers that aren't derivable from the v5.0 output.
+Return a single JSON object. The root object must contain exactly these
+top-level keys — no nesting of blueprint or ontology inside dimensions:
 
-Output ONLY valid JSON. Do not include markdown formatting or explanation outside the JSON.
+{
+  "lensEngineVersion": "v5.0",
+  "governingMechanism": { ... },          // Stage 5
+  "coreStructuralProblem": "...",         // Stage 6 — one sentence
+  "valueConversionChain": { ... },        // Stage 7
+  "ontologyRetrieval": [ ... ],           // Stage 8 — array of principles
+  "adversarialDiagnosis": { ... },        // Stage 9
+  "fiveNumbersThatMatter": [ ... ],       // Stage 10 — exactly 5 items
+  "dimensions": [ ... ],                  // Stage 11 — TCS determinants only
+                                          // NOT blueprint, NOT ontology
+  "transformationBlueprint": {            // Stage 14 — TOP LEVEL, not inside dimensions
+    "phases": [ ... ]
+  },
+  "valueAttributionBridge": null,         // Stage 15 — null if bridge not buildable
+  "transformationProbability": 0,         // Stage 16 — integer 0-100
+  "tcs_score": 0,                         // derived from dimensions via computeWeightedTCS
+  "intelligence_score": 0,
+  "absorbability_score": 0,
+  "trust_score": 0,
+  "governance_score": 0,
+  "courage_score": 0,
+  "execution_score": 0
+}
+
+HARD RULE: \`transformationBlueprint\` is a top-level key. It must NEVER
+appear inside the \`dimensions\` array. \`dimensions\` contains only the
+TCS scoring determinants (intelligence, absorbability, trust, governance,
+courage, execution, and any additional v5.0 dimensions). Blueprint phases
+are not dimensions.
+
+HARD RULE: \`ontologyRetrieval\` is a top-level key. It must NEVER appear
+inside the \`dimensions\` array.
+
+HARD RULE: if any required top-level key is missing from your output,
+the output is invalid. Before returning, verify all top-level keys are
+present at the root level of the JSON object.
+
+Also populate the legacy scalar fields (\`tcs_score\`, \`intelligence_score\`,
+\`absorbability_score\`, \`trust_score\`, \`governance_score\`, \`courage_score\`,
+\`execution_score\`) by deriving them FROM the \`dimensions\` array for
+backward compatibility with v4.0 consumers.
+HARD RULE on legacy field derivation: if a clean mapping from the v5.0
+dimensions array to the six legacy scalar fields cannot be constructed
+without fabricating scores, set those fields to null rather than guessing.
+
+Output ONLY valid JSON. Do not include markdown formatting,
+code fences, or explanation outside the JSON object.
 `;
 
 export async function callLensEngineV5(
