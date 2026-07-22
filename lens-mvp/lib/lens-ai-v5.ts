@@ -1,5 +1,4 @@
-import { LensSnapshot } from './types';
-import { LENS_VERSIONS } from './versions';
+import type { LensSnapshot } from './types';
 
 export const LENS_SYSTEM_PROMPT_V5 = `You are the Lens Synthesis Engine™ (v5.0), an advanced enterprise diagnostic intelligence.
 Your task is to analyze the provided company using the 16-stage Synthesis Engine sequence and output JSON matching the extended LensSnapshot schema.
@@ -127,7 +126,11 @@ HARD RULE on legacy field derivation: if a clean mapping from the v5.0 dimension
 Output ONLY valid JSON. Do not include markdown formatting or explanation outside the JSON.
 `;
 
-export async function callLensEngineV5(query: string, groundTruth?: string): Promise<string | null> {
+export async function callLensEngineV5(
+  query: string,
+  groundTruth?: string,
+  constitutionPrinciples?: undefined  // reserved for future dynamic injection
+): Promise<string | null> {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) throw new Error('OPENAI_API_KEY missing');
 
@@ -143,8 +146,8 @@ export async function callLensEngineV5(query: string, groundTruth?: string): Pro
       authorization: `Bearer ${apiKey}`
     },
     body: JSON.stringify({
-      model: 'gpt-4.1-mini',
-      temperature: 0.2,
+      model: process.env.OPENAI_V5_MODEL ?? 'gpt-4o-mini',
+      temperature: 0.3,
       response_format: { type: 'json_object' },
       messages: [
         { role: 'system', content: systemPrompt },
@@ -162,4 +165,56 @@ export async function callLensEngineV5(query: string, groundTruth?: string): Pro
     console.error('[lens-ai-v5] OpenAI returned empty content:', JSON.stringify(data, null, 2));
   }
   return data?.choices?.[0]?.message?.content ?? null;
+}
+
+// ─── v5.0 Legacy Field Derivation ──────────────────────────────────────────────
+// These helpers are pure functions — no side effects, no DB writes.
+
+/**
+ * Compute a weighted TCS score from the v5.0 dimensions array.
+ * Returns null if no dimensions have established confidence.
+ */
+export function computeWeightedTCS(
+  dimensions?: LensSnapshot['dimensions']
+): number | null {
+  if (!dimensions || dimensions.length === 0) return null;
+  const established = dimensions.filter(
+    (d) => d.confidence !== 'NOT_ESTABLISHED' && d.score != null
+  );
+  if (established.length === 0) return null;
+  const totalWeight = established.reduce((sum, d) => sum + d.weight, 0);
+  if (totalWeight === 0) return null;
+  return Math.round(
+    established.reduce((sum, d) => sum + d.score * d.weight, 0) / totalWeight
+  );
+}
+
+/**
+ * Map v5.0 dimensions array back to the six legacy scalar score fields.
+ * Only sets a field when confidence is not NOT_ESTABLISHED.
+ * Does NOT fabricate scores — leaves field unchanged if dimension is absent or unestablished.
+ */
+const LEGACY_FIELD_MAP: Record<string, keyof LensSnapshot> = {
+  intelligence:  'intelligence_score',
+  absorbability: 'absorbability_score',
+  trust:         'trust_score',
+  governance:    'governance_score',
+  courage:       'courage_score',
+  execution:     'execution_score',
+};
+
+export function deriveV5LegacyFields(snapshot: LensSnapshot): void {
+  if (!snapshot.dimensions) return;
+  for (const [slug, field] of Object.entries(LEGACY_FIELD_MAP)) {
+    const dim = snapshot.dimensions.find((d) => d.slug === slug);
+    if (dim && dim.confidence !== 'NOT_ESTABLISHED') {
+      (snapshot as any)[field] = dim.score;
+    }
+    // If NOT_ESTABLISHED or not found: leave null — do not fabricate a score
+  }
+  // Derive tcs_numeric from weighted average of established dimensions
+  const weightedTCS = computeWeightedTCS(snapshot.dimensions);
+  if (weightedTCS !== null) {
+    snapshot.tcs_numeric = weightedTCS;
+  }
 }

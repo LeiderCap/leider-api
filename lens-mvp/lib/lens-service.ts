@@ -351,7 +351,13 @@ export async function saveLensAnalysis(
   exchange: string | null | undefined,
   groundTruthId: string | null,
   identityStatus: string | null,
+  options?: {
+    lensEngineVersion?: 'v4.0' | 'v5.0';
+    governingMechanism?: string | null;
+    coreStructuralProblem?: string | null;
+  },
 ): Promise<string | null> {
+  const engineVersion = options?.lensEngineVersion ?? 'v4.0';
   try {
     // Use service role client to bypass RLS for server-side writes
     const supabase = getServiceSupabaseClient();
@@ -400,13 +406,28 @@ export async function saveLensAnalysis(
     }
     const unlockLow = parseDollarToNumber(snapshot.unlock_low);
     const unlockHigh = parseDollarToNumber(snapshot.unlock_high);
+
+    // For v5.0 snapshots, merge v5.0 fields into analysis_json and tag engine version
+    const analysisJson = engineVersion === 'v5.0'
+      ? {
+          ...snapshot,
+          dimensions:              snapshot.dimensions              ?? null,
+          valueConversionChain:   snapshot.valueConversionChain    ?? null,
+          adversarialDiagnosis:   snapshot.adversarialDiagnosis    ?? null,
+          fiveNumbersThatMatter:  snapshot.fiveNumbersThatMatter   ?? null,
+          ontologyRetrieval:      snapshot.ontologyRetrieval       ?? null,
+          valueAttributionBridge: snapshot.valueAttributionBridge  ?? null,
+          lensEngineVersion:      'v5.0',
+        }
+      : snapshot;
+
     const { error } = await supabase.from('lens_analyses').insert({
       oid,
       ticker: tickerUpper,
       company_name: companyName || snapshot.name || tickerUpper,
       exchange: exchange || null,
       ground_truth_id: groundTruthId || null,
-      analysis_json: snapshot,
+      analysis_json: analysisJson,
       tcs_score: snapshot.tcs_numeric ?? null,
       tcs_label: snapshot.tcs_score ?? null,
       opportunity_zone: null,
@@ -414,6 +435,9 @@ export async function saveLensAnalysis(
       unlock_potential_high: unlockHigh,
       top_mechanism: snapshot.top_unlock ?? null,
       lens_version: '4.0',
+      lens_engine_version: engineVersion,
+      governing_mechanism: options?.governingMechanism ?? null,
+      core_structural_problem: options?.coreStructuralProblem ?? null,
       prompt_version: LENS_VERSIONS.promptVersion,
       model_version: LENS_VERSIONS.modelVersion,
       constitution_version: LENS_VERSIONS.constitutionVersion,

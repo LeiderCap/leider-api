@@ -5,6 +5,13 @@ import { buildGroundTruthPromptContext } from '@/lib/lens/ground-truth';
 import type { GroundTruth } from '@/lib/lens/ground-truth';
 import { runFinancialGrounding } from '@/lib/financial_grounding';
 import type { FinancialGroundingBundle } from '@/lib/financial_grounding';
+import { callLensEngineV5, deriveV5LegacyFields } from '@/lib/lens-ai-v5';
+import type { LensSnapshot } from '@/lib/types';
+
+// ── Lens Synthesis Engine v5.0 Feature Flag ───────────────────────────────────
+// Defaults to v4.0 when LENS_ENGINE_VERSION is unset or any value other than 'v5'.
+// DO NOT set LENS_ENGINE_VERSION=v5 in Vercel until Phase 5 acceptance testing passes.
+const USE_LENS_V5 = process.env.LENS_ENGINE_VERSION === 'v5';
 
 export const maxDuration = 60;
 
@@ -154,11 +161,36 @@ export async function POST(request: Request) {
     }
 
     // ── Step 5: Generate Lens Analysis with ground truth ───────────────────
-    const snapshot = await createLensSnapshot(query, {
-      ticker: looksLikeTicker ? resolvedTicker : undefined,
-      exchange: exchange || undefined,
-      groundTruth,
-    });
+    let snapshot: LensSnapshot;
+    let v5EngineVersion: 'v4.0' | 'v5.0' = 'v4.0';
+    let v5GoverningMechanism: string | null = null;
+    let v5CoreStructuralProblem: string | null = null;
+
+    if (USE_LENS_V5) {
+      // ── v5.0 path ──────────────────────────────────────────────────────────
+      const rawJson = await callLensEngineV5(
+        looksLikeTicker && resolvedTicker ? resolvedTicker : query,
+        groundTruth ?? undefined,
+        undefined  // constitutionPrinciples — reserved for future dynamic injection
+      );
+      if (!rawJson) throw new Error('[lens/route] v5.0 engine returned null');
+      const parsed = JSON.parse(rawJson) as LensSnapshot;
+      // Derive legacy scalar fields and tcs_numeric from dimensions
+      deriveV5LegacyFields(parsed);
+      parsed.lensEngineVersion = 'v5.0';
+      snapshot = parsed;
+      v5EngineVersion = 'v5.0';
+      v5GoverningMechanism = parsed.governingMechanism?.name ?? null;
+      v5CoreStructuralProblem = parsed.coreStructuralProblem ?? null;
+    } else {
+      // ── v4.0 path — existing code, untouched ───────────────────────────────
+      snapshot = await createLensSnapshot(query, {
+        ticker: looksLikeTicker ? resolvedTicker : undefined,
+        exchange: exchange || undefined,
+        groundTruth,
+      });
+      snapshot.lensEngineVersion = 'v4.0';
+    }
 
     logSearch(query, snapshot.id);
 
@@ -175,6 +207,11 @@ export async function POST(request: Request) {
         exchange,
         groundTruthId,
         identityStatus,
+        {
+          lensEngineVersion: v5EngineVersion,
+          governingMechanism: v5GoverningMechanism,
+          coreStructuralProblem: v5CoreStructuralProblem,
+        },
       );
       // Override the AI-generated opportunity_id with the server-canonical OID™
       if (persistedOid) {
