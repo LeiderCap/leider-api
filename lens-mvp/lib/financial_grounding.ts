@@ -82,14 +82,15 @@ export interface FinancialGroundingBundle {
 
 // ── Internal Helpers ──────────────────────────────────────────────────────────
 
-// FMP v3 API — path-style endpoints: /api/v3/ENDPOINT/TICKER?limit=1&apikey=KEY
-const FMP_V3_BASE = 'https://financialmodelingprep.com/api/v3';
+// FMP /stable API — query-style: /stable/ENDPOINT?symbol=TICKER&apikey=KEY
+// Matches the format used by retrieve/route.ts (confirmed working in production)
+const FMP_STABLE_BASE = 'https://financialmodelingprep.com/stable';
 
 async function fmpGet(path: string): Promise<any> {
   const apiKey = process.env.FMP_API_KEY;
   if (!apiKey) throw new Error('FMP_API_KEY not configured');
   const sep = path.includes('?') ? '&' : '?';
-  const url = `${FMP_V3_BASE}${path}${sep}apikey=${apiKey}`;
+  const url = `${FMP_STABLE_BASE}${path}${sep}apikey=${apiKey}`;
   const res = await fetch(url, { next: { revalidate: 3600 } });
   if (!res.ok) return null;
   const data = await res.json();
@@ -126,12 +127,12 @@ function percentile75(arr: number[]): number | null {
 export async function fetchFinancialGroundingData(ticker: string): Promise<FinancialGroundingInputs> {
   const t = ticker.toUpperCase();
 
-  // Parallel FMP calls — v3 path-style endpoints
+  // Parallel FMP calls — /stable query-style (matches retrieve/route.ts)
   const [profileData, incomeData, balanceData, metricsData] = await Promise.allSettled([
-    fmpGet(`/profile/${t}`),
-    fmpGet(`/income-statement/${t}?limit=1`),
-    fmpGet(`/balance-sheet-statement/${t}?limit=1`),
-    fmpGet(`/key-metrics/${t}?limit=1`),
+    fmpGet(`/profile?symbol=${t}`),
+    fmpGet(`/income-statement?symbol=${t}&period=annual&limit=1`),
+    fmpGet(`/balance-sheet-statement?symbol=${t}&period=annual&limit=1`),
+    fmpGet(`/key-metrics?symbol=${t}&period=annual&limit=1`),
   ]);
 
   const profile = profileData.status === 'fulfilled'
@@ -147,14 +148,19 @@ export async function fetchFinancialGroundingData(ticker: string): Promise<Finan
     ? (Array.isArray(metricsData.value) ? metricsData.value[0] : metricsData.value) ?? {}
     : {};
 
-  // FMP v3 profile uses 'mktCap' in /stable but 'mktCap' in v3 profile — confirmed field name
-  const mktCap = safeNum(profile.mktCap ?? profile.marketCap);
+  // FMP /stable profile uses 'mktCap'; key-metrics uses 'marketCap' — check both
+  const mktCap = safeNum(profile.mktCap ?? profile.marketCap ?? metrics.marketCap);
   const totalDebt = safeNum(balance.totalDebt);
   const cash = safeNum(balance.cashAndCashEquivalents);
   const netDebt = (totalDebt !== null && cash !== null) ? totalDebt - cash : null;
   const enterprise_value = (mktCap !== null && netDebt !== null) ? mktCap + netDebt : null;
-  const ebitda = safeNum(income.ebitda);
-  const evToEbitda = safeNum(metrics.evToEbitda);
+  // FMP income statement: ebitda may be present or derivable from operatingIncome + D&A
+  // Use ebitda if available, otherwise approximate from operatingIncome (conservative)
+  const ebitdaRaw = safeNum(income.ebitda);
+  const operatingIncome = safeNum(income.operatingIncome);
+  const ebitda = ebitdaRaw ?? operatingIncome; // fallback: operating income as EBITDA proxy
+  // FMP key-metrics: evToEbitda or enterpriseValueOverEBITDA
+  const evToEbitda = safeNum(metrics.evToEbitda ?? metrics.enterpriseValueOverEBITDA);
   const ev_ebitda_current =
     enterprise_value !== null && ebitda !== null && ebitda !== 0
       ? enterprise_value / ebitda
@@ -202,7 +208,7 @@ export async function calculatePeerFrontier(
     try {
       // Fetch peer list from stock screener (large-cap peers, exclude subject ticker)
       const peers: any[] = await fmpGet(
-        `/stock-screener?sector=${encodeURIComponent(sector)}&marketCapMoreThan=10000000000&limit=25&exchange=NYSE,NASDAQ`
+        `/stock-screener?sector=${encodeURIComponent(sector)}&marketCapMoreThan=5000000000&limit=30`
       ) ?? [];
 
       const peerTickers: string[] = peers
@@ -210,9 +216,9 @@ export async function calculatePeerFrontier(
         .filter((s: string) => s && s !== t)
         .slice(0, 20);
 
-      // Fetch key-metrics for each peer in parallel — v3 path-style
+      // Fetch key-metrics for each peer in parallel — /stable query-style
       const peerResults = await Promise.allSettled(
-        peerTickers.map(pt => fmpGet(`/key-metrics/${pt}?limit=1`))
+        peerTickers.map(pt => fmpGet(`/key-metrics?symbol=${pt}&period=annual&limit=1`))
       );
 
       for (const result of peerResults) {
