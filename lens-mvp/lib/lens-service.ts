@@ -28,6 +28,7 @@ import { slugify } from './ids';
 import { generateLensSnapshot } from './lens-ai';
 import { generateAnalysisOid } from './lens/oid';
 import { LENS_VERSIONS } from './lens/versions';
+import { runFinancialGrounding } from './financial_grounding';
 
 const seedRecords = seed as LensSnapshot[];
 
@@ -500,6 +501,25 @@ export async function getLatestAnalysisFromDb(ticker: string): Promise<LensSnaps
       snap.financial_grounding = data.financial_grounding as LensSnapshot['financial_grounding'];
     } else {
       snap.financial_grounding = null;
+      // ── Lazy grounding: if financial_grounding is null and tcs_score is available,
+      // trigger grounding asynchronously and update the DB row.
+      // This backfills grounding for analyses created before the grounding module was deployed.
+      // Uses data.tcs_score (dedicated DB column) for reliability over analysis_json.tcs_numeric.
+      const tcsNumeric = (data.tcs_score as number | null) ?? ((snap as any).tcs_numeric as number | undefined);
+      const oid = data.oid as string | undefined;
+      if (tcsNumeric != null && oid && tickerUpper) {
+        // Fire-and-forget: does not block SSR render
+        runFinancialGrounding(tickerUpper, tcsNumeric)
+          .then(async (groundingData) => {
+            if (groundingData) {
+              await updateLensAnalysisGrounding(oid, groundingData as unknown as Record<string, unknown>);
+              console.log('[lens-service] Lazy grounding completed for OID:', oid);
+            }
+          })
+          .catch((err) => {
+            console.warn('[lens-service] Lazy grounding failed (non-fatal):', err);
+          });
+      }
     }
     return snap;
   } catch (err) {
