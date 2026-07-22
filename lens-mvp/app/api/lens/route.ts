@@ -178,9 +178,21 @@ export async function POST(request: Request) {
       // Derive legacy scalar fields and tcs_numeric from dimensions
       deriveV5LegacyFields(parsed);
       parsed.lensEngineVersion = 'v5.0';
+      // ── Inject identity fields from identity card (v5.0 model doesn't emit these) ──
+      if (!parsed.name && identityResult?.identityCard?.legal_name) {
+        parsed.name = identityResult.identityCard.legal_name;
+      } else if (!parsed.name && companyName) {
+        parsed.name = companyName;
+      }
+      if (!parsed.ticker && resolvedTicker) {
+        parsed.ticker = resolvedTicker;
+      }
+      if (!parsed.id && resolvedTicker) {
+        parsed.id = resolvedTicker.toLowerCase();
+      }
       snapshot = parsed;
       v5EngineVersion = 'v5.0';
-      v5GoverningMechanism = parsed.governingMechanism?.name ?? null;
+      v5GoverningMechanism = parsed.governingMechanism?.name ?? (parsed.governingMechanism as any)?.description ?? null;
       v5CoreStructuralProblem = parsed.coreStructuralProblem ?? null;
     } else {
       // ── v4.0 path — existing code, untouched ───────────────────────────────

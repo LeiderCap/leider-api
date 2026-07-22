@@ -272,14 +272,22 @@ export function computeWeightedTCS(
   dimensions?: LensSnapshot['dimensions']
 ): number | null {
   if (!dimensions || dimensions.length === 0) return null;
+  // Support both {score} and {value} field names from the model output
+  const getScore = (d: any): number | null => {
+    const s = d.score ?? d.value ?? null;
+    return typeof s === 'number' ? s : null;
+  };
+  // If confidence field is absent (model omitted it), treat all dimensions as established
   const established = dimensions.filter(
-    (d) => d.confidence !== 'NOT_ESTABLISHED' && d.score != null
+    (d) => d.confidence !== 'NOT_ESTABLISHED' && getScore(d) != null
   );
-  if (established.length === 0) return null;
-  const totalWeight = established.reduce((sum, d) => sum + (d.weight ?? 1), 0);
+  const allWithScore = dimensions.filter((d) => getScore(d) != null);
+  const toUse = established.length > 0 ? established : allWithScore;
+  if (toUse.length === 0) return null;
+  const totalWeight = toUse.reduce((sum, d) => sum + (d.weight ?? 1), 0);
   if (totalWeight === 0) return null;
   return Math.round(
-    established.reduce((sum, d) => sum + d.score * (d.weight ?? 1), 0) / totalWeight
+    toUse.reduce((sum, d) => sum + (getScore(d) as number) * (d.weight ?? 1), 0) / totalWeight
   );
 }
 
@@ -299,10 +307,31 @@ const LEGACY_FIELD_MAP: Record<string, keyof LensSnapshot> = {
 
 export function deriveV5LegacyFields(snapshot: LensSnapshot): void {
   if (!snapshot.dimensions) return;
+  // Support both {score} and {value} field names from the model output
+  const getScore = (d: any): number | null => {
+    const s = d.score ?? d.value ?? null;
+    return typeof s === 'number' ? s : null;
+  };
   for (const [slug, field] of Object.entries(LEGACY_FIELD_MAP)) {
-    const dim = snapshot.dimensions.find((d) => d.slug === slug);
-    if (dim && dim.confidence !== 'NOT_ESTABLISHED') {
-      (snapshot as any)[field] = dim.score;
+    // Support both {slug} and {name} field names from the model output.
+    // The model emits: {name: "intelligence_score", value: 75}
+    // The type definition uses: {slug: "intelligence", score: 75}
+    const dim = snapshot.dimensions.find((d) => {
+      const dimSlug = d.slug ?? '';
+      const dimName = (d as any).name ?? '';
+      return (
+        dimSlug === slug ||
+        dimName === slug ||
+        dimName === `${slug}_score` ||
+        dimName.replace(/_score$/, '') === slug
+      );
+    });
+    const score = dim ? getScore(dim) : null;
+    if (dim && score != null) {
+      // Only skip if explicitly NOT_ESTABLISHED; if confidence is absent, treat as established
+      if (dim.confidence !== 'NOT_ESTABLISHED') {
+        (snapshot as any)[field] = score;
+      }
     }
     // If NOT_ESTABLISHED or not found: leave null — do not fabricate a score
   }
