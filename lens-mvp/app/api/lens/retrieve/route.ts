@@ -362,12 +362,17 @@ export async function POST(req: NextRequest) {
     const failureReasons: string[] = [];
     let tickerNameMatch = true;
 
+    // Normalize accents for comparison (e.g. "Nestlé" == "Nestle")
+    const stripAccents = (s: string) =>
+      s.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     if (fmpCompanyName) {
-      const fmpFirst = fmpCompanyName.toLowerCase().split(' ')[0];
-      const userFirst = companyName.toLowerCase().split(' ')[0];
+      const fmpNorm = stripAccents(fmpCompanyName.toLowerCase());
+      const userNorm = stripAccents(companyName.toLowerCase());
+      const fmpFirst = fmpNorm.split(' ')[0];
+      const userFirst = userNorm.split(' ')[0];
       tickerNameMatch =
-        fmpCompanyName.toLowerCase().includes(userFirst) ||
-        companyName.toLowerCase().includes(fmpFirst);
+        fmpNorm.includes(userFirst) ||
+        userNorm.includes(fmpFirst);
 
       if (!tickerNameMatch) {
         failureReasons.push(
