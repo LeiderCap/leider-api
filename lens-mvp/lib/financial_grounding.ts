@@ -79,6 +79,7 @@ export interface GroundedEquityReclamationResult {
   er_upside: number | null;
   eri_base: number | null;
   eri_upside: number | null;
+  er_source: 'multiple_gap' | 'operational_transformation';
   p_realization: number;
   mechanism_efficiency: number;
   confidence: 'High' | 'Moderate-High' | 'Moderate' | 'Low';
@@ -342,6 +343,7 @@ export function calculateGroundedEquityReclamation(
   tcs_score: number,
   data_completeness: 'complete' | 'partial',
   peer_count: number,
+  enterprise_value: number | null,
 ): GroundedEquityReclamationResult {
   // P_realization from TCS™ score
   let p_realization: number;
@@ -355,20 +357,39 @@ export function calculateGroundedEquityReclamation(
   // Becomes dynamic in v2 when mechanism selection is implemented
   const mechanism_efficiency = 0.52;
 
-  // Equity Reclamation calculation
-  const er_base_raw = (ev_gap_base !== null && ev_gap_base > 0)
-    ? ev_gap_base * p_realization * mechanism_efficiency
-    : 0;
-  const er_upside_raw = (ev_gap_upside !== null && ev_gap_upside > 0)
-    ? ev_gap_upside * p_realization * mechanism_efficiency
-    : 0;
+  // ── Two-path Equity Reclamation calculation ───────────────────────────────
+  let er_base: number | null = null;
+  let er_upside: number | null = null;
+  let er_source: 'multiple_gap' | 'operational_transformation' = 'multiple_gap';
 
-  // ERI (Equity Reclamation Index™)
-  const eri_base = (ev_gap_base !== null && ev_gap_base > 0 && er_base_raw > 0)
-    ? er_base_raw / ev_gap_base
+  const evGapBase = ev_gap_base ?? 0;
+  const evGapUpside = ev_gap_upside ?? 0;
+
+  if (evGapBase > 0 && evGapUpside > 0) {
+    // Standard path: company trades below peer median — multiple gap exists
+    er_base = evGapBase * p_realization * mechanism_efficiency;
+    er_upside = evGapUpside * p_realization * mechanism_efficiency;
+    er_source = 'multiple_gap';
+
+  } else if (trades_at_premium && enterprise_value !== null && enterprise_value > 0) {
+    // Premium path: company trades above peer median
+    // ER comes from operational + transformation improvement, not multiple re-rating
+    const tcs_gap = 100 - tcs_score;
+    const operational_reclaim_rate = (tcs_gap / 100) * 0.08;
+    const transformation_reclaim_rate = (tcs_gap / 100) * 0.05;
+
+    er_base = enterprise_value * operational_reclaim_rate * p_realization;
+    er_upside = enterprise_value *
+      (operational_reclaim_rate + transformation_reclaim_rate) * p_realization;
+    er_source = 'operational_transformation';
+  }
+
+  // ERI (Equity Reclamation Index™) — normalised to enterprise_value for premium path
+  const eri_base = (er_base !== null && enterprise_value !== null && enterprise_value > 0)
+    ? er_base / enterprise_value
     : null;
-  const eri_upside = (ev_gap_upside !== null && ev_gap_upside > 0 && er_upside_raw > 0)
-    ? er_upside_raw / ev_gap_upside
+  const eri_upside = (er_upside !== null && enterprise_value !== null && enterprise_value > 0)
+    ? er_upside / enterprise_value
     : null;
 
   // Confidence tier — updated per spec
@@ -387,10 +408,11 @@ export function calculateGroundedEquityReclamation(
   }
 
   return {
-    er_base: er_base_raw > 0 ? er_base_raw : null,
-    er_upside: er_upside_raw > 0 ? er_upside_raw : null,
+    er_base,
+    er_upside,
     eri_base,
     eri_upside,
+    er_source,
     p_realization,
     mechanism_efficiency,
     confidence,
@@ -437,6 +459,7 @@ export async function runFinancialGrounding(
     tcs_score,
     finData.data_completeness,
     peerData.peer_count,
+    finData.enterprise_value,  // required for premium ER path (operational_transformation)
   );
 
   return {
