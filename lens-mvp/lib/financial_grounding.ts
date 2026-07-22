@@ -207,9 +207,17 @@ export async function calculatePeerFrontier(
   if (sector) {
     try {
       // Fetch peer list from stock screener (large-cap peers, exclude subject ticker)
-      const peers: any[] = await fmpGet(
+      // FMP /stable stock-screener uses marketCapMoreThan (in millions on some plans)
+      // Try both parameter names for compatibility
+      let peers: any[] = await fmpGet(
         `/stock-screener?sector=${encodeURIComponent(sector)}&marketCapMoreThan=5000000000&limit=30`
       ) ?? [];
+      // If empty, try without marketCap filter (screener may use different param)
+      if (peers.length === 0) {
+        peers = await fmpGet(
+          `/stock-screener?sector=${encodeURIComponent(sector)}&limit=30`
+        ) ?? [];
+      }
 
       const peerTickers: string[] = peers
         .map((p: any) => p.symbol as string)
@@ -224,7 +232,8 @@ export async function calculatePeerFrontier(
       for (const result of peerResults) {
         if (result.status === 'fulfilled' && result.value) {
           const row = Array.isArray(result.value) ? result.value[0] : result.value;
-          const val = safeNum(row?.evToEbitda);
+          // FMP key-metrics may have evToEbitda or enterpriseValueOverEBITDA
+          const val = safeNum(row?.evToEbitda ?? row?.enterpriseValueOverEBITDA);
           // Sanity filter: positive and below 100× (exclude extreme outliers)
           if (val !== null && val > 0 && val < 100) {
             peerMultiples.push(val);
