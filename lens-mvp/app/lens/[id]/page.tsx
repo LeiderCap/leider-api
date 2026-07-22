@@ -63,6 +63,25 @@ function formatUnlockRange(item: LensSnapshot): string {
   return '';
 }
 
+/** Format a raw dollar number into $X.XT / $X.XB / $X.XM display string */
+function formatERValue(value: number | null): string {
+  if (value === null) return 'N/A';
+  if (value >= 1_000_000_000_000) {
+    return `$${(value / 1_000_000_000_000).toFixed(1)}T`;
+  } else if (value >= 1_000_000_000) {
+    return `$${(value / 1_000_000_000).toFixed(1)}B`;
+  } else if (value >= 1_000_000) {
+    return `$${(value / 1_000_000).toFixed(1)}M`;
+  }
+  return `$${value.toLocaleString()}`;
+}
+
+/** Format a ratio (e.g. 0.013) as a percentage string (e.g. "1.30%") */
+function formatERI(value: number | null): string {
+  if (value === null) return '';
+  return `${(value * 100).toFixed(2)}%`;
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
   const item = await getLensByIdOrCache(id);
@@ -771,33 +790,83 @@ export default async function LensDetailPage({ params, searchParams }: { params:
           ) : (
             <Metric label="Equity Reclamation™" value={item.equity_reclamation} />
           )}
-          {/* v2.1 FMP-anchored Unlock Potential™ */}
-          <div className="relative rounded-xl border border-slate-200 p-4">
-            <p className="text-xs font-medium text-slate-400">Equity Reclamation Estimate</p>
-            <p className='text-xs text-gray-400 mb-2'>
-              Governed by{' '}
-              <a href='/constitution/ti-013' target='_blank' rel='noopener noreferrer' className='text-orange-500 hover:underline'>TI-013</a>
-              {' '}Conservation of Enterprise Value™ Law ·{' '}
-              <a href='/constitution/ti-015' target='_blank' rel='noopener noreferrer' className='text-orange-500 hover:underline'>TI-015</a>
-              {' '}Evidence Sufficiency Law™
-            </p>
-            <div className="mt-2 flex items-center gap-1.5 text-emerald-600">
-              <UnlockPotentialInfoBubble item={item} showRange />
-            </div>
-            <span className={`mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-semibold ${
-              item.confidence === 'High' ? 'bg-green-100 text-green-700' :
-              item.confidence === 'Moderate' ? 'bg-amber-100 text-amber-700' :
-              'bg-slate-100 text-slate-500'
-            }`}>{item.confidence} Confidence</span>
-            <p className="mt-2 text-[10px] text-slate-400">
-              Governed by{' '}
-              <a href="/constitution/ti-013" className="font-mono hover:underline" style={{ color: '#E05A00' }}>[TI-013]</a>{' '}
-              Conservation of Enterprise Value™ Law &nbsp;&middot;&nbsp;
-              Evidence standard:{' '}
-              <a href="/constitution/ti-015" className="font-mono hover:underline" style={{ color: '#E05A00' }}>[TI-015]</a>{' '}
-              Evidence Sufficiency Law™
-            </p>
-          </div>
+          {/* v4.1 Financial Grounding Module™ — two-source ER resolver */}
+          {(() => {
+            const grounding = item.financial_grounding;
+            const hasGroundedER =
+              grounding?.equity_reclamation?.er_base != null &&
+              grounding?.equity_reclamation?.er_upside != null;
+            const displayER = hasGroundedER ? {
+              low: grounding!.equity_reclamation.er_base,
+              high: grounding!.equity_reclamation.er_upside,
+              confidence: grounding!.equity_reclamation.confidence as string,
+              source: grounding!.equity_reclamation.er_source,
+              eri_base: grounding!.equity_reclamation.eri_base,
+              eri_upside: grounding!.equity_reclamation.eri_upside,
+              enterprise_value: grounding!.inputs.enterprise_value,
+              isGrounded: true,
+            } : {
+              low: null,
+              high: null,
+              confidence: item.confidence as string,
+              source: null,
+              eri_base: null,
+              eri_upside: null,
+              enterprise_value: null,
+              isGrounded: false,
+            };
+            const sourceLabel =
+              displayER.source === 'operational_transformation'
+                ? 'Grounded estimate \u00b7 Operational & Transformation reclamation'
+                : displayER.source === 'multiple_gap'
+                ? 'Grounded estimate \u00b7 Valuation gap reclamation'
+                : null;
+            const confidenceClass =
+              displayER.confidence === 'High' ? 'bg-green-100 text-green-700' :
+              displayER.confidence === 'Moderate-High' ? 'bg-teal-100 text-teal-700' :
+              displayER.confidence === 'Moderate' ? 'bg-amber-100 text-amber-700' :
+              'bg-slate-100 text-slate-500';
+            return (
+              <div className="relative rounded-xl border border-slate-200 p-4">
+                <p className="text-xs font-medium text-slate-400">Equity Reclamation Estimate</p>
+                <div className="mt-2 flex items-center gap-1.5 text-emerald-600">
+                  {displayER.isGrounded ? (
+                    <UnlockPotentialInfoBubble
+                      item={item}
+                      showRange={false}
+                      groundedER={displayER}
+                    />
+                  ) : (
+                    <UnlockPotentialInfoBubble item={item} showRange />
+                  )}
+                  {displayER.isGrounded && (
+                    <span className="font-bold text-emerald-600">
+                      {formatERValue(displayER.low)} \u2013 {formatERValue(displayER.high)}
+                    </span>
+                  )}
+                </div>
+                {sourceLabel && (
+                  <p className="mt-1 text-[10px] text-slate-500 italic">{sourceLabel}</p>
+                )}
+                {displayER.isGrounded && displayER.eri_base != null && displayER.eri_upside != null && (
+                  <p className="mt-1 text-[10px] text-slate-600">
+                    Equity Reclamation Index\u2122: {formatERI(displayER.eri_base)} \u2013 {formatERI(displayER.eri_upside)}
+                  </p>
+                )}
+                <span className={`mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-semibold ${confidenceClass}`}>
+                  {displayER.confidence} Confidence
+                </span>
+                <p className="mt-2 text-[10px] text-slate-400">
+                  Governed by{' '}
+                  <a href="/constitution/ti-013" className="font-mono hover:underline" style={{ color: '#E05A00' }}>[TI-013]</a>{' '}
+                  Conservation of Enterprise Value\u2122 Law &nbsp;&middot;&nbsp;
+                  Evidence standard:{' '}
+                  <a href="/constitution/ti-015" className="font-mono hover:underline" style={{ color: '#E05A00' }}>[TI-015]</a>{' '}
+                  Evidence Sufficiency Law\u2122
+                </p>
+              </div>
+            );
+          })()}
         </div>
       </section>
 
@@ -1211,18 +1280,59 @@ export default async function LensDetailPage({ params, searchParams }: { params:
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Go Deep™</p>
-            <div className="mt-1 flex flex-wrap items-center gap-2 relative">
-              <h2 className="text-xl font-bold">Unlock Potential:</h2>
-              <UnlockPotentialInfoBubble item={item} showRange />
-              <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${
-                item.confidence === 'High' ? 'bg-green-100 text-green-700' :
-                item.confidence === 'Moderate' ? 'bg-amber-100 text-amber-700' :
-                'bg-slate-100 text-slate-500'
-              }`}>{item.confidence} Confidence</span>
-            </div>
-            {item.unlock_primary_driver && (
-              <p className="mt-1 text-sm text-slate-500 italic">{item.unlock_primary_driver}</p>
-            )}
+            {/* v4.1 two-source resolver for bottom CTA strip */}
+            {(() => {
+              const grounding = item.financial_grounding;
+              const hasGroundedER =
+                grounding?.equity_reclamation?.er_base != null &&
+                grounding?.equity_reclamation?.er_upside != null;
+              const ctaGroundedER = hasGroundedER ? {
+                low: grounding!.equity_reclamation.er_base,
+                high: grounding!.equity_reclamation.er_upside,
+                confidence: grounding!.equity_reclamation.confidence as string,
+                source: grounding!.equity_reclamation.er_source,
+                eri_base: grounding!.equity_reclamation.eri_base,
+                eri_upside: grounding!.equity_reclamation.eri_upside,
+                enterprise_value: grounding!.inputs.enterprise_value,
+                isGrounded: true,
+              } : undefined;
+              const ctaConfidence = ctaGroundedER?.confidence ?? item.confidence;
+              const ctaConfidenceClass =
+                ctaConfidence === 'High' ? 'bg-green-100 text-green-700' :
+                ctaConfidence === 'Moderate-High' ? 'bg-teal-100 text-teal-700' :
+                ctaConfidence === 'Moderate' ? 'bg-amber-100 text-amber-700' :
+                'bg-slate-100 text-slate-500';
+              return (
+                <>
+                  <div className="mt-1 flex flex-wrap items-center gap-2 relative">
+                    <h2 className="text-xl font-bold">Unlock Potential:</h2>
+                    {ctaGroundedER ? (
+                      <>
+                        <UnlockPotentialInfoBubble item={item} showRange={false} groundedER={ctaGroundedER} />
+                        <span className="font-bold text-emerald-600">
+                          {formatERValue(ctaGroundedER.low)} – {formatERValue(ctaGroundedER.high)}
+                        </span>
+                      </>
+                    ) : (
+                      <UnlockPotentialInfoBubble item={item} showRange />
+                    )}
+                    <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${ctaConfidenceClass}`}>
+                      {ctaConfidence} Confidence
+                    </span>
+                  </div>
+                  {ctaGroundedER?.source && (
+                    <p className="mt-1 text-[10px] text-slate-500 italic">
+                      {ctaGroundedER.source === 'operational_transformation'
+                        ? 'Grounded estimate · Operational & Transformation reclamation'
+                        : 'Grounded estimate · Valuation gap reclamation'}
+                    </p>
+                  )}
+                  {!ctaGroundedER && item.unlock_primary_driver && (
+                    <p className="mt-1 text-sm text-slate-500 italic">{item.unlock_primary_driver}</p>
+                  )}
+                </>
+              );
+            })()}
             <p className="mt-2 text-sm text-slate-600">Request a full Transformation Capacity Assessment™ from The Lens™ team.</p>
             <p className="mt-3 text-sm text-slate-500 leading-6 max-w-prose">
               Want to model a specific scenario? Run a deterministic Cashless Buyback™ analysis below — share price, retirement %, and timeline are entirely up to you.

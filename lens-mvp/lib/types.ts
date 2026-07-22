@@ -1,5 +1,37 @@
 export type RatingTier = 'Emerging' | 'Developing' | 'Advanced' | 'Transforming' | 'Leading';
 export type ConfidenceLevel = 'Low' | 'Moderate' | 'High';
+
+export interface FinancialGroundingBundle {
+  inputs: {
+    enterprise_value: number | null;
+    sector: string | null;
+    mktCap: number | null;
+    ebitda: number | null;
+    ev_ebitda_current: number | null;
+    data_completeness: 'complete' | 'partial';
+  };
+  peer_frontier: {
+    peer_ev_ebitda_median: number | null;
+    peer_source: 'fmp_sector_endpoint' | 'sector_fallback' | null;
+    peer_count: number;
+    trades_at_premium: boolean;
+    ev_gap_base: number;
+    ev_gap_upside: number;
+  };
+  equity_reclamation: {
+    er_base: number | null;
+    er_upside: number | null;
+    er_source: 'multiple_gap' | 'operational_transformation' | null;
+    eri_base: number | null;
+    eri_upside: number | null;
+    confidence: 'High' | 'Moderate-High' | 'Moderate' | 'Low';
+    p_realization: number;
+    mechanism_efficiency: number;
+    derivation_method: string;
+  };
+  generated_at: string;
+  fmp_data_completeness: 'complete' | 'partial';
+}
 export type CapacityGap = 'Minimal' | 'Moderate' | 'Significant' | 'Critical';
 export type TransformationMomentum = 'Accelerating' | 'Stable' | 'Decelerating' | 'Unknown';
 
@@ -175,6 +207,9 @@ export interface LensSnapshot {
   lensVersion?: string | null;
   truthEngineVersion?: string | null;
   analysisGeneratedAt?: string | null;
+
+  // v4.1 Financial Grounding Module™
+  financial_grounding?: FinancialGroundingBundle | null;
 
   intermediary_systems_analysis?: {
     primary_intermediary_system?: {

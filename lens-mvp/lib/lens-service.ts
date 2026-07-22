@@ -495,6 +495,12 @@ export async function getLatestAnalysisFromDb(ticker: string): Promise<LensSnaps
     if (!snap) return null;
     // Ensure the OID is set from the stored oid field
     if (data.oid) snap.opportunity_id = data.oid;
+    // Attach financial_grounding from the dedicated column (additive — null if not yet computed)
+    if (data.financial_grounding) {
+      snap.financial_grounding = data.financial_grounding as LensSnapshot['financial_grounding'];
+    } else {
+      snap.financial_grounding = null;
+    }
     return snap;
   } catch (err) {
     console.warn('[lens-service] getLatestAnalysisFromDb failed (non-fatal):', err);
@@ -524,6 +530,12 @@ export async function getAnalysisByOid(oid: string): Promise<LensSnapshot | null
     const snap = data.analysis_json as LensSnapshot;
     if (!snap) return null;
     if (data.oid) snap.opportunity_id = data.oid;
+    // Attach financial_grounding from the dedicated column
+    if (data.financial_grounding) {
+      snap.financial_grounding = data.financial_grounding as LensSnapshot['financial_grounding'];
+    } else {
+      snap.financial_grounding = null;
+    }
     return snap;
   } catch (err) {
     console.warn('[lens-service] getAnalysisByOid failed (non-fatal):', err);

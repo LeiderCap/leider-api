@@ -4,6 +4,18 @@ import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import type { LensSnapshot } from '@/lib/types';
 
+/** Shape passed from the lens page two-source resolver when grounding is available */
+interface GroundedERDisplay {
+  low: number | null;
+  high: number | null;
+  confidence: string;
+  source: 'multiple_gap' | 'operational_transformation' | null;
+  eri_base: number | null;
+  eri_upside: number | null;
+  enterprise_value: number | null;
+  isGrounded: boolean;
+}
+
 interface Props {
   item: Pick<
     LensSnapshot,
@@ -22,14 +34,30 @@ interface Props {
   >;
   /** Wrap the trigger in a span that makes the dollar range look interactive */
   showRange?: boolean;
+  /** When provided, renders the grounded tooltip instead of the legacy tooltip */
+  groundedER?: GroundedERDisplay;
+}
+
+function formatERValue(value: number | null): string {
+  if (value === null) return 'N/A';
+  if (value >= 1_000_000_000_000) return `$${(value / 1_000_000_000_000).toFixed(1)}T`;
+  if (value >= 1_000_000_000) return `$${(value / 1_000_000_000).toFixed(1)}B`;
+  if (value >= 1_000_000) return `$${(value / 1_000_000).toFixed(1)}M`;
+  return `$${value.toLocaleString()}`;
+}
+
+function formatERI(value: number | null): string {
+  if (value === null) return '';
+  return `${(value * 100).toFixed(2)}%`;
 }
 
 /**
  * UnlockPotentialInfoBubble
  * Matches the existing Tooltip component pattern (hover desktop, tap mobile).
  * On mobile, renders as a full-screen bottom sheet instead of a floating tooltip.
+ * When `groundedER` is provided, renders the Financial Grounding Module™ tooltip.
  */
-export function UnlockPotentialInfoBubble({ item, showRange = false }: Props) {
+export function UnlockPotentialInfoBubble({ item, showRange = false, groundedER }: Props) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLSpanElement>(null);
 
@@ -61,6 +89,68 @@ export function UnlockPotentialInfoBubble({ item, showRange = false }: Props) {
 
   // ── Content builders ────────────────────────────────────────────────────────
 
+  // Grounded tooltip (Financial Grounding Module™)
+  const groundedTitle = groundedER?.source === 'operational_transformation'
+    ? 'Grounded Equity Reclamation™ — Operational & Transformation'
+    : 'Grounded Equity Reclamation™ — Valuation Gap';
+
+  const groundedBody = groundedER ? (
+    <div className="space-y-2 text-xs text-slate-700 leading-5">
+      <p>
+        This estimate is grounded in real financial data for{' '}
+        <span className="font-semibold">{companyName}</span> via the Financial Grounding Module™.
+      </p>
+      <div>
+        <p className="font-semibold mb-1">Method:</p>
+        {groundedER.source === 'operational_transformation' ? (
+          <p className="text-slate-600">
+            This company trades at a premium to its sector peer median. The Equity Reclamation™
+            estimate is derived from the operational and transformation improvement potential
+            implied by the TCS™ gap — not from a multiple re-rating.
+          </p>
+        ) : (
+          <p className="text-slate-600">
+            This company trades below its sector peer median EV/EBITDA multiple. The Equity
+            Reclamation™ estimate is derived from the valuation gap that would close if the
+            company traded at the sector median.
+          </p>
+        )}
+      </div>
+      <div>
+        <p className="font-semibold mb-1">Inputs used:</p>
+        <ul className="space-y-0.5 pl-3">
+          {groundedER.enterprise_value != null && (
+            <li>• Enterprise value: <span className="font-semibold">{formatERValue(groundedER.enterprise_value)}</span></li>
+          )}
+          <li>• Base estimate: <span className="font-semibold">{formatERValue(groundedER.low)}</span></li>
+          <li>• Upside estimate: <span className="font-semibold">{formatERValue(groundedER.high)}</span></li>
+          {groundedER.eri_base != null && groundedER.eri_upside != null && (
+            <li>• Equity Reclamation Index™: <span className="font-semibold">{formatERI(groundedER.eri_base)} – {formatERI(groundedER.eri_upside)}</span></li>
+          )}
+        </ul>
+      </div>
+      <p className="text-slate-500 text-[11px]">
+        Governed by TI-013 Conservation of Enterprise Value™ Law and TI-015 Evidence Sufficiency Law™.
+        This is a modeled estimate. Actual results depend on execution and market conditions.
+      </p>
+    </div>
+  ) : null;
+
+  const groundedFooter = (
+    <p className="text-xs text-slate-400">
+      Confidence:{' '}
+      <span className={
+        groundedER?.confidence === 'High' ? 'text-green-600 font-semibold' :
+        groundedER?.confidence === 'Moderate-High' ? 'text-teal-600 font-semibold' :
+        groundedER?.confidence === 'Moderate' ? 'text-amber-600 font-semibold' :
+        'text-slate-500 font-semibold'
+      }>{groundedER?.confidence}</span>
+      {' · '}
+      <span className="text-slate-400">Financial Grounding Module™ v4.1</span>
+    </p>
+  );
+
+  // Legacy tooltip
   const title = source === 'cashless_buyback'
     ? 'How this was calculated'
     : 'How this was estimated';
@@ -145,6 +235,11 @@ export function UnlockPotentialInfoBubble({ item, showRange = false }: Props) {
       </p>
     );
 
+  // Use grounded content when available
+  const activeTitle = groundedER ? groundedTitle : title;
+  const activeBody = groundedER ? groundedBody : body;
+  const activeFooter = groundedER ? groundedFooter : footer;
+
   // ── Render ───────────────────────────────────────────────────────────────────
 
   return (
@@ -181,16 +276,16 @@ export function UnlockPotentialInfoBubble({ item, showRange = false }: Props) {
             onMouseLeave={() => setOpen(false)}
           >
             <div className="flex items-start justify-between mb-2">
-              <p className="text-sm font-bold text-slate-800">{title}</p>
+              <p className="text-sm font-bold text-slate-800">{activeTitle}</p>
               <button
                 className="text-slate-400 hover:text-slate-600 text-xs ml-2 flex-shrink-0"
                 onClick={(e) => { e.stopPropagation(); setOpen(false); }}
                 aria-label="Close"
               >✕</button>
             </div>
-            {body}
+            {activeBody}
             <div className="mt-3 pt-2 border-t border-slate-100">
-              {footer}
+              {activeFooter}
             </div>
           </span>
 
@@ -204,16 +299,16 @@ export function UnlockPotentialInfoBubble({ item, showRange = false }: Props) {
             {/* Sheet */}
             <span className="relative w-full bg-white rounded-t-2xl p-5 pb-8 shadow-2xl max-h-[80vh] overflow-y-auto">
               <div className="flex items-start justify-between mb-3">
-                <p className="text-base font-bold text-slate-800">{title}</p>
+                <p className="text-base font-bold text-slate-800">{activeTitle}</p>
                 <button
                   className="text-slate-400 hover:text-slate-600 text-sm ml-2 flex-shrink-0"
                   onClick={() => setOpen(false)}
                   aria-label="Close"
                 >✕</button>
               </div>
-              {body}
+              {activeBody}
               <div className="mt-4 pt-3 border-t border-slate-100">
-                {footer}
+                {activeFooter}
               </div>
             </span>
           </span>
