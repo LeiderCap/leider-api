@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useState } from 'react';
 import type { LensSnapshot } from '@/lib/types';
 
@@ -10,10 +9,6 @@ const BAND_COLORS: Record<string, string> = {
   Advanced:     'bg-blue-500',
   Developing:   'bg-amber-500',
   Emerging:     'bg-slate-400',
-};
-
-const BAND_NUMERIC: Record<string, number> = {
-  Emerging: 20, Developing: 40, Advanced: 60, Transforming: 80, Leading: 100,
 };
 
 function scoreToBand(score: number): string {
@@ -33,14 +28,14 @@ interface DeterminantsSectionV5Props {
   secondaryConstraint?: string | null;
 }
 
-// ─── Evidence Modal ───────────────────────────────────────────────────────────
+// ─── Evidence Modal (only shown when evidence array is present) ───────────────
 function EvidenceModal({
   title,
   evidence,
   onClose,
 }: {
   title: string;
-  evidence: Dimension['evidence'];
+  evidence: NonNullable<Dimension['evidence']>;
   onClose: () => void;
 }) {
   return (
@@ -82,11 +77,14 @@ function EvidenceModal({
 // ─── Single Dimension Card ─────────────────────────────────────────────────────
 function DimensionCard({ dim }: { dim: Dimension }) {
   const [showEvidence, setShowEvidence] = useState(false);
+
+  // Handle both full v5.0 model output (name+score+description) and extended format
   const isNotEstablished = dim.confidence === 'NOT_ESTABLISHED';
   const band = isNotEstablished ? null : scoreToBand(dim.score);
   const barColor = band ? (BAND_COLORS[band] ?? 'bg-slate-400') : 'bg-slate-200';
   const pct = isNotEstablished ? 0 : Math.min(100, Math.max(0, dim.score));
-  const weightPct = Math.round(dim.weight * 100);
+  const weightPct = dim.weight != null ? Math.round(dim.weight * 100) : null;
+  const evidence = dim.evidence ?? [];
 
   const confidenceBadgeColor: Record<string, string> = {
     HIGH:            'bg-emerald-100 text-emerald-700',
@@ -97,10 +95,10 @@ function DimensionCard({ dim }: { dim: Dimension }) {
 
   return (
     <>
-      {showEvidence && (
+      {showEvidence && evidence.length > 0 && (
         <EvidenceModal
           title={dim.name}
-          evidence={dim.evidence}
+          evidence={evidence}
           onClose={() => setShowEvidence(false)}
         />
       )}
@@ -108,24 +106,30 @@ function DimensionCard({ dim }: { dim: Dimension }) {
         {/* Header row */}
         <div className="flex items-start justify-between gap-2 mb-3">
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-bold text-slate-900 truncate">{dim.name}</p>
-            <p className="text-[10px] text-slate-400 mt-0.5">Weight: {weightPct}%</p>
+            <p className="text-sm font-bold text-slate-900 truncate capitalize">{dim.name}</p>
+            {weightPct != null && (
+              <p className="text-[10px] text-slate-400 mt-0.5">Weight: {weightPct}%</p>
+            )}
           </div>
           <div className="flex flex-col items-end gap-1 shrink-0">
-            {/* Confidence badge */}
-            <span
-              className={`inline-block rounded px-1.5 py-0.5 text-[10px] font-bold ${confidenceBadgeColor[dim.confidence] ?? 'bg-slate-100 text-slate-500'}`}
-            >
-              {isNotEstablished ? 'Insufficient Evidence' : dim.confidence}
-            </span>
-            {/* TI principle reference */}
-            <span className="text-[10px] leading-none px-1.5 py-0.5 rounded bg-slate-100 text-slate-500 font-semibold">
-              {dim.tiPrincipleId}
-            </span>
+            {/* Confidence badge — only shown when confidence is present */}
+            {dim.confidence && (
+              <span
+                className={`inline-block rounded px-1.5 py-0.5 text-[10px] font-bold ${confidenceBadgeColor[dim.confidence] ?? 'bg-slate-100 text-slate-500'}`}
+              >
+                {isNotEstablished ? 'Insufficient Evidence' : dim.confidence}
+              </span>
+            )}
+            {/* TI principle reference — only shown when present */}
+            {dim.tiPrincipleId && (
+              <span className="text-[10px] leading-none px-1.5 py-0.5 rounded bg-slate-100 text-slate-500 font-semibold">
+                {dim.tiPrincipleId}
+              </span>
+            )}
           </div>
         </div>
 
-        {/* Score or NOT_ESTABLISHED */}
+        {/* Score */}
         {isNotEstablished ? (
           <div className="mb-3">
             <p className="text-xs text-red-500 font-semibold">Insufficient Evidence — score not assigned</p>
@@ -148,13 +152,18 @@ function DimensionCard({ dim }: { dim: Dimension }) {
           </div>
         )}
 
-        {/* Evidence count */}
-        {dim.evidence.length > 0 && (
+        {/* Description (v5.0 model output) */}
+        {dim.description && (
+          <p className="text-xs text-slate-500 leading-5 mb-2">{dim.description}</p>
+        )}
+
+        {/* Evidence count — only shown when evidence array is present */}
+        {evidence.length > 0 && (
           <button
             className="text-[10px] text-slate-400 hover:text-slate-600 underline underline-offset-2 transition-colors"
             onClick={() => setShowEvidence(true)}
           >
-            {dim.evidence.length} evidence item{dim.evidence.length !== 1 ? 's' : ''}
+            {evidence.length} evidence item{evidence.length !== 1 ? 's' : ''}
           </button>
         )}
       </div>
@@ -172,9 +181,10 @@ export function DeterminantsSectionV5({
 
   return (
     <section className="card mt-8 p-6">
-      <h2 className="text-xl font-bold">TCS Determinants</h2>
+      <p className="text-[10px] font-bold uppercase tracking-widest text-amber-500 mb-1">Lens Synthesis Engine™ v5.0</p>
+      <h2 className="text-xl font-bold text-slate-900">TCS Determinants</h2>
       <p className="mt-1 text-sm text-slate-500">
-        Dynamic dimensions from Lens Synthesis Engine v5.0. Scores and weights derived from evidence architecture.
+        Dynamic dimensions derived from evidence architecture.
       </p>
 
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

@@ -276,10 +276,10 @@ export function computeWeightedTCS(
     (d) => d.confidence !== 'NOT_ESTABLISHED' && d.score != null
   );
   if (established.length === 0) return null;
-  const totalWeight = established.reduce((sum, d) => sum + d.weight, 0);
+  const totalWeight = established.reduce((sum, d) => sum + (d.weight ?? 1), 0);
   if (totalWeight === 0) return null;
   return Math.round(
-    established.reduce((sum, d) => sum + d.score * d.weight, 0) / totalWeight
+    established.reduce((sum, d) => sum + d.score * (d.weight ?? 1), 0) / totalWeight
   );
 }
 

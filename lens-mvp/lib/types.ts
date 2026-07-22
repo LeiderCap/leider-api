@@ -239,42 +239,76 @@ export interface LensSnapshot {
   // All fields below are optional and unused by v4.0 code paths.
   // Sprint: LSE-P1 — Phase 1: Foundation (additive only)
 
+  // ─── v5.0 TCS Dimensions ─────────────────────────────────────────────────────
+  // Matches model output: name + score + description only.
+  // weight, slug, tiPrincipleId are not emitted by the model in v5.0.
   dimensions?: Array<{
     name: string;
-    slug: string;
     score: number;                    // 0–100
-    weight: number;                   // 0–1, must sum to 1.0 across array
-    confidence: 'HIGH' | 'MODERATE' | 'LOW' | 'NOT_ESTABLISHED';
-    tiPrincipleId: string;            // e.g. "TI-015"
-    evidence: Array<{
+    description?: string;             // model-provided rationale for this score
+    // Optional extended fields (may be present in future model versions)
+    weight?: number;                  // 0–1
+    slug?: string;
+    confidence?: 'HIGH' | 'MODERATE' | 'LOW' | 'NOT_ESTABLISHED';
+    tiPrincipleId?: string;           // e.g. "TI-015"
+    evidence?: Array<{
       claim: string;
       source: string;
       confidence: string;
     }>;
   }>;
 
+  // ─── v5.0 Governing Mechanism ─────────────────────────────────────────────
+  // Model emits: { description, rationale } (not name/whyItMatters/etc.)
   governingMechanism?: {
-    name: string;
-    whyItMatters: string;
-    whyUnrealized: string;
-    requiredStateChange: string;
+    description: string;
+    rationale?: string;
+    // Optional extended fields
+    name?: string;
+    whyItMatters?: string;
+    whyUnrealized?: string;
+    requiredStateChange?: string;
   };
 
   coreStructuralProblem?: string;     // single sentence diagnostic
 
+  // ─── v5.0 Value Conversion Chain ──────────────────────────────────────────
+  // Model emits nodes as string[] and brokenLink as a string description.
   valueConversionChain?: {
-    nodes: Array<{
-      label: string;
-      measurable: boolean;
-    }>;
-    currentPosition: string;
-    brokenLink: string;
-    nextRequiredState: string;
-    evidenceTrigger: string;
+    nodes: Array<string | { label: string; measurable?: boolean }>;
+    brokenLink?: string;
+    currentPosition?: string;
+    nextRequiredState?: string;
+    evidenceTrigger?: string;
   };
 
+  // ─── v5.0 Adversarial Diagnosis ───────────────────────────────────────────
+  // Model emits as { H1: {...}, H2: {...}, H3: {...} } (keyed object, not array).
   adversarialDiagnosis?: {
-    hypotheses: Array<{
+    // Keyed format (model output)
+    H1?: {
+      description: string;
+      evidenceCoverage: string;
+      unsupportedAssumptions: string;
+      measurablePredictions?: string;
+      status?: 'LEADING' | 'PLAUSIBLE' | 'WEAKENING' | 'NOT_ESTABLISHED';
+    };
+    H2?: {
+      description: string;
+      evidenceCoverage: string;
+      unsupportedAssumptions: string;
+      measurablePredictions?: string;
+      status?: 'LEADING' | 'PLAUSIBLE' | 'WEAKENING' | 'NOT_ESTABLISHED';
+    };
+    H3?: {
+      description: string;
+      evidenceCoverage: string;
+      unsupportedAssumptions: string;
+      measurablePredictions?: string;
+      status?: 'LEADING' | 'PLAUSIBLE' | 'WEAKENING' | 'NOT_ESTABLISHED';
+    };
+    // Array format (alternative model output — both must be handled)
+    hypotheses?: Array<{
       label: 'H1' | 'H2' | 'H3';
       description: string;
       evidenceCoverage: string;
@@ -283,21 +317,24 @@ export interface LensSnapshot {
     }>;
   };
 
+  // ─── v5.0 Five Numbers That Matter ────────────────────────────────────────
+  // Model emits: { metric, evidenceState: 'INFERRED'|'OBSERVED'|..., importance }
   fiveNumbersThatMatter?: Array<{
     metric: string;
-    evidenceState: 'OBSERVED' | 'PARTIAL' | 'UNAVAILABLE';
-    whyItMatters: string;
+    evidenceState: 'OBSERVED' | 'PARTIAL' | 'UNAVAILABLE' | 'INFERRED';
+    importance?: string;              // model field name
+    whyItMatters?: string;           // alternative field name
   }>;
 
+  // ─── v5.0 Ontology Retrieval ──────────────────────────────────────────────
+  // Model emits: { principle, classification, rationale }
   ontologyRetrieval?: Array<{
-    tiPrincipleId: string;
-    state:
-      | 'ACTIVE'
-      | 'SUPPORTING'
-      | 'CHALLENGER'
-      | 'NOT_ESTABLISHED'
-      | 'NOT_RELEVANT';
-    whyRelevant: string;
+    principle?: string;               // model field name
+    tiPrincipleId?: string;          // alternative field name
+    classification?: string;          // model field name (ACTIVE/SUPPORTING/etc.)
+    state?: 'ACTIVE' | 'SUPPORTING' | 'CHALLENGER' | 'NOT_ESTABLISHED' | 'NOT_RELEVANT';
+    rationale?: string;
+    whyRelevant?: string;            // alternative field name
   }>;
 
   valueAttributionBridge?: Array<{

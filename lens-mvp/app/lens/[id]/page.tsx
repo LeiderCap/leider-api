@@ -683,8 +683,11 @@ export default async function LensDetailPage({ params, searchParams }: { params:
         {/* v5.0 Synthesis Engine sections — additive, gated on lensEngineVersion */}
         {item.lensEngineVersion === 'v5.0' && (
           <div className="v5-sections space-y-6 mt-6">
-            {item.governingMechanism && (
-              <GoverningMechanismSection mechanism={item.governingMechanism} />
+            {(item.governingMechanism || item.coreStructuralProblem) && (
+              <GoverningMechanismSection
+                governingMechanism={item.governingMechanism}
+                coreStructuralProblem={item.coreStructuralProblem}
+              />
             )}
             {item.valueConversionChain && (
               <ValueConversionChain chain={item.valueConversionChain} />
