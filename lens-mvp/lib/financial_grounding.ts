@@ -7,7 +7,7 @@
  *
  * Components:
  *   1. fetchFinancialGroundingData  — FMP data fetcher
- *   2. calculatePeerFrontier        — Peer EV/EBITDA frontier calculator
+ *   2. calculatePeerFrontier        — Peer EV/EBITDA frontier calculator (with sector fallback)
  *   3. calculateGroundedEquityReclamation — Core ER formula
  *   4. runFinancialGrounding        — Top-level orchestrator
  *
@@ -18,6 +18,24 @@
  *
  * FMP base: https://financialmodelingprep.com/stable  (consistent with retrieve/route.ts)
  */
+
+// ── Sector EV/EBITDA Fallback Table (Approach B) ─────────────────────────────
+// Used when live peer screener returns 0 results (FMP Starter plan limitation).
+// Source: consensus sell-side sector medians, calibrated 2025-2026.
+// peer_count = -1 is the sentinel value indicating sector_fallback was used.
+const SECTOR_EV_EBITDA_MEDIANS: Record<string, { base: number; upside: number }> = {
+  'Consumer Defensive':    { base: 14.8, upside: 17.5 },
+  'Consumer Cyclical':     { base: 13.2, upside: 16.0 },
+  'Technology':            { base: 18.5, upside: 24.0 },
+  'Healthcare':            { base: 14.0, upside: 18.0 },
+  'Industrials':           { base: 12.5, upside: 15.5 },
+  'Energy':                { base: 8.0,  upside: 11.0 },
+  'Financials':            { base: 11.0, upside: 14.0 },
+  'Communication Services':{ base: 12.0, upside: 16.5 },
+  'Basic Materials':       { base: 9.5,  upside: 12.5 },
+  'Real Estate':           { base: 16.0, upside: 20.0 },
+  'Utilities':             { base: 11.5, upside: 14.0 },
+};
 
 // ── Typed Interfaces ─────────────────────────────────────────────────────────
 
@@ -47,6 +65,7 @@ export interface PeerFrontierResult {
   peer_ev_ebitda_median: number | null;
   peer_ev_ebitda_75th_percentile: number | null;
   peer_count: number;
+  peer_source: 'live_screener' | 'sector_fallback' | 'none';
   ev_frontier_base: number | null;
   ev_frontier_upside: number | null;
   ev_gap_base: number | null;
@@ -203,16 +222,15 @@ export async function calculatePeerFrontier(
   const t = ticker.toUpperCase();
   let peerMultiples: number[] = [];
   let peer_count = 0;
+  let peer_source: 'live_screener' | 'sector_fallback' | 'none' = 'none';
 
   if (sector) {
     try {
-      // Fetch peer list from stock screener (large-cap peers, exclude subject ticker)
-      // FMP /stable stock-screener uses marketCapMoreThan (in millions on some plans)
-      // Try both parameter names for compatibility
+      // Attempt live peer screener (FMP Starter plan — screener may return 404)
       let peers: any[] = await fmpGet(
         `/stock-screener?sector=${encodeURIComponent(sector)}&marketCapMoreThan=5000000000&limit=30`
       ) ?? [];
-      // If empty, try without marketCap filter (screener may use different param)
+      // Fallback: try without marketCap filter
       if (peers.length === 0) {
         peers = await fmpGet(
           `/stock-screener?sector=${encodeURIComponent(sector)}&limit=30`
@@ -224,7 +242,7 @@ export async function calculatePeerFrontier(
         .filter((s: string) => s && s !== t)
         .slice(0, 20);
 
-      // Fetch key-metrics for each peer in parallel — /stable query-style
+      // Fetch key-metrics for each peer in parallel
       const peerResults = await Promise.allSettled(
         peerTickers.map(pt => fmpGet(`/key-metrics?symbol=${pt}&period=annual&limit=1`))
       );
@@ -241,13 +259,30 @@ export async function calculatePeerFrontier(
         }
       }
       peer_count = peerMultiples.length;
+      if (peer_count > 0) peer_source = 'live_screener';
     } catch {
-      // Non-fatal — proceed with empty peer set
+      // Non-fatal — proceed to sector fallback
     }
   }
 
-  const peer_ev_ebitda_median = median(peerMultiples);
-  const peer_ev_ebitda_75th_percentile = percentile75(peerMultiples);
+  // ── Approach B: Sector Median Fallback ────────────────────────────────────
+  // If live screener returned 0 peers, use hardcoded sector medians.
+  // peer_count = -1 is the sentinel: "sector_fallback used, not live peers"
+  let peer_ev_ebitda_median: number | null = null;
+  let peer_ev_ebitda_75th_percentile: number | null = null;
+
+  if (peer_count === 0 && sector) {
+    const sectorFallback = SECTOR_EV_EBITDA_MEDIANS[sector];
+    if (sectorFallback) {
+      peer_ev_ebitda_median = sectorFallback.base;
+      peer_ev_ebitda_75th_percentile = sectorFallback.upside;
+      peer_source = 'sector_fallback';
+      peer_count = -1; // sentinel: indicates fallback used, not live peers
+    }
+  } else {
+    peer_ev_ebitda_median = median(peerMultiples);
+    peer_ev_ebitda_75th_percentile = percentile75(peerMultiples);
+  }
 
   let ev_frontier_base: number | null = null;
   let ev_frontier_upside: number | null = null;
@@ -276,6 +311,7 @@ export async function calculatePeerFrontier(
     }
   }
 
+  // data_completeness for peer frontier: live peers >= 5 = complete; fallback = partial
   const data_completeness: 'complete' | 'partial' = peer_count >= 5 ? 'complete' : 'partial';
 
   return {
@@ -284,6 +320,7 @@ export async function calculatePeerFrontier(
     peer_ev_ebitda_median,
     peer_ev_ebitda_75th_percentile,
     peer_count,
+    peer_source,
     ev_frontier_base,
     ev_frontier_upside,
     ev_gap_base,
@@ -334,12 +371,15 @@ export function calculateGroundedEquityReclamation(
     ? er_upside_raw / ev_gap_upside
     : null;
 
-  // Confidence tier determination
+  // Confidence tier — updated per spec
   let confidence: 'High' | 'Moderate-High' | 'Moderate' | 'Low';
   if (data_completeness === 'complete' && peer_count >= 10) {
     confidence = 'High';
   } else if (data_completeness === 'complete' && peer_count >= 5) {
     confidence = 'Moderate-High';
+  } else if (peer_count === -1) {
+    // sector fallback used
+    confidence = 'Moderate';
   } else if (data_completeness === 'partial') {
     confidence = 'Moderate';
   } else {
