@@ -82,13 +82,14 @@ export interface FinancialGroundingBundle {
 
 // ── Internal Helpers ──────────────────────────────────────────────────────────
 
-const FMP_BASE = 'https://financialmodelingprep.com/stable';
+// FMP v3 API — path-style endpoints: /api/v3/ENDPOINT/TICKER?limit=1&apikey=KEY
+const FMP_V3_BASE = 'https://financialmodelingprep.com/api/v3';
 
 async function fmpGet(path: string): Promise<any> {
   const apiKey = process.env.FMP_API_KEY;
   if (!apiKey) throw new Error('FMP_API_KEY not configured');
   const sep = path.includes('?') ? '&' : '?';
-  const url = `${FMP_BASE}${path}${sep}apikey=${apiKey}`;
+  const url = `${FMP_V3_BASE}${path}${sep}apikey=${apiKey}`;
   const res = await fetch(url, { next: { revalidate: 3600 } });
   if (!res.ok) return null;
   const data = await res.json();
@@ -125,12 +126,12 @@ function percentile75(arr: number[]): number | null {
 export async function fetchFinancialGroundingData(ticker: string): Promise<FinancialGroundingInputs> {
   const t = ticker.toUpperCase();
 
-  // Parallel FMP calls — /stable endpoint style (symbol= query param)
+  // Parallel FMP calls — v3 path-style endpoints
   const [profileData, incomeData, balanceData, metricsData] = await Promise.allSettled([
-    fmpGet(`/profile?symbol=${t}`),
-    fmpGet(`/income-statement?symbol=${t}&limit=1`),
-    fmpGet(`/balance-sheet-statement?symbol=${t}&limit=1`),
-    fmpGet(`/key-metrics?symbol=${t}&limit=1`),
+    fmpGet(`/profile/${t}`),
+    fmpGet(`/income-statement/${t}?limit=1`),
+    fmpGet(`/balance-sheet-statement/${t}?limit=1`),
+    fmpGet(`/key-metrics/${t}?limit=1`),
   ]);
 
   const profile = profileData.status === 'fulfilled'
@@ -146,7 +147,8 @@ export async function fetchFinancialGroundingData(ticker: string): Promise<Finan
     ? (Array.isArray(metricsData.value) ? metricsData.value[0] : metricsData.value) ?? {}
     : {};
 
-  const mktCap = safeNum(profile.mktCap);
+  // FMP v3 profile uses 'mktCap' in /stable but 'mktCap' in v3 profile — confirmed field name
+  const mktCap = safeNum(profile.mktCap ?? profile.marketCap);
   const totalDebt = safeNum(balance.totalDebt);
   const cash = safeNum(balance.cashAndCashEquivalents);
   const netDebt = (totalDebt !== null && cash !== null) ? totalDebt - cash : null;
@@ -200,7 +202,7 @@ export async function calculatePeerFrontier(
     try {
       // Fetch peer list from stock screener (large-cap peers, exclude subject ticker)
       const peers: any[] = await fmpGet(
-        `/stock-screener?sector=${encodeURIComponent(sector)}&marketCapMoreThan=10000000000&limit=25`
+        `/stock-screener?sector=${encodeURIComponent(sector)}&marketCapMoreThan=10000000000&limit=25&exchange=NYSE,NASDAQ`
       ) ?? [];
 
       const peerTickers: string[] = peers
@@ -208,9 +210,9 @@ export async function calculatePeerFrontier(
         .filter((s: string) => s && s !== t)
         .slice(0, 20);
 
-      // Fetch key-metrics for each peer in parallel
+      // Fetch key-metrics for each peer in parallel — v3 path-style
       const peerResults = await Promise.allSettled(
-        peerTickers.map(pt => fmpGet(`/key-metrics?symbol=${pt}&limit=1`))
+        peerTickers.map(pt => fmpGet(`/key-metrics/${pt}?limit=1`))
       );
 
       for (const result of peerResults) {
