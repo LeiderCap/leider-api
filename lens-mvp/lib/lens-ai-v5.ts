@@ -265,6 +265,23 @@ export async function callLensEngineV5(
 // These helpers are pure functions — no side effects, no DB writes.
 
 /**
+ * Convert a numeric TCS score (0–100) to a RatingTier label.
+ * Uses the official TCS™ Rating Bands from the v4.0 prompt:
+ *   85–100 = Leading™
+ *   75–84  = Transforming™
+ *   65–74  = Advanced™
+ *   55–64  = Developing™
+ *   Below 55 = Emerging™
+ */
+export function numericToRatingTier(score: number): string {
+  if (score >= 85) return 'Leading';
+  if (score >= 75) return 'Transforming';
+  if (score >= 65) return 'Advanced';
+  if (score >= 55) return 'Developing';
+  return 'Emerging';
+}
+
+/**
  * Compute a weighted TCS score from the v5.0 dimensions array.
  * Returns null if no dimensions have established confidence.
  */
@@ -339,5 +356,9 @@ export function deriveV5LegacyFields(snapshot: LensSnapshot): void {
   const weightedTCS = computeWeightedTCS(snapshot.dimensions);
   if (weightedTCS !== null) {
     snapshot.tcs_numeric = weightedTCS;
+    // Also set the RatingTier label for backward compatibility with v4.0 UI consumers
+    if (!snapshot.tcs_score || snapshot.tcs_score === 0 || snapshot.tcs_score === ('0' as any)) {
+      (snapshot as any).tcs_score = numericToRatingTier(weightedTCS);
+    }
   }
 }
