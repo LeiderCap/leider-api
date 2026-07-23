@@ -45,6 +45,8 @@ export const ADR_MAPPING = [
   { searchTerms: ['infosys'], adrTicker: 'INFY', exchange: 'NYSE', primaryExchange: 'NSE', companyName: 'Infosys Limited' },
   { searchTerms: ['wipro'], adrTicker: 'WIT', exchange: 'NYSE', primaryExchange: 'NSE', companyName: 'Wipro Limited' },
   { searchTerms: ['tata motors'], adrTicker: 'TTM', exchange: 'NYSE', primaryExchange: 'NSE', companyName: 'Tata Motors Limited' },
+  // Private companies with US equity listings
+  { searchTerms: ['spacex', 'space x', 'space exploration technologies'], adrTicker: 'SPCX', exchange: 'NASDAQ', primaryExchange: 'NASDAQ', companyName: 'Space Exploration Technologies Corp.' },
 ] as const;
 
 export type AdrEntry = (typeof ADR_MAPPING)[number];
