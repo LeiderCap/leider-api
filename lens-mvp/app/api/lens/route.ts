@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createLensSnapshot, saveLensAnalysis, updateLensAnalysisGrounding, updateLensAnalysisField } from '@/lib/lens-service';
+import { createLensSnapshot, saveLensAnalysis, updateLensAnalysisGrounding, updateLensAnalysisField, updateLensAnalysisJsonField } from '@/lib/lens-service';
 import { getSupabaseClient } from '@/lib/supabase';
 import { buildGroundTruthPromptContext } from '@/lib/lens/ground-truth';
 import type { GroundTruth } from '@/lib/lens/ground-truth';
@@ -246,7 +246,13 @@ export async function POST(request: Request) {
           if (er?.eri_base != null) {
             const eriBasePct = Math.round(er.eri_base * 100);
             const eriUpsidePct = er.eri_upside != null ? Math.round(er.eri_upside * 100) : eriBasePct;
-            await updateLensAnalysisField(persistedOid, 'equity_reclamation', `${eriBasePct}%\u2013${eriUpsidePct}%`);
+            const erString = `${eriBasePct}%\u2013${eriUpsidePct}%`;
+            // Set on in-memory snapshot so the API response reflects it
+            (snapshot as any).equity_reclamation = erString;
+            // Update the dedicated text column
+            await updateLensAnalysisField(persistedOid, 'equity_reclamation', erString);
+            // Also patch analysis_json so getLensByIdOrCache reads it correctly on next page load
+            await updateLensAnalysisJsonField(persistedOid, 'equity_reclamation', erString);
           }
         }
       } catch (err) {

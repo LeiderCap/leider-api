@@ -518,6 +518,47 @@ export async function updateLensAnalysisField(
 }
 
 /**
+ * Patch a single key inside the analysis_json JSONB column using Postgres jsonb_set.
+ * Non-fatal — logs and swallows errors.
+ */
+export async function updateLensAnalysisJsonField(
+  oid: string,
+  key: string,
+  value: string | null,
+): Promise<void> {
+  try {
+    const supabase = getServiceSupabaseClient();
+    if (!supabase) {
+      console.warn('[lens-service] Supabase not configured — skipping analysis_json patch');
+      return;
+    }
+    // Use Supabase RPC or raw SQL to patch a JSONB key.
+    // Supabase JS client does not support jsonb_set directly, so we read-modify-write.
+    const { data, error: readError } = await supabase
+      .from('lens_analyses')
+      .select('analysis_json')
+      .eq('oid', oid)
+      .maybeSingle();
+    if (readError || !data) {
+      console.warn('[lens-service] analysis_json read failed for patch:', readError?.message);
+      return;
+    }
+    const patched = { ...(data.analysis_json as Record<string, unknown>), [key]: value };
+    const { error: writeError } = await supabase
+      .from('lens_analyses')
+      .update({ analysis_json: patched })
+      .eq('oid', oid);
+    if (writeError) {
+      console.warn(`[lens-service] analysis_json patch(${key}) failed:`, writeError.message);
+    } else {
+      console.log(`[lens-service] analysis_json.${key} patched for OID:`, oid);
+    }
+  } catch (err) {
+    console.warn(`[lens-service] updateLensAnalysisJsonField(${key}) failed (non-fatal):`, err);
+  }
+}
+
+/**
  * Fetch the latest stored Lens Analysis™ from lens_analyses for a given ticker.
  * Returns null if not found or if the table doesn't exist yet.
  */
