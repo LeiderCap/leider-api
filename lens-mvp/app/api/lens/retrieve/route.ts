@@ -293,7 +293,7 @@ export async function POST(req: NextRequest) {
       // Score each 8-K for materiality (fetch body in parallel, cap at 20 to
       // avoid excessive latency — the most recent 20 8-Ks cover ~3–5 years for
       // most companies and include any major M&A events in that window)
-      const candidateFilings = only8Ks.slice(0, 20);
+      const candidateFilings = only8Ks.slice(0, 30);
       const bodyTexts = await Promise.all(
         candidateFilings.map((f: any) =>
           fetch8KBodyText(f.link ?? f.finalLink ?? '')
