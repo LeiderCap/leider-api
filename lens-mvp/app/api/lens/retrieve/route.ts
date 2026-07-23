@@ -108,7 +108,7 @@ export async function POST(req: NextRequest) {
       // Supplemental: 8-K-only query for 2024-2025 to catch deal announcements that
       // get crowded out of the primary query by high-volume non-8-K filings (SC TO-T/A,
       // Form 4s, etc.) during tender offer periods
-      fmpFetch(`/sec-filings-search/symbol?symbol=${tickerUpper}&formType=8-K&from=2024-01-01&to=2025-12-31&limit=50`, 'sec-filings-8K-older', tickerUpper, isDiag),
+      fmpFetch(`/sec-filings-search/symbol?symbol=${tickerUpper}&formType=8-K&from=2024-01-01&to=2025-04-30&limit=50`, 'sec-filings-8K-older', tickerUpper, isDiag),
       fmpFetch(`/earnings?symbol=${tickerUpper}&limit=4`, 'earnings', tickerUpper, isDiag),
       fmpFetch(`/earning-call-transcript?symbol=${tickerUpper}&limit=1`, 'earnings-transcript', tickerUpper, isDiag),
       fmpFetch(`/key-executives?symbol=${tickerUpper}`, 'key-executives', tickerUpper, isDiag),
