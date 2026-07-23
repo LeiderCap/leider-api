@@ -110,7 +110,7 @@ export async function GET(request: Request) {
       if (!ALLOWED_EXCHANGES.has(exchange)) return false;
       if (BLOCKED_TYPES.has(type)) return false;
       // Filter out ETF-like names
-      if (/\b(ETF|FUND|INDEX|TRUST|SPDR|ISHARES|INVESCO|VANGUARD|DIREXION|PROSHARES)\b/i.test(item.name)) return false;
+      if (/\b(ETF|FUND|INDEX|SPDR|ISHARES|INVESCO|VANGUARD|DIREXION|PROSHARES)\b/i.test(item.name)) return false;
       return true;
     });
 
