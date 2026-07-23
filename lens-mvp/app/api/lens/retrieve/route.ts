@@ -102,7 +102,7 @@ export async function POST(req: NextRequest) {
       fmpFetch(`/income-statement?symbol=${tickerUpper}&period=annual&limit=2`, 'income-statement', tickerUpper, isDiag),
       fmpFetch(`/key-metrics?symbol=${tickerUpper}&period=annual&limit=1`, 'key-metrics', tickerUpper, isDiag),
       fmpFetch(`/news/stock?symbols=${tickerUpper}&limit=10`, 'stock-news', tickerUpper, isDiag),
-      fmpFetch(`/sec-filings-search/symbol?symbol=${tickerUpper}&formType=8-K&from=2023-01-01&to=2026-12-31&limit=5`, 'sec-filings-8K', tickerUpper, isDiag),
+      fmpFetch(`/sec-filings-search/symbol?symbol=${tickerUpper}&formType=8-K&from=2020-01-01&to=2026-12-31&limit=100`, 'sec-filings-8K', tickerUpper, isDiag),
       fmpFetch(`/earnings?symbol=${tickerUpper}&limit=4`, 'earnings', tickerUpper, isDiag),
       fmpFetch(`/earning-call-transcript?symbol=${tickerUpper}&limit=1`, 'earnings-transcript', tickerUpper, isDiag),
       fmpFetch(`/key-executives?symbol=${tickerUpper}`, 'key-executives', tickerUpper, isDiag),
@@ -212,22 +212,125 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // ── Process SEC filings (8-K) ─────────────────────────────────────────────
+    // ── Process SEC filings (8-K) — materiality-aware selection ─────────────
+    // Strategy: widen the historical window, score each 8-K for M&A/strategic
+    // materiality by fetching the filing body and keyword-matching, then select
+    // the top material filings + the 2 most recent regardless of materiality.
     const secFilings = Array.isArray(secFilingsData) ? secFilingsData : [];
     let sec_filing_found = false;
+
+    // High-signal M&A keywords — presence of ANY of these indicates a material
+    // strategic event (acquisition, merger, change of control, tender offer).
+    // Deliberately excludes 'definitive agreement' alone (too common as boilerplate
+    // in Item 1.01 credit amendments).
+    const MATERIAL_8K_KEYWORDS = [
+      'acquisition', 'merger', 'tender offer', 'transaction agreement',
+      'completion of acquisition', 'item 2.01', 'item 5.01',
+      'change of control', 'squeeze-out', 'business combination', 'takeover',
+    ];
+
+    /**
+     * Fetch the main 8-K body document from an SEC index page URL and
+     * return the plain-text content (lowercased) for keyword matching.
+     * Returns null on any fetch/parse failure (non-fatal).
+     */
+    async function fetch8KBodyText(indexUrl: string): Promise<string | null> {
+      try {
+        const idxRes = await fetch(indexUrl, {
+          headers: { 'User-Agent': 'LensAnalysis research@lensanalysis.com' },
+          signal: AbortSignal.timeout(6000),
+        });
+        if (!idxRes.ok) return null;
+        const idxHtml = await idxRes.text();
+        // Extract main 8-K body URL from the index page
+        // iXBRL viewer links: /ix?doc=/Archives/edgar/.../file.htm
+        const ixMatch = idxHtml.match(/\/ix\?doc=(\/Archives\/edgar\/[^"'\s]+\.htm)/i);
+        if (ixMatch) {
+          const bodyUrl = `https://www.sec.gov${ixMatch[1]}`;
+          const bodyRes = await fetch(bodyUrl, {
+            headers: { 'User-Agent': 'LensAnalysis research@lensanalysis.com' },
+            signal: AbortSignal.timeout(8000),
+          });
+          if (!bodyRes.ok) return null;
+          const bodyHtml = await bodyRes.text();
+          // Strip HTML tags for plain text
+          return bodyHtml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').toLowerCase();
+        }
+        return null;
+      } catch {
+        return null;
+      }
+    }
+
     if (secFilings.length > 0) {
       sec_filing_found = true;
-      // Include up to 3 most recent 8-K filings for M&A / material event coverage
-      const recentFilings = secFilings.slice(0, 3);
-      const content = recentFilings.map((filing: any) => [
+
+      // Filter to only true 8-K filings (exclude SC 13G/A, Form 4, 10-Q, etc.)
+      const only8Ks = secFilings.filter((f: any) =>
+        (f.formType ?? f.type ?? '').toUpperCase() === '8-K'
+      );
+
+      if (isDiag) console.log(`[retrieve][${tickerUpper}] DIAG: sec-filings — ${secFilings.length} total, ${only8Ks.length} pure 8-Ks`);
+
+      // Score each 8-K for materiality (fetch body in parallel, cap at 20 to
+      // avoid excessive latency — the most recent 20 8-Ks cover ~3–5 years for
+      // most companies and include any major M&A events in that window)
+      const candidateFilings = only8Ks.slice(0, 20);
+      const bodyTexts = await Promise.all(
+        candidateFilings.map((f: any) =>
+          fetch8KBodyText(f.link ?? f.finalLink ?? '')
+        )
+      );
+
+      const scoredFilings = candidateFilings.map((f: any, i: number) => {
+        const text = bodyTexts[i] ?? '';
+        const matchedKeywords = MATERIAL_8K_KEYWORDS.filter(kw => text.includes(kw));
+        const materialityScore = matchedKeywords.length;
+        return { filing: f, materialityScore, matchedKeywords };
+      });
+
+      if (isDiag) {
+        scoredFilings.forEach(({ filing, materialityScore, matchedKeywords }) => {
+          const date = (filing.filingDate ?? filing.date ?? '?').slice(0, 10);
+          console.log(`[retrieve][${tickerUpper}] DIAG: 8-K ${date} score=${materialityScore} keywords=[${matchedKeywords.join(',')}]`);
+        });
+      }
+
+      // Select: top material filings (score >= 1) sorted by score desc, then
+      // fill remaining slots with the 2 most recent filings regardless of score.
+      // Total cap: 5 filings to keep prompt size bounded.
+      const materialFilings = scoredFilings
+        .filter(s => s.materialityScore >= 1)
+        .sort((a, b) => b.materialityScore - a.materialityScore)
+        .slice(0, 3)
+        .map(s => s.filing);
+
+      const recentFilings = candidateFilings.slice(0, 2);
+
+      // Merge: material first, then recent, dedup by link
+      const seenLinks = new Set<string>();
+      const selectedFilings: any[] = [];
+      for (const f of [...materialFilings, ...recentFilings]) {
+        const key = f.link ?? f.finalLink ?? '';
+        if (!seenLinks.has(key)) {
+          seenLinks.add(key);
+          selectedFilings.push(f);
+        }
+        if (selectedFilings.length >= 5) break;
+      }
+
+      if (isDiag) console.log(`[retrieve][${tickerUpper}] DIAG: selected ${selectedFilings.length} 8-Ks (${materialFilings.length} material + recent fill)`);
+
+      const content = selectedFilings.map((filing: any) => [
         `Filing Type: ${filing.formType ?? filing.type ?? '8-K'}`,
         `Filing Date: ${filing.filingDate ?? filing.fillingDate ?? filing.date ?? 'N/A'}`,
         `Link: ${filing.link ?? filing.finalLink ?? 'N/A'}`,
       ].join('\n')).join('\n---\n');
+
       retrievedDocuments.push({
         source_type: 'sec_filing',
-        title: `${fmpCompanyName || tickerUpper} — Recent SEC 8-K Filings`,
-        url: recentFilings[0]?.link ?? recentFilings[0]?.finalLink ?? `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&company=${tickerUpper}`,
+        title: `${fmpCompanyName || tickerUpper} — SEC 8-K Filings (Material + Recent)`,
+        url: selectedFilings[0]?.link ?? selectedFilings[0]?.finalLink ?? `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&company=${tickerUpper}`,
         relevance_score: 0.95,
         tokens_used: Math.ceil(content.length / 4),
         included_in_prompt: true,
