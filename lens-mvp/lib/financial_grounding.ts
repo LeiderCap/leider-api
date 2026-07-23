@@ -71,6 +71,7 @@ export interface PeerFrontierResult {
   ev_gap_base: number | null;
   ev_gap_upside: number | null;
   trades_at_premium: boolean;
+  valuation_regime: 'below_median' | 'moderate_premium' | 'extreme_growth_premium' | null;
   data_completeness: 'complete' | 'partial';
 }
 
@@ -216,7 +217,7 @@ export async function fetchFinancialGroundingData(ticker: string): Promise<Finan
 export async function calculatePeerFrontier(
   ticker: string,
   sector: string | null,
-  _ev_ebitda_current: number | null,
+  ev_ebitda_current: number | null,
   ebitda: number | null,
   enterprise_value: number | null,
 ): Promise<PeerFrontierResult> {
@@ -315,6 +316,19 @@ export async function calculatePeerFrontier(
   // data_completeness for peer frontier: live peers >= 5 = complete; fallback = partial
   const data_completeness: 'complete' | 'partial' = peer_count >= 5 ? 'complete' : 'partial';
 
+  // ── valuation_regime: display-layer signal only, does not affect ER math ──
+  let valuation_regime: 'below_median' | 'moderate_premium' | 'extreme_growth_premium' | null = null;
+  if (ev_ebitda_current !== null && peer_ev_ebitda_median !== null && peer_ev_ebitda_median > 0) {
+    const ratio = ev_ebitda_current / peer_ev_ebitda_median;
+    if (ratio < 1.0) {
+      valuation_regime = 'below_median';
+    } else if (ratio <= 3.0) {
+      valuation_regime = 'moderate_premium';
+    } else {
+      valuation_regime = 'extreme_growth_premium';
+    }
+  }
+
   return {
     ticker: t,
     sector,
@@ -327,6 +341,7 @@ export async function calculatePeerFrontier(
     ev_gap_base,
     ev_gap_upside,
     trades_at_premium,
+    valuation_regime,
     data_completeness,
   };
 }
