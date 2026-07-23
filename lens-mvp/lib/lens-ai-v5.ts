@@ -1,4 +1,9 @@
 import type { LensSnapshot } from './types';
+import constitutionData from '../data/constitution-block.json';
+
+// TI Constitution principle registry — 133 principles (id | name | short definition)
+// Built from data/constitution.ts; injected into every callLensEngineV5 call.
+const CONSTITUTION_BLOCK: string = (constitutionData as { block: string }).block;
 
 export const LENS_SYSTEM_PROMPT_V5 = `You are the Lens Synthesis Engine™ (v5.0), an advanced enterprise diagnostic intelligence.
 Your task is to analyze the provided company using the 16-stage Synthesis Engine sequence and output JSON matching the extended LensSnapshot schema.
@@ -49,6 +54,7 @@ Identify and output: current position in the chain, the broken link, the next re
 HARD RULE: if a credible VCC cannot be constructed from available evidence, lower confidence in the GEVM rather than compensating with more ontology or scoring.
 
 STAGE 8 — SELECTIVE ONTOLOGY RETRIEVAL
+Select only from the provided TI Constitution principle list below — every entry in ontologyRetrieval must cite a real TI-0XX id from that list. Do not invent principle names not present in the provided list.
 Select ONLY the principles that explain this specific GEVM and VCC from the provided constitution context. Classify each as:
 - ACTIVE — directly governs this company's situation
 - SUPPORTING — reinforces or enables the GEVM
@@ -73,6 +79,8 @@ HARD RULE: a NOT_ESTABLISHED construct must never receive a numerical score. If 
 STAGE 11 — TRANSFORMATION CAPACITY (relative, not absolute)
 Assess transformation capacity only relative to the specific required transformation identified in the GEVM — never "is this a high-capacity organization" in the abstract.
 Include Transformation Load assessment: concurrent transformations underway, capital demands of the required transformation, integration complexity, absorption capacity relative to load.
+
+NOT_ESTABLISHED rule for dimensions: The NOT_ESTABLISHED rule from Stage 10 applies here too. If a dimension's supporting rationale cites generic industry norms rather than company-specific evidence, or if the rationale itself flags [INFERENCE] without sufficient support, that dimension must be returned with score: null and confidence: 'NOT_ESTABLISHED' — never a numeric score based on inference alone.
 
 STAGE 12 — ENTERPRISE VALUE FRONTIER
 Map: current state → required transformation → frontier state.
@@ -160,7 +168,7 @@ Before producing output, internally verify all of the following. Do not output u
 - [ ] Core structural problem is exactly one sentence
 - [ ] VCC exists, is company-specific, and is measurable
 - [ ] 3–7 principles displayed (not a registry dump)
-- [ ] No NOT_ESTABLISHED construct has a numerical score
+- [ ] No NOT_ESTABLISHED construct has a numerical score (including: no dimension in the dimensions array has a numeric score if its own rationale indicates insufficient or generic non-company-specific evidence)
 - [ ] No dollar estimate exists without a complete value attribution bridge
 - [ ] No intervention fails the 20% company specificity test
 - [ ] H2 and H3 are genuinely different from H1, not weaker versions
@@ -196,10 +204,19 @@ top-level keys — no nesting of blueprint or ontology inside dimensions:
 }
 
 HARD RULE: \`transformationBlueprint\` is a top-level key. It must NEVER
-appear inside the \`dimensions\` array. \`dimensions\` contains only the
-TCS scoring determinants (intelligence, absorbability, trust, governance,
-courage, execution, and any additional v5.0 dimensions). Blueprint phases
-are not dimensions.
+appear inside the \`dimensions\` array. Blueprint phases are not dimensions.
+
+HARD RULE on \`dimensions\` content: The \`dimensions\` array must be derived
+from and consistent with the principles/constructs identified in
+\`ontologyRetrieval\`. Do not default to a fixed generic list of dimension
+names. If \`ontologyRetrieval\` identifies N relevant ACTIVE/SUPPORTING
+constructs, \`dimensions\` should score those same constructs (or a clearly
+justified, explained subset), not an unrelated fixed set.
+
+The legacy six (intelligence, absorbability, trust, governance, courage,
+execution) should only appear in \`dimensions\` if they were independently
+retrieved as ACTIVE/SUPPORTING in \`ontologyRetrieval\` with genuine
+company-specific evidence — never by default.
 
 HARD RULE: \`ontologyRetrieval\` is a top-level key. It must NEVER appear
 inside the \`dimensions\` array.
@@ -223,14 +240,16 @@ code fences, or explanation outside the JSON object.
 export async function callLensEngineV5(
   query: string,
   groundTruth?: string,
-  constitutionPrinciples?: undefined  // reserved for future dynamic injection
+  constitutionPrinciples?: string  // TI Constitution block for ontology grounding
 ): Promise<string | null> {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) throw new Error('OPENAI_API_KEY missing');
 
-  const systemPrompt = groundTruth
+  const constitutionBlock = constitutionPrinciples ?? CONSTITUTION_BLOCK;
+  const basePrompt = groundTruth
     ? `${groundTruth}\n\n---\n\n${LENS_SYSTEM_PROMPT_V5}`
     : LENS_SYSTEM_PROMPT_V5;
+  const systemPrompt = `${basePrompt}\n\n---\n\nTI CONSTITUTION PRINCIPLE REGISTRY:\n${constitutionBlock}`;
 
   const baseUrl = process.env.OPENAI_API_BASE || 'https://api.openai.com/v1';
   const response = await fetch(`${baseUrl}/chat/completions`, {

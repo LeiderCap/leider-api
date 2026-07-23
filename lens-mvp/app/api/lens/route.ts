@@ -170,8 +170,8 @@ export async function POST(request: Request) {
       // ── v5.0 path ──────────────────────────────────────────────────────────
       const rawJson = await callLensEngineV5(
         looksLikeTicker && resolvedTicker ? resolvedTicker : query,
-        groundTruth ?? undefined,
-        undefined  // constitutionPrinciples — reserved for future dynamic injection
+        groundTruth ?? undefined
+        // constitutionPrinciples: omitted — uses module-level CONSTITUTION_BLOCK by default
       );
       if (!rawJson) throw new Error('[lens/route] v5.0 engine returned null');
       const parsed = JSON.parse(rawJson) as LensSnapshot;
