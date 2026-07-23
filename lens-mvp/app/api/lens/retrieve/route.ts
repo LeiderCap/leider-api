@@ -93,6 +93,7 @@ export async function POST(req: NextRequest) {
       metricsData,
       newsData,
       secFilingsData,
+      secFilingsOlderData,
       earningsData,
       transcriptData,
       executivesData,
@@ -102,7 +103,12 @@ export async function POST(req: NextRequest) {
       fmpFetch(`/income-statement?symbol=${tickerUpper}&period=annual&limit=2`, 'income-statement', tickerUpper, isDiag),
       fmpFetch(`/key-metrics?symbol=${tickerUpper}&period=annual&limit=1`, 'key-metrics', tickerUpper, isDiag),
       fmpFetch(`/news/stock?symbols=${tickerUpper}&limit=10`, 'stock-news', tickerUpper, isDiag),
+      // Primary: most recent 100 filings (all types, filtered to 8-K in processing)
       fmpFetch(`/sec-filings-search/symbol?symbol=${tickerUpper}&formType=8-K&from=2020-01-01&to=2026-12-31&limit=100`, 'sec-filings-8K', tickerUpper, isDiag),
+      // Supplemental: 8-K-only query for 2024-2025 to catch deal announcements that
+      // get crowded out of the primary query by high-volume non-8-K filings (SC TO-T/A,
+      // Form 4s, etc.) during tender offer periods
+      fmpFetch(`/sec-filings-search/symbol?symbol=${tickerUpper}&formType=8-K&from=2024-01-01&to=2025-12-31&limit=50`, 'sec-filings-8K-older', tickerUpper, isDiag),
       fmpFetch(`/earnings?symbol=${tickerUpper}&limit=4`, 'earnings', tickerUpper, isDiag),
       fmpFetch(`/earning-call-transcript?symbol=${tickerUpper}&limit=1`, 'earnings-transcript', tickerUpper, isDiag),
       fmpFetch(`/key-executives?symbol=${tickerUpper}`, 'key-executives', tickerUpper, isDiag),
@@ -216,7 +222,19 @@ export async function POST(req: NextRequest) {
     // Strategy: widen the historical window, score each 8-K for M&A/strategic
     // materiality by fetching the filing body and keyword-matching, then select
     // the top material filings + the 2 most recent regardless of materiality.
-    const secFilings = Array.isArray(secFilingsData) ? secFilingsData : [];
+    // Merge primary + supplemental 8-K results, dedup by link
+    const secFilingsPrimary = Array.isArray(secFilingsData) ? secFilingsData : [];
+    const secFilingsOlder = Array.isArray(secFilingsOlderData) ? secFilingsOlderData : [];
+    const secFilingsSeenLinks = new Set<string>();
+    const secFilings: any[] = [];
+    for (const f of [...secFilingsPrimary, ...secFilingsOlder]) {
+      const key = f.link ?? f.finalLink ?? '';
+      if (key && !secFilingsSeenLinks.has(key)) {
+        secFilingsSeenLinks.add(key);
+        secFilings.push(f);
+      }
+    }
+    if (isDiag) console.log(`[retrieve][${tickerUpper}] DIAG: sec-filings merged: ${secFilingsPrimary.length} primary + ${secFilingsOlder.length} supplemental = ${secFilings.length} unique`);
     let sec_filing_found = false;
 
     // High-signal M&A keywords — presence of ANY of these indicates a material
