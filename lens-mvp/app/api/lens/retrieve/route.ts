@@ -34,22 +34,31 @@ async function fmpFetch(path: string, label: string, ticker: string, isDiag: boo
   try {
     const url = `${FMP_BASE}${path}&apikey=${apiKey}`;
     const res = await fetch(url, { next: { revalidate: 3600 } });
+    // Always log non-200 responses — never silently treat failures as "no data"
+    if (!res.ok) {
+      console.warn(`[retrieve][${ticker}] WARN: ${label} — HTTP ${res.status} (non-200). This is a FAILURE, not "no data". Path: ${path.split('?')[0]}`);
+      if (isDiag) {
+        const errBody = await res.text().catch(() => '');
+        console.log(`[retrieve][${ticker}] DIAG: ${label} — error body: ${errBody.slice(0, 200)}`);
+      }
+      return null;
+    }
     if (isDiag) console.log(`[retrieve][${ticker}] DIAG: ${label} — status ${res.status}`);
-    if (!res.ok) return null;
     const data = await res.json();
     // FMP sometimes returns {"Error Message": "..."} or empty array
     if (data && typeof data === 'object' && !Array.isArray(data) && data['Error Message']) {
-      if (isDiag) console.log(`[retrieve][${ticker}] DIAG: ${label} — FMP error: ${data['Error Message']}`);
+      console.warn(`[retrieve][${ticker}] WARN: ${label} — FMP error message: ${data['Error Message']}`);
       return null;
     }
     if (Array.isArray(data) && data.length === 0) {
-      if (isDiag) console.log(`[retrieve][${ticker}] DIAG: ${label} — empty array returned`);
+      // HTTP 200 + empty array = FMP confirmed no data exists (genuine empty, not a failure)
+      if (isDiag) console.log(`[retrieve][${ticker}] DIAG: ${label} — HTTP 200 empty array (FMP confirmed: no data for this ticker)`);
       return null;
     }
     if (isDiag) console.log(`[retrieve][${ticker}] DIAG: ${label} — OK, ${Array.isArray(data) ? data.length + ' items' : 'object'}`);
     return data;
   } catch (e) {
-    if (isDiag) console.log(`[retrieve][${ticker}] DIAG: ${label} — exception: ${e}`);
+    console.warn(`[retrieve][${ticker}] WARN: ${label} — exception: ${e}`);
     return null;
   }
 }
@@ -92,8 +101,8 @@ export async function POST(req: NextRequest) {
       fmpFetch(`/profile?symbol=${tickerUpper}`, 'profile', tickerUpper, isDiag),
       fmpFetch(`/income-statement?symbol=${tickerUpper}&period=annual&limit=2`, 'income-statement', tickerUpper, isDiag),
       fmpFetch(`/key-metrics?symbol=${tickerUpper}&period=annual&limit=1`, 'key-metrics', tickerUpper, isDiag),
-      fmpFetch(`/stock-news?tickers=${tickerUpper}&limit=10`, 'stock-news', tickerUpper, isDiag),
-      fmpFetch(`/sec-filings?symbol=${tickerUpper}&type=10-K&limit=1`, 'sec-filings-10K', tickerUpper, isDiag),
+      fmpFetch(`/news/stock?symbols=${tickerUpper}&limit=10`, 'stock-news', tickerUpper, isDiag),
+      fmpFetch(`/sec-filings-search/symbol?symbol=${tickerUpper}&formType=8-K&from=2023-01-01&to=2026-12-31&limit=5`, 'sec-filings-8K', tickerUpper, isDiag),
       fmpFetch(`/earnings?symbol=${tickerUpper}&limit=4`, 'earnings', tickerUpper, isDiag),
       fmpFetch(`/earning-call-transcript?symbol=${tickerUpper}&limit=1`, 'earnings-transcript', tickerUpper, isDiag),
       fmpFetch(`/key-executives?symbol=${tickerUpper}`, 'key-executives', tickerUpper, isDiag),
@@ -203,22 +212,22 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // ── Process SEC filings ────────────────────────────────────────────────────
+    // ── Process SEC filings (8-K) ─────────────────────────────────────────────
     const secFilings = Array.isArray(secFilingsData) ? secFilingsData : [];
     let sec_filing_found = false;
     if (secFilings.length > 0) {
       sec_filing_found = true;
-      const filing = secFilings[0];
-      const content = [
-        `Filing Type: ${filing.type ?? '10-K'}`,
-        `Filing Date: ${filing.fillingDate ?? filing.date ?? 'N/A'}`,
-        `Description: ${filing.description ?? 'Annual Report filed with SEC'}`,
+      // Include up to 3 most recent 8-K filings for M&A / material event coverage
+      const recentFilings = secFilings.slice(0, 3);
+      const content = recentFilings.map((filing: any) => [
+        `Filing Type: ${filing.formType ?? filing.type ?? '8-K'}`,
+        `Filing Date: ${filing.filingDate ?? filing.fillingDate ?? filing.date ?? 'N/A'}`,
         `Link: ${filing.link ?? filing.finalLink ?? 'N/A'}`,
-      ].join('\n');
+      ].join('\n')).join('\n---\n');
       retrievedDocuments.push({
-        source_type: '10-K',
-        title: `${fmpCompanyName || tickerUpper} — SEC 10-K Filing`,
-        url: filing.link ?? filing.finalLink ?? `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&company=${tickerUpper}`,
+        source_type: 'sec_filing',
+        title: `${fmpCompanyName || tickerUpper} — Recent SEC 8-K Filings`,
+        url: recentFilings[0]?.link ?? recentFilings[0]?.finalLink ?? `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&company=${tickerUpper}`,
         relevance_score: 0.95,
         tokens_used: Math.ceil(content.length / 4),
         included_in_prompt: true,
