@@ -322,6 +322,15 @@ const LEGACY_FIELD_MAP: Record<string, keyof LensSnapshot> = {
   execution:     'execution_score',
 };
 
+const NUMERIC_FIELD_MAP: Record<string, keyof LensSnapshot> = {
+  intelligence:  'intelligence_numeric',
+  absorbability: 'absorbability_numeric',
+  trust:         'trust_numeric',
+  governance:    'governance_numeric',
+  courage:       'courage_numeric',
+  execution:     'execution_numeric',
+};
+
 export function deriveV5LegacyFields(snapshot: LensSnapshot): void {
   if (!snapshot.dimensions) return;
   // Support both {score} and {value} field names from the model output
@@ -357,6 +366,28 @@ export function deriveV5LegacyFields(snapshot: LensSnapshot): void {
     }
     // If NOT_ESTABLISHED or not found: leave null — do not fabricate a score
   }
+  // Also populate *_numeric fields (used by TCS Scoring Breakdown in page.tsx)
+  for (const [slug, field] of Object.entries(NUMERIC_FIELD_MAP)) {
+    const dim = snapshot.dimensions.find((d) => {
+      const dimSlug = d.slug ?? '';
+      const dimName = (d as any).name ?? '';
+      const dimDimension = (d as any).dimension ?? '';
+      return (
+        dimSlug === slug ||
+        dimDimension === slug ||
+        dimName === slug ||
+        dimName === `${slug}_score` ||
+        dimName.replace(/_score$/, '') === slug ||
+        dimDimension === `${slug}_score` ||
+        dimDimension.replace(/_score$/, '') === slug
+      );
+    });
+    const score = dim ? getScore(dim) : null;
+    if (dim && score != null && dim.confidence !== 'NOT_ESTABLISHED') {
+      (snapshot as any)[field] = score;
+    }
+    // If NOT_ESTABLISHED or not found: leave null — do not fabricate
+  }
   // Derive tcs_numeric from weighted average of established dimensions
   const weightedTCS = computeWeightedTCS(snapshot.dimensions);
   if (weightedTCS !== null) {
@@ -365,5 +396,47 @@ export function deriveV5LegacyFields(snapshot: LensSnapshot): void {
     // The model may emit tcs_score as a number (e.g. 73) or '0' — neither is valid for the UI.
     // The UI expects: 'Emerging' | 'Developing' | 'Advanced' | 'Transforming' | 'Leading'
     (snapshot as any).tcs_score = numericToRatingTier(weightedTCS);
+  }
+
+  // ── Fix 4: Derive yield_score from TCS composite ──
+  // yield_score (Transformation Yield™) mirrors the TCS RatingTier label.
+  if (snapshot.tcs_score != null && typeof snapshot.tcs_score === 'string') {
+    (snapshot as any).yield_score = snapshot.tcs_score;
+  } else if (snapshot.tcs_numeric != null) {
+    (snapshot as any).yield_score = numericToRatingTier(snapshot.tcs_numeric);
+  }
+
+  // ── Fix 3: Derive constraints[] from adversarialDiagnosis + VCC broken link ──
+  {
+    const constraints: string[] = [];
+    // VCC broken link is the primary structural constraint
+    if ((snapshot as any).valueConversionChain?.brokenLink) {
+      constraints.push((snapshot as any).valueConversionChain.brokenLink);
+    }
+    // H1 unsupported assumptions surface the key constraint
+    if ((snapshot as any).adversarialDiagnosis?.hypotheses) {
+      const h1 = (snapshot as any).adversarialDiagnosis.hypotheses
+        .find((h: any) => h.label === 'H1');
+      if (h1?.unsupportedAssumptions) {
+        constraints.push(h1.unsupportedAssumptions);
+      }
+    }
+    if (constraints.length > 0) {
+      (snapshot as any).constraints = constraints;
+    }
+  }
+
+  // ── Fix 3: Derive opportunities[] from VCC nextRequiredState + governingMechanism ──
+  {
+    const opportunities: string[] = [];
+    if ((snapshot as any).valueConversionChain?.nextRequiredState) {
+      opportunities.push((snapshot as any).valueConversionChain.nextRequiredState);
+    }
+    if ((snapshot as any).governingMechanism?.requiredStateChange) {
+      opportunities.push((snapshot as any).governingMechanism.requiredStateChange);
+    }
+    if (opportunities.length > 0) {
+      (snapshot as any).opportunities = opportunities;
+    }
   }
 }

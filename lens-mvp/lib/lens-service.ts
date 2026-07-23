@@ -489,6 +489,35 @@ export async function updateLensAnalysisGrounding(
 }
 
 /**
+ * Update a single column on a lens_analyses row identified by OID.
+ * Non-fatal — logs and swallows errors.
+ */
+export async function updateLensAnalysisField(
+  oid: string,
+  field: string,
+  value: string | null,
+): Promise<void> {
+  try {
+    const supabase = getServiceSupabaseClient();
+    if (!supabase) {
+      console.warn('[lens-service] Supabase not configured — skipping field update');
+      return;
+    }
+    const { error } = await supabase
+      .from('lens_analyses')
+      .update({ [field]: value })
+      .eq('oid', oid);
+    if (error) {
+      console.warn(`[lens-service] ${field} update failed:`, error.message);
+    } else {
+      console.log(`[lens-service] ${field} saved for OID:`, oid);
+    }
+  } catch (err) {
+    console.warn(`[lens-service] updateLensAnalysisField(${field}) failed (non-fatal):`, err);
+  }
+}
+
+/**
  * Fetch the latest stored Lens Analysis™ from lens_analyses for a given ticker.
  * Returns null if not found or if the table doesn't exist yet.
  */

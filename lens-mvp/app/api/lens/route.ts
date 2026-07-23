@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createLensSnapshot, saveLensAnalysis, updateLensAnalysisGrounding } from '@/lib/lens-service';
+import { createLensSnapshot, saveLensAnalysis, updateLensAnalysisGrounding, updateLensAnalysisField } from '@/lib/lens-service';
 import { getSupabaseClient } from '@/lib/supabase';
 import { buildGroundTruthPromptContext } from '@/lib/lens/ground-truth';
 import type { GroundTruth } from '@/lib/lens/ground-truth';
@@ -241,6 +241,13 @@ export async function POST(request: Request) {
         if (groundingData && persistedOid) {
           // Update the stored row with the grounding data
           await updateLensAnalysisGrounding(persistedOid, groundingData as unknown as Record<string, unknown>);
+          // Write equity_reclamation percentage back to the DB column (both v4.0 and v5.0)
+          const er = groundingData.equity_reclamation;
+          if (er?.eri_base != null) {
+            const eriBasePct = Math.round(er.eri_base * 100);
+            const eriUpsidePct = er.eri_upside != null ? Math.round(er.eri_upside * 100) : eriBasePct;
+            await updateLensAnalysisField(persistedOid, 'equity_reclamation', `${eriBasePct}%\u2013${eriUpsidePct}%`);
+          }
         }
       } catch (err) {
         console.warn(`[lens/route] Financial grounding failed for ${resolvedTicker} (non-fatal):`, err);
