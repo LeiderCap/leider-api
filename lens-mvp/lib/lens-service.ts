@@ -355,9 +355,11 @@ export async function saveLensAnalysis(
     lensEngineVersion?: 'v4.0' | 'v5.0';
     governingMechanism?: string | null;
     coreStructuralProblem?: string | null;
+    isTestRecord?: boolean;  // Phase 3: marks dry-run test records — never shown to live users
   },
 ): Promise<string | null> {
   const engineVersion = options?.lensEngineVersion ?? 'v4.0';
+  const isTestRecord = options?.isTestRecord ?? false;
   try {
     // Use service role client to bypass RLS for server-side writes
     const supabase = getServiceSupabaseClient();
@@ -443,8 +445,9 @@ export async function saveLensAnalysis(
       constitution_version: LENS_VERSIONS.constitutionVersion,
       identity_status: identityStatus || null,
       source_confidence: null,
-      is_public: true,
-      is_latest: true,
+      is_public: !isTestRecord,  // test records are not public
+      is_latest: !isTestRecord,  // test records do not displace the current live latest
+      is_test_record: isTestRecord,
       generated_at: new Date().toISOString(),
       expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
     });
