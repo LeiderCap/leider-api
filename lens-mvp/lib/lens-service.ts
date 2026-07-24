@@ -32,6 +32,22 @@ import { runFinancialGrounding } from './financial_grounding';
 
 const seedRecords = seed as LensSnapshot[];
 
+/**
+ * Normalize fiveNumbersThatMatter field names.
+ * Some model outputs (and older stored records) use `currentEvidenceState`
+ * instead of the canonical `evidenceState`. This helper ensures all read
+ * paths return the correct field name regardless of when the record was generated.
+ */
+export function normalizeFiveNumbers(snapshot: LensSnapshot): LensSnapshot {
+  if (Array.isArray(snapshot?.fiveNumbersThatMatter)) {
+    snapshot.fiveNumbersThatMatter = snapshot.fiveNumbersThatMatter.map((item: any) => ({
+      ...item,
+      evidenceState: item.evidenceState ?? item.currentEvidenceState ?? 'UNAVAILABLE',
+    }));
+  }
+  return snapshot;
+}
+
 function matches(item: LensSnapshot, query: string) {
   const q = query.trim().toLowerCase();
   if (!q) return true;
@@ -599,6 +615,8 @@ export async function getLatestAnalysisFromDb(ticker: string): Promise<LensSnaps
     // analysis_json is the full snapshot
     const snap = data.analysis_json as LensSnapshot;
     if (!snap) return null;
+    // Normalize fiveNumbersThatMatter field names (older records may use currentEvidenceState)
+    normalizeFiveNumbers(snap);
     // Ensure the OID is set from the stored oid field
     if (data.oid) snap.opportunity_id = data.oid;
     // Attach financial_grounding from the dedicated column (additive — null if not yet computed)
@@ -654,6 +672,8 @@ export async function getAnalysisByOid(oid: string): Promise<LensSnapshot | null
     if (!data) return null;
     const snap = data.analysis_json as LensSnapshot;
     if (!snap) return null;
+    // Normalize fiveNumbersThatMatter field names (older records may use currentEvidenceState)
+    normalizeFiveNumbers(snap);
     if (data.oid) snap.opportunity_id = data.oid;
     // Attach financial_grounding from the dedicated column
     if (data.financial_grounding) {

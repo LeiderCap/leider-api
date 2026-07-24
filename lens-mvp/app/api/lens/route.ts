@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createLensSnapshot, saveLensAnalysis, updateLensAnalysisGrounding, updateLensAnalysisField, updateLensAnalysisJsonField } from '@/lib/lens-service';
+import { createLensSnapshot, saveLensAnalysis, updateLensAnalysisGrounding, updateLensAnalysisField, updateLensAnalysisJsonField, normalizeFiveNumbers } from '@/lib/lens-service';
 import { getSupabaseClient } from '@/lib/supabase';
 import { buildGroundTruthPromptContext } from '@/lib/lens/ground-truth';
 import type { GroundTruth } from '@/lib/lens/ground-truth';
@@ -176,12 +176,7 @@ export async function POST(request: Request) {
       if (!rawJson) throw new Error('[lens/route] v5.0 engine returned null');
       const parsed = JSON.parse(rawJson) as LensSnapshot;
       // Normalize field name: some model outputs use currentEvidenceState instead of evidenceState
-      if (Array.isArray(parsed?.fiveNumbersThatMatter)) {
-        parsed.fiveNumbersThatMatter = parsed.fiveNumbersThatMatter.map((item: any) => ({
-          ...item,
-          evidenceState: item.evidenceState ?? item.currentEvidenceState ?? 'UNAVAILABLE',
-        }));
-      }
+      normalizeFiveNumbers(parsed);
       // Derive legacy scalar fields and tcs_numeric from dimensions
       deriveV5LegacyFields(parsed);
       parsed.lensEngineVersion = 'v5.0';
