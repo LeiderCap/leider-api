@@ -31,6 +31,7 @@ export interface GroundTruthDocument {
   tokensUsed: number;
   includedInPrompt: boolean;
   excludedReason: string | null;
+  content?: string | null;  // raw document content (e.g. SEC filing body excerpts)
 }
 
 export interface GroundTruth {
@@ -125,7 +126,15 @@ Strategic Priorities: ${gt.verifiedFacts.strategicPriorities.join(', ')}
 Primary Risks: ${gt.verifiedFacts.primaryRisks.join(', ')}
 
 SOURCES USED (${includedDocs.length} documents):
-${includedDocs.map((d, i) => `${i + 1}. [${d.sourceType}] ${d.title}`).join('\n')}
+${includedDocs.map((d, i) => {
+  const base = `${i + 1}. [${d.sourceType}] ${d.title}`;
+  // For SEC filings, append the body excerpt so the model has actual deal facts
+  // (deal price, counterparty, financing terms) not just a filing link.
+  if (d.sourceType === 'sec_filing' && d.content) {
+    return `${base}\n${d.content}`;
+  }
+  return base;
+}).join('\n')}
 
 Any claim not supported by these sources must be marked [INFERENCE].
 
@@ -164,6 +173,7 @@ export function assembleGroundTruth(params: {
     tokensUsed: d.tokens_used ?? d.tokensUsed ?? 0,
     includedInPrompt: d.included_in_prompt ?? d.includedInPrompt ?? true,
     excludedReason: d.excluded_reason ?? d.excludedReason ?? null,
+    content: d.content ?? null,  // preserve raw content (e.g. SEC filing body excerpts)
   }));
 
   const sourceHash = computeSourceHash(docs);
