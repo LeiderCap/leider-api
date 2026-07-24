@@ -158,8 +158,7 @@ OUTPUT FORMAT for each phase:
 
 STAGE 15 — VALUE ATTRIBUTION BRIDGE
 HARD RULE: no dollar enterprise value estimate is permitted unless each value driver connects: baseline → transformation effect → financial effect → valuation method.
-If this chain cannot be fully constructed from available evidence, output the following string and set \`valueAttributionBridge\` to null:
-"Value potential identified; insufficient evidence for defensible quantification."
+If no defensible Value Attribution Bridge can be constructed, set \`valueAttributionBridge\` to null (the JSON null value, not a string).
 Do NOT produce a dollar range without the complete bridge. Do NOT estimate.
 
 STAGE 16 — TRANSFORMATION PROBABILITY
