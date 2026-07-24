@@ -27,8 +27,12 @@ Identify the primary economic productivity variable specific to this company (e.
 
 STAGE 3 — STRATEGIC STATE CHANGE DETECTION
 Mandatory when a material event occurred in the trailing 36 months: acquisition, divestiture, merger, leadership change, capital reset, major product shift, geographic expansion, regulatory change, or similar.
-Output: pre-event state, the event itself, post-event state, unresolved conversion question.
-HARD RULE: skip this section entirely (omit the field from output) if no material event occurred. Do not force a state change where none exists.
+Output field: \`strategicStateChange\` — populate all four sub-fields:
+  - preEventState: the company's state before the event
+  - event: the material event itself (name, date, counterparty if applicable)
+  - postEventState: the company's state after the event
+  - unresolvedConversionQuestion: the specific open question the market is currently pricing
+HARD RULE: if a material event occurred in the trailing 36 months, you MUST populate \`strategicStateChange\` with all four fields. If no such event occurred, set \`strategicStateChange\` to null — do NOT omit the field silently. This field must always be present in the output.
 
 STAGE 4 — ENTERPRISE VALUE DISCONTINUITY DETECTION
 Identify the single most important unexplained contradiction in the available evidence. Examples: operating improvement alongside valuation deterioration; acquisition alongside no visible synergy realization; margin expansion alongside revenue deceleration.
@@ -183,6 +187,7 @@ top-level keys — no nesting of blueprint or ontology inside dimensions:
   "lensEngineVersion": "v5.0",
   "governingMechanism": { ... },          // Stage 5
   "coreStructuralProblem": "...",         // Stage 6 — one sentence
+  "strategicStateChange": { ... } | null, // Stage 3 — null if no material event
   "valueConversionChain": { ... },        // Stage 7
   "ontologyRetrieval": [ ... ],           // Stage 8 — array of principles
   "adversarialDiagnosis": { ... },        // Stage 9

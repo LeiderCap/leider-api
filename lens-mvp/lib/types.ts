@@ -272,6 +272,16 @@ export interface LensSnapshot {
 
   coreStructuralProblem?: string;     // single sentence diagnostic
 
+  // ─── v5.0 Strategic State Change (Stage 3) ────────────────────────────────
+  // Populated when a material event occurred in the trailing 36 months.
+  // null when no such event occurred — do not omit silently.
+  strategicStateChange?: {
+    preEventState: string;          // company state before the event
+    event: string;                  // the material event (acquisition, divestiture, etc.)
+    postEventState: string;         // company state after the event
+    unresolvedConversionQuestion: string;  // the open question the market is pricing
+  } | null;
+
   // ─── v5.0 Value Conversion Chain ──────────────────────────────────────────
   // Model emits nodes as string[] and brokenLink as a string description.
   valueConversionChain?: {
