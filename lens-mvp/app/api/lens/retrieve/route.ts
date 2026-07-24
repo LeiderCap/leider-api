@@ -304,7 +304,26 @@ export async function POST(req: NextRequest) {
         const text = bodyTexts[i] ?? '';
         const matchedKeywords = MATERIAL_8K_KEYWORDS.filter(kw => text.includes(kw));
         const materialityScore = matchedKeywords.length;
-        return { filing: f, materialityScore, matchedKeywords };
+        // Extract a ~450-char body excerpt for material filings.
+        // Strategy: find the first Item header (e.g. "Item 1.01") or first
+        // substantive keyword, then take 450 chars from that point.
+        // This excerpt is stored and injected into the prompt context so the
+        // model has actual deal facts, not just a filing link.
+        let bodyExcerpt: string | null = null;
+        if (materialityScore >= 1 && text.length > 0) {
+          const EXCERPT_ANCHORS = ['item 1.01', 'item 2.01', 'item 5.01', 'entered into', 'transaction agreement', 'acquisition'];
+          let excerptStart = -1;
+          for (const anchor of EXCERPT_ANCHORS) {
+            const idx = text.indexOf(anchor);
+            if (idx >= 0) { excerptStart = idx; break; }
+          }
+          if (excerptStart < 0) excerptStart = 0;
+          // Restore original casing from the raw text by using a case-insensitive
+          // slice of the original (bodyTexts[i] is lowercased; re-fetch not needed —
+          // we reconstruct from the lowercased text but mark it as [excerpt])
+          bodyExcerpt = text.slice(excerptStart, excerptStart + 450).trim();
+        }
+        return { filing: f, materialityScore, matchedKeywords, bodyExcerpt };
       });
 
       if (isDiag) {
@@ -317,11 +336,17 @@ export async function POST(req: NextRequest) {
       // Select: top material filings (score >= 1) sorted by score desc, then
       // fill remaining slots with the 2 most recent filings regardless of score.
       // Total cap: 5 filings to keep prompt size bounded.
-      const materialFilings = scoredFilings
+      const materialScoredFilings = scoredFilings
         .filter(s => s.materialityScore >= 1)
         .sort((a, b) => b.materialityScore - a.materialityScore)
-        .slice(0, 3)
-        .map(s => s.filing);
+        .slice(0, 3);
+      const materialFilings = materialScoredFilings.map(s => s.filing);
+      // Build a map of link -> bodyExcerpt for the 3 material filings
+      const materialExcerptMap = new Map<string, string>();
+      for (const s of materialScoredFilings) {
+        const key = s.filing.link ?? s.filing.finalLink ?? '';
+        if (key && s.bodyExcerpt) materialExcerptMap.set(key, s.bodyExcerpt);
+      }
 
       const recentFilings = candidateFilings.slice(0, 2);
 
@@ -339,11 +364,19 @@ export async function POST(req: NextRequest) {
 
       if (isDiag) console.log(`[retrieve][${tickerUpper}] DIAG: selected ${selectedFilings.length} 8-Ks (${materialFilings.length} material + recent fill)`);
 
-      const content = selectedFilings.map((filing: any) => [
-        `Filing Type: ${filing.formType ?? filing.type ?? '8-K'}`,
-        `Filing Date: ${filing.filingDate ?? filing.fillingDate ?? filing.date ?? 'N/A'}`,
-        `Link: ${filing.link ?? filing.finalLink ?? 'N/A'}`,
-      ].join('\n')).join('\n---\n');
+      const content = selectedFilings.map((filing: any) => {
+        const link = filing.link ?? filing.finalLink ?? 'N/A';
+        const excerpt = materialExcerptMap.get(link);
+        const lines = [
+          `Filing Type: ${filing.formType ?? filing.type ?? '8-K'}`,
+          `Filing Date: ${filing.filingDate ?? filing.fillingDate ?? filing.date ?? 'N/A'}`,
+          `Link: ${link}`,
+        ];
+        if (excerpt) {
+          lines.push(`Key Facts (excerpt): ${excerpt}`);
+        }
+        return lines.join('\n');
+      }).join('\n---\n');
 
       retrievedDocuments.push({
         source_type: 'sec_filing',

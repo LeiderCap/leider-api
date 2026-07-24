@@ -193,14 +193,7 @@ top-level keys — no nesting of blueprint or ontology inside dimensions:
     "phases": [ ... ]
   },
   "valueAttributionBridge": null,         // Stage 15 — null if bridge not buildable
-  "transformationProbability": 0,         // Stage 16 — integer 0-100
-  "tcs_score": 0,                         // derived from dimensions via computeWeightedTCS
-  "intelligence_score": 0,
-  "absorbability_score": 0,
-  "trust_score": 0,
-  "governance_score": 0,
-  "courage_score": 0,
-  "execution_score": 0
+  "transformationProbability": 0         // Stage 16 — integer 0-100
 }
 
 HARD RULE: \`transformationBlueprint\` is a top-level key. It must NEVER
@@ -225,13 +218,10 @@ HARD RULE: if any required top-level key is missing from your output,
 the output is invalid. Before returning, verify all top-level keys are
 present at the root level of the JSON object.
 
-Also populate the legacy scalar fields (\`tcs_score\`, \`intelligence_score\`,
-\`absorbability_score\`, \`trust_score\`, \`governance_score\`, \`courage_score\`,
-\`execution_score\`) by deriving them FROM the \`dimensions\` array for
-backward compatibility with v4.0 consumers.
-HARD RULE on legacy field derivation: if a clean mapping from the v5.0
-dimensions array to the six legacy scalar fields cannot be constructed
-without fabricating scores, set those fields to null rather than guessing.
+Do NOT emit \`tcs_score\`, \`intelligence_score\`, \`absorbability_score\`,
+\`trust_score\`, \`governance_score\`, \`courage_score\`, or \`execution_score\`
+in your output. These are computed server-side from the \`dimensions\` array.
+Emitting them causes schema conflicts. Omit them entirely.
 
 Output ONLY valid JSON. Do not include markdown formatting,
 code fences, or explanation outside the JSON object.
