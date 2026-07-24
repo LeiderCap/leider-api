@@ -10,7 +10,7 @@ import type { LensSnapshot } from '@/lib/types';
 
 // ── Lens Synthesis Engine v5.0 Feature Flag ───────────────────────────────────
 // Defaults to v4.0 when LENS_ENGINE_VERSION is unset or any value other than 'v5'.
-// DO NOT set LENS_ENGINE_VERSION=v5 in Vercel until Phase 5 acceptance testing passes.
+// Phase 5 acceptance testing passed — LENS_ENGINE_VERSION=v5 is intentionally set in production.
 const USE_LENS_V5 = process.env.LENS_ENGINE_VERSION === 'v5';
 
 export const maxDuration = 60;
@@ -175,6 +175,13 @@ export async function POST(request: Request) {
       );
       if (!rawJson) throw new Error('[lens/route] v5.0 engine returned null');
       const parsed = JSON.parse(rawJson) as LensSnapshot;
+      // Normalize field name: some model outputs use currentEvidenceState instead of evidenceState
+      if (Array.isArray(parsed?.fiveNumbersThatMatter)) {
+        parsed.fiveNumbersThatMatter = parsed.fiveNumbersThatMatter.map((item: any) => ({
+          ...item,
+          evidenceState: item.evidenceState ?? item.currentEvidenceState ?? 'UNAVAILABLE',
+        }));
+      }
       // Derive legacy scalar fields and tcs_numeric from dimensions
       deriveV5LegacyFields(parsed);
       parsed.lensEngineVersion = 'v5.0';
