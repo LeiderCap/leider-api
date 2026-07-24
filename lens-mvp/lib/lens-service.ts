@@ -43,6 +43,7 @@ export function normalizeFiveNumbers(snapshot: LensSnapshot): LensSnapshot {
     snapshot.fiveNumbersThatMatter = snapshot.fiveNumbersThatMatter.map((item: any) => ({
       ...item,
       evidenceState: item.evidenceState ?? item.currentEvidenceState ?? 'UNAVAILABLE',
+      metric: item.metric ?? item.name ?? 'Unknown',
     }));
   }
   return snapshot;
