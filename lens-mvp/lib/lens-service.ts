@@ -423,7 +423,10 @@ export async function saveLensAnalysis(
         }
       : snapshot;
 
-    const { error } = await supabase.from('lens_analyses').insert({
+    // Build insert payload — is_test_record is only included when the column exists
+    // (after v5_dryrun_migration.sql is applied). Until then, omit it to avoid breaking
+    // production inserts. is_public and is_latest are always safe columns.
+    const insertPayload: Record<string, unknown> = {
       oid,
       ticker: tickerUpper,
       company_name: companyName || snapshot.name || tickerUpper,
@@ -445,12 +448,17 @@ export async function saveLensAnalysis(
       constitution_version: LENS_VERSIONS.constitutionVersion,
       identity_status: identityStatus || null,
       source_confidence: null,
-      is_public: !isTestRecord,  // test records are not public
-      is_latest: !isTestRecord,  // test records do not displace the current live latest
-      is_test_record: isTestRecord,
+      is_public: !isTestRecord,
+      is_latest: !isTestRecord,
       generated_at: new Date().toISOString(),
       expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-    });
+    };
+    // Only include is_test_record after v5_dryrun_migration.sql has been applied
+    // MIGRATION GATE: remove this guard once the column exists in production
+    if (isTestRecord) {
+      insertPayload['is_test_record'] = true;
+    }
+    const { error } = await supabase.from('lens_analyses').insert(insertPayload);
     if (error) {
       console.warn('[lens-service] lens_analyses insert failed:', error.message);
       return null;
