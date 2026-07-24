@@ -311,6 +311,11 @@ export async function POST(req: NextRequest) {
         // model has actual deal facts, not just a filing link.
         let bodyExcerpt: string | null = null;
         if (materialityScore >= 1 && text.length > 0) {
+          // Excerpt strategy: two windows concatenated with ellipsis.
+          // Window 1 (~300 chars): opening paragraph — captures counterparty name,
+          //   transaction type, and deal structure from the first Item header.
+          // Window 2 (~200 chars): price/financing paragraph — captures deal price
+          //   and financing terms (e.g. "$7.50", "bridge loan") from a later paragraph.
           const EXCERPT_ANCHORS = ['item 1.01', 'item 2.01', 'item 5.01', 'entered into', 'transaction agreement', 'acquisition'];
           let excerptStart = -1;
           for (const anchor of EXCERPT_ANCHORS) {
@@ -318,10 +323,16 @@ export async function POST(req: NextRequest) {
             if (idx >= 0) { excerptStart = idx; break; }
           }
           if (excerptStart < 0) excerptStart = 0;
-          // Restore original casing from the raw text by using a case-insensitive
-          // slice of the original (bodyTexts[i] is lowercased; re-fetch not needed —
-          // we reconstruct from the lowercased text but mark it as [excerpt])
-          bodyExcerpt = text.slice(excerptStart, excerptStart + 450).trim();
+          const window1 = text.slice(excerptStart, excerptStart + 300).trim();
+          // Window 2: find a price/financing anchor in the full text
+          const PRICE_ANCHORS = ['$', '\u20ac', 'per share', 'bridge loan', 'financing', 'consideration'];
+          let priceStart = -1;
+          for (const anchor of PRICE_ANCHORS) {
+            const idx = text.indexOf(anchor, excerptStart + 300);
+            if (idx >= 0) { priceStart = idx; break; }
+          }
+          const window2 = priceStart >= 0 ? text.slice(priceStart, priceStart + 200).trim() : '';
+          bodyExcerpt = window2 ? window1 + ' [...] ' + window2 : window1;
         }
         return { filing: f, materialityScore, matchedKeywords, bodyExcerpt };
       });
