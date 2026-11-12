@@ -50,7 +50,11 @@ test('hardening migration preserves only explicitly public Lens analysis reads',
   const migration = readFileSync('sql/security_hardening_v1.sql', 'utf8');
   assert.match(migration, /published_analyses_are_public/);
   assert.match(migration, /FOR SELECT TO anon, authenticated[\s\S]*?USING \(is_public = true\)/);
+  assert.match(migration, /current_clerk_user_id/);
+  assert.match(migration, /current_app_user_id/);
+  assert.match(migration, /DROP POLICY IF EXISTS %I ON public.%I/);
   assert.match(migration, /service_role_manage_ground_truth/);
   assert.match(migration, /service_role_manage_report_cache/);
+  assert.doesNotMatch(migration, /CREATE POLICY "public_read_(companies|lens_scores|cached_stock_prices|opportunity_zone_cache)"/);
   assert.doesNotMatch(migration, /CREATE POLICY "public_select_saved_items"/);
 });

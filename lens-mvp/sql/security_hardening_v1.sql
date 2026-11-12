@@ -5,7 +5,8 @@
 -- Design goals:
 --   1. Public Lens reports remain readable only when explicitly published.
 --   2. Raw Ground Truth/retrieval/analysis writes are service-role only.
---   3. Authenticated user-owned objects use auth.uid() ownership checks.
+--   3. Clerk JWT subjects map to public.users.clerk_user_id; ownership fields
+--      store the stable public.users.id UUID resolved from that subject.
 --   4. Legacy session rows are not deleted or reassigned. New owner_id columns
 --      remain NULL for legacy rows until an approved account-linking workflow exists.
 --   5. Public inquiry/waitlist submissions remain insert-only.
@@ -33,6 +34,122 @@
 --     'report_cache'
 --   )
 -- ORDER BY table_name, ordinal_position;
+
+-- EXECUTION GUARD: fail before any schema/policy mutation if the inspected
+-- staging schema is not compatible with this migration. This deliberately
+-- requires the real tables/columns instead of relying on named DROP POLICY
+-- statements to hide schema drift.
+DO $$
+DECLARE
+  required_table text;
+  missing_tables text;
+  required_column record;
+BEGIN
+  SELECT string_agg(table_name, ', ' ORDER BY table_name)
+    INTO missing_tables
+  FROM unnest(ARRAY[
+    'users', 'lens_analyses', 'lens_ground_truths', 'lens_retrieval_audits',
+    'lens_retrieved_documents', 'lens_identity_cards', 'saved_cards',
+    'watchlists', 'watchlist_companies', 'saved_items', 'blueprints',
+    'lens_reports', 'report_cache', 'transformation_events',
+    'go_deep_analyses', 'companies', 'lens_scores', 'cached_stock_prices',
+    'opportunity_zone_cache', 'enterprise_inquiries', 'waitlist',
+    'pe_stack_inquiries', 'investor_stack_inquiries'
+  ]) AS required(table_name)
+  WHERE to_regclass('public.' || table_name) IS NULL;
+
+  IF missing_tables IS NOT NULL THEN
+    RAISE EXCEPTION 'Security hardening preflight failed; missing public tables: %', missing_tables;
+  END IF;
+
+  FOR required_column IN
+    SELECT * FROM (VALUES
+      ('users', 'id'),
+      ('lens_analyses', 'is_public'),
+      ('saved_cards', 'user_id'),
+      ('watchlists', 'user_id'),
+      ('watchlist_companies', 'watchlist_id'),
+      ('saved_items', 'session_id'),
+      ('blueprints', 'session_id'),
+      ('lens_reports', 'session_id')
+    ) AS columns(table_name, column_name)
+  LOOP
+    IF NOT EXISTS (
+      SELECT 1 FROM information_schema.columns c
+      WHERE c.table_schema = 'public'
+        AND c.table_name = required_column.table_name
+        AND c.column_name = required_column.column_name
+    ) THEN
+      RAISE EXCEPTION 'Security hardening preflight failed; missing public.%.% column',
+        required_column.table_name, required_column.column_name;
+    END IF;
+  END LOOP;
+END $$;
+
+-- Clerk/Supabase identity bridge. Supabase must be configured to validate the
+-- Clerk JWT issuer in staging. auth.jwt()->>'sub' is the Clerk subject such as
+-- user_..., while owner_id/user_id remain UUIDs from public.users.id.
+ALTER TABLE public.users
+  ADD COLUMN IF NOT EXISTS clerk_user_id text;
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_users_clerk_user_id
+  ON public.users(clerk_user_id)
+  WHERE clerk_user_id IS NOT NULL;
+
+CREATE OR REPLACE FUNCTION public.current_clerk_user_id()
+RETURNS text
+LANGUAGE sql
+STABLE
+SECURITY INVOKER
+AS $$
+  SELECT nullif(auth.jwt() ->> 'sub', '');
+$$;
+
+CREATE OR REPLACE FUNCTION public.current_app_user_id()
+RETURNS uuid
+LANGUAGE sql
+STABLE
+SECURITY INVOKER
+AS $$
+  SELECT u.id
+  FROM public.users u
+  WHERE u.clerk_user_id = public.current_clerk_user_id()
+  LIMIT 1;
+$$;
+
+-- Remove every existing policy on each protected table, including policy names
+-- not present in repository migrations. The preflight above ensures these
+-- relations exist before this dynamic cleanup runs.
+DO $$
+DECLARE
+  policy_row record;
+BEGIN
+  FOR policy_row IN
+    SELECT schemaname, tablename, policyname
+    FROM pg_policies
+    WHERE schemaname = 'public'
+      AND tablename = ANY (ARRAY[
+        'users', 'lens_analyses', 'lens_ground_truths', 'lens_retrieval_audits',
+        'lens_retrieved_documents', 'lens_identity_cards', 'saved_cards',
+        'watchlists', 'watchlist_companies', 'saved_items', 'blueprints',
+        'lens_reports', 'report_cache', 'transformation_events',
+        'go_deep_analyses', 'companies', 'lens_scores', 'cached_stock_prices',
+        'opportunity_zone_cache', 'enterprise_inquiries', 'waitlist',
+        'pe_stack_inquiries', 'investor_stack_inquiries'
+      ])
+  LOOP
+    EXECUTE format('DROP POLICY IF EXISTS %I ON public.%I',
+      policy_row.policyname, policy_row.tablename);
+  END LOOP;
+END $$;
+
+ALTER TABLE public.users ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "users_select_self_by_clerk_subject"
+  ON public.users FOR SELECT TO authenticated
+  USING (clerk_user_id = public.current_clerk_user_id());
+CREATE POLICY "service_role_manage_users"
+  ON public.users FOR ALL TO service_role
+  USING (true) WITH CHECK (true);
 
 -- ---------------------------------------------------------------------------
 -- OWNER COLUMNS FOR LEGACY SESSION-BASED TABLES
@@ -129,13 +246,13 @@ DROP POLICY IF EXISTS "insert_own_saved_cards" ON public.saved_cards;
 DROP POLICY IF EXISTS "delete_own_saved_cards" ON public.saved_cards;
 CREATE POLICY "users_select_own_saved_cards"
   ON public.saved_cards FOR SELECT TO authenticated
-  USING (user_id = auth.uid());
+  USING (user_id = public.current_app_user_id());
 CREATE POLICY "users_insert_own_saved_cards"
   ON public.saved_cards FOR INSERT TO authenticated
-  WITH CHECK (user_id = auth.uid());
+  WITH CHECK (user_id = public.current_app_user_id());
 CREATE POLICY "users_delete_own_saved_cards"
   ON public.saved_cards FOR DELETE TO authenticated
-  USING (user_id = auth.uid());
+  USING (user_id = public.current_app_user_id());
 CREATE POLICY "service_role_manage_saved_cards"
   ON public.saved_cards FOR ALL TO service_role
   USING (true) WITH CHECK (true);
@@ -147,16 +264,16 @@ DROP POLICY IF EXISTS "update_own_watchlists" ON public.watchlists;
 DROP POLICY IF EXISTS "delete_own_watchlists" ON public.watchlists;
 CREATE POLICY "users_select_own_watchlists"
   ON public.watchlists FOR SELECT TO authenticated
-  USING (user_id = auth.uid());
+  USING (user_id = public.current_app_user_id());
 CREATE POLICY "users_insert_own_watchlists"
   ON public.watchlists FOR INSERT TO authenticated
-  WITH CHECK (user_id = auth.uid());
+  WITH CHECK (user_id = public.current_app_user_id());
 CREATE POLICY "users_update_own_watchlists"
   ON public.watchlists FOR UPDATE TO authenticated
-  USING (user_id = auth.uid()) WITH CHECK (user_id = auth.uid());
+  USING (user_id = public.current_app_user_id()) WITH CHECK (user_id = public.current_app_user_id());
 CREATE POLICY "users_delete_own_watchlists"
   ON public.watchlists FOR DELETE TO authenticated
-  USING (user_id = auth.uid());
+  USING (user_id = public.current_app_user_id());
 CREATE POLICY "service_role_manage_watchlists"
   ON public.watchlists FOR ALL TO service_role
   USING (true) WITH CHECK (true);
@@ -169,19 +286,19 @@ CREATE POLICY "users_select_own_watchlist_companies"
   ON public.watchlist_companies FOR SELECT TO authenticated
   USING (EXISTS (
     SELECT 1 FROM public.watchlists w
-    WHERE w.id = watchlist_companies.watchlist_id AND w.user_id = auth.uid()
+    WHERE w.id = watchlist_companies.watchlist_id AND w.user_id = public.current_app_user_id()
   ));
 CREATE POLICY "users_insert_own_watchlist_companies"
   ON public.watchlist_companies FOR INSERT TO authenticated
   WITH CHECK (EXISTS (
     SELECT 1 FROM public.watchlists w
-    WHERE w.id = watchlist_companies.watchlist_id AND w.user_id = auth.uid()
+    WHERE w.id = watchlist_companies.watchlist_id AND w.user_id = public.current_app_user_id()
   ));
 CREATE POLICY "users_delete_own_watchlist_companies"
   ON public.watchlist_companies FOR DELETE TO authenticated
   USING (EXISTS (
     SELECT 1 FROM public.watchlists w
-    WHERE w.id = watchlist_companies.watchlist_id AND w.user_id = auth.uid()
+    WHERE w.id = watchlist_companies.watchlist_id AND w.user_id = public.current_app_user_id()
   ));
 CREATE POLICY "service_role_manage_watchlist_companies"
   ON public.watchlist_companies FOR ALL TO service_role
@@ -194,13 +311,13 @@ DROP POLICY IF EXISTS "public_insert_saved_items" ON public.saved_items;
 DROP POLICY IF EXISTS "public_delete_saved_items" ON public.saved_items;
 CREATE POLICY "users_select_own_saved_items"
   ON public.saved_items FOR SELECT TO authenticated
-  USING (owner_id = auth.uid());
+  USING (owner_id = public.current_app_user_id());
 CREATE POLICY "users_insert_own_saved_items"
   ON public.saved_items FOR INSERT TO authenticated
-  WITH CHECK (owner_id = auth.uid());
+  WITH CHECK (owner_id = public.current_app_user_id());
 CREATE POLICY "users_delete_own_saved_items"
   ON public.saved_items FOR DELETE TO authenticated
-  USING (owner_id = auth.uid());
+  USING (owner_id = public.current_app_user_id());
 CREATE POLICY "service_role_manage_saved_items"
   ON public.saved_items FOR ALL TO service_role
   USING (true) WITH CHECK (true);
@@ -211,13 +328,13 @@ DROP POLICY IF EXISTS "public_insert_blueprints" ON public.blueprints;
 DROP POLICY IF EXISTS "public_delete_blueprints" ON public.blueprints;
 CREATE POLICY "users_select_own_blueprints"
   ON public.blueprints FOR SELECT TO authenticated
-  USING (owner_id = auth.uid());
+  USING (owner_id = public.current_app_user_id());
 CREATE POLICY "users_insert_own_blueprints"
   ON public.blueprints FOR INSERT TO authenticated
-  WITH CHECK (owner_id = auth.uid());
+  WITH CHECK (owner_id = public.current_app_user_id());
 CREATE POLICY "users_delete_own_blueprints"
   ON public.blueprints FOR DELETE TO authenticated
-  USING (owner_id = auth.uid());
+  USING (owner_id = public.current_app_user_id());
 CREATE POLICY "service_role_manage_blueprints"
   ON public.blueprints FOR ALL TO service_role
   USING (true) WITH CHECK (true);
@@ -227,7 +344,7 @@ DROP POLICY IF EXISTS "public_select_lens_reports" ON public.lens_reports;
 DROP POLICY IF EXISTS "service_write_lens_reports" ON public.lens_reports;
 CREATE POLICY "users_select_own_lens_reports"
   ON public.lens_reports FOR SELECT TO authenticated
-  USING (owner_id = auth.uid());
+  USING (owner_id = public.current_app_user_id());
 CREATE POLICY "service_role_manage_lens_reports"
   ON public.lens_reports FOR ALL TO service_role
   USING (true) WITH CHECK (true);
@@ -286,21 +403,19 @@ CREATE POLICY "anon_insert_investor_stack_inquiries"
   WITH CHECK (true);
 
 -- ---------------------------------------------------------------------------
--- PUBLIC NON-SENSITIVE CACHES
+-- CACHES: service role only until column-level privacy review proves that
+-- each table contains no private research, unpublished analysis, or provider
+-- data that should not be exposed through the public anon role.
 -- ---------------------------------------------------------------------------
 ALTER TABLE IF EXISTS public.companies ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "public_select_companies" ON public.companies;
 DROP POLICY IF EXISTS "service_write_companies" ON public.companies;
-CREATE POLICY "public_read_companies"
-  ON public.companies FOR SELECT TO anon, authenticated USING (true);
 CREATE POLICY "service_role_manage_companies"
   ON public.companies FOR ALL TO service_role USING (true) WITH CHECK (true);
 
 ALTER TABLE IF EXISTS public.lens_scores ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "public_select_lens_scores" ON public.lens_scores;
 DROP POLICY IF EXISTS "service_write_lens_scores" ON public.lens_scores;
-CREATE POLICY "public_read_lens_scores"
-  ON public.lens_scores FOR SELECT TO anon, authenticated USING (true);
 CREATE POLICY "service_role_manage_lens_scores"
   ON public.lens_scores FOR ALL TO service_role USING (true) WITH CHECK (true);
 
@@ -309,8 +424,6 @@ DROP POLICY IF EXISTS "public_select_cached_stock_prices" ON public.cached_stock
 DROP POLICY IF EXISTS "public_insert_cached_stock_prices" ON public.cached_stock_prices;
 DROP POLICY IF EXISTS "public_update_cached_stock_prices" ON public.cached_stock_prices;
 DROP POLICY IF EXISTS "service_write_cached_stock_prices" ON public.cached_stock_prices;
-CREATE POLICY "public_read_cached_stock_prices"
-  ON public.cached_stock_prices FOR SELECT TO anon, authenticated USING (true);
 CREATE POLICY "service_role_manage_cached_stock_prices"
   ON public.cached_stock_prices FOR ALL TO service_role USING (true) WITH CHECK (true);
 
@@ -319,8 +432,6 @@ DROP POLICY IF EXISTS "public_select_opportunity_zone_cache" ON public.opportuni
 DROP POLICY IF EXISTS "public_insert_opportunity_zone_cache" ON public.opportunity_zone_cache;
 DROP POLICY IF EXISTS "public_update_opportunity_zone_cache" ON public.opportunity_zone_cache;
 DROP POLICY IF EXISTS "service_write_opportunity_zone_cache" ON public.opportunity_zone_cache;
-CREATE POLICY "public_read_opportunity_zone_cache"
-  ON public.opportunity_zone_cache FOR SELECT TO anon, authenticated USING (true);
 CREATE POLICY "service_role_manage_opportunity_zone_cache"
   ON public.opportunity_zone_cache FOR ALL TO service_role USING (true) WITH CHECK (true);
 

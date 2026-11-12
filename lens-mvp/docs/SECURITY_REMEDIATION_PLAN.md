@@ -2,11 +2,27 @@
 
 This document is preparation only. It does not activate authentication, alter production routes, migrate records, or change live Supabase policies.
 
-## Identity decision
+## Exact Clerk/Supabase identity mapping
 
-The repository already declares `@clerk/nextjs`, so Clerk is the proposed identity provider. Before implementation, confirm the production Clerk application, publishable-key environment, allowed domains, and whether the intended identity maps to `public.users.id` as a UUID or requires a separate `clerk_user_id` text column.
+Clerk remains the identity provider. A Clerk subject is a stable string such as `user_...`; it is not a UUID and must not be cast into one. The application mapping is therefore:
 
-Do not infer identity from `user_id`, `session_id`, watchlist IDs, query parameters, or client state.
+```text
+Clerk JWT auth.jwt()->>'sub'
+        ↓ exact string match
+public.users.clerk_user_id (text, unique)
+        ↓ relational lookup
+public.users.id (uuid)
+        ↓ ownership field
+saved_cards.user_id / watchlists.user_id / *.owner_id (uuid)
+```
+
+The staged migration adds `public.users.clerk_user_id`, a unique partial index, `current_clerk_user_id()`, and `current_app_user_id()`. `current_clerk_user_id()` reads the verified Supabase JWT `sub` claim. `current_app_user_id()` resolves that subject to `public.users.id`. It returns NULL when the JWT is absent, invalid, or not provisioned in `public.users`; it never accepts a request-body or query-string identity.
+
+The Clerk-to-Supabase JWT trust configuration is a staging prerequisite: Supabase Auth/JWT validation must accept the Clerk issuer and signing keys, and the server must pass the verified Clerk token to Supabase. The exact issuer/JWKS configuration is provider metadata and cannot be claimed until staging access is available. A Clerk server helper verifies the session at the Next.js boundary; the Supabase client then evaluates RLS using the same subject claim. Both layers must agree before access is granted.
+
+For a private request, the server flow is: Clerk verifies the session; the handler obtains the Clerk subject server-side; the handler ignores caller-supplied `user_id`/`owner_id`; and Supabase RLS enforces `user_id = public.current_app_user_id()` or `owner_id = public.current_app_user_id()`. User A and User B therefore produce different UUID predicates even if they guess each other’s object IDs. Service-role server operations intentionally bypass RLS, but only after route authorization and with the strict service key; the service client never falls back to anon.
+
+Do not infer identity from `user_id`, `session_id`, watchlist IDs, query parameters, or client state. Existing rows are not automatically mapped or reassigned.
 
 ## Proposed request boundary
 
@@ -48,6 +64,12 @@ Do not infer identity from `user_id`, `session_id`, watchlist IDs, query paramet
 - Keep `app/lens/[id]/page.tsx` and `app/lens/[id]/[oid]/page.tsx` public for rows explicitly marked `is_public=true`.
 - Do not expose raw Ground Truth, retrieval documents, identity cards, report cache, or service-role data through public routes.
 - Preserve test-record exclusions: `is_test_record=true` rows must remain non-public and never become latest.
+
+### Public-data exposure decision
+
+Only `lens_analyses` has an intentional anonymous read policy, and only for `is_public = true`. The revised migration removes anonymous SELECT from `lens_scores`, `companies`, `cached_stock_prices`, and `opportunity_zone_cache` until a column-level review proves that those tables contain no private research, unpublished analysis, provider payloads, or internal scoring metadata. Their server-side routes must use the service client or an explicitly reviewed public projection/view before public access is reconsidered.
+
+This is deliberately more conservative than the prior proposal. Existing public Lens URLs remain preserved through `lens_analyses.is_public`; raw Ground Truth, retrieval documents, reports, caches, and research scores are not made public merely because a table is called a cache.
 
 ## Legacy data policy
 
