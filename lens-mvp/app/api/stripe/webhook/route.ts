@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { createClient } from '@supabase/supabase-js';
+import { getServiceSupabaseClient } from '@/lib/supabase';
 
 export async function POST(req: NextRequest) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? 'placeholder');
@@ -24,10 +24,7 @@ export async function POST(req: NextRequest) {
     const reportId = session.metadata?.reportId;
 
     if (reportId) {
-      const supabase = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-      );
+      const supabase = getServiceSupabaseClient();
 
       await supabase
         .from('lens_reports')

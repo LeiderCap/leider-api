@@ -1,10 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+import { getServiceSupabaseClient } from '@/lib/supabase';
 
 const FMP_KEY = process.env.FMP_API_KEY ?? '';
 
@@ -67,6 +62,7 @@ All mechanism recommendations must use the 12 canonical mechanisms from TI-014: 
 
 export async function POST(req: NextRequest) {
   try {
+    const supabase = getServiceSupabaseClient();
     const body = await req.json();
     const { ticker, company, sessionId } = body;
 

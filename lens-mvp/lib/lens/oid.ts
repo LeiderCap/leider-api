@@ -8,17 +8,7 @@
  * The sequence is determined by counting existing rows in lens_analyses.
  */
 
-import { createClient } from '@supabase/supabase-js';
-
-function getServiceClient() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key =
-    process.env.SUPABASE_SERVICE_ROLE_KEY ??
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !key) return null;
-  if (url.includes('placeholder') || key === 'placeholder') return null;
-  return createClient(url, key, { auth: { persistSession: false } });
-}
+import { getServiceSupabaseClient } from '../supabase';
 
 /**
  * Generate the next OID™ for a given ticker.
@@ -30,11 +20,7 @@ export async function generateAnalysisOid(ticker: string): Promise<string> {
   const tickerUpper = ticker.toUpperCase();
 
   try {
-    const supabase = getServiceClient();
-    if (!supabase) {
-      // Fallback: use timestamp-based sequence
-      return buildOid(year, tickerUpper, 1);
-    }
+    const supabase = getServiceSupabaseClient();
 
     const { count, error } = await supabase
       .from('lens_analyses')

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { getServiceSupabaseClient } from '@/lib/supabase';
 
 const BLUEPRINT_SYSTEM_PROMPT = `You are a Transformation Intelligence strategist. You write Transformation Blueprint™ documents for CEOs, boards, PE firms, and government agencies.
 
@@ -38,14 +38,6 @@ function extractJson(text: string): string {
   const lastBrace = text.lastIndexOf('}');
   if (firstBrace !== -1 && lastBrace !== -1) return text.slice(firstBrace, lastBrace + 1);
   return text.trim();
-}
-
-function getSupabaseAdmin() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key =
-    process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !key || url.includes('placeholder') || key.includes('placeholder')) return null;
-  return createClient(url, key, { auth: { persistSession: false } });
 }
 
 export async function POST(req: NextRequest) {
@@ -110,25 +102,23 @@ export async function POST(req: NextRequest) {
     const blueprint = JSON.parse(extractJson(raw));
 
     // Save to blueprints table
-    const supabase = getSupabaseAdmin();
+    const supabase = getServiceSupabaseClient();
     let savedId: string | null = null;
-    if (supabase) {
-      const { data: row, error } = await supabase
-        .from('blueprints')
-        .insert({
-          entity_name,
-          entity_type: entity_type ?? 'Company',
-          source_lens_card: source_lens_card ?? null,
-          blueprint,
-          session_id: session_id ?? null,
-        })
-        .select('id')
-        .single();
-      if (error) {
-        console.error('[/api/blueprint/generate] Supabase insert error:', error.message);
-      } else {
-        savedId = row?.id ?? null;
-      }
+    const { data: row, error } = await supabase
+      .from('blueprints')
+      .insert({
+        entity_name,
+        entity_type: entity_type ?? 'Company',
+        source_lens_card: source_lens_card ?? null,
+        blueprint,
+        session_id: session_id ?? null,
+      })
+      .select('id')
+      .single();
+    if (error) {
+      console.error('[/api/blueprint/generate] Supabase insert error:', error.message);
+    } else {
+      savedId = row?.id ?? null;
     }
 
     return NextResponse.json({ blueprint, id: savedId });

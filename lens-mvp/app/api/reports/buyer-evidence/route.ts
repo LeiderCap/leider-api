@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { getServiceSupabaseClient } from '@/lib/supabase';
 
 const SYSTEM_PROMPT = `REASONING BOUNDARY (Constitutional Requirement — Truth Engine™ / TI-015):
 This analysis operates within a strict two-layer reasoning model:
@@ -121,9 +121,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'ticker and company are required' }, { status: 400 });
     }
 
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
-    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? '';
-    const supabase = createClient(supabaseUrl, supabaseKey);
+    const supabase = getServiceSupabaseClient();
 
     // Check cache (24h)
     try {

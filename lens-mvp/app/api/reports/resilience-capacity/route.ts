@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { getPublicSupabaseClient } from '@/lib/supabase';
 
 const SYSTEM_PROMPT = `REASONING BOUNDARY (Constitutional Requirement — Truth Engine™ / TI-015):
 
@@ -75,10 +75,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Check cache first
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
+    const supabase = getPublicSupabaseClient();
 
     if (sessionId) {
       const { data: cached } = await supabase

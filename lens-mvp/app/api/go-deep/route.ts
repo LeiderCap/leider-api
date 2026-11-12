@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { getServiceSupabaseClient } from '@/lib/supabase';
 
 const GO_DEEP_SYSTEM_PROMPT = `You are a Transformation Intelligence analyst trained in the Go Deep™ Protocol, a 10-layer content transformation framework developed by LeiderCap.
 
@@ -107,21 +107,16 @@ export async function POST(req: NextRequest) {
     const raw = await callGoDeepAI(content);
     const parsed = JSON.parse(extractJson(raw));
 
-    // Save to Supabase if configured
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-    if (supabaseUrl && supabaseKey) {
-      const supabase = createClient(supabaseUrl, supabaseKey);
-      await supabase.from('go_deep_analyses').insert({
-        content_input: content.trim().slice(0, 5000),
-        tcs_c_score: parsed.tcs_c_score,
-        tier: parsed.tier,
-        score_interpretation: parsed.score_interpretation,
-        layers: parsed.layers,
-        builder: parsed.builder,
-        delta: parsed.delta,
-      });
-    }
+    const supabase = getServiceSupabaseClient();
+    await supabase.from('go_deep_analyses').insert({
+      content_input: content.trim().slice(0, 5000),
+      tcs_c_score: parsed.tcs_c_score,
+      tier: parsed.tier,
+      score_interpretation: parsed.score_interpretation,
+      layers: parsed.layers,
+      builder: parsed.builder,
+      delta: parsed.delta,
+    });
 
     return NextResponse.json(parsed);
   } catch (err) {

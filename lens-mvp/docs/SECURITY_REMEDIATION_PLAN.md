@@ -1,0 +1,67 @@
+# LensAnalysis.com Security Remediation — Authentication and Ownership Plan
+
+This document is preparation only. It does not activate authentication, alter production routes, migrate records, or change live Supabase policies.
+
+## Identity decision
+
+The repository already declares `@clerk/nextjs`, so Clerk is the proposed identity provider. Before implementation, confirm the production Clerk application, publishable-key environment, allowed domains, and whether the intended identity maps to `public.users.id` as a UUID or requires a separate `clerk_user_id` text column.
+
+Do not infer identity from `user_id`, `session_id`, watchlist IDs, query parameters, or client state.
+
+## Proposed request boundary
+
+1. Add Clerk middleware only for private route groups; keep public Lens report routes readable.
+2. In each private API handler, call the server-side Clerk auth helper and reject missing identity with HTTP 401.
+3. Use the verified Clerk subject as the application owner identity. Prefer a dedicated `clerk_user_id text NOT NULL` mapping during transition if the existing `users.id` UUID is not directly compatible.
+4. Load the owner record server-side; never accept a caller-provided owner ID as authoritative.
+5. Require ownership predicates for every read/update/delete and use Supabase RLS as a second boundary.
+6. Return 403 for authenticated users accessing another owner’s object; avoid leaking whether an object exists where appropriate.
+
+## Route changes required
+
+### Saved cards
+
+- `app/api/saved/route.ts`: replace `user_id` query/body reads with verified owner identity; retain `company_id` input only after validation; use service-role writes or authenticated RLS consistently.
+- `components/SaveButton.tsx` and `app/saved/page.tsx`: obtain auth state and stop sending arbitrary user IDs.
+
+### Watchlists
+
+- `app/api/watchlists/route.ts`: derive owner; list/create only for current owner.
+- `app/api/watchlists/[id]/companies/route.ts`: verify the watchlist belongs to current owner before add/delete.
+- `app/watchlists/*` and `CreateWatchlistForm.tsx`: use authenticated session and handle 401/403 states.
+
+### Memory
+
+- `app/api/memory/route.ts`: add `owner_id` to new writes; reject anonymous private saves unless a deliberately public session-only mode is approved.
+- `app/api/memory/session/[sessionId]/route.ts`: require owner and match `session_id` to owner; do not treat the session ID as authentication.
+- `app/api/memory/item/[id]/route.ts`: select owner before delete; reject non-owner deletes.
+- `saved_items.owner_id` is prepared by `sql/security_hardening_v1.sql`. Existing NULL-owner legacy rows must remain untouched and inaccessible to authenticated user queries until an approved linking flow exists.
+
+### Private reports and blueprints
+
+- `app/api/reports/*`: define whether report cache is public, paid-session scoped, or owner-scoped; do not use caller-supplied `sessionId` as proof of ownership.
+- `app/api/blueprint/generate/route.ts`: write `owner_id` for authenticated users; preserve public generation only if the product explicitly accepts anonymous, non-private blueprints.
+- `blueprints.owner_id` and `lens_reports.owner_id` are prepared by the staged migration.
+
+### Public Lens reports
+
+- Keep `app/lens/[id]/page.tsx` and `app/lens/[id]/[oid]/page.tsx` public for rows explicitly marked `is_public=true`.
+- Do not expose raw Ground Truth, retrieval documents, identity cards, report cache, or service-role data through public routes.
+- Preserve test-record exclusions: `is_test_record=true` rows must remain non-public and never become latest.
+
+## Legacy data policy
+
+- Do not delete, rewrite, or automatically reassign existing records.
+- Add nullable owner columns and leave legacy rows NULL.
+- Document an owner-approved account-linking workflow before any legacy association is attempted.
+- Preserve existing public Lens OIDs and public report URLs.
+
+## Acceptance criteria before production activation
+
+- Anonymous request to private saved/watchlist/memory routes returns 401.
+- Authenticated user A cannot read, create under, update, or delete user B’s records.
+- A guessed watchlist or memory item ID returns 403/404 without data leakage.
+- Public `/lens/[ticker]` and `/lens/[ticker]/[oid]` continue to serve only published analyses.
+- Test records cannot be loaded through public report routes.
+- No API handler trusts `user_id`, `owner_id`, `session_id`, or route IDs without verified ownership.
+- Clerk sign-in/sign-up works on staging with production domains excluded.
