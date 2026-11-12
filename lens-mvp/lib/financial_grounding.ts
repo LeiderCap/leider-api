@@ -222,7 +222,7 @@ export async function calculatePeerFrontier(
   enterprise_value: number | null,
 ): Promise<PeerFrontierResult> {
   const t = ticker.toUpperCase();
-  let peerMultiples: number[] = [];
+  const peerMultiples: number[] = [];
   let peer_count = 0;
   let peer_source: 'live_screener' | 'sector_fallback' | 'none' = 'none';
 

@@ -88,7 +88,7 @@ export default function ConstitutionPage() {
           className="mb-4 text-sm font-semibold uppercase tracking-widest"
           style={{ color: '#E05A00' }}
         >
-          TI Registry™  •  <span className="inline-block rounded-full bg-green-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-green-700">LKAS™ Compliant</span>
+          TI Registry™  •  <span className="inline-block rounded-full bg-green-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-green-700">LKAS™ Compliant</span>
         </p>
         <h1 className="mx-auto mb-4 max-w-2xl text-4xl font-bold text-slate-900">
           Constitution of Transformation Intelligence™

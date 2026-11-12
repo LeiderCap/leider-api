@@ -178,12 +178,8 @@ function calcUnderperformanceDepth(d: CompanyData): number {
 }
 
 function calcFranchiseDurability(d: CompanyData): number {
-  let score = 0;
   const age = d.franchise_age_years ?? 0;
-  if (age > 20) score = 80;
-  else if (age > 10) score = 50;
-  else if (age > 5) score = 30;
-  else score = 10;
+  let score = age > 20 ? 80 : age > 10 ? 50 : age > 5 ? 30 : 10;
 
   const mc = d.market_cap ?? 0;
   if (mc > 5_000_000_000) score += 10;

@@ -1589,7 +1589,7 @@ const NAME_TO_TICKER: Record<string, { ticker: string; exchange: string }> = {
 function normalizeCompanyName(name: string): string {
   return name
     .toLowerCase()
-    .replace(/[,\.]/g, '')
+    .replace(/[,.]/g, '')
     .replace(/\b(inc|corp|corporation|company|co|ltd|llc|plc|group|holdings|technologies|technology|systems|solutions|services|international|global|enterprises|partners|associates|industries|industries)\b/g, '')
     .replace(/\s+/g, ' ')
     .trim();

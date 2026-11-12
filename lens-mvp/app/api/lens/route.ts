@@ -77,7 +77,7 @@ export async function POST(request: Request) {
     let identityResult: any = null;
     let groundTruthObject: GroundTruth | null = null;
     let groundTruth: string | undefined;
-    let resolvedTicker = looksLikeTicker
+    const resolvedTicker = looksLikeTicker
       ? query.toUpperCase().replace(/^(?:NYSE|NASDAQ|AMEX)\s*:?\s*/, '')
       : '';
 

@@ -22,4 +22,14 @@ export default tseslint.config(
       'react-hooks/exhaustive-deps': 'warn',
     },
   },
+  {
+    files: ['**/*.mjs', 'postcss.config.js'],
+    languageOptions: {
+      globals: {
+        console: 'readonly',
+        module: 'readonly',
+        process: 'readonly',
+      },
+    },
+  },
 );

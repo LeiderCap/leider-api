@@ -146,7 +146,7 @@ export default async function LensDetailPage({ params, searchParams }: { params:
   let failureMode: null | 'COMPANY_VERIFICATION' | 'RETRIEVAL_VERIFICATION' = null;
   let retrievalChecklist: Record<string, boolean> = {};
   let companyIdentifiedAs: string | null = null;
-  let isRetry = sp?.retry === '1';
+  const isRetry = sp?.retry === '1';
 
   if (companyParam && !identityStatus) {
     const ticker = id.toUpperCase();
