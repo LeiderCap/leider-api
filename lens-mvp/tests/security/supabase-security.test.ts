@@ -84,7 +84,7 @@ test('private routes derive ownership from the shared Clerk auth context', () =>
     assert.doesNotMatch(source, /body\.user_id|searchParams\.get\(['"]user_id/);
   }
 
-  assert.match(readFileSync('middleware.ts', 'utf8'), /clerkMiddleware/);
+  assert.match(readFileSync('proxy.ts', 'utf8'), /clerkMiddleware/);
   assert.match(readFileSync('app/api/blueprint/generate/route.ts', 'utf8'), /owner_id: authContext\.appUserId/);
   assert.match(readFileSync('app/api/reports/buyer-evidence/route.ts', 'utf8'), /owner_id: authContext\.appUserId/);
 });

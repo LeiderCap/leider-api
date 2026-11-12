@@ -2,6 +2,8 @@ import './globals.css';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import NavRunButton from '@/components/NavRunButton';
+import ClerkAuthProvider from '@/components/ClerkAuthProvider';
+import NavAuth from '@/components/NavAuth';
 
 export const metadata: Metadata = {
   title: 'The Lens™ — Opportunity Science™ for Unrealized Enterprise Value',
@@ -17,6 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
+        <ClerkAuthProvider>
         <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur-sm">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
             <Link href="/" className="flex items-center gap-2">
@@ -35,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </nav>
             <div className="flex items-center gap-2">
               <NavRunButton />
+              <NavAuth />
             </div>
           </div>
         </header>
@@ -129,6 +133,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </div>
         </footer>
+        </ClerkAuthProvider>
       </body>
     </html>
   );
