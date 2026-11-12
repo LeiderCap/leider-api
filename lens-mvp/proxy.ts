@@ -10,11 +10,20 @@ const isPrivateRoute = createRouteMatcher([
   '/watchlists(.*)',
 ]);
 
-export default clerkMiddleware(async (auth, request) => {
-  if (isPrivateRoute(request)) {
-    await auth.protect();
-  }
-});
+const signInUrl = process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL || '/sign-in';
+const signUpUrl = process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL || '/sign-up';
+
+export default clerkMiddleware(
+  async (auth, request) => {
+    if (isPrivateRoute(request)) {
+      await auth.protect();
+    }
+  },
+  {
+    signInUrl,
+    signUpUrl,
+  },
+);
 
 export const config = {
   matcher: [
