@@ -3,6 +3,8 @@
 -- RLS policies. Apply security_hardening_v1.sql immediately afterward.
 -- Do not execute against production.
 
+BEGIN;
+
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 CREATE TABLE IF NOT EXISTS public.users (
@@ -366,3 +368,5 @@ CREATE INDEX IF NOT EXISTS idx_transformation_events_event_type ON public.transf
 CREATE INDEX IF NOT EXISTS idx_transformation_events_created_at ON public.transformation_events(created_at);
 
 -- No RLS policies are defined here. security_hardening_v1.sql is the next step.
+
+COMMIT;

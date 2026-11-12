@@ -35,6 +35,8 @@
 --   )
 -- ORDER BY table_name, ordinal_position;
 
+BEGIN;
+
 -- EXECUTION GUARD: fail before any schema/policy mutation if the inspected
 -- staging schema is not compatible with this migration. This deliberately
 -- requires the real tables/columns instead of relying on named DROP POLICY
@@ -49,7 +51,7 @@ BEGIN
     INTO missing_tables
   FROM unnest(ARRAY[
     'users', 'lens_analyses', 'lens_ground_truths', 'lens_retrieval_audits',
-    'lens_retrieved_documents', 'lens_identity_cards', 'saved_cards',
+    'lens_retrieved_documents', 'lens_identity_cards', 'searches', 'saved_cards',
     'watchlists', 'watchlist_companies', 'saved_items', 'blueprints',
     'lens_reports', 'report_cache', 'transformation_events',
     'go_deep_analyses', 'companies', 'lens_scores', 'cached_stock_prices',
@@ -130,7 +132,7 @@ BEGIN
     WHERE schemaname = 'public'
       AND tablename = ANY (ARRAY[
         'users', 'lens_analyses', 'lens_ground_truths', 'lens_retrieval_audits',
-        'lens_retrieved_documents', 'lens_identity_cards', 'saved_cards',
+        'lens_retrieved_documents', 'lens_identity_cards', 'searches', 'saved_cards',
         'watchlists', 'watchlist_companies', 'saved_items', 'blueprints',
         'lens_reports', 'report_cache', 'transformation_events',
         'go_deep_analyses', 'companies', 'lens_scores', 'cached_stock_prices',
@@ -205,6 +207,11 @@ CREATE POLICY "service_role_delete_analyses"
 -- ---------------------------------------------------------------------------
 -- RAW PIPELINE DATA: server/service role only
 -- ---------------------------------------------------------------------------
+ALTER TABLE IF EXISTS public.searches ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "service_role_manage_searches"
+  ON public.searches FOR ALL TO service_role
+  USING (true) WITH CHECK (true);
+
 DO $$
 DECLARE
   table_name text;
@@ -440,6 +447,8 @@ DROP POLICY IF EXISTS "public_update_opportunity_zone_cache" ON public.opportuni
 DROP POLICY IF EXISTS "service_write_opportunity_zone_cache" ON public.opportunity_zone_cache;
 CREATE POLICY "service_role_manage_opportunity_zone_cache"
   ON public.opportunity_zone_cache FOR ALL TO service_role USING (true) WITH CHECK (true);
+
+COMMIT;
 
 -- ---------------------------------------------------------------------------
 -- POST-FLIGHT VERIFICATION (run in staging after review)
