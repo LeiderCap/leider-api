@@ -155,13 +155,16 @@ CREATE POLICY "service_role_manage_users"
 -- OWNER COLUMNS FOR LEGACY SESSION-BASED TABLES
 -- ---------------------------------------------------------------------------
 ALTER TABLE IF EXISTS public.saved_items
-  ADD COLUMN IF NOT EXISTS owner_id uuid REFERENCES auth.users(id) ON DELETE CASCADE;
+  ADD COLUMN IF NOT EXISTS owner_id uuid REFERENCES public.users(id) ON DELETE CASCADE;
 
 ALTER TABLE IF EXISTS public.blueprints
-  ADD COLUMN IF NOT EXISTS owner_id uuid REFERENCES auth.users(id) ON DELETE CASCADE;
+  ADD COLUMN IF NOT EXISTS owner_id uuid REFERENCES public.users(id) ON DELETE CASCADE;
 
 ALTER TABLE IF EXISTS public.lens_reports
-  ADD COLUMN IF NOT EXISTS owner_id uuid REFERENCES auth.users(id) ON DELETE CASCADE;
+  ADD COLUMN IF NOT EXISTS owner_id uuid REFERENCES public.users(id) ON DELETE CASCADE;
+
+ALTER TABLE IF EXISTS public.report_cache
+  ADD COLUMN IF NOT EXISTS owner_id uuid REFERENCES public.users(id) ON DELETE CASCADE;
 
 CREATE INDEX IF NOT EXISTS idx_saved_items_owner_id
   ON public.saved_items(owner_id);
@@ -171,6 +174,9 @@ CREATE INDEX IF NOT EXISTS idx_blueprints_owner_id
 
 CREATE INDEX IF NOT EXISTS idx_lens_reports_owner_id
   ON public.lens_reports(owner_id);
+
+CREATE INDEX IF NOT EXISTS idx_report_cache_owner_id
+  ON public.report_cache(owner_id);
 
 -- ---------------------------------------------------------------------------
 -- PUBLIC ANALYSIS: preserve intentionally public Lens reports

@@ -1,55 +1,62 @@
 import { NextResponse } from 'next/server';
-import { getSupabaseClient } from '@/lib/supabase';
+import { getAppAuthContext } from '@/lib/server-auth';
 
-// Watchlist companies API — auth will be added back in a future task
+async function ownedWatchlist(id: string) {
+  const context = await getAppAuthContext();
+  if (!context) return { context: null, response: NextResponse.json({ error: 'Authentication required' }, { status: 401 }) };
+
+  const { data, error } = await context.service
+    .from('watchlists')
+    .select('id')
+    .eq('id', id)
+    .eq('user_id', context.appUserId)
+    .maybeSingle();
+  if (error || !data) {
+    return { context: null, response: NextResponse.json({ error: 'Watchlist not found' }, { status: 404 }) };
+  }
+  return { context, response: null };
+}
 
 export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+  try {
+    const { id } = await params;
+    const ownership = await ownedWatchlist(id);
+    if (ownership.response) return ownership.response;
 
-  const body = await request.json().catch(() => ({}));
-  const companyId = String(body.company_id ?? '').trim();
-  if (!companyId) {
-    return NextResponse.json({ error: 'company_id is required' }, { status: 400 });
+    const companyId = String((await request.json().catch(() => ({}))).company_id ?? '').trim();
+    if (!companyId) return NextResponse.json({ error: 'company_id is required' }, { status: 400 });
+
+    const { error } = await ownership.context!.service
+      .from('watchlist_companies')
+      .upsert({ watchlist_id: id, company_id: companyId });
+    if (error) return NextResponse.json({ error: 'Company could not be added' }, { status: 500 });
+
+    return NextResponse.json({ added: true });
+  } catch (error) {
+    console.error('[/api/watchlists/[id]/companies POST]', error);
+    return NextResponse.json({ error: 'Authentication or database error' }, { status: 500 });
   }
-
-  const supabase = getSupabaseClient();
-  if (!supabase) return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
-
-  const { error } = await supabase
-    .from('watchlist_companies')
-    .upsert({ watchlist_id: id, company_id: companyId });
-
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-
-  // TCP™ — Transformation Intent Event™ foundation (Phase 3: ICS™)
-  void supabase.from('transformation_events').insert({
-    event_type: 'watchlist_add',
-    entity_id: companyId,
-    event_data: { watchlist: id, company: companyId, timestamp: new Date().toISOString() }
-  }).then(undefined, () => { /* non-fatal */ });
-
-  return NextResponse.json({ added: true });
 }
 
 export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+  try {
+    const { id } = await params;
+    const ownership = await ownedWatchlist(id);
+    if (ownership.response) return ownership.response;
 
-  const { searchParams } = new URL(request.url);
-  const companyId = searchParams.get('company_id') ?? '';
-  if (!companyId) {
-    return NextResponse.json({ error: 'company_id is required' }, { status: 400 });
+    const companyId = new URL(request.url).searchParams.get('company_id') ?? '';
+    if (!companyId) return NextResponse.json({ error: 'company_id is required' }, { status: 400 });
+
+    const { error } = await ownership.context!.service
+      .from('watchlist_companies')
+      .delete()
+      .eq('watchlist_id', id)
+      .eq('company_id', companyId);
+    if (error) return NextResponse.json({ error: 'Company could not be removed' }, { status: 500 });
+
+    return NextResponse.json({ removed: true });
+  } catch (error) {
+    console.error('[/api/watchlists/[id]/companies DELETE]', error);
+    return NextResponse.json({ error: 'Authentication or database error' }, { status: 500 });
   }
-
-  const supabase = getSupabaseClient();
-  if (!supabase) return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
-
-  const { error } = await supabase
-    .from('watchlist_companies')
-    .delete()
-    .eq('watchlist_id', id)
-    .eq('company_id', companyId);
-
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-
-  return NextResponse.json({ removed: true });
 }

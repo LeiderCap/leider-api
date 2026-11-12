@@ -1,45 +1,44 @@
 import { NextResponse } from 'next/server';
-import { getSupabaseClient } from '@/lib/supabase';
+import { getAppAuthContext } from '@/lib/server-auth';
 
-// Watchlists API — auth will be added back in a future task
-// For now, requires user_id in the request body / query params
+export async function GET() {
+  try {
+    const context = await getAppAuthContext();
+    if (!context) return NextResponse.json({ error: 'Authentication required' }, { status: 401 });
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const userId = searchParams.get('user_id');
-  if (!userId) return NextResponse.json({ watchlists: [] });
+    const { data, error } = await context.service
+      .from('watchlists')
+      .select('id, name, created_at')
+      .eq('user_id', context.appUserId)
+      .order('created_at', { ascending: false });
+    if (error) return NextResponse.json({ error: 'Watchlists could not be loaded' }, { status: 500 });
 
-  const supabase = getSupabaseClient();
-  if (!supabase) return NextResponse.json({ watchlists: [] });
-
-  const { data } = await supabase
-    .from('watchlists')
-    .select('id, name, created_at')
-    .eq('user_id', userId)
-    .order('created_at', { ascending: false });
-
-  return NextResponse.json({ watchlists: data ?? [] });
+    return NextResponse.json({ watchlists: data ?? [] });
+  } catch (error) {
+    console.error('[/api/watchlists GET]', error);
+    return NextResponse.json({ error: 'Authentication or database error' }, { status: 500 });
+  }
 }
 
 export async function POST(request: Request) {
-  const body = await request.json().catch(() => ({}));
-  const name = String(body.name ?? '').trim();
-  const userId = String(body.user_id ?? '').trim();
+  try {
+    const context = await getAppAuthContext();
+    if (!context) return NextResponse.json({ error: 'Authentication required' }, { status: 401 });
 
-  if (!name || !userId) {
-    return NextResponse.json({ error: 'name and user_id are required' }, { status: 400 });
+    const body = await request.json().catch(() => ({}));
+    const name = String(body.name ?? '').trim();
+    if (!name) return NextResponse.json({ error: 'name is required' }, { status: 400 });
+
+    const { data, error } = await context.service
+      .from('watchlists')
+      .insert({ user_id: context.appUserId, name })
+      .select('id, name, created_at')
+      .single();
+    if (error) return NextResponse.json({ error: 'Watchlist could not be created' }, { status: 500 });
+
+    return NextResponse.json({ watchlist: data });
+  } catch (error) {
+    console.error('[/api/watchlists POST]', error);
+    return NextResponse.json({ error: 'Authentication or database error' }, { status: 500 });
   }
-
-  const supabase = getSupabaseClient();
-  if (!supabase) return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
-
-  const { data, error } = await supabase
-    .from('watchlists')
-    .insert({ user_id: userId, name })
-    .select()
-    .single();
-
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-
-  return NextResponse.json({ watchlist: data });
 }

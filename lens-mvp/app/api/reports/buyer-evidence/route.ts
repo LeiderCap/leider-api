@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getServiceSupabaseClient } from '@/lib/supabase';
+import { getAppAuthContext } from '@/lib/server-auth';
 
 const SYSTEM_PROMPT = `REASONING BOUNDARY (Constitutional Requirement — Truth Engine™ / TI-015):
 This analysis operates within a strict two-layer reasoning model:
@@ -111,6 +111,8 @@ async function callAI(userMessage: string, systemPromptOverride?: string): Promi
 
 export async function POST(req: NextRequest) {
   try {
+    const authContext = await getAppAuthContext();
+    if (!authContext) return NextResponse.json({ error: 'Authentication required' }, { status: 401 });
     const { ticker, company, sessionId } = await req.json() as {
       ticker?: string;
       company?: string;
@@ -121,7 +123,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'ticker and company are required' }, { status: 400 });
     }
 
-    const supabase = getServiceSupabaseClient();
+    const supabase = authContext.service;
 
     // Check cache (24h)
     try {
@@ -130,6 +132,7 @@ export async function POST(req: NextRequest) {
         .select('result')
         .eq('ticker', ticker.toUpperCase())
         .eq('report_type', 'buyer_evidence')
+        .eq('owner_id', authContext.appUserId)
         .gte('created_at', new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString())
         .order('created_at', { ascending: false })
         .limit(1)
@@ -198,6 +201,7 @@ Be specific to ${company}. Reference actual business characteristics, governance
         ticker: ticker.toUpperCase(),
         company,
         report_type: 'buyer_evidence',
+        owner_id: authContext.appUserId,
         session_id: sessionId ?? null,
         result,
         created_at: new Date().toISOString(),

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getServiceSupabaseClient } from '@/lib/supabase';
+import { getAppAuthContext } from '@/lib/server-auth';
 
 const FMP_KEY = process.env.FMP_API_KEY ?? '';
 
@@ -62,7 +62,9 @@ All mechanism recommendations must use the 12 canonical mechanisms from TI-014: 
 
 export async function POST(req: NextRequest) {
   try {
-    const supabase = getServiceSupabaseClient();
+    const authContext = await getAppAuthContext();
+    if (!authContext) return NextResponse.json({ error: 'Authentication required' }, { status: 401 });
+    const supabase = authContext.service;
     const body = await req.json();
     const { ticker, company, sessionId } = body;
 
@@ -78,6 +80,7 @@ export async function POST(req: NextRequest) {
         .eq('ticker', ticker.toUpperCase())
         .eq('report_type', 'deployment_readiness')
         .eq('stripe_session_id', sessionId)
+        .eq('owner_id', authContext.appUserId)
         .single();
       if (cached?.report_data) {
         return NextResponse.json({ report: cached.report_data });
@@ -222,6 +225,7 @@ Return ONLY valid JSON. No preamble. No markdown. No explanation outside the JSO
         ticker: ticker.toUpperCase(),
         report_type: 'deployment_readiness',
         stripe_session_id: sessionId,
+        owner_id: authContext.appUserId,
         company_name: company,
         report_data: report,
         generated_at: new Date().toISOString(),

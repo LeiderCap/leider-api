@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getServiceSupabaseClient } from '@/lib/supabase';
+import { getAppAuthContext } from '@/lib/server-auth';
 
 const BLUEPRINT_SYSTEM_PROMPT = `You are a Transformation Intelligence strategist. You write Transformation Blueprint™ documents for CEOs, boards, PE firms, and government agencies.
 
@@ -42,6 +42,9 @@ function extractJson(text: string): string {
 
 export async function POST(req: NextRequest) {
   try {
+    const authContext = await getAppAuthContext();
+    if (!authContext) return NextResponse.json({ error: 'Authentication required' }, { status: 401 });
+
     const { entity_name, entity_type, state_region, industry, source_lens_card, session_id } =
       await req.json();
 
@@ -102,11 +105,12 @@ export async function POST(req: NextRequest) {
     const blueprint = JSON.parse(extractJson(raw));
 
     // Save to blueprints table
-    const supabase = getServiceSupabaseClient();
+    const supabase = authContext.service;
     let savedId: string | null = null;
     const { data: row, error } = await supabase
       .from('blueprints')
       .insert({
+        owner_id: authContext.appUserId,
         entity_name,
         entity_type: entity_type ?? 'Company',
         source_lens_card: source_lens_card ?? null,

@@ -58,3 +58,33 @@ test('hardening migration preserves only explicitly public Lens analysis reads',
   assert.doesNotMatch(migration, /CREATE POLICY "public_read_(companies|lens_scores|cached_stock_prices|opportunity_zone_cache)"/);
   assert.doesNotMatch(migration, /CREATE POLICY "public_select_saved_items"/);
 });
+
+test('private routes derive ownership from the shared Clerk auth context', () => {
+  const privateRoutes = [
+    'app/api/saved/route.ts',
+    'app/api/watchlists/route.ts',
+    'app/api/watchlists/[id]/companies/route.ts',
+    'app/api/memory/route.ts',
+    'app/api/memory/session/[sessionId]/route.ts',
+    'app/api/memory/item/[id]/route.ts',
+    'app/api/blueprint/generate/route.ts',
+    'app/api/reports/ai-governance/route.ts',
+    'app/api/reports/buyer-evidence/route.ts',
+    'app/api/reports/deployment-readiness/route.ts',
+    'app/api/reports/resilience-capacity/route.ts',
+  ];
+
+  for (const path of privateRoutes) {
+    const source = readFileSync(path, 'utf8');
+    assert.match(source, /getAppAuthContext/, `${path} must verify Clerk/application identity`);
+  }
+
+  for (const path of ['app/api/saved/route.ts', 'app/api/watchlists/route.ts']) {
+    const source = readFileSync(path, 'utf8');
+    assert.doesNotMatch(source, /body\.user_id|searchParams\.get\(['"]user_id/);
+  }
+
+  assert.match(readFileSync('middleware.ts', 'utf8'), /clerkMiddleware/);
+  assert.match(readFileSync('app/api/blueprint/generate/route.ts', 'utf8'), /owner_id: authContext\.appUserId/);
+  assert.match(readFileSync('app/api/reports/buyer-evidence/route.ts', 'utf8'), /owner_id: authContext\.appUserId/);
+});

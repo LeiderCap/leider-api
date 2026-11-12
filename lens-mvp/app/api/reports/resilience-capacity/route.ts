@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getPublicSupabaseClient } from '@/lib/supabase';
+import { getAppAuthContext } from '@/lib/server-auth';
 
 const SYSTEM_PROMPT = `REASONING BOUNDARY (Constitutional Requirement — Truth Engine™ / TI-015):
 
@@ -68,6 +68,8 @@ async function callAI(userMessage: string, systemPromptOverride?: string): Promi
 
 export async function POST(req: NextRequest) {
   try {
+    const authContext = await getAppAuthContext();
+    if (!authContext) return NextResponse.json({ error: 'Authentication required' }, { status: 401 });
     const { ticker, companyName, exchange, sector, marketCap, priceChange3Y, priceChange1Y, sessionId } = await req.json();
 
     if (!ticker || !companyName) {
@@ -75,7 +77,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Check cache first
-    const supabase = getPublicSupabaseClient();
+    const supabase = authContext.service;
 
     if (sessionId) {
       const { data: cached } = await supabase
@@ -84,6 +86,7 @@ export async function POST(req: NextRequest) {
         .eq('ticker', ticker.toUpperCase())
         .eq('report_type', 'resilience_capacity')
         .eq('stripe_session_id', sessionId)
+        .eq('owner_id', authContext.appUserId)
         .single();
       if (cached?.report_data) {
         return NextResponse.json({ report: cached.report_data, cached: true });
@@ -157,6 +160,7 @@ Return ONLY valid JSON matching this exact schema:
         ticker: ticker.toUpperCase(),
         report_type: 'resilience_capacity',
         stripe_session_id: sessionId,
+        owner_id: authContext.appUserId,
         report_data: report,
         company_name: companyName,
         generated_at: new Date().toISOString(),
