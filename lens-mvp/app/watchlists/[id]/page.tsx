@@ -1,29 +1,43 @@
 import { notFound } from 'next/navigation';
-import { getSupabaseClient } from '@/lib/supabase';
+import { getAppAuthContext, type AppAuthContext } from '@/lib/server-auth';
 import { LensCard } from '@/components/LensCard';
 import { LensSnapshot } from '@/lib/types';
 import Link from 'next/link';
 
-async function getWatchlist(id: string) {
-  const supabase = getSupabaseClient();
-  if (!supabase) return null;
-  const { data, error } = await supabase
-    .from('watchlists')
-    .select('id, name, created_at')
-    .eq('id', id)
-    .maybeSingle();
-  if (error || !data) return null;
-  return data;
+type OwnedWatchlist = {
+  context: AppAuthContext;
+  watchlist: { id: string; name: string; created_at: string | null };
+};
+
+async function getOwnedWatchlist(id: string): Promise<OwnedWatchlist | null> {
+  try {
+    const context = await getAppAuthContext();
+    if (!context) return null;
+
+    const { data, error } = await context.service
+      .from('watchlists')
+      .select('id, name, created_at')
+      .eq('id', id)
+      .eq('user_id', context.appUserId)
+      .maybeSingle();
+
+    if (error || !data) return null;
+    return { context, watchlist: data };
+  } catch {
+    return null;
+  }
 }
 
-async function getWatchlistCompanies(watchlistId: string): Promise<LensSnapshot[]> {
-  const supabase = getSupabaseClient();
-  if (!supabase) return [];
-  const { data, error } = await supabase
+async function getWatchlistCompanies(
+  context: AppAuthContext,
+  watchlistId: string,
+): Promise<LensSnapshot[]> {
+  const { data, error } = await context.service
     .from('watchlist_companies')
     .select('company_id, companies(*, lens_scores(*))')
     .eq('watchlist_id', watchlistId);
   if (error || !data) return [];
+
   return data
     .map((row: any) => {
       const company = row.companies;
@@ -62,10 +76,10 @@ async function getWatchlistCompanies(watchlistId: string): Promise<LensSnapshot[
 
 export default async function WatchlistDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const watchlist = await getWatchlist(id);
-  if (!watchlist) notFound();
+  const owned = await getOwnedWatchlist(id);
+  if (!owned) notFound();
 
-  const companies = await getWatchlistCompanies(id);
+  const companies = await getWatchlistCompanies(owned.context, owned.watchlist.id);
 
   return (
     <main className="mx-auto min-h-screen max-w-6xl px-6 py-10">
@@ -73,7 +87,7 @@ export default async function WatchlistDetailPage({ params }: { params: Promise<
         ← Back to Watchlists
       </Link>
       <div className="mt-6">
-        <h1 className="text-3xl font-bold">{watchlist.name}</h1>
+        <h1 className="text-3xl font-bold">{owned.watchlist.name}</h1>
         <p className="mt-1 text-sm text-slate-500">{companies.length} companies</p>
       </div>
       {companies.length === 0 ? (

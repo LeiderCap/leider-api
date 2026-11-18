@@ -65,7 +65,6 @@ const directRlsEnabled = directRlsEnv.every((name) => Boolean(process.env[name])
  */
 test('required server-mediated authorization contract', () => {
   const privateRoutes = [
-    'app/api/saved/route.ts',
     'app/api/watchlists/route.ts',
     'app/api/watchlists/[id]/companies/route.ts',
     'app/api/memory/route.ts',

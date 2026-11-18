@@ -61,7 +61,6 @@ test('hardening migration preserves only explicitly public Lens analysis reads',
 
 test('private routes derive ownership from the shared Clerk auth context', () => {
   const privateRoutes = [
-    'app/api/saved/route.ts',
     'app/api/watchlists/route.ts',
     'app/api/watchlists/[id]/companies/route.ts',
     'app/api/memory/route.ts',
@@ -79,10 +78,13 @@ test('private routes derive ownership from the shared Clerk auth context', () =>
     assert.match(source, /getAppAuthContext/, `${path} must verify Clerk/application identity`);
   }
 
-  for (const path of ['app/api/saved/route.ts', 'app/api/watchlists/route.ts']) {
+  for (const path of ['app/api/watchlists/route.ts']) {
     const source = readFileSync(path, 'utf8');
     assert.doesNotMatch(source, /body\.user_id|searchParams\.get\(['"]user_id/);
   }
+
+  const suspendedSavedRoute = readFileSync('app/api/saved/route.ts', 'utf8');
+  assert.doesNotMatch(suspendedSavedRoute, /getAppAuthContext|getServiceSupabaseClient|from\(/);
 
   assert.match(readFileSync('proxy.ts', 'utf8'), /clerkMiddleware/);
   assert.match(readFileSync('app/api/blueprint/generate/route.ts', 'utf8'), /owner_id: authContext\.appUserId/);

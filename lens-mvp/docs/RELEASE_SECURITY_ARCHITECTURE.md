@@ -34,8 +34,9 @@ The static contract test is always required and verifies that private routes use
 
 | Route | Boundary | Verification status |
 |---|---|---|
-| `/api/saved` | Clerk session; `saved_cards.user_id = appUserId` | Static contract plus staging browser/API verification |
+| `/api/saved` | Intentionally suspended legacy endpoint; returns 404 without database access | Focused suspension regression; `/api/memory` is the canonical saved-content route |
 | `/api/watchlists` | Clerk session; `watchlists.user_id = appUserId` | Static contract plus User A/User B staging verification |
+| `/watchlists/[id]` | Server-derived Clerk session; parent watchlist must belong to `appUserId` before child rows are read | Focused ownership-contract regression; staging smoke test required |
 | `/api/watchlists/[id]/companies` | Clerk session plus parent-watchlist ownership | Static contract; targeted staging route test required before production |
 | `/api/memory` | Clerk session; inserts `owner_id = appUserId` | Required server-mediated staging test |
 | `/api/memory/session/[sessionId]` | Clerk session; filters by `owner_id = appUserId` | Required server-mediated cross-user read test |
@@ -44,7 +45,7 @@ The static contract test is always required and verifies that private routes use
 | `/api/blueprint` | Public inquiry route; not the private generated-blueprint retrieval boundary | Separate product/inquiry behavior; do not classify as private owner route without schema review |
 | Private report generators | Clerk session; owner-scoped `report_cache` reads/writes | Static contract; targeted E2E requires provider/API configuration |
 | `/api/go-deep` and `/api/go-deep-rewrite` | Intentionally suspended for this release; active handlers return 404 without provider or database access; legacy implementations retained in source control | Focused suspension regression tests pass; reactivation requires a new product and security review |
-| `/api/admin/expire-cache` | `ADMIN_SECRET` equality check; service-role update | Static review; invalid-secret rejection must be tested with staging secret |
+| `/api/admin/expire-cache` | `Authorization: Bearer` compared to `ADMIN_SECRET`; service-role update | Focused missing/invalid/query-secret rejection tests; valid operation requires staging secret |
 | `/api/stripe/webhook` | Stripe signature verification before service-role updates | Invalid-signature rejection test required; no real transaction needed |
 
 ## Database migration inventory

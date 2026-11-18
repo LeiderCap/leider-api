@@ -4,19 +4,26 @@ import { getServiceSupabaseClient } from '@/lib/supabase';
 export const maxDuration = 15;
 
 /**
- * GET /api/admin/expire-cache?ticker=PL&secret=ADMIN_SECRET
+ * GET /api/admin/expire-cache?ticker=PL
  *
  * Expires the cached Lens Analysis™ for a given ticker by setting
  * is_latest = false and expires_at = NOW() - 1 day.
  * Forces fresh generation on the next visit to /lens/[ticker].
  *
- * Requires ADMIN_SECRET environment variable to be set.
+ * Requires ADMIN_SECRET in the Authorization: Bearer header.
  */
+export function authorizeAdminRequest(req: Request): boolean {
+  const adminSecret = process.env.ADMIN_SECRET;
+  if (!adminSecret) return false;
+  const authorization = req.headers.get('authorization');
+  const match = authorization?.match(/^Bearer\s+(.+)$/i);
+  return match?.[1] === adminSecret;
+}
+
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const ticker = searchParams.get('ticker');
-    const secret = searchParams.get('secret');
 
     // ── Auth check ──────────────────────────────────────────────────────────
     const adminSecret = process.env.ADMIN_SECRET;
@@ -26,9 +33,9 @@ export async function GET(req: NextRequest) {
         { status: 500 }
       );
     }
-    if (!secret || secret !== adminSecret) {
+    if (!authorizeAdminRequest(req)) {
       return NextResponse.json(
-        { error: 'Unauthorized. Invalid or missing secret.' },
+        { error: 'Unauthorized. Invalid or missing authorization.' },
         { status: 401 }
       );
     }
@@ -36,7 +43,7 @@ export async function GET(req: NextRequest) {
     // ── Ticker validation ───────────────────────────────────────────────────
     if (!ticker) {
       return NextResponse.json(
-        { error: 'ticker query parameter is required. Example: ?ticker=PL&secret=...' },
+        { error: 'ticker query parameter is required. Example: ?ticker=PL' },
         { status: 400 }
       );
     }
