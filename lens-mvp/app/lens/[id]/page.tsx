@@ -1318,11 +1318,11 @@ export default async function LensDetailPage({ params, searchParams }: { params:
         </section>
       )}
 
-      {/* ── 10. Blueprint™ CTA ────────────────────────────────────────────── */}
+      {/* ── 10. Unlock Potential™ CTA ──────────────────────────────────────── */}
       <section className="card mt-6 p-6 bg-slate-50">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Go Deep™</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">Unlock Potential™</p>
             {/* v4.1 two-source resolver for bottom CTA strip */}
             {(() => {
               const grounding = item.financial_grounding;

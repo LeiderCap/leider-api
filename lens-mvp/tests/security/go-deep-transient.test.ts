@@ -2,8 +2,9 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import test from 'node:test';
-import { NextRequest } from 'next/server';
 import { POST as goDeepPost } from '../../app/api/go-deep/route';
+import { POST as goDeepRewritePost } from '../../app/api/go-deep-rewrite/route';
+import GoDeepPage from '../../app/go-deep/page';
 
 const repoRoot = join(import.meta.dirname, '..', '..');
 
@@ -11,52 +12,47 @@ function source(relativePath: string): string {
   return readFileSync(join(repoRoot, relativePath), 'utf8');
 }
 
-test('Go Deep generation is anonymous, transient, and still returns the model result', () => {
-  const route = source('app/api/go-deep/route.ts');
-
-  assert.doesNotMatch(route, /getServiceSupabaseClient|from\(['"]go_deep_analyses['"]\)/);
-  assert.match(route, /return NextResponse\.json\(parsed\)/);
-  assert.match(route, /MAX_CONTENT_LENGTH\s*=\s*20_000/);
-  assert.match(route, /status:\s*413/);
-  assert.match(route, /max_tokens:\s*2_500/);
+test('suspended Go Deep page returns a normal not-found response', () => {
+  assert.throws(() => GoDeepPage(), /NEXT_HTTP_ERROR_FALLBACK;404/);
 });
 
-test('anonymous Go Deep generation returns a provider result without a database client', async () => {
+test('suspended Go Deep APIs return 404 without provider or database access', async () => {
   const originalFetch = globalThis.fetch;
-  const originalApiKey = process.env.OPENAI_API_KEY;
-  process.env.OPENAI_API_KEY = 'test-only-provider-key';
-  globalThis.fetch = async () => new Response(JSON.stringify({
-    choices: [{ message: { content: JSON.stringify({ tcs_c_score: 100 }) } }],
-  }), { status: 200, headers: { 'content-type': 'application/json' } });
+  globalThis.fetch = async () => {
+    throw new Error('model provider must not be called');
+  };
 
   try {
-    const response = await goDeepPost(new NextRequest('http://localhost/api/go-deep', {
+    const request = new Request('http://localhost/api/go-deep', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ content: 'A synthetic public analysis request.' }),
-    }));
-    assert.equal(response.status, 200);
-    assert.deepEqual(await response.json(), { tcs_c_score: 100 });
+      body: JSON.stringify({ content: 'Synthetic content that must not be processed.' }),
+    });
+    const rewriteRequest = new Request('http://localhost/api/go-deep-rewrite', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ original_content: 'Synthetic content.', delta: {} }),
+    });
+
+    const response = await goDeepPost(request);
+    const rewriteResponse = await goDeepRewritePost(rewriteRequest);
+    assert.equal(response.status, 404);
+    assert.equal(rewriteResponse.status, 404);
+    assert.deepEqual(await response.json(), { error: 'Not Found' });
+    assert.deepEqual(await rewriteResponse.json(), { error: 'Not Found' });
   } finally {
     globalThis.fetch = originalFetch;
-    if (originalApiKey === undefined) delete process.env.OPENAI_API_KEY;
-    else process.env.OPENAI_API_KEY = originalApiKey;
   }
 });
 
-test('Go Deep rewrite is transient and bounded without database persistence', () => {
-  const route = source('app/api/go-deep-rewrite/route.ts');
-
-  assert.doesNotMatch(route, /getServiceSupabaseClient|createClient|\.from\(/);
-  assert.match(route, /return NextResponse\.json\(parsed\)/);
-  assert.match(route, /MAX_CONTENT_LENGTH\s*=\s*20_000/);
-  assert.match(route, /status:\s*413/);
-  assert.match(route, /max_tokens:\s*2_500/);
+test('public discovery links do not expose suspended Go Deep entry points', () => {
+  for (const path of ['app/layout.tsx', 'app/lens/[id]/page.tsx', 'app/saved/page.tsx', 'app/sitemap.ts']) {
+    assert.doesNotMatch(source(path), /href=["']\/go-deep["']/);
+  }
 });
 
-test('explicit Go Deep saving remains authenticated and owner-scoped', () => {
+test('explicit saved-item functionality remains authenticated and owner-scoped', () => {
   const memoryRoute = source('app/api/memory/route.ts');
-
   assert.match(memoryRoute, /getAppAuthContext/);
   assert.match(memoryRoute, /Authentication required/);
   assert.match(memoryRoute, /owner_id:\s*context\.appUserId/);

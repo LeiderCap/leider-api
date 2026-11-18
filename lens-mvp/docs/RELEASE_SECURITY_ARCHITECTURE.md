@@ -43,7 +43,7 @@ The static contract test is always required and verifies that private routes use
 | `/api/blueprint/generate` | Clerk session; saves with `owner_id = appUserId` | Static contract; generation requires staging OpenAI configuration for E2E testing |
 | `/api/blueprint` | Public inquiry route; not the private generated-blueprint retrieval boundary | Separate product/inquiry behavior; do not classify as private owner route without schema review |
 | Private report generators | Clerk session; owner-scoped `report_cache` reads/writes | Static contract; targeted E2E requires provider/API configuration |
-| `/api/go-deep` | Current route uses service-role persistence but has no Clerk ownership boundary | **Release risk / follow-up required**; do not treat as private-user isolated until product intent is documented and tested |
+| `/api/go-deep` and `/api/go-deep-rewrite` | Intentionally suspended for this release; active handlers return 404 without provider or database access; legacy implementations retained in source control | Focused suspension regression tests pass; reactivation requires a new product and security review |
 | `/api/admin/expire-cache` | `ADMIN_SECRET` equality check; service-role update | Static review; invalid-secret rejection must be tested with staging secret |
 | `/api/stripe/webhook` | Stripe signature verification before service-role updates | Invalid-signature rejection test required; no real transaction needed |
 

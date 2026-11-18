@@ -61,7 +61,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <li><Link href="/methodology" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">Methodology</Link></li>
                    <li><Link href="/assessment" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">Assessment Methodology</Link></li>
                    <li><Link href="/individuals" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">My Lens™ — Consumer</Link></li>
-                   <li><Link href="/go-deep" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">Go Deep™ — Content Analysis</Link></li>
                    <li><Link href="/individuals" className="text-sm text-slate-600 hover:text-teal-600 transition-colors">Human Transformation Intelligence</Link></li>
                  </ul>
                </div>

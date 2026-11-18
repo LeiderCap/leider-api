@@ -1,8 +1,15 @@
 # Go Deep™ data contract
 
-## Release contract
+## Current release status
 
-For this release, Go Deep™ generation is a **public transient analysis** feature.
+Go Deep™ is suspended and excluded from the current LensAnalysis release. The
+page and both API endpoints return 404 without invoking the model provider or
+accessing the database. The prior implementation remains in the adjacent
+`legacy-page.tsx` and `legacy-route.ts` files for possible future reactivation.
+
+## Deferred transient contract
+
+When reactivated, the intended Go Deep™ contract is **public transient analysis**.
 
 - `POST /api/go-deep` accepts anonymous content and returns the generated analysis.
 - The route does not automatically insert the submitted content or generated result into `public.go_deep_analyses`.

@@ -40,7 +40,7 @@ function formatDate(iso: string) {
 
 const SECTION_CONFIG: Record<
   SavedItem['item_type'],
-  { label: string; eyebrow: string; color: string; border: string; bg: string; emptyHref: string; emptyLabel: string }
+  { label: string; eyebrow: string; color: string; border: string; bg: string; emptyHref?: string; emptyLabel?: string }
 > = {
   lens_card: {
     label: 'Lens Cards™',
@@ -52,22 +52,18 @@ const SECTION_CONFIG: Record<
     emptyLabel: 'Run Lens Analysis™',
   },
   go_deep_analysis: {
-    label: 'Go Deep™ Analyses',
-    eyebrow: 'GO DEEP™ ANALYSIS',
+    label: 'Archived Content Analyses',
+    eyebrow: 'ARCHIVED CONTENT ANALYSIS',
     color: 'text-amber-400',
     border: 'border-amber-800',
     bg: 'bg-amber-950',
-    emptyHref: '/go-deep',
-    emptyLabel: 'Run Go Deep™',
   },
   go_deep_rewrite: {
-    label: 'Go Deep™ Rewrites',
-    eyebrow: 'GO DEEP™ REWRITE',
+    label: 'Archived Content Rewrites',
+    eyebrow: 'ARCHIVED CONTENT REWRITE',
     color: 'text-indigo-400',
     border: 'border-indigo-800',
     bg: 'bg-indigo-950',
-    emptyHref: '/go-deep',
-    emptyLabel: 'Run Go Deep™',
   },
   blueprint: {
     label: 'Transformation Blueprints™',
@@ -425,12 +421,14 @@ function SavedSection({
       {items.length === 0 ? (
         <div className="rounded-xl border border-slate-800 bg-slate-900 px-5 py-6 text-center">
           <p className="text-sm text-slate-500">No {cfg.label.toLowerCase()} saved yet.</p>
-          <Link
-            href={cfg.emptyHref}
-            className="mt-3 inline-block text-xs font-semibold text-teal-400 hover:text-teal-300 underline underline-offset-2"
-          >
-            {cfg.emptyLabel} →
-          </Link>
+          {cfg.emptyHref && cfg.emptyLabel && (
+            <Link
+              href={cfg.emptyHref}
+              className="mt-3 inline-block text-xs font-semibold text-teal-400 hover:text-teal-300 underline underline-offset-2"
+            >
+              {cfg.emptyLabel} →
+            </Link>
+          )}
         </div>
       ) : (
         <div className="space-y-3">
@@ -482,7 +480,7 @@ export default function SavedPage() {
           </p>
           <h1 className="text-3xl font-bold">Saved</h1>
           <p className="mt-2 text-sm text-slate-400">
-            Your saved Lens Cards™, Go Deep™ Analyses, Rewrites, Transformation Blueprints™, and Mechanism Analyses™ — stored by session.
+            Your saved Lens Cards™, archived content analyses and rewrites, Transformation Blueprints™, and Mechanism Analyses™ — stored by session.
           </p>
         </div>
       </section>
@@ -495,13 +493,10 @@ export default function SavedPage() {
           ) : totalCount === 0 ? (
             <div className="rounded-2xl border border-slate-800 bg-slate-900 px-6 py-12 text-center">
               <p className="text-slate-400 text-sm mb-1">Nothing saved yet.</p>
-              <p className="text-slate-500 text-xs mb-6">Run The Lens™, Go Deep™, or build a Transformation Blueprint™ to get started.</p>
+              <p className="text-slate-500 text-xs mb-6">Run The Lens™ or build a Transformation Blueprint™ to get started.</p>
               <div className="flex flex-wrap justify-center gap-3">
                 <Link href="/search" className="rounded-xl bg-teal-600 px-5 py-2.5 text-sm font-bold text-white hover:bg-teal-500 transition-colors">
                   Run Lens Analysis™ →
-                </Link>
-                <Link href="/go-deep" className="rounded-xl border border-slate-700 px-5 py-2.5 text-sm font-semibold text-slate-300 hover:border-slate-500 hover:text-white transition-colors">
-                  Go Deep™ →
                 </Link>
                 <Link href="/blueprint" className="rounded-xl border border-orange-800 px-5 py-2.5 text-sm font-semibold text-orange-400 hover:border-orange-600 hover:text-orange-300 transition-colors">
                   Build Blueprint™ →
