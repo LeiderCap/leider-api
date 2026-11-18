@@ -12,14 +12,15 @@ export async function DELETE(
     const { id } = await params;
     if (!id) return NextResponse.json({ error: 'id is required' }, { status: 400 });
 
-    const { error } = await context.service
+    const { data, error } = await context.service
       .from('saved_items')
       .delete()
       .eq('id', id)
-      .eq('owner_id', context.appUserId);
+      .eq('owner_id', context.appUserId)
+      .select('id');
     if (error) return NextResponse.json({ error: 'Memory item could not be deleted' }, { status: 500 });
 
-    return NextResponse.json({ deleted: true });
+    return NextResponse.json({ deleted: (data ?? []).length > 0 });
   } catch (error) {
     console.error('[/api/memory/item DELETE]', error);
     return NextResponse.json({ error: 'Authentication or database error' }, { status: 500 });
