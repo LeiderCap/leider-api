@@ -8,7 +8,7 @@ This runbook is non-production. Do not point it at the production Supabase proje
 - Use separate OpenAI/FMP/Stripe/Clerk credentials or tightly limited test credentials.
 - Set `NEXT_PUBLIC_APP_URL` to the staging URL.
 - Keep `LENS_V5_DRYRUN_SECRET` distinct from production.
-- Configure Supabase JWT verification for the Clerk issuer/JWKS in staging only. The JWT `sub` must match `public.users.clerk_user_id`; ownership fields continue to use the resolved `public.users.id` UUID.
+- The supported private path is Clerk session -> server-side `getAppAuthContext()` -> Supabase service-role query scoped to the resolved `public.users.id` UUID. Direct Clerk-to-Supabase JWT authentication is optional defense-in-depth only and is not a release prerequisite.
 - Apply existing migrations, run the hardening migration preflight, then review `sql/security_hardening_v1.sql` with the owner before execution.
 
 ## Checks
@@ -18,11 +18,12 @@ This runbook is non-production. Do not point it at the production Supabase proje
 ```bash
 npm ci
 npm run lint
+pnpm exec tsc --noEmit
 npm run build
 npm run test:security
 ```
 
-Acceptance: all commands pass; no `.env.local` is tracked; no secret values appear in logs or build output.
+Acceptance: type checking, build, and required server-mediated security tests pass; lint has zero errors; no `.env.local` is tracked; no secret values appear in logs or build output.
 
 ### Client boundary checks
 
@@ -32,12 +33,12 @@ Acceptance: all commands pass; no `.env.local` is tracked; no secret values appe
 
 ### RLS checks
 
-Using separate anonymous and authenticated staging clients:
+Using the staging application with two authenticated Clerk sessions and anonymous requests:
 
 - Anonymous can select only published Lens analyses.
 - Anonymous cannot read Ground Truth, retrieval documents, raw report cache, saved items, blueprints, or private reports.
 - User A cannot read or mutate User B’s saved cards, watchlists, watchlist companies, memory, blueprints, or reports.
-- Service role can perform server writes.
+- Service role can perform server writes only from server-side routes.
 - Public inquiry/waitlist insert-only behavior remains available.
 
 ### Integration test prerequisites
@@ -45,9 +46,17 @@ Using separate anonymous and authenticated staging clients:
 Set these variables only in the isolated staging shell or CI secret store; do not commit them:
 
 ```text
+STAGING_APP_URL
+STAGING_USER_A_COOKIE
+STAGING_USER_B_COOKIE
 STAGING_SUPABASE_URL
-STAGING_SUPABASE_ANON_KEY
 STAGING_SERVICE_ROLE_KEY
+```
+
+The optional direct Supabase JWT/RLS defense-in-depth test additionally accepts:
+
+```text
+STAGING_SUPABASE_ANON_KEY
 STAGING_USER_A_JWT
 STAGING_USER_B_JWT
 STAGING_USER_A_APP_UUID
@@ -60,9 +69,9 @@ Then run:
 npm run test:security
 ```
 
-`tests/security/staging-rbac.test.ts` creates temporary User A-owned watchlist, memory, blueprint, private report, and published/unpublished analysis rows using the service role. It verifies anonymous published/unpublished reads, User A reads, User B cross-user reads, guessed identifiers, forged writes, cross-user deletes, service-role access, and anonymous access to unreviewed cache tables. The `finally` block removes only the test rows it created.
+`tests/security/staging-rbac.test.ts` always runs the server-mediated authorization contract. With the application-session variables present, it creates temporary memory and watchlist records through the real application routes, verifies User A/User B isolation and no-op deletion semantics, and cleans up synthetic rows. The direct Supabase JWT/RLS test remains separate and optional because direct browser-to-Supabase JWT authentication is not part of the supported application workflow.
 
-Without all staging variables, the integration test is skipped and reports that it was not executed. A skipped test is not evidence of security; staging execution is a release gate.
+Without the server-mediated staging variables, the required application integration test fails with an explicit missing-configuration error rather than being skipped. Inject secure staging session cookies and rerun before release. The optional direct-RLS test may remain skipped by design.
 
 The preflight must also inventory `pg_policies` dynamically. The migration does not rely solely on repository policy names: it enumerates and drops every policy on protected tables, and it raises before mutation when required tables or columns are absent.
 
