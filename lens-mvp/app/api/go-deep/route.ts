@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getServiceSupabaseClient } from '@/lib/supabase';
+
+const MAX_CONTENT_LENGTH = 20_000;
+const MAX_REQUEST_BYTES = 24_000;
 
 const GO_DEEP_SYSTEM_PROMPT = `You are a Transformation Intelligence analyst trained in the Go Deep™ Protocol, a 10-layer content transformation framework developed by LeiderCap.
 
@@ -81,6 +83,7 @@ async function callGoDeepAI(content: string): Promise<string> {
     body: JSON.stringify({
       model: 'gpt-4o-mini',
       temperature: 0.3,
+      max_tokens: 2_500,
       response_format: { type: 'json_object' },
       messages: [
         { role: 'system', content: GO_DEEP_SYSTEM_PROMPT },
@@ -99,24 +102,21 @@ async function callGoDeepAI(content: string): Promise<string> {
 
 export async function POST(req: NextRequest) {
   try {
+    const contentLength = Number(req.headers.get('content-length') ?? 0);
+    if (contentLength > MAX_REQUEST_BYTES) {
+      return NextResponse.json({ error: 'Content is too large.' }, { status: 413 });
+    }
+
     const { content } = await req.json();
     if (!content || typeof content !== 'string' || content.trim().length < 10) {
       return NextResponse.json({ error: 'Content is required (minimum 10 characters).' }, { status: 400 });
     }
+    if (content.length > MAX_CONTENT_LENGTH) {
+      return NextResponse.json({ error: 'Content is too large.' }, { status: 413 });
+    }
 
     const raw = await callGoDeepAI(content);
     const parsed = JSON.parse(extractJson(raw));
-
-    const supabase = getServiceSupabaseClient();
-    await supabase.from('go_deep_analyses').insert({
-      content_input: content.trim().slice(0, 5000),
-      tcs_c_score: parsed.tcs_c_score,
-      tier: parsed.tier,
-      score_interpretation: parsed.score_interpretation,
-      layers: parsed.layers,
-      builder: parsed.builder,
-      delta: parsed.delta,
-    });
 
     return NextResponse.json(parsed);
   } catch (err) {

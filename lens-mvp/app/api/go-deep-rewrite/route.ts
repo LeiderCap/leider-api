@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+const MAX_CONTENT_LENGTH = 20_000;
+const MAX_REQUEST_BYTES = 24_000;
+
 const GO_DEEP_REWRITE_SYSTEM_PROMPT = `You are a Transformation Intelligence content architect.
 
 You will receive:
@@ -33,12 +36,20 @@ function extractJson(text: string): string {
 
 export async function POST(req: NextRequest) {
   try {
+    const contentLength = Number(req.headers.get('content-length') ?? 0);
+    if (contentLength > MAX_REQUEST_BYTES) {
+      return NextResponse.json({ error: 'Content is too large.' }, { status: 413 });
+    }
+
     const { original_content, delta } = await req.json();
     if (!original_content || typeof original_content !== 'string') {
       return NextResponse.json({ error: 'original_content is required.' }, { status: 400 });
     }
     if (!delta) {
       return NextResponse.json({ error: 'delta analysis is required.' }, { status: 400 });
+    }
+    if (original_content.length > MAX_CONTENT_LENGTH) {
+      return NextResponse.json({ error: 'Content is too large.' }, { status: 413 });
     }
 
     const apiKey = process.env.OPENAI_API_KEY;
@@ -70,6 +81,7 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         model: 'gpt-4o-mini',
         temperature: 0.4,
+        max_tokens: 2_500,
         response_format: { type: 'json_object' },
         messages: [
           { role: 'system', content: GO_DEEP_REWRITE_SYSTEM_PROMPT },
