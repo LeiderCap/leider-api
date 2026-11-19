@@ -20,6 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!item) {
     return {
       title: `${id.toUpperCase()} Lens Analysis™ | The Lens™`,
+      robots: { index: false, follow: false },
     };
   }
   const tickerLower = (item.ticker ?? id).toLowerCase();
@@ -37,8 +38,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: 'article',
     },
     robots: {
-      index: true,
-      follow: true,
+      index: false,
+      follow: false,
     },
   };
 }

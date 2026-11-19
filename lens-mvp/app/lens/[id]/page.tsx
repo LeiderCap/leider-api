@@ -95,6 +95,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   if (!item) {
     return {
       title: `${id.toUpperCase()} Lens Analysis\u2122 | The Lens\u2122`,
+      robots: { index: false, follow: false },
     };
   }
   const tickerLower = (item.ticker ?? id).toLowerCase();
@@ -120,8 +121,8 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       type: 'article',
     },
     robots: {
-      index: true,
-      follow: true,
+      index: false,
+      follow: false,
     },
   };
 }
